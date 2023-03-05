@@ -247,6 +247,27 @@ div.csl-indent {
 <li class="chapter" data-level="9.5.2" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html#gompertz-model"><i class="fa fa-check"></i><b>9.5.2</b> Gompertz model</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="10" data-path="add-health-project.html"><a href="add-health-project.html"><i class="fa fa-check"></i><b>10</b> Add Health Project</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="add-health-project.html"><a href="add-health-project.html#library"><i class="fa fa-check"></i><b>10.1</b> Library</a></li>
+<li class="chapter" data-level="10.2" data-path="add-health-project.html"><a href="add-health-project.html#access-datasets"><i class="fa fa-check"></i><b>10.2</b> Access datasets</a></li>
+<li class="chapter" data-level="10.3" data-path="add-health-project.html"><a href="add-health-project.html#load-5-wave-sample"><i class="fa fa-check"></i><b>10.3</b> Load 5-wave sample</a></li>
+<li class="chapter" data-level="10.4" data-path="add-health-project.html"><a href="add-health-project.html#long-form-dataset-wave-person"><i class="fa fa-check"></i><b>10.4</b> Long-form dataset (wave-person)</a></li>
+<li class="chapter" data-level="10.5" data-path="add-health-project.html"><a href="add-health-project.html#exploring-variables-in-add-health"><i class="fa fa-check"></i><b>10.5</b> Exploring variables in Add Health</a></li>
+<li class="chapter" data-level="10.6" data-path="add-health-project.html"><a href="add-health-project.html#outcomes-exposures-and-confounders"><i class="fa fa-check"></i><b>10.6</b> Outcomes, exposures, and confounders</a></li>
+<li class="chapter" data-level="10.7" data-path="add-health-project.html"><a href="add-health-project.html#demographic-variables---time-invariant"><i class="fa fa-check"></i><b>10.7</b> Demographic variables - time-invariant</a></li>
+<li class="chapter" data-level="10.8" data-path="add-health-project.html"><a href="add-health-project.html#merging-datasets"><i class="fa fa-check"></i><b>10.8</b> Merging datasets</a></li>
+<li class="chapter" data-level="10.9" data-path="add-health-project.html"><a href="add-health-project.html#data-management-recoding-and-so-on"><i class="fa fa-check"></i><b>10.9</b> Data management, recoding, and so on</a>
+<ul>
+<li class="chapter" data-level="10.9.1" data-path="add-health-project.html"><a href="add-health-project.html#bmi"><i class="fa fa-check"></i><b>10.9.1</b> BMI</a></li>
+<li class="chapter" data-level="10.9.2" data-path="add-health-project.html"><a href="add-health-project.html#sampling-weights"><i class="fa fa-check"></i><b>10.9.2</b> Sampling weights</a></li>
+<li class="chapter" data-level="10.9.3" data-path="add-health-project.html"><a href="add-health-project.html#multiple-imputation"><i class="fa fa-check"></i><b>10.9.3</b> Multiple imputation</a></li>
+</ul></li>
+<li class="chapter" data-level="10.10" data-path="add-health-project.html"><a href="add-health-project.html#analytic-approach"><i class="fa fa-check"></i><b>10.10</b> Analytic approach</a>
+<ul>
+<li class="chapter" data-level="10.10.1" data-path="add-health-project.html"><a href="add-health-project.html#a-linear-regression-with-the-current-dataset"><i class="fa fa-check"></i><b>10.10.1</b> A linear regression with the current dataset</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -292,21 +313,21 @@ div.csl-indent {
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -4.1831  -0.6671   0.0001   0.6720   4.8326  
+## -4.1073  -0.6743  -0.0003   0.6738   4.5348  
 ## 
 ## Coefficients:
-##              Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) -0.001171   0.003150  -0.372     0.71    
-## X            0.407442   0.003146 129.498   &lt;2e-16 ***
-## C            0.296056   0.003525  83.979   &lt;2e-16 ***
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 0.001280   0.003159   0.405    0.685    
+## X           0.396990   0.003159 125.657   &lt;2e-16 ***
+## C           0.306627   0.003542  86.572   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## (Dispersion parameter for gaussian family taken to be 0.9922053)
+## (Dispersion parameter for gaussian family taken to be 0.998236)
 ## 
-##     Null deviance: 140846  on 99999  degrees of freedom
-## Residual deviance:  99218  on 99997  degrees of freedom
-## AIC: 283010
+##     Null deviance: 141385  on 99999  degrees of freedom
+## Residual deviance:  99821  on 99997  degrees of freedom
+## AIC: 283616
 ## 
 ## Number of Fisher Scoring iterations: 2</code></pre>
 </div>
@@ -322,20 +343,20 @@ div.csl-indent {
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -4.5208  -0.6913  -0.0019   0.6969   4.8901  
+## -4.3955  -0.6992  -0.0014   0.6988   4.5577  
 ## 
 ## Coefficients:
-##               Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) -7.139e-05  3.259e-03  -0.022    0.983    
-## X            5.257e-01  2.911e-03 180.566   &lt;2e-16 ***
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 0.001057   0.003276   0.323    0.747    
+## X           0.520675   0.002921 178.223   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## (Dispersion parameter for gaussian family taken to be 1.062172)
+## (Dispersion parameter for gaussian family taken to be 1.073042)
 ## 
-##     Null deviance: 140846  on 99999  degrees of freedom
-## Residual deviance: 106215  on 99998  degrees of freedom
-## AIC: 289823
+##     Null deviance: 141385  on 99999  degrees of freedom
+## Residual deviance: 107302  on 99998  degrees of freedom
+## AIC: 290841
 ## 
 ## Number of Fisher Scoring iterations: 2</code></pre>
 </div>
@@ -354,21 +375,21 @@ div.csl-indent {
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -4.4189  -0.6721   0.0021   0.6716   4.5639  
+## -4.1611  -0.6702  -0.0014   0.6718   4.2593  
 ## 
 ## Coefficients:
 ##              Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) -0.005262   0.003157  -1.667   0.0955 .  
-## X            0.397728   0.003161 125.808   &lt;2e-16 ***
-## C           -0.295095   0.003528 -83.636   &lt;2e-16 ***
+## (Intercept) -0.003596   0.003157  -1.139    0.255    
+## X            0.398084   0.003160 125.956   &lt;2e-16 ***
+## C           -0.300368   0.003524 -85.243   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## (Dispersion parameter for gaussian family taken to be 0.9964452)
+## (Dispersion parameter for gaussian family taken to be 0.9968275)
 ## 
-##     Null deviance: 139851  on 99999  degrees of freedom
-## Residual deviance:  99642  on 99997  degrees of freedom
-## AIC: 283437
+##     Null deviance: 140431  on 99999  degrees of freedom
+## Residual deviance:  99680  on 99997  degrees of freedom
+## AIC: 283475
 ## 
 ## Number of Fisher Scoring iterations: 2</code></pre>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="lecture-bias-assessment.html#cb14-1" aria-hidden="true" tabindex="-1"></a>glm.unbiased <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y<span class="sc">~</span>X, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>)</span>
@@ -379,20 +400,20 @@ div.csl-indent {
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -4.2363  -0.6922  -0.0006   0.6982   4.2798  
+## -4.5008  -0.6931  -0.0015   0.6936   4.5671  
 ## 
 ## Coefficients:
 ##              Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) -0.003718   0.003265  -1.139    0.255    
-## X            0.516201   0.002923 176.572   &lt;2e-16 ***
+## (Intercept) -0.003007   0.003270   -0.92    0.358    
+## X            0.518430   0.002929  177.03   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## (Dispersion parameter for gaussian family taken to be 1.066138)
+## (Dispersion parameter for gaussian family taken to be 1.069252)
 ## 
-##     Null deviance: 139851  on 99999  degrees of freedom
-## Residual deviance: 106612  on 99998  degrees of freedom
-## AIC: 290196
+##     Null deviance: 140431  on 99999  degrees of freedom
+## Residual deviance: 106923  on 99998  degrees of freedom
+## AIC: 290488
 ## 
 ## Number of Fisher Scoring iterations: 2</code></pre>
 </div>
@@ -413,20 +434,20 @@ div.csl-indent {
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -4.5120  -0.6761   0.0001   0.6752   4.6010  
+## -4.5821  -0.6764   0.0024   0.6747   4.3690  
 ## 
 ## Coefficients:
 ##              Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) -0.005515   0.003174  -1.737   0.0823 .  
-## X            0.401642   0.003175 126.501   &lt;2e-16 ***
+## (Intercept) -0.001001   0.003163  -0.316    0.752    
+## X            0.399790   0.003162 126.433   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## (Dispersion parameter for gaussian family taken to be 1.007642)
+## (Dispersion parameter for gaussian family taken to be 1.000193)
 ## 
-##     Null deviance: 116887  on 99999  degrees of freedom
-## Residual deviance: 100762  on 99998  degrees of freedom
-## AIC: 284553
+##     Null deviance: 116006  on 99999  degrees of freedom
+## Residual deviance: 100017  on 99998  degrees of freedom
+## AIC: 283811
 ## 
 ## Number of Fisher Scoring iterations: 2</code></pre>
 </div>
@@ -440,21 +461,21 @@ div.csl-indent {
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -4.5094  -0.6763   0.0000   0.6750   4.6005  
+## -4.5811  -0.6766   0.0020   0.6743   4.3662  
 ## 
 ## Coefficients:
 ##              Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) -0.005516   0.003174  -1.738   0.0823 .  
-## X            0.401639   0.003175 126.500   &lt;2e-16 ***
-## C            0.003427   0.003179   1.078   0.2810    
+## (Intercept) -0.001024   0.003163  -0.324    0.746    
+## X            0.399780   0.003162 126.430   &lt;2e-16 ***
+## C            0.004248   0.003162   1.344    0.179    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## (Dispersion parameter for gaussian family taken to be 1.00764)
+## (Dispersion parameter for gaussian family taken to be 1.000185)
 ## 
-##     Null deviance: 116887  on 99999  degrees of freedom
-## Residual deviance: 100761  on 99997  degrees of freedom
-## AIC: 284554
+##     Null deviance: 116006  on 99999  degrees of freedom
+## Residual deviance: 100015  on 99997  degrees of freedom
+## AIC: 283811
 ## 
 ## Number of Fisher Scoring iterations: 2</code></pre>
 </div>
@@ -475,20 +496,20 @@ div.csl-indent {
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -4.3846  -0.6738   0.0019   0.6778   4.2737  
+## -4.3165  -0.6715  -0.0003   0.6728   4.3818  
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) 0.003972   0.003170   1.253     0.21    
-## X           0.700231   0.003157 221.815   &lt;2e-16 ***
+## (Intercept) 0.005324   0.003160   1.685    0.092 .  
+## X           0.701484   0.003158 222.127   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## (Dispersion parameter for gaussian family taken to be 1.005035)
+## (Dispersion parameter for gaussian family taken to be 0.9985912)
 ## 
-##     Null deviance: 149951  on 99999  degrees of freedom
-## Residual deviance: 100501  on 99998  degrees of freedom
-## AIC: 284294
+##     Null deviance: 149128  on 99999  degrees of freedom
+## Residual deviance:  99857  on 99998  degrees of freedom
+## AIC: 283651
 ## 
 ## Number of Fisher Scoring iterations: 2</code></pre>
 </div>
@@ -503,21 +524,21 @@ div.csl-indent {
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -3.7594  -0.5794  -0.0027   0.5779   3.7609  
+## -3.5372  -0.5751   0.0003   0.5774   3.3978  
 ## 
 ## Coefficients:
 ##              Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  0.003199   0.002716   1.178  0.23883    
-## X           -0.014651   0.004627  -3.166  0.00154 ** 
-## C            0.442898   0.002326 190.414  &lt; 2e-16 ***
+## (Intercept)  0.002123   0.002709   0.784  0.43324    
+## X           -0.014539   0.004643  -3.131  0.00174 ** 
+## C            0.442545   0.002331 189.844  &lt; 2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## (Dispersion parameter for gaussian family taken to be 0.7376019)
+## (Dispersion parameter for gaussian family taken to be 0.7340395)
 ## 
-##     Null deviance: 149951  on 99999  degrees of freedom
-## Residual deviance:  73758  on 99997  degrees of freedom
-## AIC: 253358
+##     Null deviance: 149128  on 99999  degrees of freedom
+## Residual deviance:  73402  on 99997  degrees of freedom
+## AIC: 252873
 ## 
 ## Number of Fisher Scoring iterations: 2</code></pre>
 </div>
@@ -541,20 +562,20 @@ div.csl-indent {
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -4.6951  -0.7318   0.0040   0.7278   4.5965  
+## -4.4494  -0.7279   0.0029   0.7297   4.5542  
 ## 
 ## Coefficients:
-##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) 0.006316   0.003413   1.851   0.0642 .  
-## X           0.503189   0.003401 147.966   &lt;2e-16 ***
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 2.362e-05  3.415e-03   0.007    0.994    
+## X           5.013e-01  3.410e-03 147.022   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## (Dispersion parameter for gaussian family taken to be 1.164631)
+## (Dispersion parameter for gaussian family taken to be 1.166415)
 ## 
-##     Null deviance: 141959  on 99999  degrees of freedom
-## Residual deviance: 116461  on 99998  degrees of freedom
-## AIC: 299032
+##     Null deviance: 141852  on 99999  degrees of freedom
+## Residual deviance: 116639  on 99998  degrees of freedom
+## AIC: 299185
 ## 
 ## Number of Fisher Scoring iterations: 2</code></pre>
 </div>
@@ -568,21 +589,21 @@ div.csl-indent {
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -4.4194  -0.6796   0.0001   0.6733   4.3160  
+## -4.4926  -0.6722  -0.0001   0.6766   4.2216  
 ## 
 ## Coefficients:
-##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) 0.004109   0.003167   1.297    0.195    
-## X           0.301794   0.003533  85.419   &lt;2e-16 ***
-## M           0.401988   0.003169 126.848   &lt;2e-16 ***
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 0.0009844  0.0031726    0.31    0.756    
+## X           0.3002200  0.0035466   84.65   &lt;2e-16 ***
+## M           0.4002057  0.0031750  126.05   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## (Dispersion parameter for gaussian family taken to be 1.003216)
+## (Dispersion parameter for gaussian family taken to be 1.006502)
 ## 
-##     Null deviance: 141959  on 99999  degrees of freedom
-## Residual deviance: 100319  on 99997  degrees of freedom
-## AIC: 284114
+##     Null deviance: 141852  on 99999  degrees of freedom
+## Residual deviance: 100647  on 99997  degrees of freedom
+## AIC: 284441
 ## 
 ## Number of Fisher Scoring iterations: 2</code></pre>
 </div>

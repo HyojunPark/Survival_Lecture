@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 10 Add Health Project | A Minimal Book Example</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.32.2 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 10 Add Health Project | A Minimal Book Example" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 10 Add Health Project | A Minimal Book Example" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="John Doe" />
+
+
+<meta name="date" content="2023-03-05" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#usage"><i class="fa fa-check"></i><b>1.1</b> Usage</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#render-book"><i class="fa fa-check"></i><b>1.2</b> Render book</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#preview-book"><i class="fa fa-check"></i><b>1.3</b> Preview book</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="hello-bookdown.html"><a href="hello-bookdown.html"><i class="fa fa-check"></i><b>2</b> Hello bookdown</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="hello-bookdown.html"><a href="hello-bookdown.html#a-section"><i class="fa fa-check"></i><b>2.1</b> A section</a>
+<ul>
+<li class="chapter" data-level="" data-path="hello-bookdown.html"><a href="hello-bookdown.html#an-unnumbered-section"><i class="fa fa-check"></i>An unnumbered section</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="cross.html"><a href="cross.html"><i class="fa fa-check"></i><b>3</b> Cross-references</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="cross.html"><a href="cross.html#chapters-and-sub-chapters"><i class="fa fa-check"></i><b>3.1</b> Chapters and sub-chapters</a></li>
+<li class="chapter" data-level="3.2" data-path="cross.html"><a href="cross.html#captioned-figures-and-tables"><i class="fa fa-check"></i><b>3.2</b> Captioned figures and tables</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="parts.html"><a href="parts.html"><i class="fa fa-check"></i><b>4</b> Parts</a></li>
+<li class="chapter" data-level="5" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html"><i class="fa fa-check"></i><b>5</b> Footnotes and citations</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#footnotes"><i class="fa fa-check"></i><b>5.1</b> Footnotes</a></li>
+<li class="chapter" data-level="5.2" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#citations"><i class="fa fa-check"></i><b>5.2</b> Citations</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="blocks.html"><a href="blocks.html"><i class="fa fa-check"></i><b>6</b> Blocks</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="blocks.html"><a href="blocks.html#equations"><i class="fa fa-check"></i><b>6.1</b> Equations</a></li>
+<li class="chapter" data-level="6.2" data-path="blocks.html"><a href="blocks.html#theorems-and-proofs"><i class="fa fa-check"></i><b>6.2</b> Theorems and proofs</a></li>
+<li class="chapter" data-level="6.3" data-path="blocks.html"><a href="blocks.html#callout-blocks"><i class="fa fa-check"></i><b>6.3</b> Callout blocks</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="sharing-your-book.html"><a href="sharing-your-book.html"><i class="fa fa-check"></i><b>7</b> Sharing your book</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="sharing-your-book.html"><a href="sharing-your-book.html#publishing"><i class="fa fa-check"></i><b>7.1</b> Publishing</a></li>
+<li class="chapter" data-level="7.2" data-path="sharing-your-book.html"><a href="sharing-your-book.html#pages"><i class="fa fa-check"></i><b>7.2</b> 404 pages</a></li>
+<li class="chapter" data-level="7.3" data-path="sharing-your-book.html"><a href="sharing-your-book.html#metadata-for-sharing"><i class="fa fa-check"></i><b>7.3</b> Metadata for sharing</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="8" data-path="lecture-bias-assessment.html"><a href="lecture-bias-assessment.html"><i class="fa fa-check"></i><b>8</b> Lecture: Bias assessment</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="lecture-bias-assessment.html"><a href="lecture-bias-assessment.html#bias-due-to-omitted-confounders"><i class="fa fa-check"></i><b>8.1</b> Bias due to omitted confounders</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="lecture-bias-assessment.html"><a href="lecture-bias-assessment.html#gold-standard"><i class="fa fa-check"></i><b>8.1.1</b> Gold standard</a></li>
+<li class="chapter" data-level="8.1.2" data-path="lecture-bias-assessment.html"><a href="lecture-bias-assessment.html#misspecified-model-a-confounder-c-was-omitted-from-the-model"><i class="fa fa-check"></i><b>8.1.2</b> Misspecified model: a confounder, <span class="math inline">\(C\)</span>, was omitted from the model</a></li>
+<li class="chapter" data-level="8.1.3" data-path="lecture-bias-assessment.html"><a href="lecture-bias-assessment.html#bias-away-from-or-towards-to-the-null"><i class="fa fa-check"></i><b>8.1.3</b> Bias “away from” or “towards to” the null?</a></li>
+<li class="chapter" data-level="8.1.4" data-path="lecture-bias-assessment.html"><a href="lecture-bias-assessment.html#a-c-is-not-a-confounder-on-x-and-y"><i class="fa fa-check"></i><b>8.1.4</b> A <span class="math inline">\(C\)</span> is not a confounder on <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span></a></li>
+<li class="chapter" data-level="8.1.5" data-path="lecture-bias-assessment.html"><a href="lecture-bias-assessment.html#correct-model-specification-without-c"><i class="fa fa-check"></i><b>8.1.5</b> Correct model specification: Without <span class="math inline">\(C\)</span></a></li>
+<li class="chapter" data-level="8.1.6" data-path="lecture-bias-assessment.html"><a href="lecture-bias-assessment.html#misspecified-model-with-c"><i class="fa fa-check"></i><b>8.1.6</b> Misspecified model with <span class="math inline">\(C\)</span></a></li>
+<li class="chapter" data-level="8.1.7" data-path="lecture-bias-assessment.html"><a href="lecture-bias-assessment.html#a-c-is-a-colloder-on-x-and-y"><i class="fa fa-check"></i><b>8.1.7</b> A <span class="math inline">\(C\)</span> is a colloder on <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span></a></li>
+<li class="chapter" data-level="8.1.8" data-path="lecture-bias-assessment.html"><a href="lecture-bias-assessment.html#correct-model-specification-without-c-1"><i class="fa fa-check"></i><b>8.1.8</b> Correct model specification: Without <span class="math inline">\(C\)</span></a></li>
+<li class="chapter" data-level="8.1.9" data-path="lecture-bias-assessment.html"><a href="lecture-bias-assessment.html#misspecified-model-with-c-1"><i class="fa fa-check"></i><b>8.1.9</b> Misspecified model with <span class="math inline">\(C\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="lecture-bias-assessment.html"><a href="lecture-bias-assessment.html#overadjustment-bias"><i class="fa fa-check"></i><b>8.2</b> Overadjustment bias</a></li>
+<li class="chapter" data-level="8.3" data-path="lecture-bias-assessment.html"><a href="lecture-bias-assessment.html#total-effect"><i class="fa fa-check"></i><b>8.3</b> Total effect</a></li>
+<li class="chapter" data-level="8.4" data-path="lecture-bias-assessment.html"><a href="lecture-bias-assessment.html#overadjustment"><i class="fa fa-check"></i><b>8.4</b> Overadjustment</a></li>
+<li class="chapter" data-level="8.5" data-path="lecture-bias-assessment.html"><a href="lecture-bias-assessment.html#logistic-models"><i class="fa fa-check"></i><b>8.5</b> Logistic models</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="lecture-bias-assessment.html"><a href="lecture-bias-assessment.html#sex-as-a-confounder-c"><i class="fa fa-check"></i><b>8.5.1</b> Sex as a Confounder, <span class="math inline">\(C\)</span></a></li>
+<li class="chapter" data-level="8.5.2" data-path="lecture-bias-assessment.html"><a href="lecture-bias-assessment.html#sex-as-a-moderator-m"><i class="fa fa-check"></i><b>8.5.2</b> Sex as a Moderator, <span class="math inline">\(M\)</span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><i class="fa fa-check"></i><b>9</b> Lecture: Nonparametric, semiparametric, and parametric survival models</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html#set-packages-and-library"><i class="fa fa-check"></i><b>9.1</b> Set packages and library</a></li>
+<li class="chapter" data-level="9.2" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html#dataset"><i class="fa fa-check"></i><b>9.2</b> dataset</a></li>
+<li class="chapter" data-level="9.3" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html#nonparametric-estimation"><i class="fa fa-check"></i><b>9.3</b> Nonparametric estimation</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html#data-for-nonparametric-models"><i class="fa fa-check"></i><b>9.3.1</b> Data for nonparametric models</a></li>
+<li class="chapter" data-level="9.3.2" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html#kaplan-meier-estimator"><i class="fa fa-check"></i><b>9.3.2</b> Kaplan-Meier estimator</a></li>
+<li class="chapter" data-level="9.3.3" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html#nelson-aalen-estimator"><i class="fa fa-check"></i><b>9.3.3</b> Nelson-Aalen estimator</a></li>
+<li class="chapter" data-level="9.3.4" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html#comparisons-by-groups"><i class="fa fa-check"></i><b>9.3.4</b> Comparisons by groups</a></li>
+<li class="chapter" data-level="9.3.5" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html#better-km-figures"><i class="fa fa-check"></i><b>9.3.5</b> Better KM figures</a></li>
+<li class="chapter" data-level="9.3.6" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html#nonparametric-models-using-a-child-dataset-from-eha"><i class="fa fa-check"></i><b>9.3.6</b> Nonparametric models using a <span class="math inline">\(child\)</span> dataset from eha</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html#proportional-hazards-and-cox-regression"><i class="fa fa-check"></i><b>9.4</b> Proportional Hazards and Cox Regression</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html#a-visual-check-for-a-proportionality-assumption"><i class="fa fa-check"></i><b>9.4.1</b> A visual check for a proportionality assumption</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html#parametric-estimation"><i class="fa fa-check"></i><b>9.5</b> Parametric estimation</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html#weibull-model"><i class="fa fa-check"></i><b>9.5.1</b> Weibull model</a></li>
+<li class="chapter" data-level="9.5.2" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html#gompertz-model"><i class="fa fa-check"></i><b>9.5.2</b> Gompertz model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="add-health-project.html"><a href="add-health-project.html"><i class="fa fa-check"></i><b>10</b> Add Health Project</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="add-health-project.html"><a href="add-health-project.html#library"><i class="fa fa-check"></i><b>10.1</b> Library</a></li>
+<li class="chapter" data-level="10.2" data-path="add-health-project.html"><a href="add-health-project.html#access-datasets"><i class="fa fa-check"></i><b>10.2</b> Access datasets</a></li>
+<li class="chapter" data-level="10.3" data-path="add-health-project.html"><a href="add-health-project.html#load-5-wave-sample"><i class="fa fa-check"></i><b>10.3</b> Load 5-wave sample</a></li>
+<li class="chapter" data-level="10.4" data-path="add-health-project.html"><a href="add-health-project.html#long-form-dataset-wave-person"><i class="fa fa-check"></i><b>10.4</b> Long-form dataset (wave-person)</a></li>
+<li class="chapter" data-level="10.5" data-path="add-health-project.html"><a href="add-health-project.html#exploring-variables-in-add-health"><i class="fa fa-check"></i><b>10.5</b> Exploring variables in Add Health</a></li>
+<li class="chapter" data-level="10.6" data-path="add-health-project.html"><a href="add-health-project.html#outcomes-exposures-and-confounders"><i class="fa fa-check"></i><b>10.6</b> Outcomes, exposures, and confounders</a></li>
+<li class="chapter" data-level="10.7" data-path="add-health-project.html"><a href="add-health-project.html#demographic-variables---time-invariant"><i class="fa fa-check"></i><b>10.7</b> Demographic variables - time-invariant</a></li>
+<li class="chapter" data-level="10.8" data-path="add-health-project.html"><a href="add-health-project.html#merging-datasets"><i class="fa fa-check"></i><b>10.8</b> Merging datasets</a></li>
+<li class="chapter" data-level="10.9" data-path="add-health-project.html"><a href="add-health-project.html#data-management-recoding-and-so-on"><i class="fa fa-check"></i><b>10.9</b> Data management, recoding, and so on</a>
+<ul>
+<li class="chapter" data-level="10.9.1" data-path="add-health-project.html"><a href="add-health-project.html#bmi"><i class="fa fa-check"></i><b>10.9.1</b> BMI</a></li>
+<li class="chapter" data-level="10.9.2" data-path="add-health-project.html"><a href="add-health-project.html#sampling-weights"><i class="fa fa-check"></i><b>10.9.2</b> Sampling weights</a></li>
+<li class="chapter" data-level="10.9.3" data-path="add-health-project.html"><a href="add-health-project.html#multiple-imputation"><i class="fa fa-check"></i><b>10.9.3</b> Multiple imputation</a></li>
+</ul></li>
+<li class="chapter" data-level="10.10" data-path="add-health-project.html"><a href="add-health-project.html#analytic-approach"><i class="fa fa-check"></i><b>10.10</b> Analytic approach</a>
+<ul>
+<li class="chapter" data-level="10.10.1" data-path="add-health-project.html"><a href="add-health-project.html#a-linear-regression-with-the-current-dataset"><i class="fa fa-check"></i><b>10.10.1</b> A linear regression with the current dataset</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Book Example</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="add-health-project" class="section level1 hasAnchor" number="10">
+<h1><span class="header-section-number">Chapter 10</span> Add Health Project<a href="add-health-project.html#add-health-project" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="library" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> Library<a href="add-health-project.html#library" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="add-health-project.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<pre><code>## ── Attaching core tidyverse packages ──────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.1.0     ✔ readr     2.1.4
+## ✔ forcats   1.0.0     ✔ stringr   1.5.0
+## ✔ lubridate 1.9.2     ✔ tibble    3.1.8
+## ✔ purrr     1.0.1     
+## ── Conflicts ────────────────────────────── tidyverse_conflicts() ──
+## ✖ ggplot2::alpha() masks epiDisplay::alpha()
+## ✖ dplyr::filter()  masks stats::filter()
+## ✖ dplyr::lag()     masks stats::lag()
+## ✖ dplyr::select()  masks MASS::select()
+## ℹ Use the ]8;;http://conflicted.r-lib.org/conflicted package]8;; to force all conflicts to become errors</code></pre>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="add-health-project.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;data.table&#39;
+## 
+## The following objects are masked from &#39;package:lubridate&#39;:
+## 
+##     hour, isoweek, mday, minute, month, quarter, second, wday, week,
+##     yday, year
+## 
+## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     between, first, last
+## 
+## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     transpose</code></pre>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="add-health-project.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span></code></pre></div>
+<pre><code>## Loading required package: Matrix
+## 
+## Attaching package: &#39;Matrix&#39;
+## 
+## The following objects are masked from &#39;package:tidyr&#39;:
+## 
+##     expand, pack, unpack</code></pre>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="add-health-project.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matrix)</span></code></pre></div>
+<p>First, set the working folder to access datasets.</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="add-health-project.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="co">#setwd(&quot;~/pCloudDrive&quot;)</span></span></code></pre></div>
+</div>
+<div id="access-datasets" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> Access datasets<a href="add-health-project.html#access-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let’s use the public datasets available at <a href="https://www.icpsr.umich.edu/web/ICPSR/studies/21600?archive=ICPSR&amp;q=21600" class="uri">https://www.icpsr.umich.edu/web/ICPSR/studies/21600?archive=ICPSR&amp;q=21600</a></p>
+</div>
+<div id="load-5-wave-sample" class="section level2 hasAnchor" number="10.3">
+<h2><span class="header-section-number">10.3</span> Load 5-wave sample<a href="add-health-project.html#load-5-wave-sample" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>First, each RDA dataset will be loaded and then saved as WAVE0X. After assigning a WAVE variable, we will keep the WAVE0X dataset and WX datasets only.</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="add-health-project.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;~/pCloudDrive/Git/Survival/AddHealth/ICPSR_21600/DS0001/21600-0001-Data.rda&quot;</span>)</span>
+<span id="cb115-2"><a href="add-health-project.html#cb115-2" aria-hidden="true" tabindex="-1"></a>wave01 <span class="ot">&lt;-</span> da21600<span class="fl">.0001</span></span>
+<span id="cb115-3"><a href="add-health-project.html#cb115-3" aria-hidden="true" tabindex="-1"></a>wave01<span class="sc">$</span>wave <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb115-4"><a href="add-health-project.html#cb115-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(da21600<span class="fl">.0001</span>)</span>
+<span id="cb115-5"><a href="add-health-project.html#cb115-5" aria-hidden="true" tabindex="-1"></a>w1 <span class="ot">=</span> <span class="fu">subset</span>(wave01, <span class="at">select =</span> <span class="fu">c</span>(AID, wave))</span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="add-health-project.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;~/pCloudDrive/Git/Survival/AddHealth/ICPSR_21600/DS0005/21600-0005-Data.rda&quot;</span>)</span>
+<span id="cb116-2"><a href="add-health-project.html#cb116-2" aria-hidden="true" tabindex="-1"></a>wave02 <span class="ot">&lt;-</span> da21600<span class="fl">.0005</span></span>
+<span id="cb116-3"><a href="add-health-project.html#cb116-3" aria-hidden="true" tabindex="-1"></a>wave02<span class="sc">$</span>wave <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb116-4"><a href="add-health-project.html#cb116-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-5"><a href="add-health-project.html#cb116-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(da21600<span class="fl">.0005</span>)</span>
+<span id="cb116-6"><a href="add-health-project.html#cb116-6" aria-hidden="true" tabindex="-1"></a>w2 <span class="ot">=</span> <span class="fu">subset</span>(wave02, <span class="at">select =</span> <span class="fu">c</span>(AID, wave))</span></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="add-health-project.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;~/pCloudDrive/Git/Survival/AddHealth/ICPSR_21600/DS0008/21600-0008-Data.rda&quot;</span>)</span>
+<span id="cb117-2"><a href="add-health-project.html#cb117-2" aria-hidden="true" tabindex="-1"></a>wave03 <span class="ot">&lt;-</span> da21600<span class="fl">.0008</span></span>
+<span id="cb117-3"><a href="add-health-project.html#cb117-3" aria-hidden="true" tabindex="-1"></a>wave03<span class="sc">$</span>wave <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb117-4"><a href="add-health-project.html#cb117-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb117-5"><a href="add-health-project.html#cb117-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(da21600<span class="fl">.0008</span>)</span>
+<span id="cb117-6"><a href="add-health-project.html#cb117-6" aria-hidden="true" tabindex="-1"></a>w3 <span class="ot">=</span> <span class="fu">subset</span>(wave03, <span class="at">select =</span> <span class="fu">c</span>(AID, wave))</span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="add-health-project.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;~/pCloudDrive/Git/Survival/AddHealth/ICPSR_21600/DS0022/21600-0022-Data.rda&quot;</span>)</span>
+<span id="cb118-2"><a href="add-health-project.html#cb118-2" aria-hidden="true" tabindex="-1"></a>wave04 <span class="ot">&lt;-</span> da21600<span class="fl">.0022</span></span>
+<span id="cb118-3"><a href="add-health-project.html#cb118-3" aria-hidden="true" tabindex="-1"></a>wave04<span class="sc">$</span>wave <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb118-4"><a href="add-health-project.html#cb118-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-5"><a href="add-health-project.html#cb118-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(da21600<span class="fl">.0022</span>)</span>
+<span id="cb118-6"><a href="add-health-project.html#cb118-6" aria-hidden="true" tabindex="-1"></a>w4 <span class="ot">=</span> <span class="fu">subset</span>(wave04, <span class="at">select =</span> <span class="fu">c</span>(AID, wave))</span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="add-health-project.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;~/pCloudDrive/Git/Survival/AddHealth/ICPSR_21600/DS0032/21600-0032-Data.rda&quot;</span>)</span>
+<span id="cb119-2"><a href="add-health-project.html#cb119-2" aria-hidden="true" tabindex="-1"></a>wave05 <span class="ot">&lt;-</span> da21600<span class="fl">.0032</span></span>
+<span id="cb119-3"><a href="add-health-project.html#cb119-3" aria-hidden="true" tabindex="-1"></a>wave05<span class="sc">$</span>wave <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb119-4"><a href="add-health-project.html#cb119-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-5"><a href="add-health-project.html#cb119-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(da21600<span class="fl">.0032</span>)</span>
+<span id="cb119-6"><a href="add-health-project.html#cb119-6" aria-hidden="true" tabindex="-1"></a>w5 <span class="ot">=</span> <span class="fu">subset</span>(wave05, <span class="at">select =</span> <span class="fu">c</span>(AID, wave))</span></code></pre></div>
+<p>The complete list of respondents can be obtained by aggregating all WX datasets and then getting the unique AID.</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="add-health-project.html#cb120-1" aria-hidden="true" tabindex="-1"></a>aaa <span class="ot">&lt;-</span> <span class="fu">rbind</span>(w1, w2, w3, w4, w5)</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="add-health-project.html#cb121-1" aria-hidden="true" tabindex="-1"></a>AH01 <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">subset</span>(<span class="fu">rbind</span>(w1, w2, w3, w4, w5), <span class="at">select =</span> <span class="fu">c</span>(AID)))</span></code></pre></div>
+<p>It looks like the first wave contains all respondents - no addtional respondents were added.</p>
+<p>To check this observation, we will see both AID from the first wave and All matched.</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="add-health-project.html#cb122-1" aria-hidden="true" tabindex="-1"></a>test01 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(wave01, AH01, <span class="at">by=</span><span class="st">&quot;AID&quot;</span>)</span></code></pre></div>
+<p>Because the n didn’t change, we confirmed that WAVE01 contains all respondents of the study.</p>
+</div>
+<div id="long-form-dataset-wave-person" class="section level2 hasAnchor" number="10.4">
+<h2><span class="header-section-number">10.4</span> Long-form dataset (wave-person)<a href="add-health-project.html#long-form-dataset-wave-person" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Aggregating WX datasets will generate a long-form dataset per wave-person.</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="add-health-project.html#cb123-1" aria-hidden="true" tabindex="-1"></a>lf01 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(w1, w2, w3, w4, w5)</span>
+<span id="cb123-2"><a href="add-health-project.html#cb123-2" aria-hidden="true" tabindex="-1"></a>lf <span class="ot">&lt;-</span> lf01[<span class="fu">order</span>(lf01<span class="sc">$</span>AID, lf01<span class="sc">$</span>wave), ]</span>
+<span id="cb123-3"><a href="add-health-project.html#cb123-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 6504, 4834, 4882, 5114, 4196, 25530</span></span></code></pre></div>
+<p>We will save LF for the later use.</p>
+</div>
+<div id="exploring-variables-in-add-health" class="section level2 hasAnchor" number="10.5">
+<h2><span class="header-section-number">10.5</span> Exploring variables in Add Health<a href="add-health-project.html#exploring-variables-in-add-health" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Use “Variables” or other documentations at <a href="https://www.icpsr.umich.edu/web/ICPSR/studies/21600?archive=ICPSR&amp;q=21600" class="uri">https://www.icpsr.umich.edu/web/ICPSR/studies/21600?archive=ICPSR&amp;q=21600</a></p>
+</div>
+<div id="outcomes-exposures-and-confounders" class="section level2 hasAnchor" number="10.6">
+<h2><span class="header-section-number">10.6</span> Outcomes, exposures, and confounders<a href="add-health-project.html#outcomes-exposures-and-confounders" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let’s assume we are interested in the BMI trajectory, which calculation requires both weight and height in each wave. We also keep and rename exposures and confounders. This process requires getting back and force to add, rename, and remove a set of variables. To note, whenever keeping variables in your datasets, add AID and wave as default variables.</p>
+<p>It is a good practice to keep the variable names consistent - for example, variables for adolescence will have “a_”, while those for adolescence’s parents will have “p_”, and those of adolescence’s offspring will have “0_”. By keeping all variable selection in one place, you can minimize any confusions in managing variables later.</p>
+<p>So, it looks like either lbs or kg, cm or inch was used for weight and height. Also, there are multiple variables for each weight or height, requiring your further study about which one is better than others.</p>
+<p>Here, I will simply go with the following variables, using BMI formula at <a href="https://www.cdc.gov/healthyweight/assessing/bmi/childrens_BMI/childrens_BMI_formula.html#" class="uri">https://www.cdc.gov/healthyweight/assessing/bmi/childrens_BMI/childrens_BMI_formula.html#</a>:~:text=The%20formula%20for%20BMI%20is,to%20convert%20this%20to%20meters.&amp;text=When%20using%20English%20measurements%2C%20pounds,2%20to%20kg%2Fm2.</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="add-health-project.html#cb124-1" aria-hidden="true" tabindex="-1"></a>bmiwgt1 <span class="ot">&lt;-</span> wave01 <span class="sc">%&gt;%</span></span>
+<span id="cb124-2"><a href="add-health-project.html#cb124-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(AID,</span>
+<span id="cb124-3"><a href="add-health-project.html#cb124-3" aria-hidden="true" tabindex="-1"></a>         wave,</span>
+<span id="cb124-4"><a href="add-health-project.html#cb124-4" aria-hidden="true" tabindex="-1"></a>         </span>
+<span id="cb124-5"><a href="add-health-project.html#cb124-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_srh&quot;</span> <span class="ot">=</span> H1GH1,</span>
+<span id="cb124-6"><a href="add-health-project.html#cb124-6" aria-hidden="true" tabindex="-1"></a>         </span>
+<span id="cb124-7"><a href="add-health-project.html#cb124-7" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_wgt_lbs&quot;</span> <span class="ot">=</span> H1GH60,</span>
+<span id="cb124-8"><a href="add-health-project.html#cb124-8" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_hgt_ft&quot;</span> <span class="ot">=</span> H1GH59A,</span>
+<span id="cb124-9"><a href="add-health-project.html#cb124-9" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_hgt_in&quot;</span> <span class="ot">=</span> H1GH59B,</span>
+<span id="cb124-10"><a href="add-health-project.html#cb124-10" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_weightimage&quot;</span> <span class="ot">=</span> H1GH28,</span>
+<span id="cb124-11"><a href="add-health-project.html#cb124-11" aria-hidden="true" tabindex="-1"></a>         </span>
+<span id="cb124-12"><a href="add-health-project.html#cb124-12" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_poorappetite&quot;</span> <span class="ot">=</span> H1FS2)</span>
+<span id="cb124-13"><a href="add-health-project.html#cb124-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-14"><a href="add-health-project.html#cb124-14" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bmiwgt1)</span></code></pre></div>
+<pre><code>##        AID            wave                 a_srh        a_wgt_lbs    
+##  57100270:   1   Min.   :1   (1) (1) Excellent:1847   Min.   : 50.0  
+##  57101310:   1   1st Qu.:1   (2) (2) Very good:2608   1st Qu.:118.0  
+##  57103171:   1   Median :1   (3) (3) Good     :1605   Median :135.0  
+##  57103869:   1   Mean   :1   (4) (4) Fair     : 408   Mean   :141.1  
+##  57104553:   1   3rd Qu.:1   (5) (5) Poor     :  28   3rd Qu.:160.0  
+##  57104649:   1   Max.   :1   NA&#39;s             :   8   Max.   :360.0  
+##  (Other) :6498                                        NA&#39;s   :156    
+##            a_hgt_ft                 a_hgt_in   
+##  (4) (4) 4 feet: 214   (04) (4) 4 inches: 693  
+##  (5) (5) 5 feet:5448   (06) (6) 6 inches: 669  
+##  (6) (6) 6 feet: 758   (03) (3) 3 inches: 629  
+##  NA&#39;s          :  84   (02) (2) 2 inches: 569  
+##                        (05) (5) 5 inches: 562  
+##                        (Other)          :3287  
+##                        NA&#39;s             :  95  
+##                         a_weightimage                       a_poorappetite
+##  (1) (1) Very underweight      : 128   (0) (0) Never/rarely        :4192  
+##  (2) (2) Slightly underweight  : 935   (1) (1) Sometimes           :1744  
+##  (3) (3) About the right weight:3381   (2) (2) A lot of the time   : 410  
+##  (4) (4) Slightly overweight   :1808   (3) (3) Most/all of the time: 141  
+##  (5) (5) Very overweight       : 238   NA&#39;s                        :  17  
+##  NA&#39;s                          :  14                                      
+## </code></pre>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="add-health-project.html#cb126-1" aria-hidden="true" tabindex="-1"></a>bmiwgt2 <span class="ot">&lt;-</span> wave02 <span class="sc">%&gt;%</span></span>
+<span id="cb126-2"><a href="add-health-project.html#cb126-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(AID,</span>
+<span id="cb126-3"><a href="add-health-project.html#cb126-3" aria-hidden="true" tabindex="-1"></a>         wave,</span>
+<span id="cb126-4"><a href="add-health-project.html#cb126-4" aria-hidden="true" tabindex="-1"></a>         </span>
+<span id="cb126-5"><a href="add-health-project.html#cb126-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_srh&quot;</span> <span class="ot">=</span> H2GH1,</span>
+<span id="cb126-6"><a href="add-health-project.html#cb126-6" aria-hidden="true" tabindex="-1"></a>         </span>
+<span id="cb126-7"><a href="add-health-project.html#cb126-7" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_wgt_lbs&quot;</span> <span class="ot">=</span> H2GH53,</span>
+<span id="cb126-8"><a href="add-health-project.html#cb126-8" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_hgt_ft&quot;</span> <span class="ot">=</span> H2WS16HF,</span>
+<span id="cb126-9"><a href="add-health-project.html#cb126-9" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_hgt_in&quot;</span> <span class="ot">=</span> H2WS16HI,</span>
+<span id="cb126-10"><a href="add-health-project.html#cb126-10" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_weightimage&quot;</span> <span class="ot">=</span> H2GH30,</span>
+<span id="cb126-11"><a href="add-health-project.html#cb126-11" aria-hidden="true" tabindex="-1"></a>         </span>
+<span id="cb126-12"><a href="add-health-project.html#cb126-12" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_poorappetite&quot;</span> <span class="ot">=</span> H2GH22)</span>
+<span id="cb126-13"><a href="add-health-project.html#cb126-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-14"><a href="add-health-project.html#cb126-14" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bmiwgt2)</span></code></pre></div>
+<pre><code>##        AID            wave                 a_srh        a_wgt_lbs    
+##  57101310:   1   Min.   :2   (1) (1) Excellent:1434   Min.   : 60.0  
+##  57103869:   1   1st Qu.:2   (2) (2) Very good:1923   1st Qu.:120.0  
+##  57104649:   1   Median :2   (3) (3) Good     :1179   Median :140.0  
+##  57104676:   1   Mean   :2   (4) (4) Fair     : 286   Mean   :145.7  
+##  57109625:   1   3rd Qu.:2   (5) (5) Poor     :  10   3rd Qu.:163.0  
+##  57110897:   1   Max.   :2   NA&#39;s             :   2   Max.   :350.0  
+##  (Other) :4828                                        NA&#39;s   :86     
+##            a_hgt_ft                 a_hgt_in   
+##  (4) (4) 4 feet:  88   (06) (6) 6 inches: 537  
+##  (5) (5) 5 feet:4077   (05) (5) 5 inches: 462  
+##  (6) (6) 6 feet: 638   (04) (4) 4 inches: 461  
+##  NA&#39;s          :  31   (07) (7) 7 inches: 459  
+##                        (02) (2) 2 inches: 415  
+##                        (Other)          :2469  
+##                        NA&#39;s             :  31  
+##                         a_weightimage                    a_poorappetite
+##  (1) (1) Very underweight      :  56   (0) (0) Never            :2312  
+##  (2) (2) Slightly underweight  : 697   (1) (1) Just a few times :1834  
+##  (3) (3) About the right weight:2576   (2) (2) About once a week: 508  
+##  (4) (4) Slightly overweight   :1338   (3) (3) Almost every day : 136  
+##  (5) (5) Very overweight       : 162   (4) (4) Every day        :  42  
+##  NA&#39;s                          :   5   NA&#39;s                     :   2  
+## </code></pre>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="add-health-project.html#cb128-1" aria-hidden="true" tabindex="-1"></a>bmiwgt3 <span class="ot">&lt;-</span> wave03 <span class="sc">%&gt;%</span></span>
+<span id="cb128-2"><a href="add-health-project.html#cb128-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(AID,</span>
+<span id="cb128-3"><a href="add-health-project.html#cb128-3" aria-hidden="true" tabindex="-1"></a>         wave,</span>
+<span id="cb128-4"><a href="add-health-project.html#cb128-4" aria-hidden="true" tabindex="-1"></a>         </span>
+<span id="cb128-5"><a href="add-health-project.html#cb128-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_srh&quot;</span> <span class="ot">=</span> H3GH1,</span>
+<span id="cb128-6"><a href="add-health-project.html#cb128-6" aria-hidden="true" tabindex="-1"></a>         </span>
+<span id="cb128-7"><a href="add-health-project.html#cb128-7" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_wgt_lbs&quot;</span> <span class="ot">=</span> H3DA44,</span>
+<span id="cb128-8"><a href="add-health-project.html#cb128-8" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_hgt_ft&quot;</span> <span class="ot">=</span> H3HGT_F,</span>
+<span id="cb128-9"><a href="add-health-project.html#cb128-9" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_hgt_in&quot;</span> <span class="ot">=</span> H3HGT_I)</span>
+<span id="cb128-10"><a href="add-health-project.html#cb128-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb128-11"><a href="add-health-project.html#cb128-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bmiwgt3)</span></code></pre></div>
+<pre><code>##        AID            wave                 a_srh        a_wgt_lbs    
+##  57100270:   1   Min.   :3   (1) (1) Excellent:1601   Min.   : 80.0  
+##  57101310:   1   1st Qu.:3   (2) (2) Very good:2000   1st Qu.:136.0  
+##  57103869:   1   Median :3   (3) (3) Good     :1055   Median :160.0  
+##  57104676:   1   Mean   :3   (4) (4) Fair     : 206   Mean   :168.5  
+##  57109625:   1   3rd Qu.:3   (5) (5) Poor     :  20   3rd Qu.:190.0  
+##  57111071:   1   Max.   :3                            Max.   :430.0  
+##  (Other) :4876                                        NA&#39;s   :111    
+##            a_hgt_ft                 a_hgt_in   
+##  (4) (4) 4 feet:  84   (04) (4) 4 inches: 470  
+##  (5) (5) 5 feet:3913   (06) (6) 6 inches: 458  
+##  (6) (6) 6 feet: 732   (02) (2) 2 inches: 448  
+##  (7) (7) 7 feet:   1   (03) (3) 3 inches: 424  
+##  NA&#39;s          : 152   (07) (7) 7 inches: 409  
+##                        (Other)          :2518  
+##                        NA&#39;s             : 155</code></pre>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="add-health-project.html#cb130-1" aria-hidden="true" tabindex="-1"></a>bmiwgt4 <span class="ot">&lt;-</span> wave04 <span class="sc">%&gt;%</span></span>
+<span id="cb130-2"><a href="add-health-project.html#cb130-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(AID,</span>
+<span id="cb130-3"><a href="add-health-project.html#cb130-3" aria-hidden="true" tabindex="-1"></a>         wave,</span>
+<span id="cb130-4"><a href="add-health-project.html#cb130-4" aria-hidden="true" tabindex="-1"></a>         </span>
+<span id="cb130-5"><a href="add-health-project.html#cb130-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_srh&quot;</span> <span class="ot">=</span> H4GH1,</span>
+<span id="cb130-6"><a href="add-health-project.html#cb130-6" aria-hidden="true" tabindex="-1"></a>         </span>
+<span id="cb130-7"><a href="add-health-project.html#cb130-7" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_wgt_lbs&quot;</span> <span class="ot">=</span> H4GH6,</span>
+<span id="cb130-8"><a href="add-health-project.html#cb130-8" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_hgt_ft&quot;</span> <span class="ot">=</span> H4GH5F,</span>
+<span id="cb130-9"><a href="add-health-project.html#cb130-9" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_hgt_in&quot;</span> <span class="ot">=</span> H4GH5I)</span>
+<span id="cb130-10"><a href="add-health-project.html#cb130-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-11"><a href="add-health-project.html#cb130-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bmiwgt4)</span></code></pre></div>
+<pre><code>##        AID            wave                 a_srh        a_wgt_lbs    
+##  57101310:   1   Min.   :4   (1) (1) Excellent: 979   Min.   : 18.0  
+##  57103869:   1   1st Qu.:4   (2) (2) Very good:1963   1st Qu.:150.0  
+##  57109625:   1   Median :4   (3) (3) Good     :1683   Median :178.0  
+##  57111071:   1   Mean   :4   (4) (4) Fair     : 434   Mean   :184.1  
+##  57113943:   1   3rd Qu.:4   (5) (5) Poor     :  55   3rd Qu.:211.0  
+##  57117542:   1   Max.   :4                            Max.   :525.0  
+##  (Other) :5108                                        NA&#39;s   :79     
+##     a_hgt_ft        a_hgt_in     
+##  Min.   :4.000   Min.   : 0.000  
+##  1st Qu.:5.000   1st Qu.: 2.000  
+##  Median :5.000   Median : 5.000  
+##  Mean   :5.172   Mean   : 5.386  
+##  3rd Qu.:5.000   3rd Qu.: 8.000  
+##  Max.   :6.000   Max.   :11.000  
+##  NA&#39;s   :6       NA&#39;s   :10</code></pre>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="add-health-project.html#cb132-1" aria-hidden="true" tabindex="-1"></a>bmiwgt5 <span class="ot">&lt;-</span> wave05 <span class="sc">%&gt;%</span></span>
+<span id="cb132-2"><a href="add-health-project.html#cb132-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(AID,</span>
+<span id="cb132-3"><a href="add-health-project.html#cb132-3" aria-hidden="true" tabindex="-1"></a>         wave,</span>
+<span id="cb132-4"><a href="add-health-project.html#cb132-4" aria-hidden="true" tabindex="-1"></a>         </span>
+<span id="cb132-5"><a href="add-health-project.html#cb132-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_srh&quot;</span> <span class="ot">=</span> H5ID1,</span>
+<span id="cb132-6"><a href="add-health-project.html#cb132-6" aria-hidden="true" tabindex="-1"></a>         </span>
+<span id="cb132-7"><a href="add-health-project.html#cb132-7" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_wgt_lbs&quot;</span> <span class="ot">=</span> H5ID3,</span>
+<span id="cb132-8"><a href="add-health-project.html#cb132-8" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_hgt_ft&quot;</span> <span class="ot">=</span> H5ID2F,</span>
+<span id="cb132-9"><a href="add-health-project.html#cb132-9" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_hgt_in&quot;</span> <span class="ot">=</span> H5ID2I)</span>
+<span id="cb132-10"><a href="add-health-project.html#cb132-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb132-11"><a href="add-health-project.html#cb132-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bmiwgt5)</span></code></pre></div>
+<pre><code>##        AID            wave       a_srh         a_wgt_lbs        a_hgt_ft     
+##  57101310:   1   Min.   :5   Min.   :1.000   Min.   :100.0   Min.   : 4.000  
+##  57111071:   1   1st Qu.:5   1st Qu.:2.000   1st Qu.:155.0   1st Qu.: 5.000  
+##  57111786:   1   Median :5   Median :2.000   Median :185.0   Median : 5.000  
+##  57113943:   1   Mean   :5   Mean   :2.473   Mean   :192.2   Mean   : 5.379  
+##  57117997:   1   3rd Qu.:5   3rd Qu.:3.000   3rd Qu.:220.0   3rd Qu.: 5.000  
+##  57118381:   1   Max.   :5   Max.   :5.000   Max.   :400.0   Max.   :98.000  
+##  (Other) :4190               NA&#39;s   :4       NA&#39;s   :25      NA&#39;s   :2       
+##     a_hgt_in    
+##  Min.   :  0.0  
+##  1st Qu.:  3.0  
+##  Median :  5.0  
+##  Mean   : 10.6  
+##  3rd Qu.:  8.0  
+##  Max.   :998.0  
+##  NA&#39;s   :6</code></pre>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="add-health-project.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(bmiwgt5<span class="sc">$</span>a_hgt_ft)</span></code></pre></div>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+<p>The “Rbind” function requires all datasets have a same numbers of columns. “setDT” and “fill=TRUE” are the functions from a “data.table” package that override this requirement.</p>
+<p>Now, we have created a <em>long-form dataset (i.e., vars) from five sets of cross-sectional datasets</em>.</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="add-health-project.html#cb136-1" aria-hidden="true" tabindex="-1"></a>vars01 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">setDT</span>(bmiwgt1), <span class="fu">setDT</span>(bmiwgt2), <span class="fu">setDT</span>(bmiwgt3), <span class="fu">setDT</span>(bmiwgt4), <span class="fu">setDT</span>(bmiwgt5), <span class="at">fill=</span><span class="cn">TRUE</span>)</span>
+<span id="cb136-2"><a href="add-health-project.html#cb136-2" aria-hidden="true" tabindex="-1"></a>vars <span class="ot">&lt;-</span> vars01[<span class="fu">order</span>(vars01<span class="sc">$</span>AID, vars01<span class="sc">$</span>wave), ]</span>
+<span id="cb136-3"><a href="add-health-project.html#cb136-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 6504, 4834, 4882, 5114, 4196, 25530</span></span></code></pre></div>
+</div>
+<div id="demographic-variables---time-invariant" class="section level2 hasAnchor" number="10.7">
+<h2><span class="header-section-number">10.7</span> Demographic variables - time-invariant<a href="add-health-project.html#demographic-variables---time-invariant" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="add-health-project.html#cb137-1" aria-hidden="true" tabindex="-1"></a>demo_TI <span class="ot">&lt;-</span> wave01 <span class="sc">%&gt;%</span></span>
+<span id="cb137-2"><a href="add-health-project.html#cb137-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(AID,</span>
+<span id="cb137-3"><a href="add-health-project.html#cb137-3" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_sex&quot;</span> <span class="ot">=</span> BIO_SEX)</span></code></pre></div>
+</div>
+<div id="merging-datasets" class="section level2 hasAnchor" number="10.8">
+<h2><span class="header-section-number">10.8</span> Merging datasets<a href="add-health-project.html#merging-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The following code merges a long-form dataset (i.e., <em>vars</em>) and a time-invariant dataset (i.e., <em>demo_TI</em>).</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="add-health-project.html#cb138-1" aria-hidden="true" tabindex="-1"></a>Final01 <span class="ot">&lt;-</span> <span class="fu">merge</span>(vars, demo_TI, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;AID&quot;</span>))</span>
+<span id="cb138-2"><a href="add-health-project.html#cb138-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Final01)</span></code></pre></div>
+<pre><code>##        AID             wave                    a_srh        a_wgt_lbs    
+##  57101310:    5   Min.   :1.00   (2) (2) Very good:8494   Min.   : 18.0  
+##  57111071:    5   1st Qu.:1.00   (1) (1) Excellent:5861   1st Qu.:130.0  
+##  57113943:    5   Median :3.00   (3) (3) Good     :5522   Median :155.0  
+##  57118381:    5   Mean   :2.83   2                :1503   Mean   :164.3  
+##  57118943:    5   3rd Qu.:4.00   3                :1393   3rd Qu.:190.0  
+##  57121404:    5   Max.   :5.00   (Other)          :2743   Max.   :525.0  
+##  (Other) :25500                  NA&#39;s             :  14   NA&#39;s   :457    
+##            a_hgt_ft                  a_hgt_in    
+##  (5) (5) 5 feet:13438   (06) (6) 6 inches: 1664  
+##  5             : 7504   (04) (4) 4 inches: 1624  
+##  (6) (6) 6 feet: 2128   (03) (3) 3 inches: 1451  
+##  6             : 1664   (02) (2) 2 inches: 1432  
+##  (4) (4) 4 feet:  386   (07) (7) 7 inches: 1430  
+##  (Other)       :  135   (Other)          :17632  
+##  NA&#39;s          :  275   NA&#39;s             :  297  
+##                         a_weightimage                     a_poorappetite 
+##  (1) (1) Very underweight      :  184   (0) (0) Never/rarely     : 4192  
+##  (2) (2) Slightly underweight  : 1632   (0) (0) Never            : 2312  
+##  (3) (3) About the right weight: 5957   (1) (1) Just a few times : 1834  
+##  (4) (4) Slightly overweight   : 3146   (1) (1) Sometimes        : 1744  
+##  (5) (5) Very overweight       :  400   (2) (2) About once a week:  508  
+##  NA&#39;s                          :14211   (Other)                  :  729  
+##                                         NA&#39;s                     :14211  
+##             a_sex      
+##  (1) (1) Male  :11874  
+##  (2) (2) Female:13654  
+##  NA&#39;s          :    2  
+##                        
+##                        
+##                        
+## </code></pre>
+</div>
+<div id="data-management-recoding-and-so-on" class="section level2 hasAnchor" number="10.9">
+<h2><span class="header-section-number">10.9</span> Data management, recoding, and so on<a href="add-health-project.html#data-management-recoding-and-so-on" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="bmi" class="section level3 hasAnchor" number="10.9.1">
+<h3><span class="header-section-number">10.9.1</span> BMI<a href="add-health-project.html#bmi" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Alright, the following code does not work….</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="add-health-project.html#cb140-1" aria-hidden="true" tabindex="-1"></a>Final01<span class="sc">$</span>a_wgt_flag <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Final01<span class="sc">$</span>a_wgt_lbs <span class="sc">&lt;</span> <span class="dv">50</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb140-2"><a href="add-health-project.html#cb140-2" aria-hidden="true" tabindex="-1"></a>Final01<span class="sc">$</span>a_wgt_flag <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="dv">430</span> <span class="sc">&lt;</span> Final01<span class="sc">$</span>a_wgt_lbs, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb140-3"><a href="add-health-project.html#cb140-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-4"><a href="add-health-project.html#cb140-4" aria-hidden="true" tabindex="-1"></a>Final01<span class="sc">$</span>a_hgt_flag <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">as.integer</span>(Final01<span class="sc">$</span>a_hgt_ft) <span class="sc">&lt;</span> <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb140-5"><a href="add-health-project.html#cb140-5" aria-hidden="true" tabindex="-1"></a>Final01<span class="sc">$</span>a_hgt_flag <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="dv">95</span> <span class="sc">&lt;</span> <span class="fu">as.integer</span>(Final01<span class="sc">$</span>a_hgt_ft), <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb140-6"><a href="add-health-project.html#cb140-6" aria-hidden="true" tabindex="-1"></a>Final01<span class="sc">$</span>a_hgt_flag <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="dv">95</span> <span class="sc">&lt;</span> <span class="fu">as.integer</span>(Final01<span class="sc">$</span>a_hgt_in), <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb140-7"><a href="add-health-project.html#cb140-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-8"><a href="add-health-project.html#cb140-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Final01)</span></code></pre></div>
+<pre><code>##        AID             wave                    a_srh        a_wgt_lbs    
+##  57101310:    5   Min.   :1.00   (2) (2) Very good:8494   Min.   : 18.0  
+##  57111071:    5   1st Qu.:1.00   (1) (1) Excellent:5861   1st Qu.:130.0  
+##  57113943:    5   Median :3.00   (3) (3) Good     :5522   Median :155.0  
+##  57118381:    5   Mean   :2.83   2                :1503   Mean   :164.3  
+##  57118943:    5   3rd Qu.:4.00   3                :1393   3rd Qu.:190.0  
+##  57121404:    5   Max.   :5.00   (Other)          :2743   Max.   :525.0  
+##  (Other) :25500                  NA&#39;s             :  14   NA&#39;s   :457    
+##            a_hgt_ft                  a_hgt_in    
+##  (5) (5) 5 feet:13438   (06) (6) 6 inches: 1664  
+##  5             : 7504   (04) (4) 4 inches: 1624  
+##  (6) (6) 6 feet: 2128   (03) (3) 3 inches: 1451  
+##  6             : 1664   (02) (2) 2 inches: 1432  
+##  (4) (4) 4 feet:  386   (07) (7) 7 inches: 1430  
+##  (Other)       :  135   (Other)          :17632  
+##  NA&#39;s          :  275   NA&#39;s             :  297  
+##                         a_weightimage                     a_poorappetite 
+##  (1) (1) Very underweight      :  184   (0) (0) Never/rarely     : 4192  
+##  (2) (2) Slightly underweight  : 1632   (0) (0) Never            : 2312  
+##  (3) (3) About the right weight: 5957   (1) (1) Just a few times : 1834  
+##  (4) (4) Slightly overweight   : 3146   (1) (1) Sometimes        : 1744  
+##  (5) (5) Very overweight       :  400   (2) (2) About once a week:  508  
+##  NA&#39;s                          :14211   (Other)                  :  729  
+##                                         NA&#39;s                     :14211  
+##             a_sex         a_wgt_flag      a_hgt_flag 
+##  (1) (1) Male  :11874   Min.   :0e+00   Min.   :0    
+##  (2) (2) Female:13654   1st Qu.:0e+00   1st Qu.:0    
+##  NA&#39;s          :    2   Median :0e+00   Median :0    
+##                         Mean   :2e-04   Mean   :0    
+##                         3rd Qu.:0e+00   3rd Qu.:0    
+##                         Max.   :1e+00   Max.   :0    
+##                         NA&#39;s   :457     NA&#39;s   :297</code></pre>
+</div>
+<div id="sampling-weights" class="section level3 hasAnchor" number="10.9.2">
+<h3><span class="header-section-number">10.9.2</span> Sampling weights<a href="add-health-project.html#sampling-weights" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="multiple-imputation" class="section level3 hasAnchor" number="10.9.3">
+<h3><span class="header-section-number">10.9.3</span> Multiple imputation<a href="add-health-project.html#multiple-imputation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+</div>
+<div id="analytic-approach" class="section level2 hasAnchor" number="10.10">
+<h2><span class="header-section-number">10.10</span> Analytic approach<a href="add-health-project.html#analytic-approach" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The following models are demonstration only - mostly, the models themselves do not make sense.</p>
+<div id="a-linear-regression-with-the-current-dataset" class="section level3 hasAnchor" number="10.10.1">
+<h3><span class="header-section-number">10.10.1</span> A linear regression with the current dataset<a href="add-health-project.html#a-linear-regression-with-the-current-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="add-health-project.html#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lmer</span>(a_wgt_lbs <span class="sc">~</span> <span class="fu">as.numeric</span>(a_srh) <span class="sc">+</span> a_sex <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> AID), <span class="at">data=</span>Final01)</span></code></pre></div>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+## Formula: a_wgt_lbs ~ as.numeric(a_srh) + a_sex + (1 | AID)
+##    Data: Final01
+## REML criterion at convergence: 248599
+## Random effects:
+##  Groups   Name        Std.Dev.
+##  AID      (Intercept) 33.69   
+##  Residual             26.88   
+## Number of obs: 25069, groups:  AID, 6492
+## Fixed Effects:
+##         (Intercept)    as.numeric(a_srh)  a_sex(2) (2) Female  
+##             160.802                5.422              -25.999</code></pre>
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div class="csl-entry">
+Xie, Yihui. 2015. <em>Dynamic Documents with <span>R</span> and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.org/knitr/">http://yihui.org/knitr/</a>.
+</div>
+<div class="csl-entry">
+———. 2023. <em>Bookdown: Authoring Books and Technical Documents with r Markdown</em>.
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/10-AddHealthPublic.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
