@@ -1,0 +1,278 @@
+
+# Add Health Project
+
+## Library
+
+```{r}
+library(tidyverse)
+library(data.table)
+library(lme4)
+library(Matrix)
+```
+
+First, set the working folder to access datasets.
+
+```{r}
+#setwd("~/pCloudDrive")
+```
+
+
+## Access datasets
+
+Let's use the public datasets available at https://www.icpsr.umich.edu/web/ICPSR/studies/21600?archive=ICPSR&q=21600
+
+
+
+## Load 5-wave sample 
+
+First, each RDA dataset will be loaded and then saved as WAVE0X. After assigning a WAVE variable, we will keep the WAVE0X dataset and WX datasets only.
+
+```{r}
+load("~/pCloudDrive/Git/Survival/AddHealth/ICPSR_21600/DS0001/21600-0001-Data.rda")
+wave01 <- da21600.0001
+wave01$wave <- 1
+rm(da21600.0001)
+w1 = subset(wave01, select = c(AID, wave))
+```
+
+
+```{r}
+load("~/pCloudDrive/Git/Survival/AddHealth/ICPSR_21600/DS0005/21600-0005-Data.rda")
+wave02 <- da21600.0005
+wave02$wave <- 2
+
+rm(da21600.0005)
+w2 = subset(wave02, select = c(AID, wave))
+```
+
+
+```{r}
+load("~/pCloudDrive/Git/Survival/AddHealth/ICPSR_21600/DS0008/21600-0008-Data.rda")
+wave03 <- da21600.0008
+wave03$wave <- 3
+
+rm(da21600.0008)
+w3 = subset(wave03, select = c(AID, wave))
+```
+
+
+```{r}
+load("~/pCloudDrive/Git/Survival/AddHealth/ICPSR_21600/DS0022/21600-0022-Data.rda")
+wave04 <- da21600.0022
+wave04$wave <- 4
+
+rm(da21600.0022)
+w4 = subset(wave04, select = c(AID, wave))
+```
+
+
+```{r}
+load("~/pCloudDrive/Git/Survival/AddHealth/ICPSR_21600/DS0032/21600-0032-Data.rda")
+wave05 <- da21600.0032
+wave05$wave <- 5
+
+rm(da21600.0032)
+w5 = subset(wave05, select = c(AID, wave))
+```
+
+The complete list of respondents can be obtained by aggregating all WX datasets and then getting the unique AID.
+
+```{r}
+aaa <- rbind(w1, w2, w3, w4, w5)
+```
+
+
+```{r}
+AH01 <- unique(subset(rbind(w1, w2, w3, w4, w5), select = c(AID)))
+```
+
+It looks like the first wave contains all respondents - no addtional respondents were added.
+
+To check this observation, we will see both AID from the first wave and All matched. 
+
+```{r}
+test01 <- cbind(wave01, AH01, by="AID")
+```
+
+Because the n didn't change, we confirmed that WAVE01 contains all respondents of the study.
+
+## Long-form dataset (wave-person)
+
+Aggregating WX datasets will generate a long-form dataset per wave-person.
+
+```{r}
+lf01 <- rbind(w1, w2, w3, w4, w5)
+lf <- lf01[order(lf01$AID, lf01$wave), ]
+# 6504, 4834, 4882, 5114, 4196, 25530
+```
+
+
+We will save LF for the later use.
+
+
+## Exploring variables in Add Health
+
+Use "Variables" or other documentations at https://www.icpsr.umich.edu/web/ICPSR/studies/21600?archive=ICPSR&q=21600
+
+
+## Outcomes, exposures, and confounders
+
+Let's assume we are interested in the BMI trajectory, which calculation requires both weight and height in each wave. We also keep and rename exposures and confounders. This process requires getting back and force to add, rename, and remove a set of variables. To note, whenever keeping variables in your datasets, add AID and wave as default variables.
+
+It is a good practice to keep the variable names consistent - for example, variables for adolescence will have "a_", while those for adolescence's parents will have "p_", and those of adolescence's offspring will have "0_". By keeping all variable selection in one place, you can minimize any confusions in managing variables later.
+
+So, it looks like either lbs or kg, cm or inch was used for weight and height. Also, there are multiple variables for each weight or height, requiring your further study about which one is better than others.
+
+Here, I will simply go with the following variables, using BMI formula at https://www.cdc.gov/healthyweight/assessing/bmi/childrens_BMI/childrens_BMI_formula.html#:~:text=The%20formula%20for%20BMI%20is,to%20convert%20this%20to%20meters.&text=When%20using%20English%20measurements%2C%20pounds,2%20to%20kg%2Fm2.
+
+
+```{r}
+bmiwgt1 <- wave01 %>%
+  select(AID,
+         wave,
+         
+         "a_srh" = H1GH1,
+         
+         "a_wgt_lbs" = H1GH60,
+         "a_hgt_ft" = H1GH59A,
+         "a_hgt_in" = H1GH59B,
+         "a_weightimage" = H1GH28,
+         
+         "a_poorappetite" = H1FS2)
+
+summary(bmiwgt1)
+
+```
+
+
+```{r}
+bmiwgt2 <- wave02 %>%
+  select(AID,
+         wave,
+         
+         "a_srh" = H2GH1,
+         
+         "a_wgt_lbs" = H2GH53,
+         "a_hgt_ft" = H2WS16HF,
+         "a_hgt_in" = H2WS16HI,
+         "a_weightimage" = H2GH30,
+         
+         "a_poorappetite" = H2GH22)
+
+summary(bmiwgt2)
+```
+
+
+```{r}
+bmiwgt3 <- wave03 %>%
+  select(AID,
+         wave,
+         
+         "a_srh" = H3GH1,
+         
+         "a_wgt_lbs" = H3DA44,
+         "a_hgt_ft" = H3HGT_F,
+         "a_hgt_in" = H3HGT_I)
+
+summary(bmiwgt3)
+```
+
+
+```{r}
+bmiwgt4 <- wave04 %>%
+  select(AID,
+         wave,
+         
+         "a_srh" = H4GH1,
+         
+         "a_wgt_lbs" = H4GH6,
+         "a_hgt_ft" = H4GH5F,
+         "a_hgt_in" = H4GH5I)
+
+summary(bmiwgt4)
+```
+
+
+
+```{r}
+bmiwgt5 <- wave05 %>%
+  select(AID,
+         wave,
+         
+         "a_srh" = H5ID1,
+         
+         "a_wgt_lbs" = H5ID3,
+         "a_hgt_ft" = H5ID2F,
+         "a_hgt_in" = H5ID2I)
+
+summary(bmiwgt5)
+typeof(bmiwgt5$a_hgt_ft)
+```
+
+The "Rbind" function requires all datasets have a same numbers of columns. "setDT" and "fill=TRUE" are the functions from a "data.table" package that override this requirement. 
+
+Now, we have created a *long-form dataset (i.e., vars) from five sets of cross-sectional datasets*.
+
+```{r}
+vars01 <- rbind(setDT(bmiwgt1), setDT(bmiwgt2), setDT(bmiwgt3), setDT(bmiwgt4), setDT(bmiwgt5), fill=TRUE)
+vars <- vars01[order(vars01$AID, vars01$wave), ]
+# 6504, 4834, 4882, 5114, 4196, 25530
+```
+
+
+## Demographic variables - time-invariant
+
+```{r}
+demo_TI <- wave01 %>%
+  select(AID,
+         "a_sex" = BIO_SEX)
+```
+
+
+## Merging datasets
+
+The following code merges a long-form dataset (i.e., *vars*) and a time-invariant dataset (i.e., *demo_TI*). 
+
+```{r}
+Final01 <- merge(vars, demo_TI, by = c("AID"))
+summary(Final01)
+```
+
+
+## Data management, recoding, and so on
+
+### BMI
+
+Alright, the following code does not work....
+
+```{r}
+Final01$a_wgt_flag <- ifelse(Final01$a_wgt_lbs < 50, 1, 0)
+Final01$a_wgt_flag <- ifelse(430 < Final01$a_wgt_lbs, 1, 0)
+
+Final01$a_hgt_flag <- ifelse(as.integer(Final01$a_hgt_ft) < 4, 1, 0)
+Final01$a_hgt_flag <- ifelse(95 < as.integer(Final01$a_hgt_ft), 1, 0)
+Final01$a_hgt_flag <- ifelse(95 < as.integer(Final01$a_hgt_in), 1, 0)
+
+summary(Final01)
+```
+
+
+### Sampling weights
+
+### Multiple imputation
+
+
+
+
+
+## Analytic approach
+
+The following models are demonstration only - mostly, the models themselves do not make sense.
+
+### A linear regression with the current dataset
+
+```{r}
+lmer(a_wgt_lbs ~ as.numeric(a_srh) + a_sex + (1 | AID), data=Final01)
+```
+
+
