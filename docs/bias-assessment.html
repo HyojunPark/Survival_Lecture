@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Bias assessment | A Minimal Book Example</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Bias assessment | A Minimal Book Example" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Bias assessment | A Minimal Book Example" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="John Doe" />
+
+
+<meta name="date" content="2023-03-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="bias-assessment.html"><a href="bias-assessment.html"><i class="fa fa-check"></i><b>2</b> Bias assessment</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="bias-assessment.html"><a href="bias-assessment.html#bias-due-to-omitted-confounders"><i class="fa fa-check"></i><b>2.1</b> Bias due to omitted confounders</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="bias-assessment.html"><a href="bias-assessment.html#gold-standard"><i class="fa fa-check"></i><b>2.1.1</b> Gold standard</a></li>
+<li class="chapter" data-level="2.1.2" data-path="bias-assessment.html"><a href="bias-assessment.html#misspecified-model-a-confounder-c-was-omitted-from-the-model"><i class="fa fa-check"></i><b>2.1.2</b> Misspecified model: a confounder, <span class="math inline">\(C\)</span>, was omitted from the model</a></li>
+<li class="chapter" data-level="2.1.3" data-path="bias-assessment.html"><a href="bias-assessment.html#bias-away-from-or-towards-to-the-null"><i class="fa fa-check"></i><b>2.1.3</b> Bias “away from” or “towards to” the null?</a></li>
+<li class="chapter" data-level="2.1.4" data-path="bias-assessment.html"><a href="bias-assessment.html#a-c-is-not-a-confounder-on-x-and-y"><i class="fa fa-check"></i><b>2.1.4</b> A <span class="math inline">\(C\)</span> is not a confounder on <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span></a></li>
+<li class="chapter" data-level="2.1.5" data-path="bias-assessment.html"><a href="bias-assessment.html#correct-model-specification-without-c"><i class="fa fa-check"></i><b>2.1.5</b> Correct model specification: Without <span class="math inline">\(C\)</span></a></li>
+<li class="chapter" data-level="2.1.6" data-path="bias-assessment.html"><a href="bias-assessment.html#misspecified-model-with-c"><i class="fa fa-check"></i><b>2.1.6</b> Misspecified model with <span class="math inline">\(C\)</span></a></li>
+<li class="chapter" data-level="2.1.7" data-path="bias-assessment.html"><a href="bias-assessment.html#a-c-is-a-colloder-on-x-and-y"><i class="fa fa-check"></i><b>2.1.7</b> A <span class="math inline">\(C\)</span> is a colloder on <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span></a></li>
+<li class="chapter" data-level="2.1.8" data-path="bias-assessment.html"><a href="bias-assessment.html#correct-model-specification-without-c-1"><i class="fa fa-check"></i><b>2.1.8</b> Correct model specification: Without <span class="math inline">\(C\)</span></a></li>
+<li class="chapter" data-level="2.1.9" data-path="bias-assessment.html"><a href="bias-assessment.html#misspecified-model-with-c-1"><i class="fa fa-check"></i><b>2.1.9</b> Misspecified model with <span class="math inline">\(C\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="bias-assessment.html"><a href="bias-assessment.html#overadjustment-bias"><i class="fa fa-check"></i><b>2.2</b> Overadjustment bias</a></li>
+<li class="chapter" data-level="2.3" data-path="bias-assessment.html"><a href="bias-assessment.html#total-effect"><i class="fa fa-check"></i><b>2.3</b> Total effect</a></li>
+<li class="chapter" data-level="2.4" data-path="bias-assessment.html"><a href="bias-assessment.html#overadjustment"><i class="fa fa-check"></i><b>2.4</b> Overadjustment</a></li>
+<li class="chapter" data-level="2.5" data-path="bias-assessment.html"><a href="bias-assessment.html#logistic-models"><i class="fa fa-check"></i><b>2.5</b> Logistic models</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="bias-assessment.html"><a href="bias-assessment.html#sex-as-a-confounder-c"><i class="fa fa-check"></i><b>2.5.1</b> Sex as a Confounder, <span class="math inline">\(C\)</span></a></li>
+<li class="chapter" data-level="2.5.2" data-path="bias-assessment.html"><a href="bias-assessment.html#sex-as-a-moderator-m"><i class="fa fa-check"></i><b>2.5.2</b> Sex as a Moderator, <span class="math inline">\(M\)</span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><i class="fa fa-check"></i><b>3</b> Lecture: Nonparametric, semiparametric, and parametric survival models</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html#set-packages-and-library"><i class="fa fa-check"></i><b>3.1</b> Set packages and library</a></li>
+<li class="chapter" data-level="3.2" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html#dataset"><i class="fa fa-check"></i><b>3.2</b> dataset</a></li>
+<li class="chapter" data-level="3.3" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html#nonparametric-estimation"><i class="fa fa-check"></i><b>3.3</b> Nonparametric estimation</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html#data-for-nonparametric-models"><i class="fa fa-check"></i><b>3.3.1</b> Data for nonparametric models</a></li>
+<li class="chapter" data-level="3.3.2" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html#kaplan-meier-estimator"><i class="fa fa-check"></i><b>3.3.2</b> Kaplan-Meier estimator</a></li>
+<li class="chapter" data-level="3.3.3" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html#nelson-aalen-estimator"><i class="fa fa-check"></i><b>3.3.3</b> Nelson-Aalen estimator</a></li>
+<li class="chapter" data-level="3.3.4" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html#comparisons-by-groups"><i class="fa fa-check"></i><b>3.3.4</b> Comparisons by groups</a></li>
+<li class="chapter" data-level="3.3.5" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html#better-km-figures"><i class="fa fa-check"></i><b>3.3.5</b> Better KM figures</a></li>
+<li class="chapter" data-level="3.3.6" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html#nonparametric-models-using-a-child-dataset-from-eha"><i class="fa fa-check"></i><b>3.3.6</b> Nonparametric models using a <span class="math inline">\(child\)</span> dataset from eha</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html#proportional-hazards-and-cox-regression"><i class="fa fa-check"></i><b>3.4</b> Proportional Hazards and Cox Regression</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html#a-visual-check-for-a-proportionality-assumption"><i class="fa fa-check"></i><b>3.4.1</b> A visual check for a proportionality assumption</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html#parametric-estimation"><i class="fa fa-check"></i><b>3.5</b> Parametric estimation</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html#weibull-model"><i class="fa fa-check"></i><b>3.5.1</b> Weibull model</a></li>
+<li class="chapter" data-level="3.5.2" data-path="lecture-nonparametric-semiparametric-and-parametric-survival-models.html"><a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html#gompertz-model"><i class="fa fa-check"></i><b>3.5.2</b> Gompertz model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="add-health-project.html"><a href="add-health-project.html"><i class="fa fa-check"></i><b>4</b> Add Health Project</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="add-health-project.html"><a href="add-health-project.html#library"><i class="fa fa-check"></i><b>4.1</b> Library</a></li>
+<li class="chapter" data-level="4.2" data-path="add-health-project.html"><a href="add-health-project.html#access-datasets"><i class="fa fa-check"></i><b>4.2</b> Access datasets</a></li>
+<li class="chapter" data-level="4.3" data-path="add-health-project.html"><a href="add-health-project.html#load-5-wave-sample"><i class="fa fa-check"></i><b>4.3</b> Load 5-wave sample</a></li>
+<li class="chapter" data-level="4.4" data-path="add-health-project.html"><a href="add-health-project.html#long-form-dataset-wave-person"><i class="fa fa-check"></i><b>4.4</b> Long-form dataset (wave-person)</a></li>
+<li class="chapter" data-level="4.5" data-path="add-health-project.html"><a href="add-health-project.html#exploring-variables-in-add-health"><i class="fa fa-check"></i><b>4.5</b> Exploring variables in Add Health</a></li>
+<li class="chapter" data-level="4.6" data-path="add-health-project.html"><a href="add-health-project.html#outcomes-exposures-and-confounders"><i class="fa fa-check"></i><b>4.6</b> Outcomes, exposures, and confounders</a></li>
+<li class="chapter" data-level="4.7" data-path="add-health-project.html"><a href="add-health-project.html#demographic-variables---time-invariant"><i class="fa fa-check"></i><b>4.7</b> Demographic variables - time-invariant</a></li>
+<li class="chapter" data-level="4.8" data-path="add-health-project.html"><a href="add-health-project.html#merging-datasets"><i class="fa fa-check"></i><b>4.8</b> Merging datasets</a></li>
+<li class="chapter" data-level="4.9" data-path="add-health-project.html"><a href="add-health-project.html#data-management-recoding-and-so-on"><i class="fa fa-check"></i><b>4.9</b> Data management, recoding, and so on</a>
+<ul>
+<li class="chapter" data-level="4.9.1" data-path="add-health-project.html"><a href="add-health-project.html#bmi"><i class="fa fa-check"></i><b>4.9.1</b> BMI</a></li>
+<li class="chapter" data-level="4.9.2" data-path="add-health-project.html"><a href="add-health-project.html#sampling-weights"><i class="fa fa-check"></i><b>4.9.2</b> Sampling weights</a></li>
+<li class="chapter" data-level="4.9.3" data-path="add-health-project.html"><a href="add-health-project.html#multiple-imputation"><i class="fa fa-check"></i><b>4.9.3</b> Multiple imputation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.10" data-path="add-health-project.html"><a href="add-health-project.html#analytic-approach"><i class="fa fa-check"></i><b>4.10</b> Analytic approach</a>
+<ul>
+<li class="chapter" data-level="4.10.1" data-path="add-health-project.html"><a href="add-health-project.html#a-linear-regression-with-the-current-dataset"><i class="fa fa-check"></i><b>4.10.1</b> A linear regression with the current dataset</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Book Example</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="bias-assessment" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Bias assessment<a href="bias-assessment.html#bias-assessment" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Available at <a href="https://rpubs.com/Hyojun/bias" class="uri">https://rpubs.com/Hyojun/bias</a></p>
+<div style="page-break-after: always;"></div>
+<div id="bias-due-to-omitted-confounders" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Bias due to omitted confounders<a href="bias-assessment.html#bias-due-to-omitted-confounders" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span class="math display">\[y_i = \beta_0 + \beta_1 x_i + \beta_2 x_2 + \dots + \epsilon_i; \;\; for \;\; i=1, \dots, n\]</span></p>
+<p>where the errors <span class="math inline">\(\epsilon_i \sim N(0, \sigma^2)\)</span> with independent and identically distributed (<em>i.i.d.</em>)</p>
+<p>Let’s assume the following association is true (i.e., gold standard) without any selection bias, measurement bias, and other unmeasured confoundings.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="bias-assessment.html#cb1-1" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">100000</span></span>
+<span id="cb1-2"><a href="bias-assessment.html#cb1-2" aria-hidden="true" tabindex="-1"></a>C <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(N)</span>
+<span id="cb1-3"><a href="bias-assessment.html#cb1-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> .<span class="dv">5</span> <span class="sc">*</span> C <span class="sc">+</span> <span class="fu">rnorm</span>(N)</span>
+<span id="cb1-4"><a href="bias-assessment.html#cb1-4" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> .<span class="dv">3</span> <span class="sc">*</span> C <span class="sc">+</span> .<span class="dv">4</span> <span class="sc">*</span> X <span class="sc">+</span> <span class="fu">rnorm</span>(N)</span></code></pre></div>
+<div id="gold-standard" class="section level3 hasAnchor" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Gold standard<a href="bias-assessment.html#gold-standard" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>With the correct model specification (i.e., <span class="math inline">\(C\)</span> as a confounder), we get an unbiased estimate of <span class="math inline">\(X\)</span> on <span class="math inline">\(Y\)</span>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="bias-assessment.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gold standard</span></span>
+<span id="cb2-2"><a href="bias-assessment.html#cb2-2" aria-hidden="true" tabindex="-1"></a>glm.unbiased <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y<span class="sc">~</span>X <span class="sc">+</span> C, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>)</span>
+<span id="cb2-3"><a href="bias-assessment.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.unbiased)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = Y ~ X + C, family = &quot;gaussian&quot;)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -4.2001  -0.6727   0.0041   0.6762   4.5112  
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 0.001067   0.003171   0.337    0.736    
+## X           0.403637   0.003173 127.201   &lt;2e-16 ***
+## C           0.300055   0.003557  84.362   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for gaussian family taken to be 1.005701)
+## 
+##     Null deviance: 141965  on 99999  degrees of freedom
+## Residual deviance: 100567  on 99997  degrees of freedom
+## AIC: 284361
+## 
+## Number of Fisher Scoring iterations: 2</code></pre>
+</div>
+<div id="misspecified-model-a-confounder-c-was-omitted-from-the-model" class="section level3 hasAnchor" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Misspecified model: a confounder, <span class="math inline">\(C\)</span>, was omitted from the model<a href="bias-assessment.html#misspecified-model-a-confounder-c-was-omitted-from-the-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>By omitting <span class="math inline">\(C\)</span>, the estimate of <span class="math inline">\(X\)</span> was biased either “away from” or “towards to” the null</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="bias-assessment.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># C was omitted</span></span>
+<span id="cb4-2"><a href="bias-assessment.html#cb4-2" aria-hidden="true" tabindex="-1"></a>glm.unbiased <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y<span class="sc">~</span>X, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>)</span>
+<span id="cb4-3"><a href="bias-assessment.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.unbiased)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = Y ~ X, family = &quot;gaussian&quot;)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -4.4468  -0.6962   0.0041   0.7020   4.9310  
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 0.0004783  0.0032822   0.146    0.884    
+## X           0.5235183  0.0029365 178.281   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for gaussian family taken to be 1.077269)
+## 
+##     Null deviance: 141965  on 99999  degrees of freedom
+## Residual deviance: 107725  on 99998  degrees of freedom
+## AIC: 291235
+## 
+## Number of Fisher Scoring iterations: 2</code></pre>
+</div>
+<div id="bias-away-from-or-towards-to-the-null" class="section level3 hasAnchor" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> Bias “away from” or “towards to” the null?<a href="bias-assessment.html#bias-away-from-or-towards-to-the-null" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="bias-assessment.html#cb6-1" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">100000</span></span>
+<span id="cb6-2"><a href="bias-assessment.html#cb6-2" aria-hidden="true" tabindex="-1"></a>C <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(N)</span>
+<span id="cb6-3"><a href="bias-assessment.html#cb6-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="sc">-</span>.<span class="dv">5</span> <span class="sc">*</span> C <span class="sc">+</span> <span class="fu">rnorm</span>(N)</span>
+<span id="cb6-4"><a href="bias-assessment.html#cb6-4" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="sc">-</span>.<span class="dv">3</span> <span class="sc">*</span> C <span class="sc">+</span> .<span class="dv">4</span> <span class="sc">*</span> X <span class="sc">+</span> <span class="fu">rnorm</span>(N)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="bias-assessment.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># C was omitted</span></span>
+<span id="cb7-2"><a href="bias-assessment.html#cb7-2" aria-hidden="true" tabindex="-1"></a>glm.unbiased <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y<span class="sc">~</span>X <span class="sc">+</span> C, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>)</span>
+<span id="cb7-3"><a href="bias-assessment.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.unbiased)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = Y ~ X + C, family = &quot;gaussian&quot;)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -4.5069  -0.6734  -0.0005   0.6773   4.0939  
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.001220   0.003158   0.386    0.699    
+## X            0.400824   0.003160 126.831   &lt;2e-16 ***
+## C           -0.299071   0.003533 -84.663   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for gaussian family taken to be 0.9975295)
+## 
+##     Null deviance: 141008  on 99999  degrees of freedom
+## Residual deviance:  99750  on 99997  degrees of freedom
+## AIC: 283545
+## 
+## Number of Fisher Scoring iterations: 2</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="bias-assessment.html#cb9-1" aria-hidden="true" tabindex="-1"></a>glm.unbiased <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y<span class="sc">~</span>X, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>)</span>
+<span id="cb9-2"><a href="bias-assessment.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.unbiased)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = Y ~ X, family = &quot;gaussian&quot;)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -4.9440  -0.6965  -0.0019   0.6962   3.9948  
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 0.003258   0.003270   0.997    0.319    
+## X           0.521531   0.002920 178.622   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for gaussian family taken to be 1.069022)
+## 
+##     Null deviance: 141008  on 99999  degrees of freedom
+## Residual deviance: 106900  on 99998  degrees of freedom
+## AIC: 290466
+## 
+## Number of Fisher Scoring iterations: 2</code></pre>
+</div>
+<div id="a-c-is-not-a-confounder-on-x-and-y" class="section level3 hasAnchor" number="2.1.4">
+<h3><span class="header-section-number">2.1.4</span> A <span class="math inline">\(C\)</span> is not a confounder on <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span><a href="bias-assessment.html#a-c-is-not-a-confounder-on-x-and-y" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="bias-assessment.html#cb11-1" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">100000</span></span>
+<span id="cb11-2"><a href="bias-assessment.html#cb11-2" aria-hidden="true" tabindex="-1"></a>C <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(N)</span>
+<span id="cb11-3"><a href="bias-assessment.html#cb11-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(N)</span>
+<span id="cb11-4"><a href="bias-assessment.html#cb11-4" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> .<span class="dv">4</span> <span class="sc">*</span> X <span class="sc">+</span> <span class="fu">rnorm</span>(N)</span></code></pre></div>
+</div>
+<div id="correct-model-specification-without-c" class="section level3 hasAnchor" number="2.1.5">
+<h3><span class="header-section-number">2.1.5</span> Correct model specification: Without <span class="math inline">\(C\)</span><a href="bias-assessment.html#correct-model-specification-without-c" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="bias-assessment.html#cb12-1" aria-hidden="true" tabindex="-1"></a>glm.unbiased <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y<span class="sc">~</span>X, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>)</span>
+<span id="cb12-2"><a href="bias-assessment.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.unbiased)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = Y ~ X, family = &quot;gaussian&quot;)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -4.1359  -0.6732  -0.0018   0.6729   4.5065  
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 0.0004384  0.0031657   0.138     0.89    
+## X           0.3977515  0.0031709 125.438   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for gaussian family taken to be 1.002152)
+## 
+##     Null deviance: 115982  on 99999  degrees of freedom
+## Residual deviance: 100213  on 99998  degrees of freedom
+## AIC: 284007
+## 
+## Number of Fisher Scoring iterations: 2</code></pre>
+</div>
+<div id="misspecified-model-with-c" class="section level3 hasAnchor" number="2.1.6">
+<h3><span class="header-section-number">2.1.6</span> Misspecified model with <span class="math inline">\(C\)</span><a href="bias-assessment.html#misspecified-model-with-c" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="bias-assessment.html#cb14-1" aria-hidden="true" tabindex="-1"></a>glm.unbiased <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y<span class="sc">~</span>X <span class="sc">+</span> C, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>)</span>
+<span id="cb14-2"><a href="bias-assessment.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.unbiased)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = Y ~ X + C, family = &quot;gaussian&quot;)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -4.1341  -0.6734  -0.0018   0.6729   4.5079  
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 0.0004366  0.0031657   0.138    0.890    
+## X           0.3977495  0.0031709 125.437   &lt;2e-16 ***
+## C           0.0014321  0.0031670   0.452    0.651    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for gaussian family taken to be 1.00216)
+## 
+##     Null deviance: 115982  on 99999  degrees of freedom
+## Residual deviance: 100213  on 99997  degrees of freedom
+## AIC: 284008
+## 
+## Number of Fisher Scoring iterations: 2</code></pre>
+</div>
+<div id="a-c-is-a-colloder-on-x-and-y" class="section level3 hasAnchor" number="2.1.7">
+<h3><span class="header-section-number">2.1.7</span> A <span class="math inline">\(C\)</span> is a colloder on <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span><a href="bias-assessment.html#a-c-is-a-colloder-on-x-and-y" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="bias-assessment.html#cb16-1" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">100000</span></span>
+<span id="cb16-2"><a href="bias-assessment.html#cb16-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(N)</span>
+<span id="cb16-3"><a href="bias-assessment.html#cb16-3" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> .<span class="dv">7</span> <span class="sc">*</span> X <span class="sc">+</span> <span class="fu">rnorm</span>(N)</span>
+<span id="cb16-4"><a href="bias-assessment.html#cb16-4" aria-hidden="true" tabindex="-1"></a>C <span class="ot">&lt;-</span> <span class="fl">1.2</span> <span class="sc">*</span> X <span class="sc">+</span> .<span class="dv">6</span> <span class="sc">*</span> Y <span class="sc">+</span> <span class="fu">rnorm</span>(N)</span></code></pre></div>
+</div>
+<div id="correct-model-specification-without-c-1" class="section level3 hasAnchor" number="2.1.8">
+<h3><span class="header-section-number">2.1.8</span> Correct model specification: Without <span class="math inline">\(C\)</span><a href="bias-assessment.html#correct-model-specification-without-c-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="bias-assessment.html#cb17-1" aria-hidden="true" tabindex="-1"></a>glm.unbiased <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y<span class="sc">~</span>X, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>)</span>
+<span id="cb17-2"><a href="bias-assessment.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.unbiased)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = Y ~ X, family = &quot;gaussian&quot;)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -4.0624  -0.6756   0.0021   0.6787   4.3708  
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 0.001463   0.003161   0.463    0.643    
+## X           0.700049   0.003161 221.433   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for gaussian family taken to be 0.99939)
+## 
+##     Null deviance: 148940  on 99999  degrees of freedom
+## Residual deviance:  99937  on 99998  degrees of freedom
+## AIC: 283731
+## 
+## Number of Fisher Scoring iterations: 2</code></pre>
+</div>
+<div id="misspecified-model-with-c-1" class="section level3 hasAnchor" number="2.1.9">
+<h3><span class="header-section-number">2.1.9</span> Misspecified model with <span class="math inline">\(C\)</span><a href="bias-assessment.html#misspecified-model-with-c-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This is one of examples of selection bias. For example, let’s say, <span class="math inline">\(X\)</span> is Education, <span class="math inline">\(Y\)</span> is income, and <span class="math inline">\(C\)</span> is social welfare program. People at lower education (i.e., high risk group in terms of exposure) and lower income (i.e., higher risk group in terms of outcome) are more likely to register social welfare program. If survey was conducted based on the registered social welfare program, the “estimated” association from this “disproportionally selected” respondents are likely biased.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="bias-assessment.html#cb19-1" aria-hidden="true" tabindex="-1"></a>glm.unbiased <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y<span class="sc">~</span>X <span class="sc">+</span> C, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>)</span>
+<span id="cb19-2"><a href="bias-assessment.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.unbiased)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = Y ~ X + C, family = &quot;gaussian&quot;)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -3.7217  -0.5788  -0.0002   0.5825   3.7354  
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.001837   0.002713   0.677  0.49825    
+## X           -0.014316   0.004649  -3.079  0.00208 ** 
+## C            0.440719   0.002329 189.211  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for gaussian family taken to be 0.7359254)
+## 
+##     Null deviance: 148940  on 99999  degrees of freedom
+## Residual deviance:  73590  on 99997  degrees of freedom
+## AIC: 253130
+## 
+## Number of Fisher Scoring iterations: 2</code></pre>
+</div>
+</div>
+<div id="overadjustment-bias" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Overadjustment bias<a href="bias-assessment.html#overadjustment-bias" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Please note that this is not a comprehensive example; only reflect one aspect of potential overadjustement bias.</p>
+<p>Let’s assume a model with <span class="math inline">\(M\)</span> as a mediator.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="bias-assessment.html#cb21-1" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">100000</span></span>
+<span id="cb21-2"><a href="bias-assessment.html#cb21-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(N)</span>
+<span id="cb21-3"><a href="bias-assessment.html#cb21-3" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> .<span class="dv">5</span> <span class="sc">*</span> X <span class="sc">+</span> <span class="fu">rnorm</span>(N)</span>
+<span id="cb21-4"><a href="bias-assessment.html#cb21-4" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> .<span class="dv">3</span> <span class="sc">*</span> X <span class="sc">+</span> .<span class="dv">4</span> <span class="sc">*</span> M <span class="sc">+</span> <span class="fu">rnorm</span>(N)</span></code></pre></div>
+</div>
+<div id="total-effect" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Total effect<a href="bias-assessment.html#total-effect" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="bias-assessment.html#cb22-1" aria-hidden="true" tabindex="-1"></a>glm.unbiased <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y<span class="sc">~</span>X, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>)</span>
+<span id="cb22-2"><a href="bias-assessment.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.unbiased)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = Y ~ X, family = &quot;gaussian&quot;)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -4.6774  -0.7253   0.0020   0.7314   4.6742  
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -0.001494   0.003414  -0.438    0.662    
+## X            0.507338   0.003404 149.044   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for gaussian family taken to be 1.165675)
+## 
+##     Null deviance: 142459  on 99999  degrees of freedom
+## Residual deviance: 116565  on 99998  degrees of freedom
+## AIC: 299122
+## 
+## Number of Fisher Scoring iterations: 2</code></pre>
+</div>
+<div id="overadjustment" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Overadjustment<a href="bias-assessment.html#overadjustment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="bias-assessment.html#cb24-1" aria-hidden="true" tabindex="-1"></a>glm.unbiased <span class="ot">&lt;-</span> <span class="fu">glm</span>(Y<span class="sc">~</span>X <span class="sc">+</span> M, <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>)</span>
+<span id="cb24-2"><a href="bias-assessment.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.unbiased)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = Y ~ X + M, family = &quot;gaussian&quot;)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -4.5165  -0.6733  -0.0002   0.6788   4.7492  
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 0.003411   0.003164   1.078    0.281    
+## X           0.303497   0.003533  85.911   &lt;2e-16 ***
+## M           0.403739   0.003149 128.198   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for gaussian family taken to be 1.001147)
+## 
+##     Null deviance: 142459  on 99999  degrees of freedom
+## Residual deviance: 100112  on 99997  degrees of freedom
+## AIC: 283907
+## 
+## Number of Fisher Scoring iterations: 2</code></pre>
+</div>
+<div id="logistic-models" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Logistic models<a href="bias-assessment.html#logistic-models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="sex-as-a-confounder-c" class="section level3 hasAnchor" number="2.5.1">
+<h3><span class="header-section-number">2.5.1</span> Sex as a Confounder, <span class="math inline">\(C\)</span><a href="bias-assessment.html#sex-as-a-confounder-c" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="bias-assessment.html#cb26-1" aria-hidden="true" tabindex="-1"></a>MYY <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Sex =</span> <span class="st">&quot;Male&quot;</span>,</span>
+<span id="cb26-2"><a href="bias-assessment.html#cb26-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Smoking =</span> <span class="st">&quot;Yes&quot;</span>,</span>
+<span id="cb26-3"><a href="bias-assessment.html#cb26-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Cancer =</span> <span class="dv">1</span>,</span>
+<span id="cb26-4"><a href="bias-assessment.html#cb26-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">freq =</span> <span class="dv">5</span></span>
+<span id="cb26-5"><a href="bias-assessment.html#cb26-5" aria-hidden="true" tabindex="-1"></a>                  )</span>
+<span id="cb26-6"><a href="bias-assessment.html#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="bias-assessment.html#cb26-7" aria-hidden="true" tabindex="-1"></a>MYN <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Sex =</span> <span class="st">&quot;Male&quot;</span>,</span>
+<span id="cb26-8"><a href="bias-assessment.html#cb26-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Smoking =</span> <span class="st">&quot;Yes&quot;</span>,</span>
+<span id="cb26-9"><a href="bias-assessment.html#cb26-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Cancer =</span> <span class="dv">0</span>,</span>
+<span id="cb26-10"><a href="bias-assessment.html#cb26-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">freq =</span> <span class="dv">8</span></span>
+<span id="cb26-11"><a href="bias-assessment.html#cb26-11" aria-hidden="true" tabindex="-1"></a>                  )</span>
+<span id="cb26-12"><a href="bias-assessment.html#cb26-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-13"><a href="bias-assessment.html#cb26-13" aria-hidden="true" tabindex="-1"></a>MNY <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Sex =</span> <span class="st">&quot;Male&quot;</span>,</span>
+<span id="cb26-14"><a href="bias-assessment.html#cb26-14" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Smoking =</span> <span class="st">&quot;No&quot;</span>,</span>
+<span id="cb26-15"><a href="bias-assessment.html#cb26-15" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Cancer =</span> <span class="dv">1</span>,</span>
+<span id="cb26-16"><a href="bias-assessment.html#cb26-16" aria-hidden="true" tabindex="-1"></a>                  <span class="at">freq =</span> <span class="dv">45</span></span>
+<span id="cb26-17"><a href="bias-assessment.html#cb26-17" aria-hidden="true" tabindex="-1"></a>                  )</span>
+<span id="cb26-18"><a href="bias-assessment.html#cb26-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-19"><a href="bias-assessment.html#cb26-19" aria-hidden="true" tabindex="-1"></a>MNN <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Sex =</span> <span class="st">&quot;Male&quot;</span>,</span>
+<span id="cb26-20"><a href="bias-assessment.html#cb26-20" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Smoking =</span> <span class="st">&quot;No&quot;</span>,</span>
+<span id="cb26-21"><a href="bias-assessment.html#cb26-21" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Cancer =</span> <span class="dv">0</span>,</span>
+<span id="cb26-22"><a href="bias-assessment.html#cb26-22" aria-hidden="true" tabindex="-1"></a>                  <span class="at">freq =</span> <span class="dv">72</span></span>
+<span id="cb26-23"><a href="bias-assessment.html#cb26-23" aria-hidden="true" tabindex="-1"></a>                  )</span>
+<span id="cb26-24"><a href="bias-assessment.html#cb26-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-25"><a href="bias-assessment.html#cb26-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-26"><a href="bias-assessment.html#cb26-26" aria-hidden="true" tabindex="-1"></a>FYY <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Sex =</span> <span class="st">&quot;Female&quot;</span>,</span>
+<span id="cb26-27"><a href="bias-assessment.html#cb26-27" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Smoking =</span> <span class="st">&quot;Yes&quot;</span>,</span>
+<span id="cb26-28"><a href="bias-assessment.html#cb26-28" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Cancer =</span> <span class="dv">1</span>,</span>
+<span id="cb26-29"><a href="bias-assessment.html#cb26-29" aria-hidden="true" tabindex="-1"></a>                  <span class="at">freq =</span> <span class="dv">25</span></span>
+<span id="cb26-30"><a href="bias-assessment.html#cb26-30" aria-hidden="true" tabindex="-1"></a>                  )</span>
+<span id="cb26-31"><a href="bias-assessment.html#cb26-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-32"><a href="bias-assessment.html#cb26-32" aria-hidden="true" tabindex="-1"></a>FYN <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Sex =</span> <span class="st">&quot;Female&quot;</span>,</span>
+<span id="cb26-33"><a href="bias-assessment.html#cb26-33" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Smoking =</span> <span class="st">&quot;Yes&quot;</span>,</span>
+<span id="cb26-34"><a href="bias-assessment.html#cb26-34" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Cancer =</span> <span class="dv">0</span>,</span>
+<span id="cb26-35"><a href="bias-assessment.html#cb26-35" aria-hidden="true" tabindex="-1"></a>                  <span class="at">freq =</span> <span class="dv">10</span></span>
+<span id="cb26-36"><a href="bias-assessment.html#cb26-36" aria-hidden="true" tabindex="-1"></a>                  )</span>
+<span id="cb26-37"><a href="bias-assessment.html#cb26-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-38"><a href="bias-assessment.html#cb26-38" aria-hidden="true" tabindex="-1"></a>FNY <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Sex =</span> <span class="st">&quot;Female&quot;</span>,</span>
+<span id="cb26-39"><a href="bias-assessment.html#cb26-39" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Smoking =</span> <span class="st">&quot;No&quot;</span>,</span>
+<span id="cb26-40"><a href="bias-assessment.html#cb26-40" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Cancer =</span> <span class="dv">1</span>,</span>
+<span id="cb26-41"><a href="bias-assessment.html#cb26-41" aria-hidden="true" tabindex="-1"></a>                  <span class="at">freq =</span> <span class="dv">25</span></span>
+<span id="cb26-42"><a href="bias-assessment.html#cb26-42" aria-hidden="true" tabindex="-1"></a>                  )</span>
+<span id="cb26-43"><a href="bias-assessment.html#cb26-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-44"><a href="bias-assessment.html#cb26-44" aria-hidden="true" tabindex="-1"></a>FNN <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Sex =</span> <span class="st">&quot;Female&quot;</span>,</span>
+<span id="cb26-45"><a href="bias-assessment.html#cb26-45" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Smoking =</span> <span class="st">&quot;No&quot;</span>,</span>
+<span id="cb26-46"><a href="bias-assessment.html#cb26-46" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Cancer =</span> <span class="dv">0</span>,</span>
+<span id="cb26-47"><a href="bias-assessment.html#cb26-47" aria-hidden="true" tabindex="-1"></a>                  <span class="at">freq =</span> <span class="dv">10</span></span>
+<span id="cb26-48"><a href="bias-assessment.html#cb26-48" aria-hidden="true" tabindex="-1"></a>                  )</span>
+<span id="cb26-49"><a href="bias-assessment.html#cb26-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-50"><a href="bias-assessment.html#cb26-50" aria-hidden="true" tabindex="-1"></a>Ex_confounder <span class="ot">&lt;-</span> <span class="fu">rbind</span>(MYY, MYN, MNY, MNN, FYY, FYN, FNY, FNN)</span></code></pre></div>
+<p>Convert Freq table to raw data</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="bias-assessment.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb27-2"><a href="bias-assessment.html#cb27-2" aria-hidden="true" tabindex="-1"></a>raw_confounder <span class="ot">&lt;-</span> Ex_confounder <span class="sc">%&gt;%</span> </span>
+<span id="cb27-3"><a href="bias-assessment.html#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">uncount</span>(freq)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="bias-assessment.html#cb28-1" aria-hidden="true" tabindex="-1"></a>glm.unbiased <span class="ot">&lt;-</span> <span class="fu">glm</span>(Cancer <span class="sc">~</span> Smoking , <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>), <span class="at">data=</span>raw_confounder)</span>
+<span id="cb28-2"><a href="bias-assessment.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.unbiased)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = Cancer ~ Smoking, family = binomial(link = &quot;logit&quot;), 
+##     data = raw_confounder)
+## 
+## Deviance Residuals: 
+##      Min        1Q    Median        3Q       Max  
+## -1.40059  -1.11100  -0.07073   1.24530   1.24530  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)  
+## (Intercept)  -0.1582     0.1627  -0.972   0.3309  
+## SmokingYes    0.6690     0.3397   1.970   0.0489 *
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 277.26  on 199  degrees of freedom
+## Residual deviance: 273.28  on 198  degrees of freedom
+## AIC: 277.28
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<ul>
+<li>Full model:</li>
+</ul>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="bias-assessment.html#cb30-1" aria-hidden="true" tabindex="-1"></a>glm_logit <span class="ot">&lt;-</span> <span class="fu">glm</span>(Cancer <span class="sc">~</span> Smoking <span class="sc">+</span> Sex , <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>), <span class="at">data=</span>raw_confounder)</span>
+<span id="cb30-2"><a href="bias-assessment.html#cb30-2" aria-hidden="true" tabindex="-1"></a>glm_logit</span></code></pre></div>
+<pre><code>## 
+## Call:  glm(formula = Cancer ~ Smoking + Sex, family = binomial(link = &quot;logit&quot;), 
+##     data = raw_confounder)
+## 
+## Coefficients:
+## (Intercept)   SmokingYes      SexMale  
+##   9.163e-01    4.266e-15   -1.386e+00  
+## 
+## Degrees of Freedom: 199 Total (i.e. Null);  197 Residual
+## Null Deviance:       277.3 
+## Residual Deviance: 257   AIC: 263</code></pre>
+<ul>
+<li>Stratified models</li>
+</ul>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="bias-assessment.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="do">## For males</span></span>
+<span id="cb32-2"><a href="bias-assessment.html#cb32-2" aria-hidden="true" tabindex="-1"></a>raw_confounder_M <span class="ot">&lt;-</span> raw_confounder[ <span class="fu">which</span>(raw_confounder<span class="sc">$</span>Sex<span class="sc">==</span><span class="st">&#39;Male&#39;</span>), ]</span>
+<span id="cb32-3"><a href="bias-assessment.html#cb32-3" aria-hidden="true" tabindex="-1"></a>glm_logit_m <span class="ot">&lt;-</span> <span class="fu">glm</span>(Cancer <span class="sc">~</span> Smoking , <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>), <span class="at">data=</span>raw_confounder_M)</span>
+<span id="cb32-4"><a href="bias-assessment.html#cb32-4" aria-hidden="true" tabindex="-1"></a>glm_logit_m</span></code></pre></div>
+<pre><code>## 
+## Call:  glm(formula = Cancer ~ Smoking, family = binomial(link = &quot;logit&quot;), 
+##     data = raw_confounder_M)
+## 
+## Coefficients:
+## (Intercept)   SmokingYes  
+##  -4.700e-01    6.672e-16  
+## 
+## Degrees of Freedom: 129 Total (i.e. Null);  128 Residual
+## Null Deviance:       173.2 
+## Residual Deviance: 173.2     AIC: 177.2</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="bias-assessment.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For females</span></span>
+<span id="cb34-2"><a href="bias-assessment.html#cb34-2" aria-hidden="true" tabindex="-1"></a>raw_confounder_F <span class="ot">&lt;-</span> raw_confounder[ <span class="fu">which</span>(raw_confounder<span class="sc">$</span>Sex<span class="sc">==</span><span class="st">&#39;Female&#39;</span>), ]</span>
+<span id="cb34-3"><a href="bias-assessment.html#cb34-3" aria-hidden="true" tabindex="-1"></a>glm_logit_f <span class="ot">&lt;-</span> <span class="fu">glm</span>(Cancer <span class="sc">~</span> Smoking , <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>), <span class="at">data=</span>raw_confounder_F)</span>
+<span id="cb34-4"><a href="bias-assessment.html#cb34-4" aria-hidden="true" tabindex="-1"></a>glm_logit_f</span></code></pre></div>
+<pre><code>## 
+## Call:  glm(formula = Cancer ~ Smoking, family = binomial(link = &quot;logit&quot;), 
+##     data = raw_confounder_F)
+## 
+## Coefficients:
+## (Intercept)   SmokingYes  
+##   9.163e-01    9.400e-16  
+## 
+## Degrees of Freedom: 69 Total (i.e. Null);  68 Residual
+## Null Deviance:       83.76 
+## Residual Deviance: 83.76     AIC: 87.76</code></pre>
+</div>
+<div id="sex-as-a-moderator-m" class="section level3 hasAnchor" number="2.5.2">
+<h3><span class="header-section-number">2.5.2</span> Sex as a Moderator, <span class="math inline">\(M\)</span><a href="bias-assessment.html#sex-as-a-moderator-m" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="bias-assessment.html#cb36-1" aria-hidden="true" tabindex="-1"></a>MYY <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Sex =</span> <span class="st">&quot;Male&quot;</span>,</span>
+<span id="cb36-2"><a href="bias-assessment.html#cb36-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Smoking =</span> <span class="st">&quot;Yes&quot;</span>,</span>
+<span id="cb36-3"><a href="bias-assessment.html#cb36-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Cancer =</span> <span class="dv">1</span>,</span>
+<span id="cb36-4"><a href="bias-assessment.html#cb36-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">freq =</span> <span class="dv">5</span></span>
+<span id="cb36-5"><a href="bias-assessment.html#cb36-5" aria-hidden="true" tabindex="-1"></a>                  )</span>
+<span id="cb36-6"><a href="bias-assessment.html#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-7"><a href="bias-assessment.html#cb36-7" aria-hidden="true" tabindex="-1"></a>MYN <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Sex =</span> <span class="st">&quot;Male&quot;</span>,</span>
+<span id="cb36-8"><a href="bias-assessment.html#cb36-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Smoking =</span> <span class="st">&quot;Yes&quot;</span>,</span>
+<span id="cb36-9"><a href="bias-assessment.html#cb36-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Cancer =</span> <span class="dv">0</span>,</span>
+<span id="cb36-10"><a href="bias-assessment.html#cb36-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">freq =</span> <span class="dv">4</span></span>
+<span id="cb36-11"><a href="bias-assessment.html#cb36-11" aria-hidden="true" tabindex="-1"></a>                  )</span>
+<span id="cb36-12"><a href="bias-assessment.html#cb36-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-13"><a href="bias-assessment.html#cb36-13" aria-hidden="true" tabindex="-1"></a>MNY <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Sex =</span> <span class="st">&quot;Male&quot;</span>,</span>
+<span id="cb36-14"><a href="bias-assessment.html#cb36-14" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Smoking =</span> <span class="st">&quot;No&quot;</span>,</span>
+<span id="cb36-15"><a href="bias-assessment.html#cb36-15" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Cancer =</span> <span class="dv">1</span>,</span>
+<span id="cb36-16"><a href="bias-assessment.html#cb36-16" aria-hidden="true" tabindex="-1"></a>                  <span class="at">freq =</span> <span class="dv">45</span></span>
+<span id="cb36-17"><a href="bias-assessment.html#cb36-17" aria-hidden="true" tabindex="-1"></a>                  )</span>
+<span id="cb36-18"><a href="bias-assessment.html#cb36-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-19"><a href="bias-assessment.html#cb36-19" aria-hidden="true" tabindex="-1"></a>MNN <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Sex =</span> <span class="st">&quot;Male&quot;</span>,</span>
+<span id="cb36-20"><a href="bias-assessment.html#cb36-20" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Smoking =</span> <span class="st">&quot;No&quot;</span>,</span>
+<span id="cb36-21"><a href="bias-assessment.html#cb36-21" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Cancer =</span> <span class="dv">0</span>,</span>
+<span id="cb36-22"><a href="bias-assessment.html#cb36-22" aria-hidden="true" tabindex="-1"></a>                  <span class="at">freq =</span> <span class="dv">68</span></span>
+<span id="cb36-23"><a href="bias-assessment.html#cb36-23" aria-hidden="true" tabindex="-1"></a>                  )</span>
+<span id="cb36-24"><a href="bias-assessment.html#cb36-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-25"><a href="bias-assessment.html#cb36-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-26"><a href="bias-assessment.html#cb36-26" aria-hidden="true" tabindex="-1"></a>FYY <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Sex =</span> <span class="st">&quot;Female&quot;</span>,</span>
+<span id="cb36-27"><a href="bias-assessment.html#cb36-27" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Smoking =</span> <span class="st">&quot;Yes&quot;</span>,</span>
+<span id="cb36-28"><a href="bias-assessment.html#cb36-28" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Cancer =</span> <span class="dv">1</span>,</span>
+<span id="cb36-29"><a href="bias-assessment.html#cb36-29" aria-hidden="true" tabindex="-1"></a>                  <span class="at">freq =</span> <span class="dv">25</span></span>
+<span id="cb36-30"><a href="bias-assessment.html#cb36-30" aria-hidden="true" tabindex="-1"></a>                  )</span>
+<span id="cb36-31"><a href="bias-assessment.html#cb36-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-32"><a href="bias-assessment.html#cb36-32" aria-hidden="true" tabindex="-1"></a>FYN <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Sex =</span> <span class="st">&quot;Female&quot;</span>,</span>
+<span id="cb36-33"><a href="bias-assessment.html#cb36-33" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Smoking =</span> <span class="st">&quot;Yes&quot;</span>,</span>
+<span id="cb36-34"><a href="bias-assessment.html#cb36-34" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Cancer =</span> <span class="dv">0</span>,</span>
+<span id="cb36-35"><a href="bias-assessment.html#cb36-35" aria-hidden="true" tabindex="-1"></a>                  <span class="at">freq =</span> <span class="dv">14</span></span>
+<span id="cb36-36"><a href="bias-assessment.html#cb36-36" aria-hidden="true" tabindex="-1"></a>                  )</span>
+<span id="cb36-37"><a href="bias-assessment.html#cb36-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-38"><a href="bias-assessment.html#cb36-38" aria-hidden="true" tabindex="-1"></a>FNY <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Sex =</span> <span class="st">&quot;Female&quot;</span>,</span>
+<span id="cb36-39"><a href="bias-assessment.html#cb36-39" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Smoking =</span> <span class="st">&quot;No&quot;</span>,</span>
+<span id="cb36-40"><a href="bias-assessment.html#cb36-40" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Cancer =</span> <span class="dv">1</span>,</span>
+<span id="cb36-41"><a href="bias-assessment.html#cb36-41" aria-hidden="true" tabindex="-1"></a>                  <span class="at">freq =</span> <span class="dv">25</span></span>
+<span id="cb36-42"><a href="bias-assessment.html#cb36-42" aria-hidden="true" tabindex="-1"></a>                  )</span>
+<span id="cb36-43"><a href="bias-assessment.html#cb36-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-44"><a href="bias-assessment.html#cb36-44" aria-hidden="true" tabindex="-1"></a>FNN <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Sex =</span> <span class="st">&quot;Female&quot;</span>,</span>
+<span id="cb36-45"><a href="bias-assessment.html#cb36-45" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Smoking =</span> <span class="st">&quot;No&quot;</span>,</span>
+<span id="cb36-46"><a href="bias-assessment.html#cb36-46" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Cancer =</span> <span class="dv">0</span>,</span>
+<span id="cb36-47"><a href="bias-assessment.html#cb36-47" aria-hidden="true" tabindex="-1"></a>                  <span class="at">freq =</span> <span class="dv">14</span></span>
+<span id="cb36-48"><a href="bias-assessment.html#cb36-48" aria-hidden="true" tabindex="-1"></a>                  )</span>
+<span id="cb36-49"><a href="bias-assessment.html#cb36-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-50"><a href="bias-assessment.html#cb36-50" aria-hidden="true" tabindex="-1"></a>Ex_moderator <span class="ot">&lt;-</span> <span class="fu">rbind</span>(MYY, MYN, MNY, MNN, FYY, FYN, FNY, FNN)</span></code></pre></div>
+<p>Convert Freq table to raw data</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="bias-assessment.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb37-2"><a href="bias-assessment.html#cb37-2" aria-hidden="true" tabindex="-1"></a>raw_moderator <span class="ot">&lt;-</span> Ex_moderator <span class="sc">%&gt;%</span> </span>
+<span id="cb37-3"><a href="bias-assessment.html#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">uncount</span>(freq)</span></code></pre></div>
+<ul>
+<li>Full model:</li>
+</ul>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="bias-assessment.html#cb38-1" aria-hidden="true" tabindex="-1"></a>glm_logit <span class="ot">&lt;-</span> <span class="fu">glm</span>(Cancer <span class="sc">~</span> Smoking , <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>), <span class="at">data=</span>raw_moderator)</span>
+<span id="cb38-2"><a href="bias-assessment.html#cb38-2" aria-hidden="true" tabindex="-1"></a>glm_logit</span></code></pre></div>
+<pre><code>## 
+## Call:  glm(formula = Cancer ~ Smoking, family = binomial(link = &quot;logit&quot;), 
+##     data = raw_moderator)
+## 
+## Coefficients:
+## (Intercept)   SmokingYes  
+##     -0.1582       0.6690  
+## 
+## Degrees of Freedom: 199 Total (i.e. Null);  198 Residual
+## Null Deviance:       277.3 
+## Residual Deviance: 273.3     AIC: 277.3</code></pre>
+<ul>
+<li>Stratified models</li>
+</ul>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="bias-assessment.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="do">## For males</span></span>
+<span id="cb40-2"><a href="bias-assessment.html#cb40-2" aria-hidden="true" tabindex="-1"></a>raw_moderator_M <span class="ot">&lt;-</span> raw_moderator[ <span class="fu">which</span>(raw_moderator<span class="sc">$</span>Sex<span class="sc">==</span><span class="st">&#39;Male&#39;</span>), ]</span>
+<span id="cb40-3"><a href="bias-assessment.html#cb40-3" aria-hidden="true" tabindex="-1"></a>glm_logit_m <span class="ot">&lt;-</span> <span class="fu">glm</span>(Cancer <span class="sc">~</span> Smoking , <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>), <span class="at">data=</span>raw_moderator_M)</span>
+<span id="cb40-4"><a href="bias-assessment.html#cb40-4" aria-hidden="true" tabindex="-1"></a>glm_logit_m</span></code></pre></div>
+<pre><code>## 
+## Call:  glm(formula = Cancer ~ Smoking, family = binomial(link = &quot;logit&quot;), 
+##     data = raw_moderator_M)
+## 
+## Coefficients:
+## (Intercept)   SmokingYes  
+##     -0.4128       0.6360  
+## 
+## Degrees of Freedom: 121 Total (i.e. Null);  120 Residual
+## Null Deviance:       165.1 
+## Residual Deviance: 164.3     AIC: 168.3</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="bias-assessment.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For females</span></span>
+<span id="cb42-2"><a href="bias-assessment.html#cb42-2" aria-hidden="true" tabindex="-1"></a>raw_moderator_F <span class="ot">&lt;-</span> raw_moderator[ <span class="fu">which</span>(raw_moderator<span class="sc">$</span>Sex<span class="sc">==</span><span class="st">&#39;Female&#39;</span>), ]</span>
+<span id="cb42-3"><a href="bias-assessment.html#cb42-3" aria-hidden="true" tabindex="-1"></a>glm_logit_f <span class="ot">&lt;-</span> <span class="fu">glm</span>(Cancer <span class="sc">~</span> Smoking , <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>), <span class="at">data=</span>raw_moderator_F)</span>
+<span id="cb42-4"><a href="bias-assessment.html#cb42-4" aria-hidden="true" tabindex="-1"></a>glm_logit_f</span></code></pre></div>
+<pre><code>## 
+## Call:  glm(formula = Cancer ~ Smoking, family = binomial(link = &quot;logit&quot;), 
+##     data = raw_moderator_F)
+## 
+## Coefficients:
+## (Intercept)   SmokingYes  
+##   5.798e-01   -2.621e-16  
+## 
+## Degrees of Freedom: 77 Total (i.e. Null);  76 Residual
+## Null Deviance:       101.8 
+## Residual Deviance: 101.8     AIC: 105.8</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="lecture-nonparametric-semiparametric-and-parametric-survival-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/01-Bias.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
