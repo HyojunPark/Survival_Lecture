@@ -1,6 +1,6 @@
 --- 
-title: "A Minimal Book Example"
-author: "John Doe"
+title: "SOC6380: Survival Analysis: Practice"
+author: "Hyojun Park"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
