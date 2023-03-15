@@ -479,8 +479,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb140-15"><a href="survival-models-specification-estimation-and-interpretation.html#cb140-15" aria-hidden="true" tabindex="-1"></a>     <span class="co">#ylim=c(ymin, ymax)</span></span>
 <span id="cb140-16"><a href="survival-models-specification-estimation-and-interpretation.html#cb140-16" aria-hidden="true" tabindex="-1"></a>     )</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
-<p>Our estimated model is</p>
-<p><span class="math inline">\(h(t)=h_0 (t)\exp(0.2249025)\)</span><span class="math inline">\(sex_{female} + (0.0690311)\)</span><span class="math inline">\(region_{industry} + (0.0045481)\)</span><span class="math inline">\(region_{rural} + (NA)\)</span>$IMR)</p>
 <p>To ease interpretation, we exponentiate coefficients (and CIs).</p>
 <div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="survival-models-specification-estimation-and-interpretation.html#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(oldmort_cox))</span></code></pre></div>
 <pre><code>##      sexfemale regionindustry    regionrural      imr.birth 
@@ -546,8 +544,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Number of Fisher Scoring iterations: 4</code></pre>
 <div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="survival-models-specification-estimation-and-interpretation.html#cb146-1" aria-hidden="true" tabindex="-1"></a>b_log <span class="ot">=</span> <span class="fu">coef</span>(oldmort_log)</span>
 <span id="cb146-2"><a href="survival-models-specification-estimation-and-interpretation.html#cb146-2" aria-hidden="true" tabindex="-1"></a>expb <span class="ot">=</span> <span class="fu">exp</span>(<span class="fu">coef</span>(oldmort_log))</span></code></pre></div>
-<p>Our estimated model is</p>
-<p><span class="math inline">\(\ln \left( \frac{p(y)}{1-p(y)} \right)\)</span> = (-1.0034822) + (0.0730548)<span class="math inline">\(\times\)</span>sex_{female} + (0.3781242)<span class="math inline">\(\times\)</span>region_{industry} + (0.1115792)<span class="math inline">\(\times\)</span>region_{rural} + (-0.0041455)<span class="math inline">\(\times\)</span>IMR</p>
 <p>To ease interpretation, we exponentiate coefficients (and CIs).</p>
 <div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="survival-models-specification-estimation-and-interpretation.html#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(oldmort_log))</span></code></pre></div>
 <pre><code>##    (Intercept)      sexfemale regionindustry    regionrural      imr.birth 
@@ -610,8 +606,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## Number of Fisher Scoring iterations: 2</code></pre>
 <div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="survival-models-specification-estimation-and-interpretation.html#cb152-1" aria-hidden="true" tabindex="-1"></a>b_lm <span class="ot">=</span> <span class="fu">coef</span>(oldmort_lm)</span></code></pre></div>
-<p>Thus, our estimated model is</p>
-<p>Time to death (<span class="math inline">\(t\)</span>) = (71.9977676) + (1.9040306)<span class="math inline">\(\times\)</span>sex_{female} + (2.0759823)<span class="math inline">\(\times\)</span>region_{industry} + (1.8056008)<span class="math inline">\(\times\)</span>region_{rural} + (-0.0962143)<span class="math inline">\(\times\)</span>IMR</p>
 </div>
 <div id="interpretation-1" class="section level3 hasAnchor" number="5.4.3">
 <h3><span class="header-section-number">5.4.3</span> Interpretation<a href="survival-models-specification-estimation-and-interpretation.html#interpretation-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>

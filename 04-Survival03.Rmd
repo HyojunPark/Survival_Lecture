@@ -143,11 +143,6 @@ plot(oldmort_cox,
      )
 ```
 
-
-Our estimated model is  
-
-$h(t)=h_0 (t)\exp(`r b_cox[2]`)$\times$sex_{female} + (`r b_cox[3]`)$\times$region_{industry} + (`r b_cox[4]`)$\times$region_{rural} + (`r b_cox[5]`)$\times$IMR)
-
 To ease interpretation, we exponentiate coefficients (and CIs).
 
 ```{r}
@@ -200,10 +195,6 @@ expb = exp(coef(oldmort_log))
 ```
 
 
-Our estimated model is  
-
-$\ln \left( \frac{p(y)}{1-p(y)} \right)$ = (`r b_log[1]`) + (`r b_log[2]`)$\times$sex_{female} + (`r b_log[3]`)$\times$region_{industry} + (`r b_log[4]`)$\times$region_{rural} + (`r b_log[5]`)$\times$IMR
-
 To ease interpretation, we exponentiate coefficients (and CIs).
 
 ```{r}
@@ -243,9 +234,6 @@ summary(oldmort_lm)
 b_lm = coef(oldmort_lm)
 ```
 
-Thus, our estimated model is  
-
-Time to death ($t$) = (`r b_lm[1]`) + (`r b_lm[2]`)$\times$sex_{female} + (`r b_lm[3]`)$\times$region_{industry} + (`r b_lm[4]`)$\times$region_{rural} + (`r b_lm[5]`)$\times$IMR
 
 ### Interpretation
 
