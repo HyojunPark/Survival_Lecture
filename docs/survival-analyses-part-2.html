@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Survival Analyses: Part 2 | SOC6380: Survival Analysis: Practice</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.33.1 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Survival Analyses: Part 2 | SOC6380: Survival Analysis: Practice" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Survival Analyses: Part 2 | SOC6380: Survival Analysis: Practice" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="Hyojun Park" />
+
+
+<meta name="date" content="2023-03-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="survival-analyses-part-1.html"/>
+<link rel="next" href="add-health-project.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="bias-assessment.html"><a href="bias-assessment.html"><i class="fa fa-check"></i><b>2</b> Bias assessment</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="bias-assessment.html"><a href="bias-assessment.html#bias-due-to-omitted-confounders"><i class="fa fa-check"></i><b>2.1</b> Bias due to omitted confounders</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="bias-assessment.html"><a href="bias-assessment.html#gold-standard"><i class="fa fa-check"></i><b>2.1.1</b> Gold standard</a></li>
+<li class="chapter" data-level="2.1.2" data-path="bias-assessment.html"><a href="bias-assessment.html#misspecified-model-a-confounder-c-was-omitted-from-the-model"><i class="fa fa-check"></i><b>2.1.2</b> Misspecified model: a confounder, <span class="math inline">\(C\)</span>, was omitted from the model</a></li>
+<li class="chapter" data-level="2.1.3" data-path="bias-assessment.html"><a href="bias-assessment.html#bias-away-from-or-towards-to-the-null"><i class="fa fa-check"></i><b>2.1.3</b> Bias “away from” or “towards to” the null?</a></li>
+<li class="chapter" data-level="2.1.4" data-path="bias-assessment.html"><a href="bias-assessment.html#a-c-is-not-a-confounder-on-x-and-y"><i class="fa fa-check"></i><b>2.1.4</b> A <span class="math inline">\(C\)</span> is not a confounder on <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span></a></li>
+<li class="chapter" data-level="2.1.5" data-path="bias-assessment.html"><a href="bias-assessment.html#correct-model-specification-without-c"><i class="fa fa-check"></i><b>2.1.5</b> Correct model specification: Without <span class="math inline">\(C\)</span></a></li>
+<li class="chapter" data-level="2.1.6" data-path="bias-assessment.html"><a href="bias-assessment.html#misspecified-model-with-c"><i class="fa fa-check"></i><b>2.1.6</b> Misspecified model with <span class="math inline">\(C\)</span></a></li>
+<li class="chapter" data-level="2.1.7" data-path="bias-assessment.html"><a href="bias-assessment.html#a-c-is-a-colloder-on-x-and-y"><i class="fa fa-check"></i><b>2.1.7</b> A <span class="math inline">\(C\)</span> is a colloder on <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span></a></li>
+<li class="chapter" data-level="2.1.8" data-path="bias-assessment.html"><a href="bias-assessment.html#correct-model-specification-without-c-1"><i class="fa fa-check"></i><b>2.1.8</b> Correct model specification: Without <span class="math inline">\(C\)</span></a></li>
+<li class="chapter" data-level="2.1.9" data-path="bias-assessment.html"><a href="bias-assessment.html#misspecified-model-with-c-1"><i class="fa fa-check"></i><b>2.1.9</b> Misspecified model with <span class="math inline">\(C\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="bias-assessment.html"><a href="bias-assessment.html#overadjustment-bias"><i class="fa fa-check"></i><b>2.2</b> Overadjustment bias</a></li>
+<li class="chapter" data-level="2.3" data-path="bias-assessment.html"><a href="bias-assessment.html#total-effect"><i class="fa fa-check"></i><b>2.3</b> Total effect</a></li>
+<li class="chapter" data-level="2.4" data-path="bias-assessment.html"><a href="bias-assessment.html#overadjustment"><i class="fa fa-check"></i><b>2.4</b> Overadjustment</a></li>
+<li class="chapter" data-level="2.5" data-path="bias-assessment.html"><a href="bias-assessment.html#logistic-models"><i class="fa fa-check"></i><b>2.5</b> Logistic models</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="bias-assessment.html"><a href="bias-assessment.html#sex-as-a-confounder-c"><i class="fa fa-check"></i><b>2.5.1</b> Sex as a Confounder, <span class="math inline">\(C\)</span></a></li>
+<li class="chapter" data-level="2.5.2" data-path="bias-assessment.html"><a href="bias-assessment.html#sex-as-a-moderator-m"><i class="fa fa-check"></i><b>2.5.2</b> Sex as a Moderator, <span class="math inline">\(M\)</span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="survival-analyses-part-1.html"><a href="survival-analyses-part-1.html"><i class="fa fa-check"></i><b>3</b> Survival Analyses: Part 1</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="survival-analyses-part-1.html"><a href="survival-analyses-part-1.html#set-packages-and-library"><i class="fa fa-check"></i><b>3.1</b> Set packages and library</a></li>
+<li class="chapter" data-level="3.2" data-path="survival-analyses-part-1.html"><a href="survival-analyses-part-1.html#dataset"><i class="fa fa-check"></i><b>3.2</b> dataset</a></li>
+<li class="chapter" data-level="3.3" data-path="survival-analyses-part-1.html"><a href="survival-analyses-part-1.html#nonparametric-estimation"><i class="fa fa-check"></i><b>3.3</b> Nonparametric estimation</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="survival-analyses-part-1.html"><a href="survival-analyses-part-1.html#data-for-nonparametric-models"><i class="fa fa-check"></i><b>3.3.1</b> Data for nonparametric models</a></li>
+<li class="chapter" data-level="3.3.2" data-path="survival-analyses-part-1.html"><a href="survival-analyses-part-1.html#kaplan-meier-estimator"><i class="fa fa-check"></i><b>3.3.2</b> Kaplan-Meier estimator</a></li>
+<li class="chapter" data-level="3.3.3" data-path="survival-analyses-part-1.html"><a href="survival-analyses-part-1.html#nelson-aalen-estimator"><i class="fa fa-check"></i><b>3.3.3</b> Nelson-Aalen estimator</a></li>
+<li class="chapter" data-level="3.3.4" data-path="survival-analyses-part-1.html"><a href="survival-analyses-part-1.html#comparisons-by-groups"><i class="fa fa-check"></i><b>3.3.4</b> Comparisons by groups</a></li>
+<li class="chapter" data-level="3.3.5" data-path="survival-analyses-part-1.html"><a href="survival-analyses-part-1.html#better-km-figures"><i class="fa fa-check"></i><b>3.3.5</b> Better KM figures</a></li>
+<li class="chapter" data-level="3.3.6" data-path="survival-analyses-part-1.html"><a href="survival-analyses-part-1.html#nonparametric-models-using-a-child-dataset-from-eha"><i class="fa fa-check"></i><b>3.3.6</b> Nonparametric models using a <span class="math inline">\(child\)</span> dataset from eha</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="survival-analyses-part-1.html"><a href="survival-analyses-part-1.html#proportional-hazards-and-cox-regression"><i class="fa fa-check"></i><b>3.4</b> Proportional Hazards and Cox Regression</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="survival-analyses-part-1.html"><a href="survival-analyses-part-1.html#a-visual-check-for-a-proportionality-assumption"><i class="fa fa-check"></i><b>3.4.1</b> A visual check for a proportionality assumption</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="survival-analyses-part-1.html"><a href="survival-analyses-part-1.html#parametric-estimation"><i class="fa fa-check"></i><b>3.5</b> Parametric estimation</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="survival-analyses-part-1.html"><a href="survival-analyses-part-1.html#weibull-model"><i class="fa fa-check"></i><b>3.5.1</b> Weibull model</a></li>
+<li class="chapter" data-level="3.5.2" data-path="survival-analyses-part-1.html"><a href="survival-analyses-part-1.html#gompertz-model"><i class="fa fa-check"></i><b>3.5.2</b> Gompertz model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="survival-analyses-part-2.html"><a href="survival-analyses-part-2.html"><i class="fa fa-check"></i><b>4</b> Survival Analyses: Part 2</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="survival-analyses-part-2.html"><a href="survival-analyses-part-2.html#set-packages-and-library-1"><i class="fa fa-check"></i><b>4.1</b> Set packages and library</a></li>
+<li class="chapter" data-level="4.2" data-path="survival-analyses-part-2.html"><a href="survival-analyses-part-2.html#counting-process"><i class="fa fa-check"></i><b>4.2</b> Counting process</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="survival-analyses-part-2.html"><a href="survival-analyses-part-2.html#example"><i class="fa fa-check"></i><b>4.2.1</b> Example</a></li>
+<li class="chapter" data-level="4.2.2" data-path="survival-analyses-part-2.html"><a href="survival-analyses-part-2.html#practice-addhealth-public-datasets"><i class="fa fa-check"></i><b>4.2.2</b> Practice: AddHealth Public datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="survival-analyses-part-2.html"><a href="survival-analyses-part-2.html#non--sem--and-parametric-survival-regression-models"><i class="fa fa-check"></i><b>4.3</b> Non-, sem-, and parametric survival regression models</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="survival-analyses-part-2.html"><a href="survival-analyses-part-2.html#nonparametric-models"><i class="fa fa-check"></i><b>4.3.1</b> Nonparametric models</a></li>
+<li class="chapter" data-level="4.3.2" data-path="survival-analyses-part-2.html"><a href="survival-analyses-part-2.html#semi-parametric-models-cox-regression"><i class="fa fa-check"></i><b>4.3.2</b> Semi-parametric models: Cox Regression</a></li>
+<li class="chapter" data-level="4.3.3" data-path="survival-analyses-part-2.html"><a href="survival-analyses-part-2.html#parametric-models"><i class="fa fa-check"></i><b>4.3.3</b> Parametric models</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="add-health-project.html"><a href="add-health-project.html"><i class="fa fa-check"></i><b>5</b> Add Health Project</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="add-health-project.html"><a href="add-health-project.html#library"><i class="fa fa-check"></i><b>5.1</b> Library</a></li>
+<li class="chapter" data-level="5.2" data-path="add-health-project.html"><a href="add-health-project.html#access-datasets"><i class="fa fa-check"></i><b>5.2</b> Access datasets</a></li>
+<li class="chapter" data-level="5.3" data-path="add-health-project.html"><a href="add-health-project.html#load-5-wave-sample"><i class="fa fa-check"></i><b>5.3</b> Load 5-wave sample</a></li>
+<li class="chapter" data-level="5.4" data-path="add-health-project.html"><a href="add-health-project.html#long-form-dataset-wave-person"><i class="fa fa-check"></i><b>5.4</b> Long-form dataset (wave-person)</a></li>
+<li class="chapter" data-level="5.5" data-path="add-health-project.html"><a href="add-health-project.html#exploring-variables-in-add-health"><i class="fa fa-check"></i><b>5.5</b> Exploring variables in Add Health</a></li>
+<li class="chapter" data-level="5.6" data-path="add-health-project.html"><a href="add-health-project.html#outcomes-exposures-and-confounders"><i class="fa fa-check"></i><b>5.6</b> Outcomes, exposures, and confounders</a></li>
+<li class="chapter" data-level="5.7" data-path="add-health-project.html"><a href="add-health-project.html#demographic-variables---time-invariant"><i class="fa fa-check"></i><b>5.7</b> Demographic variables - time-invariant</a></li>
+<li class="chapter" data-level="5.8" data-path="add-health-project.html"><a href="add-health-project.html#merging-datasets-1"><i class="fa fa-check"></i><b>5.8</b> Merging datasets</a></li>
+<li class="chapter" data-level="5.9" data-path="add-health-project.html"><a href="add-health-project.html#data-management-recoding-and-so-on"><i class="fa fa-check"></i><b>5.9</b> Data management, recoding, and so on</a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="add-health-project.html"><a href="add-health-project.html#bmi"><i class="fa fa-check"></i><b>5.9.1</b> BMI</a></li>
+<li class="chapter" data-level="5.9.2" data-path="add-health-project.html"><a href="add-health-project.html#sampling-weights"><i class="fa fa-check"></i><b>5.9.2</b> Sampling weights</a></li>
+<li class="chapter" data-level="5.9.3" data-path="add-health-project.html"><a href="add-health-project.html#multiple-imputation"><i class="fa fa-check"></i><b>5.9.3</b> Multiple imputation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.10" data-path="add-health-project.html"><a href="add-health-project.html#analytic-approach"><i class="fa fa-check"></i><b>5.10</b> Analytic approach</a>
+<ul>
+<li class="chapter" data-level="5.10.1" data-path="add-health-project.html"><a href="add-health-project.html#a-linear-regression-with-the-current-dataset"><i class="fa fa-check"></i><b>5.10.1</b> A linear regression with the current dataset</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">SOC6380: Survival Analysis: Practice</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="survival-analyses-part-2" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Survival Analyses: Part 2<a href="survival-analyses-part-2.html#survival-analyses-part-2" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In this section, we will cover 1) survival data structure (i.e., counting process) and 2) modeling survival data.</p>
+<div id="set-packages-and-library-1" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Set packages and library<a href="survival-analyses-part-2.html#set-packages-and-library-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="survival-analyses-part-2.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(eha)</span>
+<span id="cb100-2"><a href="survival-analyses-part-2.html#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
+<span id="cb100-3"><a href="survival-analyses-part-2.html#cb100-3" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;ggfortify&quot;)</span></span>
+<span id="cb100-4"><a href="survival-analyses-part-2.html#cb100-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggfortify)</span>
+<span id="cb100-5"><a href="survival-analyses-part-2.html#cb100-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb100-6"><a href="survival-analyses-part-2.html#cb100-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb100-7"><a href="survival-analyses-part-2.html#cb100-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb100-8"><a href="survival-analyses-part-2.html#cb100-8" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;flextable&quot;)</span></span>
+<span id="cb100-9"><a href="survival-analyses-part-2.html#cb100-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flextable)</span>
+<span id="cb100-10"><a href="survival-analyses-part-2.html#cb100-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span></code></pre></div>
+</div>
+<div id="counting-process" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Counting process<a href="survival-analyses-part-2.html#counting-process" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="example" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Example<a href="survival-analyses-part-2.html#example" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<blockquote>
+<p>“The <strong>oldmort</strong> dataset in <strong>eha</strong> package contains life histories of people followed from their 60th birthday to their 100th, or until death, born between June 28, 1765 and December 31, 1820 in Skellefteå. The variable <em>enter</em> is age at start of the given interval, <em>exit</em> contains the age at the end of the interval. We need to calculate follow-up time since age 60 - 60 is subtracted from <em>enter</em> and <em>exit</em>. The variable <em>event</em> is an indicator of death at the duration given by exit.” <a href="https://www.rdocumentation.org/packages/eha/versions/2.8.5/topics/oldmort" class="uri">https://www.rdocumentation.org/packages/eha/versions/2.8.5/topics/oldmort</a> [Göran Broström, <a href="http://ehar.se/r/ehar2/parametric.html" class="uri">http://ehar.se/r/ehar2/parametric.html</a>]</p>
+</blockquote>
+<p>Here are the summary of the <strong>oldmort</strong> dataset.</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="survival-analyses-part-2.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(eha)</span>
+<span id="cb101-2"><a href="survival-analyses-part-2.html#cb101-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-3"><a href="survival-analyses-part-2.html#cb101-3" aria-hidden="true" tabindex="-1"></a>oldmort01 <span class="ot">&lt;-</span> oldmort</span>
+<span id="cb101-4"><a href="survival-analyses-part-2.html#cb101-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-5"><a href="survival-analyses-part-2.html#cb101-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(oldmort01) <span class="co"># descriptive statistics</span></span></code></pre></div>
+<pre><code>##        id                enter            exit          event        
+##  Min.   :765000603   Min.   :60.00   Min.   : 60.00   Mode :logical  
+##  1st Qu.:797001170   1st Qu.:60.00   1st Qu.: 63.88   FALSE:4524     
+##  Median :804001545   Median :60.07   Median : 68.51   TRUE :1971     
+##  Mean   :803652514   Mean   :64.07   Mean   : 69.89                  
+##  3rd Qu.:812001564   3rd Qu.:66.88   3rd Qu.: 74.73                  
+##  Max.   :826002672   Max.   :94.51   Max.   :100.00                  
+##                                                                      
+##    birthdate         m.id                f.id               sex      
+##  Min.   :1765   Min.   :     6039   Min.   :     2458   male  :2884  
+##  1st Qu.:1797   1st Qu.:766000610   1st Qu.:763000610   female:3611  
+##  Median :1805   Median :775000742   Median :772000649                
+##  Mean   :1804   Mean   :771271398   Mean   :762726961                
+##  3rd Qu.:1812   3rd Qu.:783000743   3rd Qu.:780001077                
+##  Max.   :1820   Max.   :802000669   Max.   :797001468                
+##                 NA&#39;s   :3155        NA&#39;s   :3310                     
+##         civ           ses.50      birthplace     imr.birth           region    
+##  unmarried: 557   middle : 233   parish:3598   Min.   : 4.348   town    : 657  
+##  married  :3638   unknown:2565   region:1503   1st Qu.:12.709   industry:2214  
+##  widow    :2300   upper  :  55   remote:1394   Median :14.234   rural   :3624  
+##                   farmer :1562                 Mean   :15.209                  
+##                   lower  :2080                 3rd Qu.:17.718                  
+##                                                Max.   :31.967                  
+## </code></pre>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="survival-analyses-part-2.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(oldmort01) <span class="co"># structure</span></span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    6495 obs. of  13 variables:
+##  $ id        : int  765000603 765000669 768000648 770000562 770000707 771000617 771000619 771000638 771000670 772000622 ...
+##  $ enter     : num  94.5 94.3 91.1 89 90 ...
+##  $ exit      : num  95.8 95.8 91.9 89.6 90.2 ...
+##  $ event     : logi  TRUE TRUE TRUE TRUE TRUE TRUE ...
+##  $ birthdate : num  1765 1766 1769 1771 1770 ...
+##  $ m.id      : int  NA NA NA NA NA NA NA NA NA NA ...
+##  $ f.id      : int  NA NA NA NA NA NA NA NA NA NA ...
+##  $ sex       : Factor w/ 2 levels &quot;male&quot;,&quot;female&quot;: 2 2 2 2 2 2 1 2 2 2 ...
+##  $ civ       : Factor w/ 3 levels &quot;unmarried&quot;,&quot;married&quot;,..: 3 1 3 3 3 3 3 3 3 3 ...
+##  $ ses.50    : Factor w/ 5 levels &quot;middle&quot;,&quot;unknown&quot;,..: 2 2 2 2 1 2 5 2 2 2 ...
+##  $ birthplace: Factor w/ 3 levels &quot;parish&quot;,&quot;region&quot;,..: 3 1 1 1 2 1 2 1 1 1 ...
+##  $ imr.birth : num  22.2 17.7 12.7 16.9 12 ...
+##  $ region    : Factor w/ 3 levels &quot;town&quot;,&quot;industry&quot;,..: 3 2 3 2 3 3 3 2 3 2 ...</code></pre>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="survival-analyses-part-2.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(oldmort01) <span class="co"># preview</span></span></code></pre></div>
+<pre><code>##          id  enter   exit event birthdate m.id f.id    sex       civ  ses.50
+## 1 765000603 94.510 95.813  TRUE  1765.490   NA   NA female     widow unknown
+## 2 765000669 94.266 95.756  TRUE  1765.734   NA   NA female unmarried unknown
+## 3 768000648 91.093 91.947  TRUE  1768.907   NA   NA female     widow unknown
+## 4 770000562 89.009 89.593  TRUE  1770.991   NA   NA female     widow unknown
+## 5 770000707 89.998 90.211  TRUE  1770.002   NA   NA female     widow  middle
+## 6 771000617 88.429 89.762  TRUE  1771.571   NA   NA female     widow unknown
+##   birthplace imr.birth   region
+## 1     remote  22.20000    rural
+## 2     parish  17.71845 industry
+## 3     parish  12.70903    rural
+## 4     parish  16.90544 industry
+## 5     region  11.97183    rural
+## 6     parish  13.08594    rural</code></pre>
+<p>To check how this dataset is constructed, we will need to identify any duplicated <em>id</em>.</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="survival-analyses-part-2.html#cb107-1" aria-hidden="true" tabindex="-1"></a>dup01 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">table</span>(oldmort01<span class="sc">$</span>id))</span>
+<span id="cb107-2"><a href="survival-analyses-part-2.html#cb107-2" aria-hidden="true" tabindex="-1"></a>dup02 <span class="ot">&lt;-</span> dup01[<span class="fu">order</span>(<span class="sc">-</span>dup01<span class="sc">$</span>Freq), ]</span></code></pre></div>
+<p>In the following example, please check</p>
+<ul>
+<li>When is a new record for the same <em>id</em> created?</li>
+<li>What are the time-invariant variables?</li>
+<li>What are the time-variant variables?</li>
+<li>What does it mean by “TRUE” or “FALSE” in <em>event</em>?</li>
+<li>How does the time of <em>enter</em> and <em>exit</em> connected with each other? What would happen if there is a gap between two records?</li>
+</ul>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="survival-analyses-part-2.html#cb108-1" aria-hidden="true" tabindex="-1"></a>dup03 <span class="ot">&lt;-</span> oldmort01[oldmort01<span class="sc">$</span>id <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;789000771&quot;</span>, <span class="st">&quot;796001158&quot;</span>),  ]</span>
+<span id="cb108-2"><a href="survival-analyses-part-2.html#cb108-2" aria-hidden="true" tabindex="-1"></a>dup03</span></code></pre></div>
+<pre><code>##             id  enter   exit event birthdate m.id f.id    sex       civ  ses.50
+## 536  789000771 70.570 72.059 FALSE  1789.430   NA   NA female   married unknown
+## 537  789000771 72.059 79.391 FALSE  1789.430   NA   NA female   married unknown
+## 538  789000771 79.391 79.947 FALSE  1789.430   NA   NA female     widow unknown
+## 539  789000771 80.010 83.750 FALSE  1789.430   NA   NA female     widow unknown
+## 540  789000771 84.358 87.274  TRUE  1789.430   NA   NA female unmarried unknown
+## 1472 796001158 63.531 64.020 FALSE  1796.469   NA   NA   male   married  farmer
+## 1473 796001158 64.020 65.020 FALSE  1796.469   NA   NA   male     widow  farmer
+## 1474 796001158 65.020 70.019 FALSE  1796.469   NA   NA   male     widow  farmer
+## 1475 796001158 70.019 80.021 FALSE  1796.469   NA   NA   male     widow  farmer
+## 1476 796001158 80.021 83.531 FALSE  1796.469   NA   NA   male     widow  farmer
+##      birthplace imr.birth region
+## 536      region  19.92337  rural
+## 537      region  19.92337  rural
+## 538      region  19.92337  rural
+## 539      region  19.92337  rural
+## 540      region  19.92337  rural
+## 1472     parish  19.92337  rural
+## 1473     parish  19.92337  rural
+## 1474     parish  19.92337  rural
+## 1475     parish  19.92337  rural
+## 1476     parish  19.92337  rural</code></pre>
+</div>
+<div id="practice-addhealth-public-datasets" class="section level3 hasAnchor" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Practice: AddHealth Public datasets<a href="survival-analyses-part-2.html#practice-addhealth-public-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>There are many ways to construct long-form datasets with counting process. The following procedure is just one way to achieve the goal.</p>
+<p>Here are a couple of things to construct a long-form dataset with counting process.</p>
+<ul>
+<li>In practice, measuring outcomes, exposures, confounders, and other variables involves a separate procedure for each one of variables. I personally prefer to divide each measurement as time-variant and time-invariant datasets, respectively.</li>
+<li>Two variables should be <strong>ALWAYS</strong> included in every single dataset you are working on - <em>AID</em> and <em>wave</em> (or any other <em>Time</em> variable).</li>
+<li>Datasets with time-invariant variables can be merged by <em>AID</em>, while those with time-variant variables need to be merged by <em>AID</em> and <em>wave</em>.</li>
+<li>Time-varying variables will be assigned a single variable name. Let’s say we are to use self-rated health with a variable name of <em>SRH</em> for five waves. The dataset should contain <em>AID</em>, <em>wave</em>, and <em>SRH</em>. The SRH in each wave should be assigned the same name, <em>SRH</em>, and the wave information will be on <em>wave</em>. This way, you can simply “stack up” all 5-wave data to construct the long-form datasets.</li>
+</ul>
+<p>First, each <em>rda</em> dataset will be loaded and then saved as <strong>WAVE0X</strong>. After assigning a <em>wave</em> variable for each of them, we will keep the <strong>WAVE0X</strong> dataset and <em>WX</em> datasets only.</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="survival-analyses-part-2.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="co">#1st wave</span></span>
+<span id="cb110-2"><a href="survival-analyses-part-2.html#cb110-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0001/21600-0001-Data.rda&quot;</span>)</span>
+<span id="cb110-3"><a href="survival-analyses-part-2.html#cb110-3" aria-hidden="true" tabindex="-1"></a>wave01 <span class="ot">&lt;-</span> da21600<span class="fl">.0001</span></span>
+<span id="cb110-4"><a href="survival-analyses-part-2.html#cb110-4" aria-hidden="true" tabindex="-1"></a>wave01<span class="sc">$</span>wave <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb110-5"><a href="survival-analyses-part-2.html#cb110-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(da21600<span class="fl">.0001</span>)</span>
+<span id="cb110-6"><a href="survival-analyses-part-2.html#cb110-6" aria-hidden="true" tabindex="-1"></a>w1 <span class="ot">=</span> <span class="fu">subset</span>(wave01, <span class="at">select =</span> <span class="fu">c</span>(AID, wave))</span>
+<span id="cb110-7"><a href="survival-analyses-part-2.html#cb110-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-8"><a href="survival-analyses-part-2.html#cb110-8" aria-hidden="true" tabindex="-1"></a><span class="co">#2nd wave</span></span>
+<span id="cb110-9"><a href="survival-analyses-part-2.html#cb110-9" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0005/21600-0005-Data.rda&quot;</span>)</span>
+<span id="cb110-10"><a href="survival-analyses-part-2.html#cb110-10" aria-hidden="true" tabindex="-1"></a>wave02 <span class="ot">&lt;-</span> da21600<span class="fl">.0005</span></span>
+<span id="cb110-11"><a href="survival-analyses-part-2.html#cb110-11" aria-hidden="true" tabindex="-1"></a>wave02<span class="sc">$</span>wave <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb110-12"><a href="survival-analyses-part-2.html#cb110-12" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(da21600<span class="fl">.0005</span>)</span>
+<span id="cb110-13"><a href="survival-analyses-part-2.html#cb110-13" aria-hidden="true" tabindex="-1"></a>w2 <span class="ot">=</span> <span class="fu">subset</span>(wave02, <span class="at">select =</span> <span class="fu">c</span>(AID, wave))</span>
+<span id="cb110-14"><a href="survival-analyses-part-2.html#cb110-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-15"><a href="survival-analyses-part-2.html#cb110-15" aria-hidden="true" tabindex="-1"></a><span class="co">#3rd wave</span></span>
+<span id="cb110-16"><a href="survival-analyses-part-2.html#cb110-16" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0008/21600-0008-Data.rda&quot;</span>)</span>
+<span id="cb110-17"><a href="survival-analyses-part-2.html#cb110-17" aria-hidden="true" tabindex="-1"></a>wave03 <span class="ot">&lt;-</span> da21600<span class="fl">.0008</span></span>
+<span id="cb110-18"><a href="survival-analyses-part-2.html#cb110-18" aria-hidden="true" tabindex="-1"></a>wave03<span class="sc">$</span>wave <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb110-19"><a href="survival-analyses-part-2.html#cb110-19" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(da21600<span class="fl">.0008</span>)</span>
+<span id="cb110-20"><a href="survival-analyses-part-2.html#cb110-20" aria-hidden="true" tabindex="-1"></a>w3 <span class="ot">=</span> <span class="fu">subset</span>(wave03, <span class="at">select =</span> <span class="fu">c</span>(AID, wave))</span>
+<span id="cb110-21"><a href="survival-analyses-part-2.html#cb110-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-22"><a href="survival-analyses-part-2.html#cb110-22" aria-hidden="true" tabindex="-1"></a><span class="co">#4th wave</span></span>
+<span id="cb110-23"><a href="survival-analyses-part-2.html#cb110-23" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0022/21600-0022-Data.rda&quot;</span>)</span>
+<span id="cb110-24"><a href="survival-analyses-part-2.html#cb110-24" aria-hidden="true" tabindex="-1"></a>wave04 <span class="ot">&lt;-</span> da21600<span class="fl">.0022</span></span>
+<span id="cb110-25"><a href="survival-analyses-part-2.html#cb110-25" aria-hidden="true" tabindex="-1"></a>wave04<span class="sc">$</span>wave <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb110-26"><a href="survival-analyses-part-2.html#cb110-26" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(da21600<span class="fl">.0022</span>)</span>
+<span id="cb110-27"><a href="survival-analyses-part-2.html#cb110-27" aria-hidden="true" tabindex="-1"></a>w4 <span class="ot">=</span> <span class="fu">subset</span>(wave04, <span class="at">select =</span> <span class="fu">c</span>(AID, wave))</span>
+<span id="cb110-28"><a href="survival-analyses-part-2.html#cb110-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-29"><a href="survival-analyses-part-2.html#cb110-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 5th wave</span></span>
+<span id="cb110-30"><a href="survival-analyses-part-2.html#cb110-30" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0032/21600-0032-Data.rda&quot;</span>)</span>
+<span id="cb110-31"><a href="survival-analyses-part-2.html#cb110-31" aria-hidden="true" tabindex="-1"></a>wave05 <span class="ot">&lt;-</span> da21600<span class="fl">.0032</span></span>
+<span id="cb110-32"><a href="survival-analyses-part-2.html#cb110-32" aria-hidden="true" tabindex="-1"></a>wave05<span class="sc">$</span>wave <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb110-33"><a href="survival-analyses-part-2.html#cb110-33" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(da21600<span class="fl">.0032</span>)</span>
+<span id="cb110-34"><a href="survival-analyses-part-2.html#cb110-34" aria-hidden="true" tabindex="-1"></a>w5 <span class="ot">=</span> <span class="fu">subset</span>(wave05, <span class="at">select =</span> <span class="fu">c</span>(AID, wave))</span></code></pre></div>
+<p>The complete list of respondents can be obtained by aggregating all WX datasets and then getting the unique AID.</p>
+<ul>
+<li>The numbers of cases for both occasions are the same. It looks like the first wave contains all respondents - no additional respondents were added.</li>
+<li>To check this observation, we will see both AID from the first wave and All matched.</li>
+<li>Because the n didn’t change, we confirmed that WAVE01 contains all respondents of the study.</li>
+</ul>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="survival-analyses-part-2.html#cb111-1" aria-hidden="true" tabindex="-1"></a>AH01 <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">subset</span>(<span class="fu">rbind</span>(w1, w2, w3, w4, w5), <span class="at">select =</span> <span class="fu">c</span>(AID)))</span>
+<span id="cb111-2"><a href="survival-analyses-part-2.html#cb111-2" aria-hidden="true" tabindex="-1"></a>test01 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(wave01, AH01, <span class="at">by=</span><span class="st">&quot;AID&quot;</span>)</span></code></pre></div>
+<div id="generate-a-complete-framework-with-aid-and-wave-optional" class="section level4 hasAnchor" number="4.2.2.1">
+<h4><span class="header-section-number">4.2.2.1</span> Generate a complete framework with <em>AID</em> and <em>wave</em> (Optional)<a href="survival-analyses-part-2.html#generate-a-complete-framework-with-aid-and-wave-optional" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>I personally prefer working with a “complete framework” containing all <em>AID</em> and <em>wave</em>.</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="survival-analyses-part-2.html#cb112-1" aria-hidden="true" tabindex="-1"></a>lf01 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(w1, w2, w3, w4, w5)</span>
+<span id="cb112-2"><a href="survival-analyses-part-2.html#cb112-2" aria-hidden="true" tabindex="-1"></a>lf <span class="ot">&lt;-</span> lf01[<span class="fu">order</span>(lf01<span class="sc">$</span>AID, lf01<span class="sc">$</span>wave), ]</span></code></pre></div>
+<p>Here is the merged (“stacked”) dataset.</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="survival-analyses-part-2.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(lf01)</span></code></pre></div>
+<pre><code>##        AID wave
+## 1 57100270    1
+## 2 57101310    1
+## 3 57103171    1
+## 4 57103869    1
+## 5 57104553    1
+## 6 57104649    1</code></pre>
+<p>Sorting by <em>AID</em> and <em>wave</em>, we can easily identify the data structure by <em>AID</em> and <em>wave</em>. This <strong>lf</strong> dataset is what I call a “framework” of this data source, which is the one that will be used whenever combining or merging datasets.</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="survival-analyses-part-2.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(lf)</span></code></pre></div>
+<pre><code>##            AID wave
+## 1     57100270    1
+## 11339 57100270    3
+## 2     57101310    1
+## 6505  57101310    2
+## 11340 57101310    3
+## 16221 57101310    4</code></pre>
+<p>Keep the number of cases (n = 25530) for your record. This number should be the number you expect whenever you merge or stack datasets.</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="survival-analyses-part-2.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(lf)</span></code></pre></div>
+<pre><code>##       n
+## 1 25530</code></pre>
+</div>
+<div id="time-variant-variables-from-each-wave" class="section level4 hasAnchor" number="4.2.2.2">
+<h4><span class="header-section-number">4.2.2.2</span> Time-variant variables from each wave<a href="survival-analyses-part-2.html#time-variant-variables-from-each-wave" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>In this practice, we will select and rename self-rated health (for all 5-wave) and appetite (only for <span class="math inline">\(1^{st}\)</span> and <span class="math inline">\(2^{nd}\)</span> waves) measures.</p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="survival-analyses-part-2.html#cb119-1" aria-hidden="true" tabindex="-1"></a>srh1 <span class="ot">&lt;-</span> wave01 <span class="sc">%&gt;%</span></span>
+<span id="cb119-2"><a href="survival-analyses-part-2.html#cb119-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(AID,</span>
+<span id="cb119-3"><a href="survival-analyses-part-2.html#cb119-3" aria-hidden="true" tabindex="-1"></a>         wave,</span>
+<span id="cb119-4"><a href="survival-analyses-part-2.html#cb119-4" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_srh&quot;</span> <span class="ot">=</span> H1GH1,</span>
+<span id="cb119-5"><a href="survival-analyses-part-2.html#cb119-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_poorappetite&quot;</span> <span class="ot">=</span> H1FS2)</span>
+<span id="cb119-6"><a href="survival-analyses-part-2.html#cb119-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-7"><a href="survival-analyses-part-2.html#cb119-7" aria-hidden="true" tabindex="-1"></a>srh2 <span class="ot">&lt;-</span> wave02 <span class="sc">%&gt;%</span></span>
+<span id="cb119-8"><a href="survival-analyses-part-2.html#cb119-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(AID,</span>
+<span id="cb119-9"><a href="survival-analyses-part-2.html#cb119-9" aria-hidden="true" tabindex="-1"></a>         wave,</span>
+<span id="cb119-10"><a href="survival-analyses-part-2.html#cb119-10" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_srh&quot;</span> <span class="ot">=</span> H2GH1,</span>
+<span id="cb119-11"><a href="survival-analyses-part-2.html#cb119-11" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_poorappetite&quot;</span> <span class="ot">=</span> H2GH22)</span>
+<span id="cb119-12"><a href="survival-analyses-part-2.html#cb119-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-13"><a href="survival-analyses-part-2.html#cb119-13" aria-hidden="true" tabindex="-1"></a>srh3 <span class="ot">&lt;-</span> wave03 <span class="sc">%&gt;%</span></span>
+<span id="cb119-14"><a href="survival-analyses-part-2.html#cb119-14" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(AID,</span>
+<span id="cb119-15"><a href="survival-analyses-part-2.html#cb119-15" aria-hidden="true" tabindex="-1"></a>         wave,</span>
+<span id="cb119-16"><a href="survival-analyses-part-2.html#cb119-16" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_srh&quot;</span> <span class="ot">=</span> H3GH1)</span>
+<span id="cb119-17"><a href="survival-analyses-part-2.html#cb119-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-18"><a href="survival-analyses-part-2.html#cb119-18" aria-hidden="true" tabindex="-1"></a>srh4 <span class="ot">&lt;-</span> wave04 <span class="sc">%&gt;%</span></span>
+<span id="cb119-19"><a href="survival-analyses-part-2.html#cb119-19" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(AID,</span>
+<span id="cb119-20"><a href="survival-analyses-part-2.html#cb119-20" aria-hidden="true" tabindex="-1"></a>         wave,</span>
+<span id="cb119-21"><a href="survival-analyses-part-2.html#cb119-21" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_srh&quot;</span> <span class="ot">=</span> H4GH1)</span>
+<span id="cb119-22"><a href="survival-analyses-part-2.html#cb119-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-23"><a href="survival-analyses-part-2.html#cb119-23" aria-hidden="true" tabindex="-1"></a>srh5 <span class="ot">&lt;-</span> wave05 <span class="sc">%&gt;%</span></span>
+<span id="cb119-24"><a href="survival-analyses-part-2.html#cb119-24" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(AID,</span>
+<span id="cb119-25"><a href="survival-analyses-part-2.html#cb119-25" aria-hidden="true" tabindex="-1"></a>         wave,</span>
+<span id="cb119-26"><a href="survival-analyses-part-2.html#cb119-26" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_srh&quot;</span> <span class="ot">=</span> H5ID1)</span></code></pre></div>
+<p>Please note that how to name the “temporary” datasets. I found that using the combination of ‘variable name + wave’ minimizes any confusions later.</p>
+<p>The ‘rbind’ function requires all datasets have a same numbers of columns. ‘setDT’ and ‘fill=TRUE’ are the functions from a ‘data.table’ package that override this requirement.</p>
+<p>Now, we have created a <em>long-form dataset (i.e., srh_TV) from five sets of cross-sectional datasets</em>.</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="survival-analyses-part-2.html#cb120-1" aria-hidden="true" tabindex="-1"></a>srh_TV01 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">setDT</span>(srh1), <span class="fu">setDT</span>(srh2), <span class="fu">setDT</span>(srh3), <span class="fu">setDT</span>(srh4), <span class="fu">setDT</span>(srh5), <span class="at">fill=</span><span class="cn">TRUE</span>)</span>
+<span id="cb120-2"><a href="survival-analyses-part-2.html#cb120-2" aria-hidden="true" tabindex="-1"></a>srh_TV <span class="ot">&lt;-</span> srh_TV01[<span class="fu">order</span>(srh_TV01<span class="sc">$</span>AID, srh_TV01<span class="sc">$</span>wave), ]</span>
+<span id="cb120-3"><a href="survival-analyses-part-2.html#cb120-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 6504, 4834, 4882, 5114, 4196, 25530</span></span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="survival-analyses-part-2.html#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(srh_TV)</span></code></pre></div>
+<pre><code>##         AID wave             a_srh       a_poorappetite
+## 1: 57100270    1      (3) (3) Good (0) (0) Never/rarely
+## 2: 57100270    3 (1) (1) Excellent                 &lt;NA&gt;
+## 3: 57101310    1      (4) (4) Fair    (1) (1) Sometimes
+## 4: 57101310    2      (4) (4) Fair    (4) (4) Every day
+## 5: 57101310    3 (2) (2) Very good                 &lt;NA&gt;
+## 6: 57101310    4      (3) (3) Good                 &lt;NA&gt;</code></pre>
+</div>
+<div id="time-invariant" class="section level4 hasAnchor" number="4.2.2.3">
+<h4><span class="header-section-number">4.2.2.3</span> Time-invariant<a href="survival-analyses-part-2.html#time-invariant" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>By definition, when a variable is time-invariant, only one measure from any variable should be applied to all other waves. In this example, we select <em>sex</em> from the first wave (because of completeness), which will be applied to the whole long-form dataset.</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="survival-analyses-part-2.html#cb123-1" aria-hidden="true" tabindex="-1"></a>demo_TI <span class="ot">&lt;-</span> wave01 <span class="sc">%&gt;%</span></span>
+<span id="cb123-2"><a href="survival-analyses-part-2.html#cb123-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(AID,</span>
+<span id="cb123-3"><a href="survival-analyses-part-2.html#cb123-3" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_sex&quot;</span> <span class="ot">=</span> BIO_SEX)</span></code></pre></div>
+</div>
+<div id="merging-datasets" class="section level4 hasAnchor" number="4.2.2.4">
+<h4><span class="header-section-number">4.2.2.4</span> Merging datasets<a href="survival-analyses-part-2.html#merging-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Once you have selected, created, and modified all required variables by waves, stacking all waves datasets will generate a long-form dataset per wave-person as long as you have keep <em>AID</em> and <em>wave</em> variables for all datasets.</p>
+<p>In this example, we’ve created three datasets - <strong>lf</strong> (a framework), <strong>demo_TI</strong> (time-invariant), and <strong>srh_TV</strong> (time-variant).</p>
+<ul>
+<li>Framework + time-invariant (i.e., <strong>lf</strong> (a framework) and <strong>demo_TI</strong> (time-invariant))</li>
+</ul>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="survival-analyses-part-2.html#cb124-1" aria-hidden="true" tabindex="-1"></a>Final01 <span class="ot">&lt;-</span> <span class="fu">merge</span>(lf, demo_TI, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;AID&quot;</span>))</span>
+<span id="cb124-2"><a href="survival-analyses-part-2.html#cb124-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Final01)</span></code></pre></div>
+<pre><code>##        AID wave          a_sex
+## 1 57100270    1 (2) (2) Female
+## 2 57100270    3 (2) (2) Female
+## 3 57101310    1 (2) (2) Female
+## 4 57101310    2 (2) (2) Female
+## 5 57101310    3 (2) (2) Female
+## 6 57101310    4 (2) (2) Female</code></pre>
+<ul>
+<li>Framework + time-invariant + time-variant (i.e., <strong>Final01</strong> + <strong>srh_TV</strong> (time-variant))</li>
+</ul>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="survival-analyses-part-2.html#cb126-1" aria-hidden="true" tabindex="-1"></a>Final02 <span class="ot">&lt;-</span> <span class="fu">merge</span>(Final01, srh_TV, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;AID&quot;</span>, <span class="st">&quot;wave&quot;</span>))</span>
+<span id="cb126-2"><a href="survival-analyses-part-2.html#cb126-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Final02)</span></code></pre></div>
+<pre><code>##        AID wave          a_sex             a_srh       a_poorappetite
+## 1 57100270    1 (2) (2) Female      (3) (3) Good (0) (0) Never/rarely
+## 2 57100270    3 (2) (2) Female (1) (1) Excellent                 &lt;NA&gt;
+## 3 57101310    1 (2) (2) Female      (4) (4) Fair    (1) (1) Sometimes
+## 4 57101310    2 (2) (2) Female      (4) (4) Fair    (4) (4) Every day
+## 5 57101310    3 (2) (2) Female (2) (2) Very good                 &lt;NA&gt;
+## 6 57101310    4 (2) (2) Female      (3) (3) Good                 &lt;NA&gt;</code></pre>
+</div>
+<div id="define-event-enter-and-exit" class="section level4 hasAnchor" number="4.2.2.5">
+<h4><span class="header-section-number">4.2.2.5</span> Define <em>event</em>, <em>enter</em>, and <em>exit</em><a href="survival-analyses-part-2.html#define-event-enter-and-exit" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The <em>event</em> can be defined as your outcomes. Depending on the nature of outcomes, it could be a multiple or repetitive events, requiring more complex survival modeling with more assumptions.</p>
+<ul>
+<li>Using lag/lead(wave)</li>
+</ul>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="survival-analyses-part-2.html#cb128-1" aria-hidden="true" tabindex="-1"></a>Final03 <span class="ot">&lt;-</span> Final02 <span class="sc">%&gt;%</span> </span>
+<span id="cb128-2"><a href="survival-analyses-part-2.html#cb128-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(AID) <span class="sc">%&gt;%</span> </span>
+<span id="cb128-3"><a href="survival-analyses-part-2.html#cb128-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb128-4"><a href="survival-analyses-part-2.html#cb128-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">enter =</span> <span class="fu">lag</span>(wave),</span>
+<span id="cb128-5"><a href="survival-analyses-part-2.html#cb128-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">exit =</span> wave</span>
+<span id="cb128-6"><a href="survival-analyses-part-2.html#cb128-6" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb128-7"><a href="survival-analyses-part-2.html#cb128-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb128-8"><a href="survival-analyses-part-2.html#cb128-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb128-9"><a href="survival-analyses-part-2.html#cb128-9" aria-hidden="true" tabindex="-1"></a>Final03<span class="sc">$</span>enter[Final03<span class="sc">$</span>wave <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> <span class="fu">is.na</span>(Final03<span class="sc">$</span>enter)] <span class="ot">&lt;-</span> <span class="dv">0</span></span></code></pre></div>
+<p>Because we used <em>wave</em> as an example, it may look more complicated than necessary - for example, we may simply use <code>enter = exit - 1</code>. However, this lag/lead function is required when working with the actual date which interval is not always equal to 1.</p>
+</div>
+</div>
+</div>
+<div id="non--sem--and-parametric-survival-regression-models" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Non-, sem-, and parametric survival regression models<a href="survival-analyses-part-2.html#non--sem--and-parametric-survival-regression-models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="nonparametric-models" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Nonparametric models<a href="survival-analyses-part-2.html#nonparametric-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let’s fit Kaplan-Meier (KM) and Nelson-Aalen (NA) estimators using the <strong>oldmort01</strong> dataset from the <strong>eha</strong> package.</p>
+<ul>
+<li>Kaplan-Meier (KM) survival estimator</li>
+</ul>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="survival-analyses-part-2.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="do">## KM</span></span>
+<span id="cb129-2"><a href="survival-analyses-part-2.html#cb129-2" aria-hidden="true" tabindex="-1"></a>bysex_KM <span class="ot">&lt;-</span> <span class="fu">survfit</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> sex,</span>
+<span id="cb129-3"><a href="survival-analyses-part-2.html#cb129-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">data=</span>oldmort01,</span>
+<span id="cb129-4"><a href="survival-analyses-part-2.html#cb129-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">conf.type=</span><span class="st">&quot;log-log&quot;</span>)</span>
+<span id="cb129-5"><a href="survival-analyses-part-2.html#cb129-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb129-6"><a href="survival-analyses-part-2.html#cb129-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Tables</span></span>
+<span id="cb129-7"><a href="survival-analyses-part-2.html#cb129-7" aria-hidden="true" tabindex="-1"></a>bysex_KM</span></code></pre></div>
+<pre><code>## Call: survfit(formula = Surv(enter, exit, event) ~ sex, data = oldmort01, 
+##     conf.type = &quot;log-log&quot;)
+## 
+##            records    n events median 0.95LCL 0.95UCL
+## sex=male      2884 1390    854   75.1    74.3    75.6
+## sex=female    3611 1833   1117   76.7    76.1    77.1</code></pre>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="survival-analyses-part-2.html#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="do">##summary(bysex)</span></span>
+<span id="cb131-2"><a href="survival-analyses-part-2.html#cb131-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bysex_KM, <span class="at">times=</span><span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">65</span>, <span class="dv">70</span>, <span class="dv">75</span>, <span class="dv">80</span>, <span class="dv">85</span>, <span class="dv">90</span>, <span class="dv">95</span>, <span class="dv">100</span>, <span class="dv">105</span>, <span class="dv">110</span>)) <span class="co"># add time points</span></span></code></pre></div>
+<pre><code>## Call: survfit(formula = Surv(enter, exit, event) ~ sex, data = oldmort01, 
+##     conf.type = &quot;log-log&quot;)
+## 
+##                 sex=male 
+##  time n.risk n.event survival std.err lower 95% CI upper 95% CI
+##    60   1390       0  1.00000 0.00000     1.000000       1.0000
+##    65   1017     183  0.85817 0.00974     0.837865       0.8761
+##    70    697     168  0.70232 0.01352     0.674905       0.7279
+##    75    428     184  0.50490 0.01576     0.473598       0.5353
+##    80    191     171  0.28095 0.01561     0.250745       0.3119
+##    85     55     105  0.10892 0.01237     0.086192       0.1346
+##    90     12      34  0.03311 0.00841     0.019374       0.0526
+##    95      1       8  0.00392 0.00381     0.000404       0.0197
+## 
+##                 sex=female 
+##  time n.risk n.event survival std.err lower 95% CI upper 95% CI
+##    60   1833       0   1.0000 0.00000     1.000000      1.00000
+##    65   1416     166   0.9022 0.00723     0.886989      0.91541
+##    70   1034     205   0.7610 0.01094     0.738691      0.78161
+##    75    669     238   0.5736 0.01343     0.546771      0.59938
+##    80    318     236   0.3477 0.01415     0.320058      0.37547
+##    85    115     167   0.1527 0.01192     0.130179      0.17687
+##    90     27      80   0.0380 0.00705     0.025840      0.05359
+##    95      5      21   0.0075 0.00333     0.002894      0.01662
+##   100      1       4   0.0015 0.00150     0.000153      0.00812</code></pre>
+<ul>
+<li>Nelson-Aalen (NA) estimator</li>
+</ul>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="survival-analyses-part-2.html#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="do">## NA</span></span>
+<span id="cb133-2"><a href="survival-analyses-part-2.html#cb133-2" aria-hidden="true" tabindex="-1"></a>bysex_NA <span class="ot">&lt;-</span> <span class="fu">survfit</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> sex,</span>
+<span id="cb133-3"><a href="survival-analyses-part-2.html#cb133-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">data=</span>oldmort01,</span>
+<span id="cb133-4"><a href="survival-analyses-part-2.html#cb133-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">conf.type=</span><span class="st">&quot;log-log&quot;</span>,</span>
+<span id="cb133-5"><a href="survival-analyses-part-2.html#cb133-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">type=</span><span class="st">&quot;fh&quot;</span>) <span class="co"># an option for NA estimator</span></span>
+<span id="cb133-6"><a href="survival-analyses-part-2.html#cb133-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb133-7"><a href="survival-analyses-part-2.html#cb133-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Tables</span></span>
+<span id="cb133-8"><a href="survival-analyses-part-2.html#cb133-8" aria-hidden="true" tabindex="-1"></a>bysex_NA</span></code></pre></div>
+<pre><code>## Call: survfit(formula = Surv(enter, exit, event) ~ sex, data = oldmort01, 
+##     conf.type = &quot;log-log&quot;, type = &quot;fh&quot;)
+## 
+##            records    n events median 0.95LCL 0.95UCL
+## sex=male      2884 1390    854   75.1    74.3    75.6
+## sex=female    3611 1833   1117   76.7    76.1    77.1</code></pre>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="survival-analyses-part-2.html#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="do">##summary(bysex)</span></span>
+<span id="cb135-2"><a href="survival-analyses-part-2.html#cb135-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bysex_NA, <span class="at">times=</span><span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">65</span>, <span class="dv">70</span>, <span class="dv">75</span>, <span class="dv">80</span>, <span class="dv">85</span>, <span class="dv">90</span>, <span class="dv">95</span>, <span class="dv">100</span>, <span class="dv">105</span>, <span class="dv">110</span>)) <span class="co"># add time points</span></span></code></pre></div>
+<pre><code>## Call: survfit(formula = Surv(enter, exit, event) ~ sex, data = oldmort01, 
+##     conf.type = &quot;log-log&quot;, type = &quot;fh&quot;)
+## 
+##                 sex=male 
+##  time n.risk n.event survival std.err lower 95% CI upper 95% CI
+##    60   1390       0  1.00000 0.00000      1.00000       1.0000
+##    65   1017     183  0.85822 0.00974      0.83793       0.8762
+##    70    697     168  0.70245 0.01352      0.67504       0.7280
+##    75    428     184  0.50514 0.01575      0.47385       0.5356
+##    80    191     171  0.28138 0.01561      0.25118       0.3123
+##    85     55     105  0.10962 0.01239      0.08685       0.1353
+##    90     12      34  0.03418 0.00849      0.02024       0.0538
+##    95      1       8  0.00583 0.00449      0.00101       0.0216
+## 
+##                 sex=female 
+##  time n.risk n.event survival std.err lower 95% CI upper 95% CI
+##    60   1833       0  1.00000 0.00000     1.000000      1.00000
+##    65   1416     166  0.90220 0.00723     0.887022      0.91543
+##    70   1034     205  0.76103 0.01094     0.738776      0.78169
+##    75    669     238  0.57371 0.01342     0.546935      0.59953
+##    80    318     236  0.34799 0.01415     0.320348      0.37575
+##    85    115     167  0.15315 0.01193     0.130627      0.17734
+##    90     27      80  0.03863 0.00710     0.026391      0.05434
+##    95      5      21  0.00824 0.00347     0.003349      0.01759
+##   100      1       4  0.00228 0.00183     0.000381      0.00911</code></pre>
+<ul>
+<li>Overall survival and hazard curves for the population</li>
+</ul>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="survival-analyses-part-2.html#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Plots</span></span>
+<span id="cb137-2"><a href="survival-analyses-part-2.html#cb137-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))<span class="co"># Two panels, &quot;one row, two columns&quot;.</span></span>
+<span id="cb137-3"><a href="survival-analyses-part-2.html#cb137-3" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(oldmort01, <span class="fu">plot</span>(<span class="fu">Surv</span>(enter, exit, event), <span class="at">fun =</span> <span class="st">&quot;cumhaz&quot;</span>, </span>
+<span id="cb137-4"><a href="survival-analyses-part-2.html#cb137-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">main =</span> <span class="st">&quot;Cumulativa hazards function&quot;</span>,</span>
+<span id="cb137-5"><a href="survival-analyses-part-2.html#cb137-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">xlab =</span> <span class="st">&quot;Duration&quot;</span>))</span>
+<span id="cb137-6"><a href="survival-analyses-part-2.html#cb137-6" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(oldmort01, <span class="fu">plot</span>(<span class="fu">Surv</span>(enter, exit, event),</span>
+<span id="cb137-7"><a href="survival-analyses-part-2.html#cb137-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">main =</span> <span class="st">&quot;Survival function&quot;</span>,</span>
+<span id="cb137-8"><a href="survival-analyses-part-2.html#cb137-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">xlab =</span> <span class="st">&quot;Duration&quot;</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
+<ul>
+<li>Comparison between Male and Female</li>
+</ul>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="survival-analyses-part-2.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots</span></span>
+<span id="cb138-2"><a href="survival-analyses-part-2.html#cb138-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))<span class="co"># Two panels, &quot;one row, two columns&quot;.</span></span>
+<span id="cb138-3"><a href="survival-analyses-part-2.html#cb138-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb138-4"><a href="survival-analyses-part-2.html#cb138-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bysex_KM,</span>
+<span id="cb138-5"><a href="survival-analyses-part-2.html#cb138-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Survival probability&quot;</span>,</span>
+<span id="cb138-6"><a href="survival-analyses-part-2.html#cb138-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Time&quot;</span>,</span>
+<span id="cb138-7"><a href="survival-analyses-part-2.html#cb138-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">mark.time =</span> T,</span>
+<span id="cb138-8"><a href="survival-analyses-part-2.html#cb138-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">&quot;Kaplan-Meier survival curve&quot;</span>)</span>
+<span id="cb138-9"><a href="survival-analyses-part-2.html#cb138-9" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;Male&quot;</span>,<span class="st">&quot;Female&quot;</span>),</span>
+<span id="cb138-10"><a href="survival-analyses-part-2.html#cb138-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">lty=</span><span class="fu">c</span>(<span class="st">&quot;solid&quot;</span>,<span class="st">&quot;dashed&quot;</span>), </span>
+<span id="cb138-11"><a href="survival-analyses-part-2.html#cb138-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;black&quot;</span>,<span class="st">&quot;red&quot;</span>))</span>
+<span id="cb138-12"><a href="survival-analyses-part-2.html#cb138-12" aria-hidden="true" tabindex="-1"></a><span class="co">#abline(h = 0.5, col = &quot;sienna&quot;, lty = 3)</span></span>
+<span id="cb138-13"><a href="survival-analyses-part-2.html#cb138-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb138-14"><a href="survival-analyses-part-2.html#cb138-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bysex_NA,</span>
+<span id="cb138-15"><a href="survival-analyses-part-2.html#cb138-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Cumulative hazard&quot;</span>,</span>
+<span id="cb138-16"><a href="survival-analyses-part-2.html#cb138-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Time&quot;</span>,</span>
+<span id="cb138-17"><a href="survival-analyses-part-2.html#cb138-17" aria-hidden="true" tabindex="-1"></a>     <span class="at">mark.time =</span> T,</span>
+<span id="cb138-18"><a href="survival-analyses-part-2.html#cb138-18" aria-hidden="true" tabindex="-1"></a>     <span class="at">fun=</span><span class="st">&quot;cumhaz&quot;</span>,</span>
+<span id="cb138-19"><a href="survival-analyses-part-2.html#cb138-19" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">&quot;Nelson-Aalen cumulative hazard curve&quot;</span>)</span>
+<span id="cb138-20"><a href="survival-analyses-part-2.html#cb138-20" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;Male&quot;</span>,<span class="st">&quot;Female&quot;</span>),</span>
+<span id="cb138-21"><a href="survival-analyses-part-2.html#cb138-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">lty=</span><span class="fu">c</span>(<span class="st">&quot;solid&quot;</span>,<span class="st">&quot;dashed&quot;</span>), </span>
+<span id="cb138-22"><a href="survival-analyses-part-2.html#cb138-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;black&quot;</span>,<span class="st">&quot;red&quot;</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="survival-analyses-part-2.html#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="co">#abline(h = 0.5, col = &quot;sienna&quot;, lty = 3)</span></span></code></pre></div>
+<ul>
+<li>For a better plot for comparisons</li>
+</ul>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="survival-analyses-part-2.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggfortify)</span>
+<span id="cb140-2"><a href="survival-analyses-part-2.html#cb140-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb140-3"><a href="survival-analyses-part-2.html#cb140-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-4"><a href="survival-analyses-part-2.html#cb140-4" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(bysex_KM,</span>
+<span id="cb140-5"><a href="survival-analyses-part-2.html#cb140-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Survival probabilities&quot;</span>,</span>
+<span id="cb140-6"><a href="survival-analyses-part-2.html#cb140-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Survival time&quot;</span>,</span>
+<span id="cb140-7"><a href="survival-analyses-part-2.html#cb140-7" aria-hidden="true" tabindex="-1"></a>     <span class="co">#mark.time = T,</span></span>
+<span id="cb140-8"><a href="survival-analyses-part-2.html#cb140-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">&quot;Kaplan-Meier survival curve estimate with 95% CIs&quot;</span></span>
+<span id="cb140-9"><a href="survival-analyses-part-2.html#cb140-9" aria-hidden="true" tabindex="-1"></a>     )</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-63-1.png" width="672" /></p>
+</div>
+<div id="semi-parametric-models-cox-regression" class="section level3 hasAnchor" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> Semi-parametric models: Cox Regression<a href="survival-analyses-part-2.html#semi-parametric-models-cox-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="survival-analyses-part-2.html#cb141-1" aria-hidden="true" tabindex="-1"></a>oldmort_cox <span class="ot">&lt;-</span> <span class="fu">coxreg</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> sex <span class="sc">+</span> region <span class="sc">+</span> imr.birth, </span>
+<span id="cb141-2"><a href="survival-analyses-part-2.html#cb141-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> oldmort01) </span>
+<span id="cb141-3"><a href="survival-analyses-part-2.html#cb141-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb141-4"><a href="survival-analyses-part-2.html#cb141-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">summary</span>(oldmort_cox), <span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<pre><code>## Covariate             Mean       Coef     Rel.Risk   S.E.    LR p
+## sex                                                         0.0001 
+##             male      0.406     0         1 (reference)
+##           female      0.594    -0.185     0.831     0.046
+## region                                                      0.0013 
+##             town      0.111     0         1 (reference)
+##         industry      0.326     0.225     1.252     0.087
+##            rural      0.563     0.069     1.071     0.087
+## imr.birth            15.162     0.005     1.005     0.007   0.5009 
+## 
+## Events                    1971 
+## Total time at risk         37824 
+## Max. log. likelihood      -13563 
+## LR test statistic         31.41 
+## Degrees of freedom        4 
+## Overall p-value           2.52611e-06</code></pre>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="survival-analyses-part-2.html#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots</span></span>
+<span id="cb143-2"><a href="survival-analyses-part-2.html#cb143-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">las =</span> <span class="dv">1</span>)</span>
+<span id="cb143-3"><a href="survival-analyses-part-2.html#cb143-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(oldmort_cox, </span>
+<span id="cb143-4"><a href="survival-analyses-part-2.html#cb143-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">fn =</span> <span class="st">&quot;sur&quot;</span>, <span class="at">main =</span> <span class="st">&quot;&quot;</span>, </span>
+<span id="cb143-5"><a href="survival-analyses-part-2.html#cb143-5" aria-hidden="true" tabindex="-1"></a>     <span class="co">#xlab=&quot;Duration (year)&quot;, </span></span>
+<span id="cb143-6"><a href="survival-analyses-part-2.html#cb143-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;Survival&quot;</span>,</span>
+<span id="cb143-7"><a href="survival-analyses-part-2.html#cb143-7" aria-hidden="true" tabindex="-1"></a>     <span class="co">#xlim=c(0, 1) </span></span>
+<span id="cb143-8"><a href="survival-analyses-part-2.html#cb143-8" aria-hidden="true" tabindex="-1"></a>     <span class="co">#ylim=c(ymin, ymax)</span></span>
+<span id="cb143-9"><a href="survival-analyses-part-2.html#cb143-9" aria-hidden="true" tabindex="-1"></a>     )</span>
+<span id="cb143-10"><a href="survival-analyses-part-2.html#cb143-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(oldmort_cox, </span>
+<span id="cb143-11"><a href="survival-analyses-part-2.html#cb143-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">fn =</span> <span class="st">&quot;cum&quot;</span>, <span class="at">main =</span> <span class="st">&quot;&quot;</span>, </span>
+<span id="cb143-12"><a href="survival-analyses-part-2.html#cb143-12" aria-hidden="true" tabindex="-1"></a>     <span class="co">#xlab=&quot;Duration (year)&quot;, </span></span>
+<span id="cb143-13"><a href="survival-analyses-part-2.html#cb143-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;Hazard&quot;</span>,</span>
+<span id="cb143-14"><a href="survival-analyses-part-2.html#cb143-14" aria-hidden="true" tabindex="-1"></a>     <span class="co">#xlim=c(0, 1) </span></span>
+<span id="cb143-15"><a href="survival-analyses-part-2.html#cb143-15" aria-hidden="true" tabindex="-1"></a>     <span class="co">#ylim=c(ymin, ymax)</span></span>
+<span id="cb143-16"><a href="survival-analyses-part-2.html#cb143-16" aria-hidden="true" tabindex="-1"></a>     )</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
+</div>
+<div id="parametric-models" class="section level3 hasAnchor" number="4.3.3">
+<h3><span class="header-section-number">4.3.3</span> Parametric models<a href="survival-analyses-part-2.html#parametric-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let’s think some some feasible models addressing how the survival varies by sex, region, and infant mortality of the cohort, using <strong>oldmort01</strong> dataset.</p>
+<p>Here are some possible models depending on the outcome:
+- Linear or Poisson regression on the ‘survival time’, which can be defined as the time of death (i.e., ‘exit’). We may need to subset only those who died, potentially resulting in considerable loss of data.
+- Logistic regression for the event, death. How would you incorporate “survival time” in this model?</p>
+<div id="glm-logistic-regression" class="section level4 hasAnchor" number="4.3.3.1">
+<h4><span class="header-section-number">4.3.3.1</span> GLM: Logistic regression<a href="survival-analyses-part-2.html#glm-logistic-regression" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>To fit logistic regression, ‘death’ variable was created.</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="survival-analyses-part-2.html#cb144-1" aria-hidden="true" tabindex="-1"></a>oldmort01<span class="sc">$</span>death <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(oldmort01<span class="sc">$</span>event <span class="sc">==</span> <span class="st">&quot;TRUE&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span></code></pre></div>
+<p>Logistic model was fitted as below.</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="survival-analyses-part-2.html#cb145-1" aria-hidden="true" tabindex="-1"></a>oldmort_log <span class="ot">&lt;-</span> <span class="fu">glm</span>(death <span class="sc">~</span> sex <span class="sc">+</span> region <span class="sc">+</span> imr.birth,</span>
+<span id="cb145-2"><a href="survival-analyses-part-2.html#cb145-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data=</span>oldmort01, </span>
+<span id="cb145-3"><a href="survival-analyses-part-2.html#cb145-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb145-4"><a href="survival-analyses-part-2.html#cb145-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb145-5"><a href="survival-analyses-part-2.html#cb145-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(oldmort_log)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = death ~ sex + region + imr.birth, family = binomial(link = &quot;logit&quot;), 
+##     data = oldmort01)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -0.9467  -0.8371  -0.8105   1.4506   1.6661  
+## 
+## Coefficients:
+##                 Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)    -1.003482   0.166455  -6.029 1.65e-09 ***
+## sexfemale       0.073055   0.054619   1.338 0.181050    
+## regionindustry  0.378124   0.100516   3.762 0.000169 ***
+## regionrural     0.111579   0.099098   1.126 0.260188    
+## imr.birth      -0.004146   0.007756  -0.534 0.593010    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 7972.9  on 6494  degrees of freedom
+## Residual deviance: 7944.9  on 6490  degrees of freedom
+## AIC: 7954.9
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<p>To ease interpretation, we exponentiate coefficients (and CIs).</p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="survival-analyses-part-2.html#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(oldmort_log))</span></code></pre></div>
+<pre><code>##    (Intercept)      sexfemale regionindustry    regionrural      imr.birth 
+##      0.3666006      1.0757895      1.4595443      1.1180423      0.9958631</code></pre>
+</div>
+<div id="glm-linear-regression" class="section level4 hasAnchor" number="4.3.3.2">
+<h4><span class="header-section-number">4.3.3.2</span> GLM: Linear regression<a href="survival-analyses-part-2.html#glm-linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="model-specification" class="section level5 hasAnchor" number="4.3.3.2.1">
+<h5><span class="header-section-number">4.3.3.2.1</span> Model specification<a href="survival-analyses-part-2.html#model-specification" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p><span class="math display">\[ Y_{Time\;to\; death} = b_0 + b_1\times D_f + b_2 \times D_{ind} + b_3 \times D_{rural} + b_4 \times X_{IMR} + \epsilon_i,  \;\;   \epsilon \sim N(0, 1)\]</span>
+##### Estimation</p>
+<p>To fit linear model, we need to subset data for the death and use ‘exit’ as an outcome.</p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="survival-analyses-part-2.html#cb149-1" aria-hidden="true" tabindex="-1"></a>oldmort02 <span class="ot">&lt;-</span> oldmort01[oldmort01<span class="sc">$</span>death <span class="sc">==</span> <span class="dv">1</span>,]</span></code></pre></div>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="survival-analyses-part-2.html#cb150-1" aria-hidden="true" tabindex="-1"></a>oldmort_lm <span class="ot">&lt;-</span> <span class="fu">glm</span>(exit <span class="sc">~</span> sex <span class="sc">+</span> region <span class="sc">+</span> imr.birth,</span>
+<span id="cb150-2"><a href="survival-analyses-part-2.html#cb150-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data=</span>oldmort02, </span>
+<span id="cb150-3"><a href="survival-analyses-part-2.html#cb150-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">family =</span> <span class="st">&quot;gaussian&quot;</span>)</span>
+<span id="cb150-4"><a href="survival-analyses-part-2.html#cb150-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(oldmort_lm)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = exit ~ sex + region + imr.birth, family = &quot;gaussian&quot;, 
+##     data = oldmort02)
+## 
+## Deviance Residuals: 
+##      Min        1Q    Median        3Q       Max  
+## -14.6605   -6.3367   -0.1812    5.4018   25.3607  
+## 
+## Coefficients:
+##                Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    71.99777    1.12285  64.120  &lt; 2e-16 ***
+## sexfemale       1.90403    0.35249   5.402  7.4e-08 ***
+## regionindustry  2.07598    0.66429   3.125  0.00180 ** 
+## regionrural     1.80560    0.66531   2.714  0.00671 ** 
+## imr.birth      -0.09621    0.05156  -1.866  0.06219 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for gaussian family taken to be 60.06622)
+## 
+##     Null deviance: 120769  on 1970  degrees of freedom
+## Residual deviance: 118090  on 1966  degrees of freedom
+## AIC: 13673
+## 
+## Number of Fisher Scoring iterations: 2</code></pre>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="survival-analyses-part-2.html#cb152-1" aria-hidden="true" tabindex="-1"></a>b_lm <span class="ot">=</span> <span class="fu">coef</span>(oldmort_lm)</span>
+<span id="cb152-2"><a href="survival-analyses-part-2.html#cb152-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(b_lm)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">71.9977676</td>
+</tr>
+<tr class="even">
+<td align="left">sexfemale</td>
+<td align="right">1.9040306</td>
+</tr>
+<tr class="odd">
+<td align="left">regionindustry</td>
+<td align="right">2.0759823</td>
+</tr>
+<tr class="even">
+<td align="left">regionrural</td>
+<td align="right">1.8056008</td>
+</tr>
+<tr class="odd">
+<td align="left">imr.birth</td>
+<td align="right">-0.0962143</td>
+</tr>
+</tbody>
+</table>
+<p>Thus, our estimated model is</p>
+<p>Time to death (<span class="math inline">\(t\)</span>) = (71.9977676) + (1.9040306)<span class="math inline">\(\times\)</span>sex_female + (2.0759823)<span class="math inline">\(\times\)</span>region_industry + (1.8056008)<span class="math inline">\(\times\)</span>region_rural + (-0.0962143)<span class="math inline">\(\times\)</span>IMR</p>
+</div>
+<div id="interpretations" class="section level5 hasAnchor" number="4.3.3.2.2">
+<h5><span class="header-section-number">4.3.3.2.2</span> Interpretations<a href="survival-analyses-part-2.html#interpretations" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<ul>
+<li>What is the metric of <span class="math inline">\(y\)</span> and <span class="math inline">\(b_i\)</span>, respectively?</li>
+<li>Interpret <span class="math inline">\(b_0, b_1,\)</span> and <span class="math inline">\(b_2\)</span>, respectively.</li>
+<li>What is the interpretation when 1) <span class="math inline">\(b_i = 0\)</span>, 2) <span class="math inline">\(b_i &lt; 0\)</span>, or 3) <span class="math inline">\(b_i &gt; 0\)</span>?</li>
+<li>How would you compare the <em>time</em> to death between two groups of people below? Is the effect additive or multiplicative?
+<ul>
+<li>What is the estimated time to death for those who with sex = 0, region = 0, and IMR = 0 vs. those who with sex = 1, region = 0, and IMR = 0?</li>
+<li>What is the estimated time to death for those who with sex = 0, region = 2, and IMR = 90 vs. those who with sex = 1, region = 2, and IMR = 90?</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="weibull-model-1" class="section level4 hasAnchor" number="4.3.3.3">
+<h4><span class="header-section-number">4.3.3.3</span> Weibull model<a href="survival-analyses-part-2.html#weibull-model-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="survival-analyses-part-2.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Models</span></span>
+<span id="cb153-2"><a href="survival-analyses-part-2.html#cb153-2" aria-hidden="true" tabindex="-1"></a>oldmort_wei <span class="ot">&lt;-</span> <span class="fu">phreg</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> sex <span class="sc">+</span> region <span class="sc">+</span> imr.birth, </span>
+<span id="cb153-3"><a href="survival-analyses-part-2.html#cb153-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> oldmort01,</span>
+<span id="cb153-4"><a href="survival-analyses-part-2.html#cb153-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">dist =</span> <span class="st">&quot;weibull&quot;</span>)</span>
+<span id="cb153-5"><a href="survival-analyses-part-2.html#cb153-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb153-6"><a href="survival-analyses-part-2.html#cb153-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Table</span></span>
+<span id="cb153-7"><a href="survival-analyses-part-2.html#cb153-7" aria-hidden="true" tabindex="-1"></a><span class="co">#print(summary(parm), digits = 4)</span></span>
+<span id="cb153-8"><a href="survival-analyses-part-2.html#cb153-8" aria-hidden="true" tabindex="-1"></a>oldmort_wei</span></code></pre></div>
+<pre><code>## Call:
+## phreg(formula = Surv(enter, exit, event) ~ sex + region + imr.birth, 
+##     data = oldmort01, dist = &quot;weibull&quot;)
+## 
+## Covariate          W.mean      Coef Exp(Coef)  se(Coef)    Wald p
+## sex 
+##             male    0.406     0         1           (reference)
+##           female    0.594    -0.185     0.831     0.046     0.000 
+## region 
+##             town    0.111     0         1           (reference)
+##         industry    0.326     0.223     1.250     0.087     0.010 
+##            rural    0.563     0.065     1.067     0.087     0.456 
+## imr.birth          15.162     0.005     1.005     0.007     0.452 
+## 
+## log(scale)                    4.362               0.019     0.000 
+## log(shape)                    2.083               0.027     0.000 
+## 
+## Events                    1971 
+## Total time at risk         37824 
+## Max. log. likelihood      -7281.2 
+## LR test statistic         31.82 
+## Degrees of freedom        4 
+## Overall p-value           2.08157e-06</code></pre>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="survival-analyses-part-2.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots</span></span>
+<span id="cb155-2"><a href="survival-analyses-part-2.html#cb155-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">las =</span> <span class="dv">1</span>)</span>
+<span id="cb155-3"><a href="survival-analyses-part-2.html#cb155-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(oldmort_wei, </span>
+<span id="cb155-4"><a href="survival-analyses-part-2.html#cb155-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">fn =</span> <span class="st">&quot;sur&quot;</span>, <span class="at">main =</span> <span class="st">&quot;&quot;</span>, </span>
+<span id="cb155-5"><a href="survival-analyses-part-2.html#cb155-5" aria-hidden="true" tabindex="-1"></a>     <span class="co">#xlab=&quot;Duration (year)&quot;, </span></span>
+<span id="cb155-6"><a href="survival-analyses-part-2.html#cb155-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;Survival&quot;</span>,</span>
+<span id="cb155-7"><a href="survival-analyses-part-2.html#cb155-7" aria-hidden="true" tabindex="-1"></a>     <span class="co">#xlim=c(0, 1) </span></span>
+<span id="cb155-8"><a href="survival-analyses-part-2.html#cb155-8" aria-hidden="true" tabindex="-1"></a>     <span class="co">#ylim=c(ymin, ymax)</span></span>
+<span id="cb155-9"><a href="survival-analyses-part-2.html#cb155-9" aria-hidden="true" tabindex="-1"></a>     )</span>
+<span id="cb155-10"><a href="survival-analyses-part-2.html#cb155-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(oldmort_wei, </span>
+<span id="cb155-11"><a href="survival-analyses-part-2.html#cb155-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">fn =</span> <span class="st">&quot;cum&quot;</span>, <span class="at">main =</span> <span class="st">&quot;&quot;</span>, </span>
+<span id="cb155-12"><a href="survival-analyses-part-2.html#cb155-12" aria-hidden="true" tabindex="-1"></a>     <span class="co">#xlab=&quot;Duration (year)&quot;, </span></span>
+<span id="cb155-13"><a href="survival-analyses-part-2.html#cb155-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;hazard&quot;</span>,</span>
+<span id="cb155-14"><a href="survival-analyses-part-2.html#cb155-14" aria-hidden="true" tabindex="-1"></a>     <span class="co">#xlim=c(0, 1) </span></span>
+<span id="cb155-15"><a href="survival-analyses-part-2.html#cb155-15" aria-hidden="true" tabindex="-1"></a>     <span class="co">#ylim=c(ymin, ymax)</span></span>
+<span id="cb155-16"><a href="survival-analyses-part-2.html#cb155-16" aria-hidden="true" tabindex="-1"></a>     )</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p>
+</div>
+<div id="gompertz-model-1" class="section level4 hasAnchor" number="4.3.3.4">
+<h4><span class="header-section-number">4.3.3.4</span> Gompertz model<a href="survival-analyses-part-2.html#gompertz-model-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="survival-analyses-part-2.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Models</span></span>
+<span id="cb156-2"><a href="survival-analyses-part-2.html#cb156-2" aria-hidden="true" tabindex="-1"></a>oldmort_gomp <span class="ot">&lt;-</span> <span class="fu">phreg</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> sex <span class="sc">+</span> region <span class="sc">+</span> imr.birth, </span>
+<span id="cb156-3"><a href="survival-analyses-part-2.html#cb156-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> oldmort01, </span>
+<span id="cb156-4"><a href="survival-analyses-part-2.html#cb156-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">dist =</span> <span class="st">&quot;gompertz&quot;</span>)</span>
+<span id="cb156-5"><a href="survival-analyses-part-2.html#cb156-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb156-6"><a href="survival-analyses-part-2.html#cb156-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Table</span></span>
+<span id="cb156-7"><a href="survival-analyses-part-2.html#cb156-7" aria-hidden="true" tabindex="-1"></a><span class="co">#print(summary(parm), digits = 4)</span></span>
+<span id="cb156-8"><a href="survival-analyses-part-2.html#cb156-8" aria-hidden="true" tabindex="-1"></a>oldmort_gomp</span></code></pre></div>
+<pre><code>## Call:
+## phreg(formula = Surv(enter, exit, event) ~ sex + region + imr.birth, 
+##     data = oldmort01, dist = &quot;gompertz&quot;)
+## 
+## Covariate          W.mean      Coef Exp(Coef)  se(Coef)    Wald p
+## sex 
+##             male    0.406     0         1           (reference)
+##           female    0.594    -0.188     0.829     0.046     0.000 
+## region 
+##             town    0.111     0         1           (reference)
+##         industry    0.326     0.222     1.248     0.087     0.011 
+##            rural    0.563     0.067     1.069     0.087     0.438 
+## imr.birth          15.162     0.005     1.005     0.007     0.433 
+## 
+## log(scale)                    2.353               0.030     0.000 
+## log(shape)                   -7.410               0.286     0.000 
+## 
+## Events                    1971 
+## Total time at risk         37824 
+## Max. log. likelihood      -7280.6 
+## LR test statistic         31.79 
+## Degrees of freedom        4 
+## Overall p-value           2.11245e-06</code></pre>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="survival-analyses-part-2.html#cb158-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots</span></span>
+<span id="cb158-2"><a href="survival-analyses-part-2.html#cb158-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">las =</span> <span class="dv">1</span>)</span>
+<span id="cb158-3"><a href="survival-analyses-part-2.html#cb158-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(oldmort_gomp, </span>
+<span id="cb158-4"><a href="survival-analyses-part-2.html#cb158-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">fn =</span> <span class="st">&quot;sur&quot;</span>, <span class="at">main =</span> <span class="st">&quot;&quot;</span>, </span>
+<span id="cb158-5"><a href="survival-analyses-part-2.html#cb158-5" aria-hidden="true" tabindex="-1"></a>     <span class="co">#xlab=&quot;Duration (year)&quot;, </span></span>
+<span id="cb158-6"><a href="survival-analyses-part-2.html#cb158-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;Survival&quot;</span>,</span>
+<span id="cb158-7"><a href="survival-analyses-part-2.html#cb158-7" aria-hidden="true" tabindex="-1"></a>     <span class="co">#xlim=c(0, 1) </span></span>
+<span id="cb158-8"><a href="survival-analyses-part-2.html#cb158-8" aria-hidden="true" tabindex="-1"></a>     <span class="co">#ylim=c(ymin, ymax)</span></span>
+<span id="cb158-9"><a href="survival-analyses-part-2.html#cb158-9" aria-hidden="true" tabindex="-1"></a>     )</span>
+<span id="cb158-10"><a href="survival-analyses-part-2.html#cb158-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(oldmort_gomp, </span>
+<span id="cb158-11"><a href="survival-analyses-part-2.html#cb158-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">fn =</span> <span class="st">&quot;cum&quot;</span>, <span class="at">main =</span> <span class="st">&quot;&quot;</span>, </span>
+<span id="cb158-12"><a href="survival-analyses-part-2.html#cb158-12" aria-hidden="true" tabindex="-1"></a>     <span class="co">#xlab=&quot;Duration (year)&quot;, </span></span>
+<span id="cb158-13"><a href="survival-analyses-part-2.html#cb158-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;hazard&quot;</span>,</span>
+<span id="cb158-14"><a href="survival-analyses-part-2.html#cb158-14" aria-hidden="true" tabindex="-1"></a>     <span class="co">#xlim=c(0, 1) </span></span>
+<span id="cb158-15"><a href="survival-analyses-part-2.html#cb158-15" aria-hidden="true" tabindex="-1"></a>     <span class="co">#ylim=c(ymin, ymax)</span></span>
+<span id="cb158-16"><a href="survival-analyses-part-2.html#cb158-16" aria-hidden="true" tabindex="-1"></a>     )</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-72-1.png" width="672" />
+The following figures summarize cumulative hazard curves by different survival models.</p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="survival-analyses-part-2.html#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots</span></span>
+<span id="cb159-2"><a href="survival-analyses-part-2.html#cb159-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="at">las =</span> <span class="dv">1</span>)</span>
+<span id="cb159-3"><a href="survival-analyses-part-2.html#cb159-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb159-4"><a href="survival-analyses-part-2.html#cb159-4" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(oldmort01, <span class="fu">plot</span>(<span class="fu">Surv</span>(enter, exit, event), </span>
+<span id="cb159-5"><a href="survival-analyses-part-2.html#cb159-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">fun =</span> <span class="st">&quot;cumhaz&quot;</span>, </span>
+<span id="cb159-6"><a href="survival-analyses-part-2.html#cb159-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">main =</span> <span class="st">&quot;Kaplan-Meier&quot;</span>,</span>
+<span id="cb159-7"><a href="survival-analyses-part-2.html#cb159-7" aria-hidden="true" tabindex="-1"></a>                     <span class="co">#xlab = &quot;Duration&quot;,</span></span>
+<span id="cb159-8"><a href="survival-analyses-part-2.html#cb159-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb159-9"><a href="survival-analyses-part-2.html#cb159-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">100</span>),</span>
+<span id="cb159-10"><a href="survival-analyses-part-2.html#cb159-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>)))</span>
+<span id="cb159-11"><a href="survival-analyses-part-2.html#cb159-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb159-12"><a href="survival-analyses-part-2.html#cb159-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(oldmort_cox, </span>
+<span id="cb159-13"><a href="survival-analyses-part-2.html#cb159-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">fn =</span> <span class="st">&quot;cum&quot;</span>, </span>
+<span id="cb159-14"><a href="survival-analyses-part-2.html#cb159-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Cox&quot;</span>, </span>
+<span id="cb159-15"><a href="survival-analyses-part-2.html#cb159-15" aria-hidden="true" tabindex="-1"></a>     <span class="co">#xlab=&quot;Duration (year)&quot;, </span></span>
+<span id="cb159-16"><a href="survival-analyses-part-2.html#cb159-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;&quot;</span>,</span>
+<span id="cb159-17"><a href="survival-analyses-part-2.html#cb159-17" aria-hidden="true" tabindex="-1"></a>     <span class="co">#xlim=c(0, 1) </span></span>
+<span id="cb159-18"><a href="survival-analyses-part-2.html#cb159-18" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb159-19"><a href="survival-analyses-part-2.html#cb159-19" aria-hidden="true" tabindex="-1"></a>     )</span>
+<span id="cb159-20"><a href="survival-analyses-part-2.html#cb159-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb159-21"><a href="survival-analyses-part-2.html#cb159-21" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(oldmort_wei, </span>
+<span id="cb159-22"><a href="survival-analyses-part-2.html#cb159-22" aria-hidden="true" tabindex="-1"></a>     <span class="at">fn =</span> <span class="st">&quot;cum&quot;</span>, </span>
+<span id="cb159-23"><a href="survival-analyses-part-2.html#cb159-23" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Weibull&quot;</span>, </span>
+<span id="cb159-24"><a href="survival-analyses-part-2.html#cb159-24" aria-hidden="true" tabindex="-1"></a>     <span class="co">#xlab=&quot;Duration (year)&quot;, </span></span>
+<span id="cb159-25"><a href="survival-analyses-part-2.html#cb159-25" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;&quot;</span>,</span>
+<span id="cb159-26"><a href="survival-analyses-part-2.html#cb159-26" aria-hidden="true" tabindex="-1"></a>     <span class="co">#xlim=c(0, 1) </span></span>
+<span id="cb159-27"><a href="survival-analyses-part-2.html#cb159-27" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb159-28"><a href="survival-analyses-part-2.html#cb159-28" aria-hidden="true" tabindex="-1"></a>     )</span>
+<span id="cb159-29"><a href="survival-analyses-part-2.html#cb159-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb159-30"><a href="survival-analyses-part-2.html#cb159-30" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(oldmort_gomp, </span>
+<span id="cb159-31"><a href="survival-analyses-part-2.html#cb159-31" aria-hidden="true" tabindex="-1"></a>     <span class="at">fn =</span> <span class="st">&quot;cum&quot;</span>, </span>
+<span id="cb159-32"><a href="survival-analyses-part-2.html#cb159-32" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Gompertz&quot;</span>, </span>
+<span id="cb159-33"><a href="survival-analyses-part-2.html#cb159-33" aria-hidden="true" tabindex="-1"></a>     <span class="co">#xlab=&quot;Duration (year)&quot;, </span></span>
+<span id="cb159-34"><a href="survival-analyses-part-2.html#cb159-34" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;&quot;</span>,</span>
+<span id="cb159-35"><a href="survival-analyses-part-2.html#cb159-35" aria-hidden="true" tabindex="-1"></a>     <span class="co">#xlim=c(0, 1) </span></span>
+<span id="cb159-36"><a href="survival-analyses-part-2.html#cb159-36" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb159-37"><a href="survival-analyses-part-2.html#cb159-37" aria-hidden="true" tabindex="-1"></a>     )</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
+
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="survival-analyses-part-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="add-health-project.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/03-Survival02.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

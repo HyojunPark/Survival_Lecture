@@ -1,0 +1,244 @@
+# Counting Process
+
+In this section, we will cover 1) survival data structure (i.e., counting process) and 2) modeling survival data.
+
+## Set packages and library
+
+```{r}
+library(eha)
+library(survival)
+#install.packages("ggfortify")
+library(ggfortify)
+library(ggplot2)
+library(tidyverse)
+library(data.table)
+#install.packages("flextable")
+library(flextable)
+library(knitr)
+```
+
+## Example
+
+> "The **oldmort** dataset in **eha** package contains life histories of people followed from their 60th birthday to their 100th, or until death, born between June 28, 1765 and December 31, 1820 in Skellefteå. The variable *enter* is age at start of the given interval, *exit* contains the age at the end of the interval. We need to calculate follow-up time since age 60 - 60 is subtracted from *enter* and *exit*. The variable *event* is an indicator of death at the duration given by exit." <https://www.rdocumentation.org/packages/eha/versions/2.8.5/topics/oldmort> [Göran Broström, <http://ehar.se/r/ehar2/parametric.html>]
+
+Here are the summary of the **oldmort** dataset.
+
+```{r}
+library(eha)
+
+oldmort01 <- oldmort
+
+summary(oldmort01) # descriptive statistics
+str(oldmort01) # structure
+head(oldmort01) # preview
+```
+
+To check how this dataset is constructed, we will need to identify any duplicated *id*.
+
+```{r}
+dup01 <- data.frame(table(oldmort01$id))
+dup02 <- dup01[order(-dup01$Freq), ]
+```
+
+In the following example, please check
+
+-   When is a new record for the same *id* created?
+-   What are the time-invariant variables?
+-   What are the time-variant variables?
+-   What does it mean by "TRUE" or "FALSE" in *event*?
+-   How does the time of *enter* and *exit* connected with each other? What would happen if there is a gap between two records?
+
+```{r}
+dup03 <- oldmort01[oldmort01$id %in% c("789000771", "796001158"),  ]
+dup03
+```
+
+## Practice: AddHealth Public datasets
+
+There are many ways to construct long-form datasets with counting process. The following procedure is just one way to achieve the goal.
+
+Here are a couple of things to construct a long-form dataset with counting process.
+
+-   In practice, measuring outcomes, exposures, confounders, and other variables involves a separate procedure for each one of variables. I personally prefer to divide each measurement as time-variant and time-invariant datasets, respectively.
+-   Two variables should be **ALWAYS** included in every single dataset you are working on - *AID* and *wave* (or any other *Time* variable).
+-   Datasets with time-invariant variables can be merged by *AID*, while those with time-variant variables need to be merged by *AID* and *wave*.
+-   Time-varying variables will be assigned a single variable name. Let's say we are to use self-rated health with a variable name of *SRH* for five waves. The dataset should contain *AID*, *wave*, and *SRH*. The SRH in each wave should be assigned the same name, *SRH*, and the wave information will be on *wave*. This way, you can simply "stack up" all 5-wave data to construct the long-form datasets.
+
+First, each *rda* dataset will be loaded and then saved as **WAVE0X**. After assigning a *wave* variable for each of them, we will keep the **WAVE0X** dataset and *WX* datasets only.
+
+```{r}
+
+#1st wave
+load("~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0001/21600-0001-Data.rda")
+wave01 <- da21600.0001
+wave01$wave <- 1
+rm(da21600.0001)
+w1 = subset(wave01, select = c(AID, wave))
+
+#2nd wave
+load("~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0005/21600-0005-Data.rda")
+wave02 <- da21600.0005
+wave02$wave <- 2
+rm(da21600.0005)
+w2 = subset(wave02, select = c(AID, wave))
+
+#3rd wave
+load("~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0008/21600-0008-Data.rda")
+wave03 <- da21600.0008
+wave03$wave <- 3
+rm(da21600.0008)
+w3 = subset(wave03, select = c(AID, wave))
+
+#4th wave
+load("~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0022/21600-0022-Data.rda")
+wave04 <- da21600.0022
+wave04$wave <- 4
+rm(da21600.0022)
+w4 = subset(wave04, select = c(AID, wave))
+
+# 5th wave
+load("~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0032/21600-0032-Data.rda")
+wave05 <- da21600.0032
+wave05$wave <- 5
+rm(da21600.0032)
+w5 = subset(wave05, select = c(AID, wave))
+```
+
+The complete list of respondents can be obtained by aggregating all WX datasets and then getting the unique AID.
+
+-   The numbers of cases for both occasions are the same. It looks like the first wave contains all respondents - no additional respondents were added.
+-   To check this observation, we will see both AID from the first wave and All matched.
+-   Because the n didn't change, we confirmed that WAVE01 contains all respondents of the study.
+
+```{r}
+AH01 <- unique(subset(rbind(w1, w2, w3, w4, w5), select = c(AID)))
+test01 <- cbind(wave01, AH01, by="AID")
+```
+
+### Generate a complete framework with *AID* and *wave* (Optional)
+
+I personally prefer working with a "complete framework" containing all *AID* and *wave*.
+
+```{r}
+lf01 <- rbind(w1, w2, w3, w4, w5)
+lf <- lf01[order(lf01$AID, lf01$wave), ]
+```
+
+Here is the merged ("stacked") dataset.
+
+```{r}
+head(lf01)
+```
+
+Sorting by *AID* and *wave*, we can easily identify the data structure by *AID* and *wave*. This **lf** dataset is what I call a "framework" of this data source, which is the one that will be used whenever combining or merging datasets.
+
+```{r}
+head(lf)
+```
+
+Keep the number of cases (n = `r count(lf)`) for your record. This number should be the number you expect whenever you merge or stack datasets.
+
+```{r}
+count(lf)
+```
+
+### Time-variant variables from each wave
+
+In this practice, we will select and rename self-rated health (for all 5-wave) and appetite (only for $1^{st}$ and $2^{nd}$ waves) measures.
+
+```{r}
+srh1 <- wave01 %>%
+  dplyr::select(AID,
+         wave,
+         "a_srh" = H1GH1,
+         "a_poorappetite" = H1FS2)
+
+srh2 <- wave02 %>%
+  dplyr::select(AID,
+         wave,
+         "a_srh" = H2GH1,
+         "a_poorappetite" = H2GH22)
+
+srh3 <- wave03 %>%
+  dplyr::select(AID,
+         wave,
+         "a_srh" = H3GH1)
+
+srh4 <- wave04 %>%
+  dplyr::select(AID,
+         wave,
+         "a_srh" = H4GH1)
+
+srh5 <- wave05 %>%
+  dplyr::select(AID,
+         wave,
+         "a_srh" = H5ID1)
+```
+
+Please note that how to name the "temporary" datasets. I found that using the combination of 'variable name + wave' minimizes any confusions later.
+
+The 'rbind' function requires all datasets have a same numbers of columns. 'setDT' and 'fill=TRUE' are the functions from a 'data.table' package that override this requirement.
+
+Now, we have created a *long-form dataset (i.e., srh_TV) from five sets of cross-sectional datasets*.
+
+```{r}
+srh_TV01 <- rbind(setDT(srh1), setDT(srh2), setDT(srh3), setDT(srh4), setDT(srh5), fill=TRUE)
+srh_TV <- srh_TV01[order(srh_TV01$AID, srh_TV01$wave), ]
+# 6504, 4834, 4882, 5114, 4196, 25530
+```
+
+```{r}
+head(srh_TV)
+```
+
+### Time-invariant
+
+By definition, when a variable is time-invariant, only one measure from any variable should be applied to all other waves. In this example, we select *sex* from the first wave (because of completeness), which will be applied to the whole long-form dataset.
+
+```{r}
+demo_TI <- wave01 %>%
+  select(AID,
+         "a_sex" = BIO_SEX)
+```
+
+### Merging datasets
+
+Once you have selected, created, and modified all required variables by waves, stacking all waves datasets will generate a long-form dataset per wave-person as long as you have keep *AID* and *wave* variables for all datasets.
+
+In this example, we've created three datasets - **lf** (a framework), **demo_TI** (time-invariant), and **srh_TV** (time-variant).
+
+- Framework + time-invariant (i.e., **lf** (a framework) and **demo_TI** (time-invariant))
+
+```{r}
+Final01 <- merge(lf, demo_TI, by = c("AID"))
+head(Final01)
+```
+
+- Framework + time-invariant + time-variant (i.e., **Final01** + **srh_TV** (time-variant))
+
+```{r}
+Final02 <- merge(Final01, srh_TV, by = c("AID", "wave"))
+head(Final02)
+```
+
+### Define *event*, *enter*, and *exit*
+
+The *event* can be defined as your outcomes. Depending on the nature of outcomes, it could be a multiple or repetitive events, requiring more complex survival modeling with more assumptions. 
+
+- Using lag/lead(wave)
+
+```{r}
+Final03 <- Final02 %>% 
+  group_by(AID) %>% 
+  dplyr::mutate(
+    enter = lag(wave),
+    exit = wave
+    ) %>% 
+  ungroup()
+
+Final03$enter[Final03$wave == 1 & is.na(Final03$enter)] <- 0
+```
+
+Because we used *wave* as an example, it may look more complicated than necessary - for example, we may simply use `enter = exit - 1`. However, this lag/lead function is required when working with the actual date which interval is not always equal to 1. 
+
+

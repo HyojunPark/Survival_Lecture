@@ -1,4 +1,4 @@
-# Lecture: Nonparametric, semiparametric, and parametric survival models 
+# Survival Analyses: Introduction 
 
 ## Set packages and library
 
@@ -8,18 +8,23 @@ library(survival)
 #install.packages("ggfortify")
 library(ggfortify)
 library(ggplot2)
+library(tidyverse)
+library(data.table)
+#install.packages("flextable")
+library(flextable)
+library(knitr)
+
 ```
 
 ## dataset
 
-The $Child$ dataset was from $eha$ package.
+The **child** dataset in **eha** package
 
 ```{r}
 summary(child) # descriptive statistics
 str(child) # structure
-head(child) # structure
+head(child) # preview
 ```
-
 
 ## Nonparametric estimation
 
@@ -93,7 +98,6 @@ plot(result.fh,
 abline(h = 0.5, col = "sienna", lty = 3)
 ```
 
-
 ### Comparisons by groups
 
 ```{r}
@@ -102,8 +106,8 @@ bysex <- survfit(Surv(enter, exit, event) ~ sex,
                     conf.type="log-log")
 
 ## Tables
-bysex
-summary(bysex)
+#bysex
+#summary(bysex)
 summary(bysex, times=c(0, 3, 6, 9, 12, 15)) # add time points
 
 ## plots
@@ -154,7 +158,6 @@ cox01 <- coxreg(Surv(enter, exit, event) ~ sex + socBranch + birthdate,
 print(summary(cox01), digits = 4)
 ```
 
-
 ```{r}
 child$cohort <- floor(toTime(child$birthdate)) # age cohort
 
@@ -165,11 +168,9 @@ cox02 <- coxreg(Surv(enter, exit, event) ~ sex + socBranch + cohort,
 print(summary(cox02), digits = 4)
 ```
 
-
 ```{r}
 range(child$cohort)
 ```
-
 
 ```{r}
 child$cohort <- child$cohort - 1860
@@ -300,3 +301,5 @@ plot(parm_gomp,
      #ylim=c(ymin, ymax)
      )
 ```
+
+
