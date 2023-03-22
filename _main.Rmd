@@ -1,0 +1,1698 @@
+--- 
+title: "SOC6280: Survival Analysis: Practice"
+author: "Hyojun Park"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+# url: your book url like https://bookdown.org/yihui/bookdown
+# cover-image: path to the social sharing image like images/cover.jpg
+description: |
+  Survival handbook
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+---
+
+# About
+
+This is an additional lecture notes for **Survival Analysis** course. 
+
+
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
+
+<!--chapter:end:index.Rmd-->
+
+# Bias assessment
+
+
+Available at https://rpubs.com/Hyojun/bias
+
+\newpage
+## Bias due to omitted confounders
+
+$$y_i = \beta_0 + \beta_1 x_i + \beta_2 x_2 + \dots + \epsilon_i; \;\; for \;\; i=1, \dots, n$$
+
+
+where the errors $\epsilon_i \sim N(0, \sigma^2)$ with independent and identically distributed (*i.i.d.*)
+
+Let's assume the following association is true (i.e., gold standard) without any selection bias, measurement bias, and other unmeasured confoundings.
+
+```{r}
+N <- 100000
+C <- rnorm(N)
+X <- .5 * C + rnorm(N)
+Y <- .3 * C + .4 * X + rnorm(N)
+```
+
+
+### Gold standard
+
+With the correct model specification (i.e., $C$ as a confounder), we get an unbiased estimate of $X$ on $Y$.
+
+
+```{r}
+# Gold standard
+glm.unbiased <- glm(Y~X + C, family="gaussian")
+summary(glm.unbiased)
+```
+
+
+### Misspecified model: a confounder, $C$, was omitted from the model
+
+By omitting $C$, the estimate of $X$ was biased either "away from" or "towards to" the null
+
+```{r}
+# C was omitted
+glm.unbiased <- glm(Y~X, family="gaussian")
+summary(glm.unbiased)
+```
+
+### Bias "away from" or "towards to" the null?
+
+```{r}
+N <- 100000
+C <- rnorm(N)
+X <- -.5 * C + rnorm(N)
+Y <- -.3 * C + .4 * X + rnorm(N)
+```
+
+```{r}
+# C was omitted
+glm.unbiased <- glm(Y~X + C, family="gaussian")
+summary(glm.unbiased)
+```
+
+
+```{r}
+glm.unbiased <- glm(Y~X, family="gaussian")
+summary(glm.unbiased)
+```
+
+### A $C$ is not a confounder on $X$ and $Y$
+
+```{r}
+N <- 100000
+C <- rnorm(N)
+X <- rnorm(N)
+Y <- .4 * X + rnorm(N)
+```
+
+
+### Correct model specification: Without $C$
+
+```{r}
+glm.unbiased <- glm(Y~X, family="gaussian")
+summary(glm.unbiased)
+```
+
+
+### Misspecified model with $C$
+
+```{r}
+glm.unbiased <- glm(Y~X + C, family="gaussian")
+summary(glm.unbiased)
+```
+
+
+### A $C$ is a colloder on $X$ and $Y$
+
+```{r}
+N <- 100000
+X <- rnorm(N)
+Y <- .7 * X + rnorm(N)
+C <- 1.2 * X + .6 * Y + rnorm(N)
+```
+
+
+
+### Correct model specification: Without $C$
+
+```{r}
+glm.unbiased <- glm(Y~X, family="gaussian")
+summary(glm.unbiased)
+```
+
+
+### Misspecified model with $C$
+
+This is one of examples of selection bias. For example, let's say, $X$ is Education, $Y$ is income, and $C$ is social welfare program. People at lower education (i.e., high risk group in terms of exposure) and lower income (i.e., higher risk group in terms of outcome) are more likely to register social welfare program. If survey was conducted based on the registered social welfare program, the "estimated" association from this "disproportionally selected" respondents are likely biased.
+
+
+```{r}
+glm.unbiased <- glm(Y~X + C, family="gaussian")
+summary(glm.unbiased)
+```
+
+
+
+
+## Overadjustment bias
+
+Please note that this is not a comprehensive example; only reflect one aspect of potential overadjustement bias.
+
+Let's assume a model with $M$ as a mediator.
+
+```{r}
+N <- 100000
+X <- rnorm(N)
+M <- .5 * X + rnorm(N)
+Y <- .3 * X + .4 * M + rnorm(N)
+```
+
+
+## Total effect
+
+```{r}
+glm.unbiased <- glm(Y~X, family="gaussian")
+summary(glm.unbiased)
+```
+
+## Overadjustment
+
+```{r}
+glm.unbiased <- glm(Y~X + M, family="gaussian")
+summary(glm.unbiased)
+```
+
+
+## Logistic models
+
+### Sex as a Confounder, $C$
+
+```{r}
+MYY <- data.frame(Sex = "Male",
+                  Smoking = "Yes",
+                  Cancer = 1,
+                  freq = 5
+                  )
+
+MYN <- data.frame(Sex = "Male",
+                  Smoking = "Yes",
+                  Cancer = 0,
+                  freq = 8
+                  )
+
+MNY <- data.frame(Sex = "Male",
+                  Smoking = "No",
+                  Cancer = 1,
+                  freq = 45
+                  )
+
+MNN <- data.frame(Sex = "Male",
+                  Smoking = "No",
+                  Cancer = 0,
+                  freq = 72
+                  )
+
+
+FYY <- data.frame(Sex = "Female",
+                  Smoking = "Yes",
+                  Cancer = 1,
+                  freq = 25
+                  )
+
+FYN <- data.frame(Sex = "Female",
+                  Smoking = "Yes",
+                  Cancer = 0,
+                  freq = 10
+                  )
+
+FNY <- data.frame(Sex = "Female",
+                  Smoking = "No",
+                  Cancer = 1,
+                  freq = 25
+                  )
+
+FNN <- data.frame(Sex = "Female",
+                  Smoking = "No",
+                  Cancer = 0,
+                  freq = 10
+                  )
+
+Ex_confounder <- rbind(MYY, MYN, MNY, MNN, FYY, FYN, FNY, FNN)
+
+
+```
+
+
+Convert Freq table to raw data
+
+```{r}
+library(tidyr)
+raw_confounder <- Ex_confounder %>% 
+  uncount(freq)
+```
+
+
+
+```{r}
+glm.unbiased <- glm(Cancer ~ Smoking , family=binomial(link = "logit"), data=raw_confounder)
+summary(glm.unbiased)
+
+```
+
+
+- Full model:
+
+```{r}
+glm_logit <- glm(Cancer ~ Smoking + Sex , family=binomial(link = "logit"), data=raw_confounder)
+glm_logit
+```
+
+
+- Stratified models
+
+```{r}
+## For males
+raw_confounder_M <- raw_confounder[ which(raw_confounder$Sex=='Male'), ]
+glm_logit_m <- glm(Cancer ~ Smoking , family=binomial(link = "logit"), data=raw_confounder_M)
+glm_logit_m
+
+
+# For females
+raw_confounder_F <- raw_confounder[ which(raw_confounder$Sex=='Female'), ]
+glm_logit_f <- glm(Cancer ~ Smoking , family=binomial(link = "logit"), data=raw_confounder_F)
+glm_logit_f
+
+```
+
+
+### Sex as a Moderator, $M$
+
+```{r}
+MYY <- data.frame(Sex = "Male",
+                  Smoking = "Yes",
+                  Cancer = 1,
+                  freq = 5
+                  )
+
+MYN <- data.frame(Sex = "Male",
+                  Smoking = "Yes",
+                  Cancer = 0,
+                  freq = 4
+                  )
+
+MNY <- data.frame(Sex = "Male",
+                  Smoking = "No",
+                  Cancer = 1,
+                  freq = 45
+                  )
+
+MNN <- data.frame(Sex = "Male",
+                  Smoking = "No",
+                  Cancer = 0,
+                  freq = 68
+                  )
+
+
+FYY <- data.frame(Sex = "Female",
+                  Smoking = "Yes",
+                  Cancer = 1,
+                  freq = 25
+                  )
+
+FYN <- data.frame(Sex = "Female",
+                  Smoking = "Yes",
+                  Cancer = 0,
+                  freq = 14
+                  )
+
+FNY <- data.frame(Sex = "Female",
+                  Smoking = "No",
+                  Cancer = 1,
+                  freq = 25
+                  )
+
+FNN <- data.frame(Sex = "Female",
+                  Smoking = "No",
+                  Cancer = 0,
+                  freq = 14
+                  )
+
+Ex_moderator <- rbind(MYY, MYN, MNY, MNN, FYY, FYN, FNY, FNN)
+
+
+```
+
+
+Convert Freq table to raw data
+
+```{r}
+library(tidyr)
+raw_moderator <- Ex_moderator %>% 
+  uncount(freq)
+```
+
+
+- Full model:
+
+```{r}
+glm_logit <- glm(Cancer ~ Smoking , family=binomial(link = "logit"), data=raw_moderator)
+glm_logit
+```
+
+- Stratified models
+
+```{r}
+## For males
+raw_moderator_M <- raw_moderator[ which(raw_moderator$Sex=='Male'), ]
+glm_logit_m <- glm(Cancer ~ Smoking , family=binomial(link = "logit"), data=raw_moderator_M)
+glm_logit_m
+
+
+# For females
+raw_moderator_F <- raw_moderator[ which(raw_moderator$Sex=='Female'), ]
+glm_logit_f <- glm(Cancer ~ Smoking , family=binomial(link = "logit"), data=raw_moderator_F)
+glm_logit_f
+
+```
+
+
+<!--chapter:end:01-Bias.Rmd-->
+
+# Survival Analyses: Introduction 
+
+## Set packages and library
+
+```{r}
+library(eha)
+library(survival)
+#install.packages("ggfortify")
+library(ggfortify)
+library(ggplot2)
+library(tidyverse)
+library(data.table)
+#install.packages("flextable")
+library(flextable)
+library(knitr)
+
+```
+
+## dataset
+
+The **child** dataset in **eha** package
+
+```{r}
+summary(child) # descriptive statistics
+str(child) # structure
+head(child) # preview
+```
+
+## Nonparametric estimation
+
+### Data for nonparametric models
+
+The following code creates a set of vector for survival analysis. It contains 5 individuals' survival time. $1$ is an event (i.e., failure, death) and $0$ is a cencored case.
+
+```{r}
+tt <- c(7,6,6,5,2,4)
+cens <- c(0,1,0,0,1,1)
+
+Surv(tt,cens)
+aaa <- Surv(tt,cens) # demonstration only for checking how survival dataset was constructed
+
+aaa
+```
+
+### Kaplan-Meier estimator
+
+```{r}
+## Models
+result.km <- survfit(Surv(tt,cens)~1,
+                     conf.type="log-log")
+
+## Table
+result.km
+summary(result.km)
+
+## Plots
+par(mfrow = c(1, 2))# Two panels, "one row, two columns".
+plot(result.km,
+     ylab = "Survival probability",
+     xlab = "Time",
+     mark.time = T,
+     main="KM survival curve")
+abline(h = 0.5, col = "sienna", lty = 3)
+plot(result.km,
+     ylab = "Cumulative hazard",
+     xlab = "Time",
+     mark.time = T,
+     fun="cumhaz",
+     main="KM cumulative hazard curve")
+abline(h = 0.5, col = "sienna", lty = 3)
+```
+
+### Nelson-Aalen estimator
+
+```{r}
+
+## Models
+result.fh <- survfit(Surv(tt,cens)~1, conf.type="log-log", type="fh")
+
+## Table
+result.fh
+summary(result.fh)
+
+# Plots
+par(mfrow = c(1, 2))# Two panels, "one row, two columns".
+plot(result.fh,
+     ylab = "Survival probability",
+     xlab = "Time",
+     mark.time = T,
+     main="NA survival curve")
+abline(h = 0.5, col = "sienna", lty = 3)
+plot(result.fh,
+     ylab = "Cumulative hazard",
+     xlab = "Time",
+     mark.time = T,
+     fun="cumhaz",
+     main="NA cumulative hazard curve")
+abline(h = 0.5, col = "sienna", lty = 3)
+```
+
+### Comparisons by groups
+
+```{r}
+bysex <- survfit(Surv(enter, exit, event) ~ sex,
+                    data=child,
+                    conf.type="log-log")
+
+## Tables
+#bysex
+#summary(bysex)
+summary(bysex, times=c(0, 3, 6, 9, 12, 15)) # add time points
+
+## plots
+plot(bysex,
+     ylab = "Survival probabilities",
+     xlab = "Survival time",
+     #mark.time = T,
+     main="Kaplan-Meier survival curve estimate with 95% CIs"
+     )
+legend("topright", c("Male","Female"),
+lty=c("solid","dashed"), col=c("black","red"))
+```
+
+### Better KM figures
+
+```{r}
+library(ggfortify)
+library(ggplot2)
+
+autoplot(bysex,
+     ylab = "Survival probabilities",
+     xlab = "Survival time",
+     #mark.time = T,
+     main="Kaplan-Meier survival curve estimate with 95% CIs"
+     )
+```
+
+### Nonparametric models using a $child$ dataset from eha
+
+```{r}
+
+## Plots
+par(mfrow = c(1, 2))# Two panels, "one row, two columns".
+with(child, plot(Surv(enter, exit, event), fun = "cumhaz", 
+                main = "Cumulativa hazards function",
+                xlab = "Duration"))
+with(child, plot(Surv(enter, exit, event),
+                main = "Survival function",
+                xlab = "Duration"))
+```
+
+## Proportional Hazards and Cox Regression
+
+```{r}
+cox01 <- coxreg(Surv(enter, exit, event) ~ sex + socBranch + birthdate, 
+              data = child)
+
+print(summary(cox01), digits = 4)
+```
+
+```{r}
+child$cohort <- floor(toTime(child$birthdate)) # age cohort
+
+cox02 <- coxreg(Surv(enter, exit, event) ~ sex + socBranch + cohort, 
+              data = child)
+
+
+print(summary(cox02), digits = 4)
+```
+
+```{r}
+range(child$cohort)
+```
+
+```{r}
+child$cohort <- child$cohort - 1860
+cox03 <- coxreg(Surv(enter, exit, event) ~ sex + socBranch + cohort, 
+               data = child)
+
+# Table
+summary(cox03)
+
+# Plots
+par(mfrow = c(1, 2), las = 1)
+plot(cox03, 
+     fn = "cum", main = "", 
+     #xlab="Duration (year)", 
+     ylab="hazard",
+     #xlim=c(0, 1) 
+     #ylim=c(ymin, ymax)
+     )
+plot(cox03, 
+     fn = "sur", main = "", 
+     #xlab="Duration (year)", 
+     ylab="hazard",
+     #xlim=c(0, 1) 
+     #ylim=c(ymin, ymax)
+     )
+```
+
+### A visual check for a proportionality assumption
+
+```{r}
+library(survival)
+
+## Create survival vector for fish dataset
+child$SurvObj <- with(child, Surv(enter, exit, event))
+
+par(mfrow = c(1, 2), las = 1)
+plot(survfit(SurvObj ~ sex, data=child), 
+     main = "Proportional hazard by sex", 
+     ylab = "Survival",
+     col=c("black", "red")
+     )
+plot(survfit(SurvObj ~ sex, data=child), 
+     fun = "cloglog",
+     ylab = "Log-log survival",
+     main = "Proportional hazard by sex", 
+     col=c("black", "red")
+     )
+```
+
+```{r}
+library(survival)
+
+## Create survival vector for fish dataset
+child$SurvObj <- with(child, Surv(enter, exit, event))
+
+par(mfrow = c(1, 2), las = 1)
+plot(survfit(SurvObj ~ socBranch, data=child), 
+     main = "Proportional hazard by sex", 
+     ylab = "Survival",
+     col=c("black", "red", "green", "blue")
+     )
+plot(survfit(SurvObj ~ socBranch, data=child), 
+     fun = "cloglog",
+     ylab = "Log-log survival",
+     main = "Proportional hazard by sex", 
+     col=c("black", "red", "green", "blue")
+     )
+```
+
+## Parametric estimation
+
+### Weibull model
+
+```{r}
+# Models
+parm_weib <- phreg(Surv(enter, exit, event) ~ sex + socBranch + cohort , 
+              dist = "weibull",
+              data = child)
+
+# Table
+#print(summary(parm), digits = 4)
+parm_weib
+
+# Plots
+par(mfrow = c(1, 2), las = 1)
+plot(parm_weib, 
+     fn = "cum", main = "", 
+     #xlab="Duration (year)", 
+     ylab="hazard",
+     #xlim=c(0, 1) 
+     #ylim=c(ymin, ymax)
+     )
+plot(parm_weib, 
+     fn = "sur", main = "", 
+     #xlab="Duration (year)", 
+     ylab="Survival",
+     #xlim=c(0, 1) 
+     #ylim=c(ymin, ymax)
+     )
+```
+
+### Gompertz model
+
+```{r}
+# Models
+parm_gomp <- phreg(Surv(enter, exit, event) ~ sex + socBranch + cohort , 
+              dist = "gompertz",
+              data = child)
+
+# Table
+#print(summary(parm), digits = 4)
+parm_gomp
+
+# Plots
+par(mfrow = c(1, 2), las = 1)
+plot(parm_gomp, 
+     fn = "cum", main = "", 
+     #xlab="Duration (year)", 
+     ylab="hazard",
+     #xlim=c(0, 1) 
+     #ylim=c(ymin, ymax)
+     )
+plot(parm_gomp, 
+     fn = "sur", main = "", 
+     #xlab="Duration (year)", 
+     ylab="Survival",
+     #xlim=c(0, 1) 
+     #ylim=c(ymin, ymax)
+     )
+```
+
+
+
+<!--chapter:end:02-Survival01.Rmd-->
+
+# Counting Process
+
+In this section, we will cover 1) survival data structure (i.e., counting process) and 2) modeling survival data.
+
+## Set packages and library
+
+```{r}
+library(eha)
+library(survival)
+#install.packages("ggfortify")
+library(ggfortify)
+library(ggplot2)
+library(tidyverse)
+library(data.table)
+#install.packages("flextable")
+library(flextable)
+library(knitr)
+```
+
+## Example
+
+> "The **oldmort** dataset in **eha** package contains life histories of people followed from their 60th birthday to their 100th, or until death, born between June 28, 1765 and December 31, 1820 in Skellefteå. The variable *enter* is age at start of the given interval, *exit* contains the age at the end of the interval. We need to calculate follow-up time since age 60 - 60 is subtracted from *enter* and *exit*. The variable *event* is an indicator of death at the duration given by exit." <https://www.rdocumentation.org/packages/eha/versions/2.8.5/topics/oldmort> [Göran Broström, <http://ehar.se/r/ehar2/parametric.html>]
+
+Here are the summary of the **oldmort** dataset.
+
+```{r}
+library(eha)
+
+oldmort01 <- oldmort
+
+summary(oldmort01) # descriptive statistics
+str(oldmort01) # structure
+head(oldmort01) # preview
+```
+
+To check how this dataset is constructed, we will need to identify any duplicated *id*.
+
+```{r}
+dup01 <- data.frame(table(oldmort01$id))
+dup02 <- dup01[order(-dup01$Freq), ]
+```
+
+In the following example, please check
+
+-   When is a new record for the same *id* created?
+-   What are the time-invariant variables?
+-   What are the time-variant variables?
+-   What does it mean by "TRUE" or "FALSE" in *event*?
+-   How does the time of *enter* and *exit* connected with each other? What would happen if there is a gap between two records?
+
+```{r}
+dup03 <- oldmort01[oldmort01$id %in% c("789000771", "796001158"),  ]
+dup03
+```
+
+## Practice: AddHealth Public datasets
+
+There are many ways to construct long-form datasets with counting process. The following procedure is just one way to achieve the goal.
+
+Here are a couple of things to construct a long-form dataset with counting process.
+
+-   In practice, measuring outcomes, exposures, confounders, and other variables involves a separate procedure for each one of variables. I personally prefer to divide each measurement as time-variant and time-invariant datasets, respectively.
+-   Two variables should be **ALWAYS** included in every single dataset you are working on - *AID* and *wave* (or any other *Time* variable).
+-   Datasets with time-invariant variables can be merged by *AID*, while those with time-variant variables need to be merged by *AID* and *wave*.
+-   Time-varying variables will be assigned a single variable name. Let's say we are to use self-rated health with a variable name of *SRH* for five waves. The dataset should contain *AID*, *wave*, and *SRH*. The SRH in each wave should be assigned the same name, *SRH*, and the wave information will be on *wave*. This way, you can simply "stack up" all 5-wave data to construct the long-form datasets.
+
+First, each *rda* dataset will be loaded and then saved as **WAVE0X**. After assigning a *wave* variable for each of them, we will keep the **WAVE0X** dataset and *WX* datasets only.
+
+```{r}
+
+#1st wave
+load("~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0001/21600-0001-Data.rda")
+wave01 <- da21600.0001
+wave01$wave <- 1
+rm(da21600.0001)
+w1 = subset(wave01, select = c(AID, wave))
+
+#2nd wave
+load("~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0005/21600-0005-Data.rda")
+wave02 <- da21600.0005
+wave02$wave <- 2
+rm(da21600.0005)
+w2 = subset(wave02, select = c(AID, wave))
+
+#3rd wave
+load("~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0008/21600-0008-Data.rda")
+wave03 <- da21600.0008
+wave03$wave <- 3
+rm(da21600.0008)
+w3 = subset(wave03, select = c(AID, wave))
+
+#4th wave
+load("~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0022/21600-0022-Data.rda")
+wave04 <- da21600.0022
+wave04$wave <- 4
+rm(da21600.0022)
+w4 = subset(wave04, select = c(AID, wave))
+
+# 5th wave
+load("~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0032/21600-0032-Data.rda")
+wave05 <- da21600.0032
+wave05$wave <- 5
+rm(da21600.0032)
+w5 = subset(wave05, select = c(AID, wave))
+```
+
+The complete list of respondents can be obtained by aggregating all WX datasets and then getting the unique AID.
+
+-   The numbers of cases for both occasions are the same. It looks like the first wave contains all respondents - no additional respondents were added.
+-   To check this observation, we will see both AID from the first wave and All matched.
+-   Because the n didn't change, we confirmed that WAVE01 contains all respondents of the study.
+
+```{r}
+AH01 <- unique(subset(rbind(w1, w2, w3, w4, w5), select = c(AID)))
+test01 <- cbind(wave01, AH01, by="AID")
+```
+
+### Generate a complete framework with *AID* and *wave* (Optional)
+
+I personally prefer working with a "complete framework" containing all *AID* and *wave*.
+
+```{r}
+lf01 <- rbind(w1, w2, w3, w4, w5)
+lf <- lf01[order(lf01$AID, lf01$wave), ]
+```
+
+Here is the merged ("stacked") dataset.
+
+```{r}
+head(lf01)
+```
+
+Sorting by *AID* and *wave*, we can easily identify the data structure by *AID* and *wave*. This **lf** dataset is what I call a "framework" of this data source, which is the one that will be used whenever combining or merging datasets.
+
+```{r}
+head(lf)
+```
+
+Keep the number of cases (n = `r count(lf)`) for your record. This number should be the number you expect whenever you merge or stack datasets.
+
+```{r}
+count(lf)
+```
+
+### Time-variant variables from each wave
+
+In this practice, we will select and rename self-rated health (for all 5-wave) and appetite (only for $1^{st}$ and $2^{nd}$ waves) measures.
+
+```{r}
+srh1 <- wave01 %>%
+  dplyr::select(AID,
+         wave,
+         "a_srh" = H1GH1,
+         "a_poorappetite" = H1FS2)
+
+srh2 <- wave02 %>%
+  dplyr::select(AID,
+         wave,
+         "a_srh" = H2GH1,
+         "a_poorappetite" = H2GH22)
+
+srh3 <- wave03 %>%
+  dplyr::select(AID,
+         wave,
+         "a_srh" = H3GH1)
+
+srh4 <- wave04 %>%
+  dplyr::select(AID,
+         wave,
+         "a_srh" = H4GH1)
+
+srh5 <- wave05 %>%
+  dplyr::select(AID,
+         wave,
+         "a_srh" = H5ID1)
+```
+
+Please note that how to name the "temporary" datasets. I found that using the combination of 'variable name + wave' minimizes any confusions later.
+
+The 'rbind' function requires all datasets have a same numbers of columns. 'setDT' and 'fill=TRUE' are the functions from a 'data.table' package that override this requirement.
+
+Now, we have created a *long-form dataset (i.e., srh_TV) from five sets of cross-sectional datasets*.
+
+```{r}
+srh_TV01 <- rbind(setDT(srh1), setDT(srh2), setDT(srh3), setDT(srh4), setDT(srh5), fill=TRUE)
+srh_TV <- srh_TV01[order(srh_TV01$AID, srh_TV01$wave), ]
+# 6504, 4834, 4882, 5114, 4196, 25530
+```
+
+```{r}
+head(srh_TV)
+```
+
+### Time-invariant
+
+By definition, when a variable is time-invariant, only one measure from any variable should be applied to all other waves. In this example, we select *sex* from the first wave (because of completeness), which will be applied to the whole long-form dataset.
+
+```{r}
+demo_TI <- wave01 %>%
+  select(AID,
+         "a_sex" = BIO_SEX)
+```
+
+### Merging datasets
+
+Once you have selected, created, and modified all required variables by waves, stacking all waves datasets will generate a long-form dataset per wave-person as long as you have keep *AID* and *wave* variables for all datasets.
+
+In this example, we've created three datasets - **lf** (a framework), **demo_TI** (time-invariant), and **srh_TV** (time-variant).
+
+- Framework + time-invariant (i.e., **lf** (a framework) and **demo_TI** (time-invariant))
+
+```{r}
+Final01 <- merge(lf, demo_TI, by = c("AID"))
+head(Final01)
+```
+
+- Framework + time-invariant + time-variant (i.e., **Final01** + **srh_TV** (time-variant))
+
+```{r}
+Final02 <- merge(Final01, srh_TV, by = c("AID", "wave"))
+head(Final02)
+```
+
+### Define *event*, *enter*, and *exit*
+
+The *event* can be defined as your outcomes. Depending on the nature of outcomes, it could be a multiple or repetitive events, requiring more complex survival modeling with more assumptions. 
+
+- Using lag/lead(wave)
+
+```{r}
+Final03 <- Final02 %>% 
+  group_by(AID) %>% 
+  dplyr::mutate(
+    enter = lag(wave),
+    exit = wave
+    ) %>% 
+  ungroup()
+
+Final03$enter[Final03$wave == 1 & is.na(Final03$enter)] <- 0
+```
+
+Because we used *wave* as an example, it may look more complicated than necessary - for example, we may simply use `enter = exit - 1`. However, this lag/lead function is required when working with the actual date which interval is not always equal to 1. 
+
+
+
+<!--chapter:end:03-Survival02.Rmd-->
+
+# Survival models: specification, estimation, and interpretation
+
+Let's think some some feasible models addressing how the survival varies by sex, region, and infant mortality of the cohort, using **oldmort01** dataset. 
+
+Here are some possible models depending on the outcome:
+
+- Descriptive models for survival time
+
+- Linear or Poisson regression on the 'survival time', which can be defined as the time of death (i.e., 'exit'). We may need to subset only those who died, potentially resulting in considerable loss of data.
+
+- Logistic regression for the event, death. How would you incorporate "survival time" in this model?
+
+- Semiparametric survival regression models
+
+- parametric survival regression models
+
+## Nonparametric models
+
+Let's fit Kaplan-Meier (KM) and Nelson-Aalen (NA) estimators using the **oldmort01** dataset from the **eha** package.
+
+- Kaplan-Meier (KM) survival estimator
+
+```{r}
+## KM
+bysex_KM <- survfit(Surv(enter, exit, event) ~ sex,
+                    data=oldmort01,
+                    conf.type="log-log")
+
+## Tables
+bysex_KM
+
+##summary(bysex)
+summary(bysex_KM, times=c(60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110)) # add time points
+```
+
+- Nelson-Aalen (NA) estimator
+
+```{r}
+## NA
+bysex_NA <- survfit(Surv(enter, exit, event) ~ sex,
+                    data=oldmort01,
+                    conf.type="log-log",
+                    type="fh") # an option for NA estimator
+
+## Tables
+bysex_NA
+
+##summary(bysex)
+summary(bysex_NA, times=c(60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110)) # add time points
+```
+
+- Overall survival and hazard curves for the population
+
+```{r}
+
+## Plots
+par(mfrow = c(1, 2))# Two panels, "one row, two columns".
+with(oldmort01, plot(Surv(enter, exit, event), fun = "cumhaz", 
+                main = "Cumulativa hazards function",
+                xlab = "Duration"))
+with(oldmort01, plot(Surv(enter, exit, event),
+                main = "Survival function",
+                xlab = "Duration"))
+```
+
+- Comparison between Male and Female
+
+```{r}
+# Plots
+par(mfrow = c(1, 2))# Two panels, "one row, two columns".
+
+plot(bysex_KM,
+     ylab = "Survival probability",
+     xlab = "Time",
+     mark.time = T,
+     main="Kaplan-Meier survival curve")
+legend("topleft", c("Male","Female"),
+       lty=c("solid","dashed"), 
+       col=c("black","red"))
+#abline(h = 0.5, col = "sienna", lty = 3)
+
+plot(bysex_NA,
+     ylab = "Cumulative hazard",
+     xlab = "Time",
+     mark.time = T,
+     fun="cumhaz",
+     main="Nelson-Aalen cumulative hazard curve")
+legend("topleft", c("Male","Female"),
+       lty=c("solid","dashed"), 
+       col=c("black","red"))
+#abline(h = 0.5, col = "sienna", lty = 3)
+```
+- For a better plot for comparisons
+
+```{r}
+library(ggfortify)
+library(ggplot2)
+
+autoplot(bysex_KM,
+     ylab = "Survival probabilities",
+     xlab = "Survival time",
+     #mark.time = T,
+     main="Kaplan-Meier survival curve estimate with 95% CIs"
+     )
+```
+
+## Semi-parametric models: Cox Regression
+
+
+### Model specification
+$$h(t)=h_0 (t)\exp(b_1\times D_f + b_2 \times D_{ind} + b_3 \times D_{rural} + b_4 \times X_{IMR})$$
+
+### Estimation
+
+
+```{r}
+oldmort_cox <- coxreg(Surv(enter, exit, event) ~ sex + region + imr.birth, 
+              data = oldmort01) 
+
+print(summary(oldmort_cox), digits = 4)
+
+b_cox <- coef(oldmort_cox)
+expb_cox <- exp(coef(oldmort_cox))
+```
+
+```{r}
+
+# Plots
+par(mfrow = c(1, 2), las = 1)
+plot(oldmort_cox, 
+     fn = "sur", main = "", 
+     #xlab="Duration (year)", 
+     ylab="Survival",
+     #xlim=c(0, 1) 
+     #ylim=c(ymin, ymax)
+     )
+plot(oldmort_cox, 
+     fn = "cum", main = "", 
+     #xlab="Duration (year)", 
+     ylab="Hazard",
+     #xlim=c(0, 1) 
+     #ylim=c(ymin, ymax)
+     )
+```
+
+To ease interpretation, we exponentiate coefficients (and CIs).
+
+```{r}
+exp(coef(oldmort_cox))
+```
+
+
+
+
+### Interpretations
+
+* What is the metric of $y$ and $b_i$, respectively? 
+* Interpret $b_0, b_1,$ and $b_2$, respectively.
+* What is the difference between *coefficients* and $\exp$(*coefficients*)? Specify the metric.
+* What is the interpretation when 1) $b_i = 0$, 2) $b_i < 0$, or 3) $b_i > 0$?
+* What is the interpretation when 1) $\exp(b_i) = 1$, 2) $\exp(b_i) < 1$, or 3) $\exp(b_i) > 1$?
+* How would you compare $p(death)$ between two groups of people below? Is the effect additive or multiplicative?
+  - What is the estimated $p(death)$ for those who with sex = 0, region = 0, and IMR = 0 vs. those who with sex = 1, region = 0, and IMR = 0?
+  - What is the estimated $p(death)$ for those who with sex = 0, region = 2, and IMR = 90 vs. those who with sex = 1, region = 2, and IMR = 90?
+
+
+## Logistic regression
+
+To fit logistic regression, 'death' variable was created.
+
+```{r}
+oldmort01$death <- ifelse(oldmort01$event == "TRUE", 1, 0)
+```
+
+
+### Model specification
+
+$$ \ln \left( \frac{p(y)}{1-p(y)} \right) = b_0 + b_1\times D_f + b_2 \times D_{ind} + b_3 \times D_{rural} + b_4 \times X_{IMR}$$
+
+
+
+### Estimation
+
+Logistic model was fitted as below.
+
+```{r}
+oldmort_log <- glm(death ~ sex + region + imr.birth,
+                  data=oldmort01, 
+                  family = binomial(link = "logit"))
+
+summary(oldmort_log)
+b_log = coef(oldmort_log)
+expb = exp(coef(oldmort_log))
+
+```
+
+
+To ease interpretation, we exponentiate coefficients (and CIs).
+
+```{r}
+exp(coef(oldmort_log))
+```
+
+
+### Interpretation
+
+* What is the metric of $y$ and $b_i$, respectively? 
+* Interpret $b_0, b_1,$ and $b_2$, respectively.
+* What is the difference between *coefficients* and $\exp$(*coefficients*)? Specify the metric.
+* What is the interpretation when 1) $b_i = 0$, 2) $b_i < 0$, or 3) $b_i > 0$?
+* What is the interpretation when 1) $exp(b_i) = 1$, 2) $exp(b_i) < 1$, or 3) $exp(b_i) > 1$?
+* How would you compare $p(death)$ between two groups of people below? Is the effect additive or multiplicative?
+  - What is the estimated $p(death)$ for those who with sex = 0, region = 0, and IMR = 0 vs. those who with sex = 1, region = 0, and IMR = 0?
+  - What is the estimated $p(death)$ for those who with sex = 0, region = 2, and IMR = 90 vs. those who with sex = 1, region = 2, and IMR = 90?
+
+## Linear regression
+
+### Model specification
+$$ Y_{Time\;to\; death} = b_0 + b_1\times D_f + b_2 \times D_{ind} + b_3 \times D_{rural} + b_4 \times X_{IMR} $$
+
+### Estimation
+
+To fit linear model, we need to subset data for the death and use 'exit' as an outcome.
+
+```{r}
+oldmort02 <- oldmort01[oldmort01$death == 1,]
+```
+
+```{r}
+oldmort_lm <- glm(exit ~ sex + region + imr.birth,
+                  data=oldmort02, 
+                  family = "gaussian")
+summary(oldmort_lm)
+b_lm = coef(oldmort_lm)
+```
+
+
+### Interpretation
+
+* What is the metric of $y$ and $b_i$, respectively? 
+* Interpret $b_0, b_1,$ and $b_2$, respectively.
+* What is the interpretation when 1) $b_i = 0$, 2) $b_i < 0$, or 3) $b_i > 0$?
+* How would you compare the *time* to death between two groups of people below? Is the effect additive or multiplicative?
+  - What is the estimated time to death for those who with sex = 0, region = 0, and IMR = 0 vs. those who with sex = 1, region = 0, and IMR = 0?
+  - What is the estimated time to death for those who with sex = 0, region = 2, and IMR = 90 vs. those who with sex = 1, region = 2, and IMR = 90?
+
+
+## Weibull model
+
+### Model specification
+$$h(t)=h_0 (t)\exp(b_1\times D_f + b_2 \times D_{ind} + b_3 \times D_{rural} + b_4 \times X_{IMR})$$
+The full hazard function for the Weibull PH model is
+$$h(t)=\exp(b_1 x_1 + b_2 x_2 + \cdots + b_n x_n)pt^{p-1}$$
+Therefore, in terms of $S(t)$,
+$$ S(t)=\exp(-(b_1 x_1 + b_2 x_2 + \cdots + b_n x_n)t^p) $$
+$p \; (0<p)$ is a shape parameter.
+
+### Estimation
+
+
+```{r}
+# Models
+oldmort_wei <- phreg(Surv(enter, exit, event) ~ sex + region + imr.birth, 
+              data = oldmort01,
+              dist = "weibull")
+
+# Table
+#print(summary(oldmort_wei), digits = 4)
+oldmort_wei
+
+b_wei <- coef(oldmort_wei)
+expb_wei <- exp(coef(oldmort_wei))
+
+
+# Plots
+par(mfrow = c(1, 2), las = 1)
+plot(oldmort_wei, 
+     fn = "sur", main = "", 
+     #xlab="Duration (year)", 
+     ylab="Survival",
+     #xlim=c(0, 1) 
+     #ylim=c(ymin, ymax)
+     )
+plot(oldmort_wei, 
+     fn = "cum", main = "", 
+     #xlab="Duration (year)", 
+     ylab="hazard",
+     #xlim=c(0, 1) 
+     #ylim=c(ymin, ymax)
+     )
+```
+
+To ease interpretation, we exponentiate coefficients (and CIs).
+
+```{r}
+exp(coef(oldmort_wei))
+```
+
+
+### Interpretations
+
+* What is the metric of $y$ and $b_i$, respectively? 
+* Interpret $b_0, b_1,$ and $b_2$, respectively.
+* What is the difference between *coefficients* and $\exp$(*coefficients*)? Specify the metric.
+* What is the interpretation when 1) $b_i = 0$, 2) $b_i < 0$, or 3) $b_i > 0$?
+* What is the interpretation when 1) $\exp(b_i) = 1$, 2) $\exp(b_i) < 1$, or 3) $\exp(b_i) > 1$?
+* How would you compare $h(time\;to\;death)$ between two groups of people below? Is the effect additive or multiplicative?
+  - What is the estimated $h(time\;to\;death)$ for those who with sex = 0, region = 0, and IMR = 0 vs. those who with sex = 1, region = 0, and IMR = 0?
+  - What is the estimated $h(time\;to\;death)$ for those who with sex = 0, region = 2, and IMR = 90 vs. those who with sex = 1, region = 2, and IMR = 90?
+
+
+## Exponential model
+
+### Model specification
+$$h(t)=h_0 (t)\exp(b_1\times D_f + b_2 \times D_{ind} + b_3 \times D_{rural} + b_4 \times X_{IMR})$$
+Exponential model is a specific case of Weibull family when $p$=1.
+
+The full hazard function is
+$$h(t)=\exp(b_1 x_1 + b_2 x_2 + \cdots + b_n x_n)pt^{p-1}=\exp(b_0 + b_1 x_1 + b_2 x_2 + \cdots + b_n x_n)$$
+
+Therefore, in terms of $S(t)$,
+$$ S(t)=\exp(-(b_1 x_1 + b_2 x_2 + \cdots + b_n x_n)t^p)=\exp(-(b_0 + b_1 x_1 + b_2 x_2 + \cdots + b_n x_n)t) $$
+
+### Estimation
+
+
+```{r}
+# Models
+oldmort_exp <- phreg(Surv(enter, exit, event) ~ sex + region + imr.birth, 
+                     shape=1, 
+                     data = oldmort01,
+                     dist = "weibull")
+
+# Table
+#print(summary(oldmort_wei), digits = 4)
+oldmort_exp
+
+b_exp <- coef(oldmort_exp)
+expb_exp <- exp(coef(oldmort_exp))
+
+
+# Plots
+par(mfrow = c(1, 2), las = 1)
+plot(oldmort_exp, 
+     fn = "sur", main = "", 
+     #xlab="Duration (year)", 
+     ylab="Survival",
+     #xlim=c(0, 1) 
+     #ylim=c(ymin, ymax)
+     )
+plot(oldmort_exp, 
+     fn = "cum", main = "", 
+     #xlab="Duration (year)", 
+     ylab="hazard",
+     #xlim=c(0, 1) 
+     #ylim=c(ymin, ymax)
+     )
+```
+
+To ease interpretation, we exponentiate coefficients (and CIs).
+
+```{r}
+exp(coef(oldmort_exp))
+```
+
+
+### Interpretations
+
+* What is the metric of $y$ and $b_i$, respectively? 
+* Interpret $b_0, b_1,$ and $b_2$, respectively.
+* What is the difference between *coefficients* and $\exp$(*coefficients*)? Specify the metric.
+* What is the interpretation when 1) $b_i = 0$, 2) $b_i < 0$, or 3) $b_i > 0$?
+* What is the interpretation when 1) $\exp(b_i) = 1$, 2) $\exp(b_i) < 1$, or 3) $\exp(b_i) > 1$?
+* How would you compare $h(time\;to\;death)$ between two groups of people below? Is the effect additive or multiplicative?
+  - What is the estimated $h(time\;to\;death)$ for those who with sex = 0, region = 0, and IMR = 0 vs. those who with sex = 1, region = 0, and IMR = 0?
+  - What is the estimated $h(time\;to\;death)$ for those who with sex = 0, region = 2, and IMR = 90 vs. those who with sex = 1, region = 2, and IMR = 90?
+
+
+## Gompertz model
+
+### Model specification
+$$h(t)=h_0 (t)\exp(b_1\times D_f + b_2 \times D_{ind} + b_3 \times D_{rural} + b_4 \times X_{IMR})$$
+
+>Gompertz model is characterized by an exponentially increasing hazard function with fixed rate $r$ ($-\infty < r < \infty$).
+>when $r < 0$, the hazard function $h$ is decreasing “too fast” to define a proper survival function, and $r=0$ gives the exponential distribution as a special case. And for each fixed $r$, the family of distributions indexed by $p > 0$ constitutes a proportional hazards family of distributions, and the corresponding regression model is written as
+>Göran Broström, https://cran.r-project.org/web/packages/eha/vignettes/gompertz.html
+
+$$h(t)=\exp(b_1 x_1 + b_2 x_2 + \cdots + b_n x_n)pe^{rt}$$
+
+
+### Estimation
+
+
+```{r}
+# Models
+oldmort_gomp <- phreg(Surv(enter, exit, event) ~ sex + region + imr.birth, 
+              data = oldmort01, 
+              dist = "gompertz")
+
+# Table
+#print(summary(parm), digits = 4)
+oldmort_gomp
+
+b_gomp <- coef(oldmort_gomp)
+expb_gomp <- exp(coef(oldmort_gomp))
+
+# Plots
+par(mfrow = c(1, 2), las = 1)
+plot(oldmort_gomp, 
+     fn = "sur", main = "", 
+     #xlab="Duration (year)", 
+     ylab="Survival",
+     #xlim=c(0, 1) 
+     #ylim=c(ymin, ymax)
+     )
+plot(oldmort_gomp, 
+     fn = "cum", main = "", 
+     #xlab="Duration (year)", 
+     ylab="hazard",
+     #xlim=c(0, 1) 
+     #ylim=c(ymin, ymax)
+     )
+```
+To ease interpretation, we exponentiate coefficients (and CIs).
+
+```{r}
+exp(coef(oldmort_gomp))
+```
+
+
+### Interpretations
+
+* What is the metric of $y$ and $b_i$, respectively? 
+* Interpret $b_0, b_1,$ and $b_2$, respectively.
+* What is the difference between *coefficients* and $\exp$(*coefficients*)? Specify the metric.
+* What is the interpretation when 1) $b_i = 0$, 2) $b_i < 0$, or 3) $b_i > 0$?
+* What is the interpretation when 1) $\exp(b_i) = 1$, 2) $\exp(b_i) < 1$, or 3) $\exp(b_i) > 1$?
+* How would you compare $h(time\;to\;death)$ between two groups of people below? Is the effect additive or multiplicative?
+  - What is the estimated $h(time\;to\;death)$ for those who with sex = 0, region = 0, and IMR = 0 vs. those who with sex = 1, region = 0, and IMR = 0?
+  - What is the estimated $h(time\;to\;death)$ for those who with sex = 0, region = 2, and IMR = 90 vs. those who with sex = 1, region = 2, and IMR = 90?
+
+
+
+## Graphs
+
+The following figures summarize cumulative hazard curves by different survival models.
+
+```{r}
+# Plots
+par(mfrow = c(2, 2), las = 1)
+
+plot(oldmort_cox, 
+     fn = "cum", 
+     main = "Cox", 
+     #xlab="Duration (year)", 
+     ylab="",
+     #xlim=c(0, 1) 
+     ylim=c(0, 10)
+     )
+
+plot(oldmort_wei, 
+     fn = "cum", 
+     main = "Weibull", 
+     #xlab="Duration (year)", 
+     ylab="",
+     #xlim=c(0, 1) 
+     ylim=c(0, 10)
+     )
+
+plot(oldmort_exp, 
+     fn = "cum", 
+     main = "Exponential", 
+     #xlab="Duration (year)", 
+     ylab="",
+     #xlim=c(0, 1) 
+     ylim=c(0, 10)
+     )
+
+plot(oldmort_gomp, 
+     fn = "cum", 
+     main = "Gompertz", 
+     #xlab="Duration (year)", 
+     ylab="",
+     #xlim=c(0, 1) 
+     ylim=c(0, 10)
+     )
+```
+
+
+<!--chapter:end:04-Survival03.Rmd-->
+
+# Add Health Project
+
+## Library
+
+```{r}
+library(tidyverse)
+library(data.table)
+library(lme4)
+library(Matrix)
+```
+
+
+## Access datasets
+
+Let's use the public datasets available at https://www.icpsr.umich.edu/web/ICPSR/studies/21600?archive=ICPSR&q=21600
+
+
+
+## Load 5-wave sample 
+
+First, each RDA dataset will be loaded and then saved as WAVE0X. After assigning a WAVE variable, we will keep the WAVE0X dataset and WX datasets only.
+
+```{r}
+load("~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0001/21600-0001-Data.rda")
+wave01 <- da21600.0001
+wave01$wave <- 1
+rm(da21600.0001)
+w1 = subset(wave01, select = c(AID, wave))
+```
+
+
+```{r}
+load("~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0005/21600-0005-Data.rda")
+wave02 <- da21600.0005
+wave02$wave <- 2
+
+rm(da21600.0005)
+w2 = subset(wave02, select = c(AID, wave))
+```
+
+
+```{r}
+load("~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0008/21600-0008-Data.rda")
+wave03 <- da21600.0008
+wave03$wave <- 3
+
+rm(da21600.0008)
+w3 = subset(wave03, select = c(AID, wave))
+```
+
+
+```{r}
+load("~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0022/21600-0022-Data.rda")
+wave04 <- da21600.0022
+wave04$wave <- 4
+
+rm(da21600.0022)
+w4 = subset(wave04, select = c(AID, wave))
+```
+
+
+```{r}
+load("~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0032/21600-0032-Data.rda")
+wave05 <- da21600.0032
+wave05$wave <- 5
+
+rm(da21600.0032)
+w5 = subset(wave05, select = c(AID, wave))
+```
+
+The complete list of respondents can be obtained by aggregating all WX datasets and then getting the unique AID.
+
+```{r}
+aaa <- rbind(w1, w2, w3, w4, w5)
+```
+
+
+```{r}
+AH01 <- unique(subset(rbind(w1, w2, w3, w4, w5), select = c(AID)))
+```
+
+It looks like the first wave contains all respondents - no addtional respondents were added.
+
+To check this observation, we will see both AID from the first wave and All matched. 
+
+```{r}
+test01 <- cbind(wave01, AH01, by="AID")
+```
+
+Because the n didn't change, we confirmed that WAVE01 contains all respondents of the study.
+
+## Long-form dataset (wave-person)
+
+Aggregating WX datasets will generate a long-form dataset per wave-person.
+
+```{r}
+lf01 <- rbind(w1, w2, w3, w4, w5)
+lf <- lf01[order(lf01$AID, lf01$wave), ]
+# 6504, 4834, 4882, 5114, 4196, 25530
+```
+
+
+We will save LF for the later use.
+
+
+## Exploring variables in Add Health
+
+Use "Variables" or other documentations at https://www.icpsr.umich.edu/web/ICPSR/studies/21600?archive=ICPSR&q=21600
+
+
+## Outcomes, exposures, and confounders
+
+Let's assume we are interested in the BMI trajectory, which calculation requires both weight and height in each wave. We also keep and rename exposures and confounders. This process requires getting back and force to add, rename, and remove a set of variables. To note, whenever keeping variables in your datasets, add AID and wave as default variables.
+
+It is a good practice to keep the variable names consistent - for example, variables for adolescence will have "a_", while those for adolescence's parents will have "p_", and those of adolescence's offspring will have "0_". By keeping all variable selection in one place, you can minimize any confusions in managing variables later.
+
+So, it looks like either lbs or kg, cm or inch was used for weight and height. Also, there are multiple variables for each weight or height, requiring your further study about which one is better than others.
+
+Here, I will simply go with the following variables, using BMI formula at https://www.cdc.gov/healthyweight/assessing/bmi/childrens_BMI/childrens_BMI_formula.html#:~:text=The%20formula%20for%20BMI%20is,to%20convert%20this%20to%20meters.&text=When%20using%20English%20measurements%2C%20pounds,2%20to%20kg%2Fm2.
+
+
+```{r}
+bmiwgt1 <- wave01 %>%
+  select(AID,
+         wave,
+         
+         "a_srh" = H1GH1,
+         
+         "a_wgt_lbs" = H1GH60,
+         "a_hgt_ft" = H1GH59A,
+         "a_hgt_in" = H1GH59B,
+         "a_weightimage" = H1GH28,
+         
+         "a_poorappetite" = H1FS2)
+
+summary(bmiwgt1)
+
+```
+
+
+```{r}
+bmiwgt2 <- wave02 %>%
+  select(AID,
+         wave,
+         
+         "a_srh" = H2GH1,
+         
+         "a_wgt_lbs" = H2GH53,
+         "a_hgt_ft" = H2WS16HF,
+         "a_hgt_in" = H2WS16HI,
+         "a_weightimage" = H2GH30,
+         
+         "a_poorappetite" = H2GH22)
+
+summary(bmiwgt2)
+```
+
+
+```{r}
+bmiwgt3 <- wave03 %>%
+  select(AID,
+         wave,
+         
+         "a_srh" = H3GH1,
+         
+         "a_wgt_lbs" = H3DA44,
+         "a_hgt_ft" = H3HGT_F,
+         "a_hgt_in" = H3HGT_I)
+
+summary(bmiwgt3)
+```
+
+
+```{r}
+bmiwgt4 <- wave04 %>%
+  select(AID,
+         wave,
+         
+         "a_srh" = H4GH1,
+         
+         "a_wgt_lbs" = H4GH6,
+         "a_hgt_ft" = H4GH5F,
+         "a_hgt_in" = H4GH5I)
+
+summary(bmiwgt4)
+```
+
+
+
+```{r}
+bmiwgt5 <- wave05 %>%
+  select(AID,
+         wave,
+         
+         "a_srh" = H5ID1,
+         
+         "a_wgt_lbs" = H5ID3,
+         "a_hgt_ft" = H5ID2F,
+         "a_hgt_in" = H5ID2I)
+
+summary(bmiwgt5)
+typeof(bmiwgt5$a_hgt_ft)
+```
+
+The "Rbind" function requires all datasets have a same numbers of columns. "setDT" and "fill=TRUE" are the functions from a "data.table" package that override this requirement. 
+
+Now, we have created a *long-form dataset (i.e., vars) from five sets of cross-sectional datasets*.
+
+```{r}
+vars01 <- rbind(setDT(bmiwgt1), setDT(bmiwgt2), setDT(bmiwgt3), setDT(bmiwgt4), setDT(bmiwgt5), fill=TRUE)
+vars <- vars01[order(vars01$AID, vars01$wave), ]
+# 6504, 4834, 4882, 5114, 4196, 25530
+```
+
+
+## Demographic variables - time-invariant
+
+```{r}
+demo_TI <- wave01 %>%
+  select(AID,
+         "a_sex" = BIO_SEX)
+```
+
+
+## Merging datasets
+
+The following code merges a long-form dataset (i.e., *vars*) and a time-invariant dataset (i.e., *demo_TI*). 
+
+```{r}
+Final01 <- merge(vars, demo_TI, by = c("AID"))
+summary(Final01)
+```
+
+
+## Data management, recoding, and so on
+
+### BMI
+
+Alright, the following code does not work....
+
+```{r}
+Final01$a_wgt_flag <- ifelse(Final01$a_wgt_lbs < 50, 1, 0)
+Final01$a_wgt_flag <- ifelse(430 < Final01$a_wgt_lbs, 1, 0)
+
+Final01$a_hgt_flag <- ifelse(as.integer(Final01$a_hgt_ft) < 4, 1, 0)
+Final01$a_hgt_flag <- ifelse(95 < as.integer(Final01$a_hgt_ft), 1, 0)
+Final01$a_hgt_flag <- ifelse(95 < as.integer(Final01$a_hgt_in), 1, 0)
+
+summary(Final01)
+```
+
+
+### Sampling weights
+
+### Multiple imputation
+
+
+
+
+
+## Analytic approach
+
+The following models are demonstration only - mostly, the models themselves do not make sense.
+
+### A linear regression with the current dataset
+
+```{r}
+lmer(a_wgt_lbs ~ as.numeric(a_srh) + a_sex + (1 | AID), data=Final01)
+```
+
+
+
+<!--chapter:end:05-AddHealthPublic.Rmd-->
+
