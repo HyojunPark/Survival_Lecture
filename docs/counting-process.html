@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Counting Process | SOC6280: Survival Analysis: Practice</title>
   <meta name="description" content="Survival handbook" />
-  <meta name="generator" content="bookdown 0.33.1 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Counting Process | SOC6280: Survival Analysis: Practice" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Hyojun Park" />
 
 
-<meta name="date" content="2023-03-15" />
+<meta name="date" content="2023-03-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -133,7 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">A Minimal Book Example</a></li>
+<li><a href="./">Survival Analysis Workbook</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
@@ -237,25 +237,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5.8" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#graphs"><i class="fa fa-check"></i><b>5.8</b> Graphs</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="add-health-project.html"><a href="add-health-project.html"><i class="fa fa-check"></i><b>6</b> Add Health Project</a>
+<li class="chapter" data-level="6" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html"><i class="fa fa-check"></i><b>6</b> Cox Proportional Hazard Modeling</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="add-health-project.html"><a href="add-health-project.html#library"><i class="fa fa-check"></i><b>6.1</b> Library</a></li>
-<li class="chapter" data-level="6.2" data-path="add-health-project.html"><a href="add-health-project.html#access-datasets"><i class="fa fa-check"></i><b>6.2</b> Access datasets</a></li>
-<li class="chapter" data-level="6.3" data-path="add-health-project.html"><a href="add-health-project.html#load-5-wave-sample"><i class="fa fa-check"></i><b>6.3</b> Load 5-wave sample</a></li>
-<li class="chapter" data-level="6.4" data-path="add-health-project.html"><a href="add-health-project.html#long-form-dataset-wave-person"><i class="fa fa-check"></i><b>6.4</b> Long-form dataset (wave-person)</a></li>
-<li class="chapter" data-level="6.5" data-path="add-health-project.html"><a href="add-health-project.html#exploring-variables-in-add-health"><i class="fa fa-check"></i><b>6.5</b> Exploring variables in Add Health</a></li>
-<li class="chapter" data-level="6.6" data-path="add-health-project.html"><a href="add-health-project.html#outcomes-exposures-and-confounders"><i class="fa fa-check"></i><b>6.6</b> Outcomes, exposures, and confounders</a></li>
-<li class="chapter" data-level="6.7" data-path="add-health-project.html"><a href="add-health-project.html#demographic-variables---time-invariant"><i class="fa fa-check"></i><b>6.7</b> Demographic variables - time-invariant</a></li>
-<li class="chapter" data-level="6.8" data-path="add-health-project.html"><a href="add-health-project.html#merging-datasets-1"><i class="fa fa-check"></i><b>6.8</b> Merging datasets</a></li>
-<li class="chapter" data-level="6.9" data-path="add-health-project.html"><a href="add-health-project.html#data-management-recoding-and-so-on"><i class="fa fa-check"></i><b>6.9</b> Data management, recoding, and so on</a>
+<li class="chapter" data-level="6.1" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#setup-working-datasets"><i class="fa fa-check"></i><b>6.1</b> Setup working datasets</a></li>
+<li class="chapter" data-level="6.2" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#cox-proportional-hazard-models-example"><i class="fa fa-check"></i><b>6.2</b> Cox Proportional Hazard Models: Example</a>
 <ul>
-<li class="chapter" data-level="6.9.1" data-path="add-health-project.html"><a href="add-health-project.html#bmi"><i class="fa fa-check"></i><b>6.9.1</b> BMI</a></li>
-<li class="chapter" data-level="6.9.2" data-path="add-health-project.html"><a href="add-health-project.html#sampling-weights"><i class="fa fa-check"></i><b>6.9.2</b> Sampling weights</a></li>
-<li class="chapter" data-level="6.9.3" data-path="add-health-project.html"><a href="add-health-project.html#multiple-imputation"><i class="fa fa-check"></i><b>6.9.3</b> Multiple imputation</a></li>
+<li class="chapter" data-level="6.2.1" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#cox-model-specification"><i class="fa fa-check"></i><b>6.2.1</b> Cox model specification</a></li>
+<li class="chapter" data-level="6.2.2" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#model-1-no-covariates"><i class="fa fa-check"></i><b>6.2.2</b> Model 1: No covariates</a></li>
+<li class="chapter" data-level="6.2.3" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#model-2-categorical-covariate-region"><i class="fa fa-check"></i><b>6.2.3</b> Model 2: Categorical covariate: region</a></li>
+<li class="chapter" data-level="6.2.4" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#model-3-continuous-covariate-imr.birth"><i class="fa fa-check"></i><b>6.2.4</b> Model 3: Continuous covariate: imr.birth</a></li>
 </ul></li>
-<li class="chapter" data-level="6.10" data-path="add-health-project.html"><a href="add-health-project.html#analytic-approach"><i class="fa fa-check"></i><b>6.10</b> Analytic approach</a>
+<li class="chapter" data-level="6.3" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#interpretation-2"><i class="fa fa-check"></i><b>6.3</b> Interpretation</a></li>
+<li class="chapter" data-level="6.4" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#proportional-hazard-ph-assumption"><i class="fa fa-check"></i><b>6.4</b> Proportional hazard (PH) assumption</a></li>
+<li class="chapter" data-level="6.5" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#extended-cox-model"><i class="fa fa-check"></i><b>6.5</b> Extended Cox model</a></li>
+<li class="chapter" data-level="6.6" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#evaluating-the-proportional-hazard-ph-assumption"><i class="fa fa-check"></i><b>6.6</b> Evaluating the Proportional hazard (PH) assumption</a>
 <ul>
-<li class="chapter" data-level="6.10.1" data-path="add-health-project.html"><a href="add-health-project.html#a-linear-regression-with-the-current-dataset"><i class="fa fa-check"></i><b>6.10.1</b> A linear regression with the current dataset</a></li>
+<li class="chapter" data-level="6.6.1" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#graphical-evaluation"><i class="fa fa-check"></i><b>6.6.1</b> Graphical evaluation</a></li>
+<li class="chapter" data-level="6.6.2" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#goodness-of-fit-gof"><i class="fa fa-check"></i><b>6.6.2</b> Goodness-of-fit (GOF)</a></li>
+<li class="chapter" data-level="6.6.3" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#time-dependent-variable-approaches"><i class="fa fa-check"></i><b>6.6.3</b> Time-dependent variable approaches</a></li>
+<li class="chapter" data-level="6.6.4" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#testing-for-influential-observations"><i class="fa fa-check"></i><b>6.6.4</b> Testing for Influential Observations</a></li>
+<li class="chapter" data-level="6.6.5" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#testing-for-non-linearlity"><i class="fa fa-check"></i><b>6.6.5</b> Testing for Non-linearlity</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#why-we-call-this-model-as-semi-parametric-model"><i class="fa fa-check"></i><b>6.7</b> Why we call this model as semi-parametric model?</a></li>
+<li class="chapter" data-level="6.8" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#why-the-cox-ph-model-is-so-popular"><i class="fa fa-check"></i><b>6.8</b> Why the Cox PH model is so popular</a></li>
+<li class="chapter" data-level="6.9" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#estimation-of-the-cox-ph-model-using-maximum-likelihood-ml"><i class="fa fa-check"></i><b>6.9</b> Estimation of the Cox PH model using Maximum likelihood (ML)</a></li>
+<li class="chapter" data-level="6.10" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#more-about-hazard-ratio"><i class="fa fa-check"></i><b>6.10</b> More about Hazard ratio</a></li>
+<li class="chapter" data-level="6.11" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#adjusted-survival-curves-using-the-cox-ph-model"><i class="fa fa-check"></i><b>6.11</b> Adjusted Survival Curves using the Cox PH model</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="add-health-project.html"><a href="add-health-project.html"><i class="fa fa-check"></i><b>7</b> Add Health Project</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="add-health-project.html"><a href="add-health-project.html#library"><i class="fa fa-check"></i><b>7.1</b> Library</a></li>
+<li class="chapter" data-level="7.2" data-path="add-health-project.html"><a href="add-health-project.html#access-datasets"><i class="fa fa-check"></i><b>7.2</b> Access datasets</a></li>
+<li class="chapter" data-level="7.3" data-path="add-health-project.html"><a href="add-health-project.html#load-5-wave-sample"><i class="fa fa-check"></i><b>7.3</b> Load 5-wave sample</a></li>
+<li class="chapter" data-level="7.4" data-path="add-health-project.html"><a href="add-health-project.html#long-form-dataset-wave-person"><i class="fa fa-check"></i><b>7.4</b> Long-form dataset (wave-person)</a></li>
+<li class="chapter" data-level="7.5" data-path="add-health-project.html"><a href="add-health-project.html#exploring-variables-in-add-health"><i class="fa fa-check"></i><b>7.5</b> Exploring variables in Add Health</a></li>
+<li class="chapter" data-level="7.6" data-path="add-health-project.html"><a href="add-health-project.html#outcomes-exposures-and-confounders"><i class="fa fa-check"></i><b>7.6</b> Outcomes, exposures, and confounders</a></li>
+<li class="chapter" data-level="7.7" data-path="add-health-project.html"><a href="add-health-project.html#demographic-variables---time-invariant"><i class="fa fa-check"></i><b>7.7</b> Demographic variables - time-invariant</a></li>
+<li class="chapter" data-level="7.8" data-path="add-health-project.html"><a href="add-health-project.html#merging-datasets-1"><i class="fa fa-check"></i><b>7.8</b> Merging datasets</a></li>
+<li class="chapter" data-level="7.9" data-path="add-health-project.html"><a href="add-health-project.html#data-management-recoding-and-so-on"><i class="fa fa-check"></i><b>7.9</b> Data management, recoding, and so on</a>
+<ul>
+<li class="chapter" data-level="7.9.1" data-path="add-health-project.html"><a href="add-health-project.html#bmi"><i class="fa fa-check"></i><b>7.9.1</b> BMI</a></li>
+<li class="chapter" data-level="7.9.2" data-path="add-health-project.html"><a href="add-health-project.html#sampling-weights"><i class="fa fa-check"></i><b>7.9.2</b> Sampling weights</a></li>
+<li class="chapter" data-level="7.9.3" data-path="add-health-project.html"><a href="add-health-project.html#multiple-imputation"><i class="fa fa-check"></i><b>7.9.3</b> Multiple imputation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.10" data-path="add-health-project.html"><a href="add-health-project.html#analytic-approach"><i class="fa fa-check"></i><b>7.10</b> Analytic approach</a>
+<ul>
+<li class="chapter" data-level="7.10.1" data-path="add-health-project.html"><a href="add-health-project.html#a-linear-regression-with-the-current-dataset"><i class="fa fa-check"></i><b>7.10.1</b> A linear regression with the current dataset</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -283,16 +310,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In this section, we will cover 1) survival data structure (i.e., counting process) and 2) modeling survival data.</p>
 <div id="set-packages-and-library-1" class="section level2 hasAnchor" number="4.1">
 <h2><span class="header-section-number">4.1</span> Set packages and library<a href="counting-process.html#set-packages-and-library-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="counting-process.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(eha)</span>
-<span id="cb96-2"><a href="counting-process.html#cb96-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
-<span id="cb96-3"><a href="counting-process.html#cb96-3" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;ggfortify&quot;)</span></span>
-<span id="cb96-4"><a href="counting-process.html#cb96-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggfortify)</span>
-<span id="cb96-5"><a href="counting-process.html#cb96-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb96-6"><a href="counting-process.html#cb96-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb96-7"><a href="counting-process.html#cb96-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb96-8"><a href="counting-process.html#cb96-8" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;flextable&quot;)</span></span>
-<span id="cb96-9"><a href="counting-process.html#cb96-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flextable)</span>
-<span id="cb96-10"><a href="counting-process.html#cb96-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span></code></pre></div>
 </div>
 <div id="example" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> Example<a href="counting-process.html#example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -300,11 +317,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>“The <strong>oldmort</strong> dataset in <strong>eha</strong> package contains life histories of people followed from their 60th birthday to their 100th, or until death, born between June 28, 1765 and December 31, 1820 in Skellefteå. The variable <em>enter</em> is age at start of the given interval, <em>exit</em> contains the age at the end of the interval. We need to calculate follow-up time since age 60 - 60 is subtracted from <em>enter</em> and <em>exit</em>. The variable <em>event</em> is an indicator of death at the duration given by exit.” <a href="https://www.rdocumentation.org/packages/eha/versions/2.8.5/topics/oldmort" class="uri">https://www.rdocumentation.org/packages/eha/versions/2.8.5/topics/oldmort</a> [Göran Broström, <a href="http://ehar.se/r/ehar2/parametric.html" class="uri">http://ehar.se/r/ehar2/parametric.html</a>]</p>
 </blockquote>
 <p>Here are the summary of the <strong>oldmort</strong> dataset.</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="counting-process.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(eha)</span>
-<span id="cb97-2"><a href="counting-process.html#cb97-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-3"><a href="counting-process.html#cb97-3" aria-hidden="true" tabindex="-1"></a>oldmort01 <span class="ot">&lt;-</span> oldmort</span>
-<span id="cb97-4"><a href="counting-process.html#cb97-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-5"><a href="counting-process.html#cb97-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(oldmort01) <span class="co"># descriptive statistics</span></span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="counting-process.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(eha)</span>
+<span id="cb86-2"><a href="counting-process.html#cb86-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-3"><a href="counting-process.html#cb86-3" aria-hidden="true" tabindex="-1"></a>oldmort01 <span class="ot">&lt;-</span> oldmort</span>
+<span id="cb86-4"><a href="counting-process.html#cb86-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-5"><a href="counting-process.html#cb86-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(oldmort01) <span class="co"># descriptive statistics</span></span></code></pre></div>
 <pre><code>##        id                enter            exit          event        
 ##  Min.   :765000603   Min.   :60.00   Min.   : 60.00   Mode :logical  
 ##  1st Qu.:797001170   1st Qu.:60.00   1st Qu.: 63.88   FALSE:4524     
@@ -329,7 +346,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##                   lower  :2080                 3rd Qu.:17.718                  
 ##                                                Max.   :31.967                  
 ## </code></pre>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="counting-process.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(oldmort01) <span class="co"># structure</span></span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="counting-process.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(oldmort01) <span class="co"># structure</span></span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    6495 obs. of  13 variables:
 ##  $ id        : int  765000603 765000669 768000648 770000562 770000707 771000617 771000619 771000638 771000670 772000622 ...
 ##  $ enter     : num  94.5 94.3 91.1 89 90 ...
@@ -344,7 +361,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  $ birthplace: Factor w/ 3 levels &quot;parish&quot;,&quot;region&quot;,..: 3 1 1 1 2 1 2 1 1 1 ...
 ##  $ imr.birth : num  22.2 17.7 12.7 16.9 12 ...
 ##  $ region    : Factor w/ 3 levels &quot;town&quot;,&quot;industry&quot;,..: 3 2 3 2 3 3 3 2 3 2 ...</code></pre>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="counting-process.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(oldmort01) <span class="co"># preview</span></span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="counting-process.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(oldmort01) <span class="co"># preview</span></span></code></pre></div>
 <pre><code>##          id  enter   exit event birthdate m.id f.id    sex       civ  ses.50
 ## 1 765000603 94.510 95.813  TRUE  1765.490   NA   NA female     widow unknown
 ## 2 765000669 94.266 95.756  TRUE  1765.734   NA   NA female unmarried unknown
@@ -360,8 +377,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5     region  11.97183    rural
 ## 6     parish  13.08594    rural</code></pre>
 <p>To check how this dataset is constructed, we will need to identify any duplicated <em>id</em>.</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="counting-process.html#cb103-1" aria-hidden="true" tabindex="-1"></a>dup01 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">table</span>(oldmort01<span class="sc">$</span>id))</span>
-<span id="cb103-2"><a href="counting-process.html#cb103-2" aria-hidden="true" tabindex="-1"></a>dup02 <span class="ot">&lt;-</span> dup01[<span class="fu">order</span>(<span class="sc">-</span>dup01<span class="sc">$</span>Freq), ]</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="counting-process.html#cb92-1" aria-hidden="true" tabindex="-1"></a>dup01 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">table</span>(oldmort01<span class="sc">$</span>id))</span>
+<span id="cb92-2"><a href="counting-process.html#cb92-2" aria-hidden="true" tabindex="-1"></a>dup02 <span class="ot">&lt;-</span> dup01[<span class="fu">order</span>(<span class="sc">-</span>dup01<span class="sc">$</span>Freq), ]</span></code></pre></div>
 <p>In the following example, please check</p>
 <ul>
 <li>When is a new record for the same <em>id</em> created?</li>
@@ -370,8 +387,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>What does it mean by “TRUE” or “FALSE” in <em>event</em>?</li>
 <li>How does the time of <em>enter</em> and <em>exit</em> connected with each other? What would happen if there is a gap between two records?</li>
 </ul>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="counting-process.html#cb104-1" aria-hidden="true" tabindex="-1"></a>dup03 <span class="ot">&lt;-</span> oldmort01[oldmort01<span class="sc">$</span>id <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;789000771&quot;</span>, <span class="st">&quot;796001158&quot;</span>),  ]</span>
-<span id="cb104-2"><a href="counting-process.html#cb104-2" aria-hidden="true" tabindex="-1"></a>dup03</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="counting-process.html#cb93-1" aria-hidden="true" tabindex="-1"></a>dup03 <span class="ot">&lt;-</span> oldmort01[oldmort01<span class="sc">$</span>id <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;789000771&quot;</span>, <span class="st">&quot;796001158&quot;</span>),  ]</span>
+<span id="cb93-2"><a href="counting-process.html#cb93-2" aria-hidden="true" tabindex="-1"></a>dup03</span></code></pre></div>
 <pre><code>##             id  enter   exit event birthdate m.id f.id    sex       civ  ses.50
 ## 536  789000771 70.570 72.059 FALSE  1789.430   NA   NA female   married unknown
 ## 537  789000771 72.059 79.391 FALSE  1789.430   NA   NA female   married unknown
@@ -406,55 +423,55 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Time-varying variables will be assigned a single variable name. Let’s say we are to use self-rated health with a variable name of <em>SRH</em> for five waves. The dataset should contain <em>AID</em>, <em>wave</em>, and <em>SRH</em>. The SRH in each wave should be assigned the same name, <em>SRH</em>, and the wave information will be on <em>wave</em>. This way, you can simply “stack up” all 5-wave data to construct the long-form datasets.</li>
 </ul>
 <p>First, each <em>rda</em> dataset will be loaded and then saved as <strong>WAVE0X</strong>. After assigning a <em>wave</em> variable for each of them, we will keep the <strong>WAVE0X</strong> dataset and <em>WX</em> datasets only.</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="counting-process.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="co">#1st wave</span></span>
-<span id="cb106-2"><a href="counting-process.html#cb106-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0001/21600-0001-Data.rda&quot;</span>)</span>
-<span id="cb106-3"><a href="counting-process.html#cb106-3" aria-hidden="true" tabindex="-1"></a>wave01 <span class="ot">&lt;-</span> da21600<span class="fl">.0001</span></span>
-<span id="cb106-4"><a href="counting-process.html#cb106-4" aria-hidden="true" tabindex="-1"></a>wave01<span class="sc">$</span>wave <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb106-5"><a href="counting-process.html#cb106-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(da21600<span class="fl">.0001</span>)</span>
-<span id="cb106-6"><a href="counting-process.html#cb106-6" aria-hidden="true" tabindex="-1"></a>w1 <span class="ot">=</span> <span class="fu">subset</span>(wave01, <span class="at">select =</span> <span class="fu">c</span>(AID, wave))</span>
-<span id="cb106-7"><a href="counting-process.html#cb106-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-8"><a href="counting-process.html#cb106-8" aria-hidden="true" tabindex="-1"></a><span class="co">#2nd wave</span></span>
-<span id="cb106-9"><a href="counting-process.html#cb106-9" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0005/21600-0005-Data.rda&quot;</span>)</span>
-<span id="cb106-10"><a href="counting-process.html#cb106-10" aria-hidden="true" tabindex="-1"></a>wave02 <span class="ot">&lt;-</span> da21600<span class="fl">.0005</span></span>
-<span id="cb106-11"><a href="counting-process.html#cb106-11" aria-hidden="true" tabindex="-1"></a>wave02<span class="sc">$</span>wave <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb106-12"><a href="counting-process.html#cb106-12" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(da21600<span class="fl">.0005</span>)</span>
-<span id="cb106-13"><a href="counting-process.html#cb106-13" aria-hidden="true" tabindex="-1"></a>w2 <span class="ot">=</span> <span class="fu">subset</span>(wave02, <span class="at">select =</span> <span class="fu">c</span>(AID, wave))</span>
-<span id="cb106-14"><a href="counting-process.html#cb106-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-15"><a href="counting-process.html#cb106-15" aria-hidden="true" tabindex="-1"></a><span class="co">#3rd wave</span></span>
-<span id="cb106-16"><a href="counting-process.html#cb106-16" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0008/21600-0008-Data.rda&quot;</span>)</span>
-<span id="cb106-17"><a href="counting-process.html#cb106-17" aria-hidden="true" tabindex="-1"></a>wave03 <span class="ot">&lt;-</span> da21600<span class="fl">.0008</span></span>
-<span id="cb106-18"><a href="counting-process.html#cb106-18" aria-hidden="true" tabindex="-1"></a>wave03<span class="sc">$</span>wave <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb106-19"><a href="counting-process.html#cb106-19" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(da21600<span class="fl">.0008</span>)</span>
-<span id="cb106-20"><a href="counting-process.html#cb106-20" aria-hidden="true" tabindex="-1"></a>w3 <span class="ot">=</span> <span class="fu">subset</span>(wave03, <span class="at">select =</span> <span class="fu">c</span>(AID, wave))</span>
-<span id="cb106-21"><a href="counting-process.html#cb106-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-22"><a href="counting-process.html#cb106-22" aria-hidden="true" tabindex="-1"></a><span class="co">#4th wave</span></span>
-<span id="cb106-23"><a href="counting-process.html#cb106-23" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0022/21600-0022-Data.rda&quot;</span>)</span>
-<span id="cb106-24"><a href="counting-process.html#cb106-24" aria-hidden="true" tabindex="-1"></a>wave04 <span class="ot">&lt;-</span> da21600<span class="fl">.0022</span></span>
-<span id="cb106-25"><a href="counting-process.html#cb106-25" aria-hidden="true" tabindex="-1"></a>wave04<span class="sc">$</span>wave <span class="ot">&lt;-</span> <span class="dv">4</span></span>
-<span id="cb106-26"><a href="counting-process.html#cb106-26" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(da21600<span class="fl">.0022</span>)</span>
-<span id="cb106-27"><a href="counting-process.html#cb106-27" aria-hidden="true" tabindex="-1"></a>w4 <span class="ot">=</span> <span class="fu">subset</span>(wave04, <span class="at">select =</span> <span class="fu">c</span>(AID, wave))</span>
-<span id="cb106-28"><a href="counting-process.html#cb106-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-29"><a href="counting-process.html#cb106-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 5th wave</span></span>
-<span id="cb106-30"><a href="counting-process.html#cb106-30" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0032/21600-0032-Data.rda&quot;</span>)</span>
-<span id="cb106-31"><a href="counting-process.html#cb106-31" aria-hidden="true" tabindex="-1"></a>wave05 <span class="ot">&lt;-</span> da21600<span class="fl">.0032</span></span>
-<span id="cb106-32"><a href="counting-process.html#cb106-32" aria-hidden="true" tabindex="-1"></a>wave05<span class="sc">$</span>wave <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb106-33"><a href="counting-process.html#cb106-33" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(da21600<span class="fl">.0032</span>)</span>
-<span id="cb106-34"><a href="counting-process.html#cb106-34" aria-hidden="true" tabindex="-1"></a>w5 <span class="ot">=</span> <span class="fu">subset</span>(wave05, <span class="at">select =</span> <span class="fu">c</span>(AID, wave))</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="counting-process.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="co">#1st wave</span></span>
+<span id="cb95-2"><a href="counting-process.html#cb95-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;~/NAS_Share/HP/AddHealthPublic/ICPSR_21600/DS0001/21600-0001-Data.rda&quot;</span>)</span>
+<span id="cb95-3"><a href="counting-process.html#cb95-3" aria-hidden="true" tabindex="-1"></a>wave01 <span class="ot">&lt;-</span> da21600<span class="fl">.0001</span></span>
+<span id="cb95-4"><a href="counting-process.html#cb95-4" aria-hidden="true" tabindex="-1"></a>wave01<span class="sc">$</span>wave <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb95-5"><a href="counting-process.html#cb95-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(da21600<span class="fl">.0001</span>)</span>
+<span id="cb95-6"><a href="counting-process.html#cb95-6" aria-hidden="true" tabindex="-1"></a>w1 <span class="ot">=</span> <span class="fu">subset</span>(wave01, <span class="at">select =</span> <span class="fu">c</span>(AID, wave))</span>
+<span id="cb95-7"><a href="counting-process.html#cb95-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-8"><a href="counting-process.html#cb95-8" aria-hidden="true" tabindex="-1"></a><span class="co">#2nd wave</span></span>
+<span id="cb95-9"><a href="counting-process.html#cb95-9" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;~/NAS_Share/HP/AddHealthPublic/ICPSR_21600/DS0005/21600-0005-Data.rda&quot;</span>)</span>
+<span id="cb95-10"><a href="counting-process.html#cb95-10" aria-hidden="true" tabindex="-1"></a>wave02 <span class="ot">&lt;-</span> da21600<span class="fl">.0005</span></span>
+<span id="cb95-11"><a href="counting-process.html#cb95-11" aria-hidden="true" tabindex="-1"></a>wave02<span class="sc">$</span>wave <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb95-12"><a href="counting-process.html#cb95-12" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(da21600<span class="fl">.0005</span>)</span>
+<span id="cb95-13"><a href="counting-process.html#cb95-13" aria-hidden="true" tabindex="-1"></a>w2 <span class="ot">=</span> <span class="fu">subset</span>(wave02, <span class="at">select =</span> <span class="fu">c</span>(AID, wave))</span>
+<span id="cb95-14"><a href="counting-process.html#cb95-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-15"><a href="counting-process.html#cb95-15" aria-hidden="true" tabindex="-1"></a><span class="co">#3rd wave</span></span>
+<span id="cb95-16"><a href="counting-process.html#cb95-16" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;~/NAS_Share/HP/AddHealthPublic/ICPSR_21600/DS0008/21600-0008-Data.rda&quot;</span>)</span>
+<span id="cb95-17"><a href="counting-process.html#cb95-17" aria-hidden="true" tabindex="-1"></a>wave03 <span class="ot">&lt;-</span> da21600<span class="fl">.0008</span></span>
+<span id="cb95-18"><a href="counting-process.html#cb95-18" aria-hidden="true" tabindex="-1"></a>wave03<span class="sc">$</span>wave <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb95-19"><a href="counting-process.html#cb95-19" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(da21600<span class="fl">.0008</span>)</span>
+<span id="cb95-20"><a href="counting-process.html#cb95-20" aria-hidden="true" tabindex="-1"></a>w3 <span class="ot">=</span> <span class="fu">subset</span>(wave03, <span class="at">select =</span> <span class="fu">c</span>(AID, wave))</span>
+<span id="cb95-21"><a href="counting-process.html#cb95-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-22"><a href="counting-process.html#cb95-22" aria-hidden="true" tabindex="-1"></a><span class="co">#4th wave</span></span>
+<span id="cb95-23"><a href="counting-process.html#cb95-23" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;~/NAS_Share/HP/AddHealthPublic/ICPSR_21600/DS0022/21600-0022-Data.rda&quot;</span>)</span>
+<span id="cb95-24"><a href="counting-process.html#cb95-24" aria-hidden="true" tabindex="-1"></a>wave04 <span class="ot">&lt;-</span> da21600<span class="fl">.0022</span></span>
+<span id="cb95-25"><a href="counting-process.html#cb95-25" aria-hidden="true" tabindex="-1"></a>wave04<span class="sc">$</span>wave <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb95-26"><a href="counting-process.html#cb95-26" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(da21600<span class="fl">.0022</span>)</span>
+<span id="cb95-27"><a href="counting-process.html#cb95-27" aria-hidden="true" tabindex="-1"></a>w4 <span class="ot">=</span> <span class="fu">subset</span>(wave04, <span class="at">select =</span> <span class="fu">c</span>(AID, wave))</span>
+<span id="cb95-28"><a href="counting-process.html#cb95-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-29"><a href="counting-process.html#cb95-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 5th wave</span></span>
+<span id="cb95-30"><a href="counting-process.html#cb95-30" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;~/NAS_Share/HP/AddHealthPublic/ICPSR_21600/DS0032/21600-0032-Data.rda&quot;</span>)</span>
+<span id="cb95-31"><a href="counting-process.html#cb95-31" aria-hidden="true" tabindex="-1"></a>wave05 <span class="ot">&lt;-</span> da21600<span class="fl">.0032</span></span>
+<span id="cb95-32"><a href="counting-process.html#cb95-32" aria-hidden="true" tabindex="-1"></a>wave05<span class="sc">$</span>wave <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb95-33"><a href="counting-process.html#cb95-33" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(da21600<span class="fl">.0032</span>)</span>
+<span id="cb95-34"><a href="counting-process.html#cb95-34" aria-hidden="true" tabindex="-1"></a>w5 <span class="ot">=</span> <span class="fu">subset</span>(wave05, <span class="at">select =</span> <span class="fu">c</span>(AID, wave))</span></code></pre></div>
 <p>The complete list of respondents can be obtained by aggregating all WX datasets and then getting the unique AID.</p>
 <ul>
 <li>The numbers of cases for both occasions are the same. It looks like the first wave contains all respondents - no additional respondents were added.</li>
 <li>To check this observation, we will see both AID from the first wave and All matched.</li>
 <li>Because the n didn’t change, we confirmed that WAVE01 contains all respondents of the study.</li>
 </ul>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="counting-process.html#cb107-1" aria-hidden="true" tabindex="-1"></a>AH01 <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">subset</span>(<span class="fu">rbind</span>(w1, w2, w3, w4, w5), <span class="at">select =</span> <span class="fu">c</span>(AID)))</span>
-<span id="cb107-2"><a href="counting-process.html#cb107-2" aria-hidden="true" tabindex="-1"></a>test01 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(wave01, AH01, <span class="at">by=</span><span class="st">&quot;AID&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="counting-process.html#cb96-1" aria-hidden="true" tabindex="-1"></a>AH01 <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">subset</span>(<span class="fu">rbind</span>(w1, w2, w3, w4, w5), <span class="at">select =</span> <span class="fu">c</span>(AID)))</span>
+<span id="cb96-2"><a href="counting-process.html#cb96-2" aria-hidden="true" tabindex="-1"></a>test01 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(wave01, AH01, <span class="at">by=</span><span class="st">&quot;AID&quot;</span>)</span></code></pre></div>
 <div id="generate-a-complete-framework-with-aid-and-wave-optional" class="section level3 hasAnchor" number="4.3.1">
 <h3><span class="header-section-number">4.3.1</span> Generate a complete framework with <em>AID</em> and <em>wave</em> (Optional)<a href="counting-process.html#generate-a-complete-framework-with-aid-and-wave-optional" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>I personally prefer working with a “complete framework” containing all <em>AID</em> and <em>wave</em>.</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="counting-process.html#cb108-1" aria-hidden="true" tabindex="-1"></a>lf01 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(w1, w2, w3, w4, w5)</span>
-<span id="cb108-2"><a href="counting-process.html#cb108-2" aria-hidden="true" tabindex="-1"></a>lf <span class="ot">&lt;-</span> lf01[<span class="fu">order</span>(lf01<span class="sc">$</span>AID, lf01<span class="sc">$</span>wave), ]</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="counting-process.html#cb97-1" aria-hidden="true" tabindex="-1"></a>lf01 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(w1, w2, w3, w4, w5)</span>
+<span id="cb97-2"><a href="counting-process.html#cb97-2" aria-hidden="true" tabindex="-1"></a>lf <span class="ot">&lt;-</span> lf01[<span class="fu">order</span>(lf01<span class="sc">$</span>AID, lf01<span class="sc">$</span>wave), ]</span></code></pre></div>
 <p>Here is the merged (“stacked”) dataset.</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="counting-process.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(lf01)</span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="counting-process.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(lf01)</span></code></pre></div>
 <pre><code>##        AID wave
 ## 1 57100270    1
 ## 2 57101310    1
@@ -463,7 +480,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5 57104553    1
 ## 6 57104649    1</code></pre>
 <p>Sorting by <em>AID</em> and <em>wave</em>, we can easily identify the data structure by <em>AID</em> and <em>wave</em>. This <strong>lf</strong> dataset is what I call a “framework” of this data source, which is the one that will be used whenever combining or merging datasets.</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="counting-process.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(lf)</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="counting-process.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(lf)</span></code></pre></div>
 <pre><code>##            AID wave
 ## 1     57100270    1
 ## 11339 57100270    3
@@ -472,46 +489,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 11340 57101310    3
 ## 16221 57101310    4</code></pre>
 <p>Keep the number of cases (n = 25530) for your record. This number should be the number you expect whenever you merge or stack datasets.</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="counting-process.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(lf)</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="counting-process.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(lf)</span></code></pre></div>
 <pre><code>##       n
 ## 1 25530</code></pre>
 </div>
 <div id="time-variant-variables-from-each-wave" class="section level3 hasAnchor" number="4.3.2">
 <h3><span class="header-section-number">4.3.2</span> Time-variant variables from each wave<a href="counting-process.html#time-variant-variables-from-each-wave" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In this practice, we will select and rename self-rated health (for all 5-wave) and appetite (only for <span class="math inline">\(1^{st}\)</span> and <span class="math inline">\(2^{nd}\)</span> waves) measures.</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="counting-process.html#cb115-1" aria-hidden="true" tabindex="-1"></a>srh1 <span class="ot">&lt;-</span> wave01 <span class="sc">%&gt;%</span></span>
-<span id="cb115-2"><a href="counting-process.html#cb115-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(AID,</span>
-<span id="cb115-3"><a href="counting-process.html#cb115-3" aria-hidden="true" tabindex="-1"></a>         wave,</span>
-<span id="cb115-4"><a href="counting-process.html#cb115-4" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_srh&quot;</span> <span class="ot">=</span> H1GH1,</span>
-<span id="cb115-5"><a href="counting-process.html#cb115-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_poorappetite&quot;</span> <span class="ot">=</span> H1FS2)</span>
-<span id="cb115-6"><a href="counting-process.html#cb115-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-7"><a href="counting-process.html#cb115-7" aria-hidden="true" tabindex="-1"></a>srh2 <span class="ot">&lt;-</span> wave02 <span class="sc">%&gt;%</span></span>
-<span id="cb115-8"><a href="counting-process.html#cb115-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(AID,</span>
-<span id="cb115-9"><a href="counting-process.html#cb115-9" aria-hidden="true" tabindex="-1"></a>         wave,</span>
-<span id="cb115-10"><a href="counting-process.html#cb115-10" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_srh&quot;</span> <span class="ot">=</span> H2GH1,</span>
-<span id="cb115-11"><a href="counting-process.html#cb115-11" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_poorappetite&quot;</span> <span class="ot">=</span> H2GH22)</span>
-<span id="cb115-12"><a href="counting-process.html#cb115-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-13"><a href="counting-process.html#cb115-13" aria-hidden="true" tabindex="-1"></a>srh3 <span class="ot">&lt;-</span> wave03 <span class="sc">%&gt;%</span></span>
-<span id="cb115-14"><a href="counting-process.html#cb115-14" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(AID,</span>
-<span id="cb115-15"><a href="counting-process.html#cb115-15" aria-hidden="true" tabindex="-1"></a>         wave,</span>
-<span id="cb115-16"><a href="counting-process.html#cb115-16" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_srh&quot;</span> <span class="ot">=</span> H3GH1)</span>
-<span id="cb115-17"><a href="counting-process.html#cb115-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-18"><a href="counting-process.html#cb115-18" aria-hidden="true" tabindex="-1"></a>srh4 <span class="ot">&lt;-</span> wave04 <span class="sc">%&gt;%</span></span>
-<span id="cb115-19"><a href="counting-process.html#cb115-19" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(AID,</span>
-<span id="cb115-20"><a href="counting-process.html#cb115-20" aria-hidden="true" tabindex="-1"></a>         wave,</span>
-<span id="cb115-21"><a href="counting-process.html#cb115-21" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_srh&quot;</span> <span class="ot">=</span> H4GH1)</span>
-<span id="cb115-22"><a href="counting-process.html#cb115-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-23"><a href="counting-process.html#cb115-23" aria-hidden="true" tabindex="-1"></a>srh5 <span class="ot">&lt;-</span> wave05 <span class="sc">%&gt;%</span></span>
-<span id="cb115-24"><a href="counting-process.html#cb115-24" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(AID,</span>
-<span id="cb115-25"><a href="counting-process.html#cb115-25" aria-hidden="true" tabindex="-1"></a>         wave,</span>
-<span id="cb115-26"><a href="counting-process.html#cb115-26" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_srh&quot;</span> <span class="ot">=</span> H5ID1)</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="counting-process.html#cb104-1" aria-hidden="true" tabindex="-1"></a>srh1 <span class="ot">&lt;-</span> wave01 <span class="sc">%&gt;%</span></span>
+<span id="cb104-2"><a href="counting-process.html#cb104-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(AID,</span>
+<span id="cb104-3"><a href="counting-process.html#cb104-3" aria-hidden="true" tabindex="-1"></a>         wave,</span>
+<span id="cb104-4"><a href="counting-process.html#cb104-4" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_srh&quot;</span> <span class="ot">=</span> H1GH1,</span>
+<span id="cb104-5"><a href="counting-process.html#cb104-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_poorappetite&quot;</span> <span class="ot">=</span> H1FS2)</span>
+<span id="cb104-6"><a href="counting-process.html#cb104-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-7"><a href="counting-process.html#cb104-7" aria-hidden="true" tabindex="-1"></a>srh2 <span class="ot">&lt;-</span> wave02 <span class="sc">%&gt;%</span></span>
+<span id="cb104-8"><a href="counting-process.html#cb104-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(AID,</span>
+<span id="cb104-9"><a href="counting-process.html#cb104-9" aria-hidden="true" tabindex="-1"></a>         wave,</span>
+<span id="cb104-10"><a href="counting-process.html#cb104-10" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_srh&quot;</span> <span class="ot">=</span> H2GH1,</span>
+<span id="cb104-11"><a href="counting-process.html#cb104-11" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_poorappetite&quot;</span> <span class="ot">=</span> H2GH22)</span>
+<span id="cb104-12"><a href="counting-process.html#cb104-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-13"><a href="counting-process.html#cb104-13" aria-hidden="true" tabindex="-1"></a>srh3 <span class="ot">&lt;-</span> wave03 <span class="sc">%&gt;%</span></span>
+<span id="cb104-14"><a href="counting-process.html#cb104-14" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(AID,</span>
+<span id="cb104-15"><a href="counting-process.html#cb104-15" aria-hidden="true" tabindex="-1"></a>         wave,</span>
+<span id="cb104-16"><a href="counting-process.html#cb104-16" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_srh&quot;</span> <span class="ot">=</span> H3GH1)</span>
+<span id="cb104-17"><a href="counting-process.html#cb104-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-18"><a href="counting-process.html#cb104-18" aria-hidden="true" tabindex="-1"></a>srh4 <span class="ot">&lt;-</span> wave04 <span class="sc">%&gt;%</span></span>
+<span id="cb104-19"><a href="counting-process.html#cb104-19" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(AID,</span>
+<span id="cb104-20"><a href="counting-process.html#cb104-20" aria-hidden="true" tabindex="-1"></a>         wave,</span>
+<span id="cb104-21"><a href="counting-process.html#cb104-21" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_srh&quot;</span> <span class="ot">=</span> H4GH1)</span>
+<span id="cb104-22"><a href="counting-process.html#cb104-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-23"><a href="counting-process.html#cb104-23" aria-hidden="true" tabindex="-1"></a>srh5 <span class="ot">&lt;-</span> wave05 <span class="sc">%&gt;%</span></span>
+<span id="cb104-24"><a href="counting-process.html#cb104-24" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(AID,</span>
+<span id="cb104-25"><a href="counting-process.html#cb104-25" aria-hidden="true" tabindex="-1"></a>         wave,</span>
+<span id="cb104-26"><a href="counting-process.html#cb104-26" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_srh&quot;</span> <span class="ot">=</span> H5ID1)</span></code></pre></div>
 <p>Please note that how to name the “temporary” datasets. I found that using the combination of ‘variable name + wave’ minimizes any confusions later.</p>
 <p>The ‘rbind’ function requires all datasets have a same numbers of columns. ‘setDT’ and ‘fill=TRUE’ are the functions from a ‘data.table’ package that override this requirement.</p>
 <p>Now, we have created a <em>long-form dataset (i.e., srh_TV) from five sets of cross-sectional datasets</em>.</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="counting-process.html#cb116-1" aria-hidden="true" tabindex="-1"></a>srh_TV01 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">setDT</span>(srh1), <span class="fu">setDT</span>(srh2), <span class="fu">setDT</span>(srh3), <span class="fu">setDT</span>(srh4), <span class="fu">setDT</span>(srh5), <span class="at">fill=</span><span class="cn">TRUE</span>)</span>
-<span id="cb116-2"><a href="counting-process.html#cb116-2" aria-hidden="true" tabindex="-1"></a>srh_TV <span class="ot">&lt;-</span> srh_TV01[<span class="fu">order</span>(srh_TV01<span class="sc">$</span>AID, srh_TV01<span class="sc">$</span>wave), ]</span>
-<span id="cb116-3"><a href="counting-process.html#cb116-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 6504, 4834, 4882, 5114, 4196, 25530</span></span></code></pre></div>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="counting-process.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(srh_TV)</span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="counting-process.html#cb105-1" aria-hidden="true" tabindex="-1"></a>srh_TV01 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">setDT</span>(srh1), <span class="fu">setDT</span>(srh2), <span class="fu">setDT</span>(srh3), <span class="fu">setDT</span>(srh4), <span class="fu">setDT</span>(srh5), <span class="at">fill=</span><span class="cn">TRUE</span>)</span>
+<span id="cb105-2"><a href="counting-process.html#cb105-2" aria-hidden="true" tabindex="-1"></a>srh_TV <span class="ot">&lt;-</span> srh_TV01[<span class="fu">order</span>(srh_TV01<span class="sc">$</span>AID, srh_TV01<span class="sc">$</span>wave), ]</span>
+<span id="cb105-3"><a href="counting-process.html#cb105-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 6504, 4834, 4882, 5114, 4196, 25530</span></span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="counting-process.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(srh_TV)</span></code></pre></div>
 <pre><code>##         AID wave             a_srh       a_poorappetite
 ## 1: 57100270    1      (3) (3) Good (0) (0) Never/rarely
 ## 2: 57100270    3 (1) (1) Excellent                 &lt;NA&gt;
@@ -523,9 +540,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="time-invariant" class="section level3 hasAnchor" number="4.3.3">
 <h3><span class="header-section-number">4.3.3</span> Time-invariant<a href="counting-process.html#time-invariant" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>By definition, when a variable is time-invariant, only one measure from any variable should be applied to all other waves. In this example, we select <em>sex</em> from the first wave (because of completeness), which will be applied to the whole long-form dataset.</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="counting-process.html#cb119-1" aria-hidden="true" tabindex="-1"></a>demo_TI <span class="ot">&lt;-</span> wave01 <span class="sc">%&gt;%</span></span>
-<span id="cb119-2"><a href="counting-process.html#cb119-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(AID,</span>
-<span id="cb119-3"><a href="counting-process.html#cb119-3" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_sex&quot;</span> <span class="ot">=</span> BIO_SEX)</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="counting-process.html#cb108-1" aria-hidden="true" tabindex="-1"></a>demo_TI <span class="ot">&lt;-</span> wave01 <span class="sc">%&gt;%</span></span>
+<span id="cb108-2"><a href="counting-process.html#cb108-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(AID,</span>
+<span id="cb108-3"><a href="counting-process.html#cb108-3" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;a_sex&quot;</span> <span class="ot">=</span> BIO_SEX)</span></code></pre></div>
 </div>
 <div id="merging-datasets" class="section level3 hasAnchor" number="4.3.4">
 <h3><span class="header-section-number">4.3.4</span> Merging datasets<a href="counting-process.html#merging-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -534,8 +551,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Framework + time-invariant (i.e., <strong>lf</strong> (a framework) and <strong>demo_TI</strong> (time-invariant))</li>
 </ul>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="counting-process.html#cb120-1" aria-hidden="true" tabindex="-1"></a>Final01 <span class="ot">&lt;-</span> <span class="fu">merge</span>(lf, demo_TI, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;AID&quot;</span>))</span>
-<span id="cb120-2"><a href="counting-process.html#cb120-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Final01)</span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="counting-process.html#cb109-1" aria-hidden="true" tabindex="-1"></a>Final01 <span class="ot">&lt;-</span> <span class="fu">merge</span>(lf, demo_TI, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;AID&quot;</span>))</span>
+<span id="cb109-2"><a href="counting-process.html#cb109-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Final01)</span></code></pre></div>
 <pre><code>##        AID wave          a_sex
 ## 1 57100270    1 (2) (2) Female
 ## 2 57100270    3 (2) (2) Female
@@ -546,8 +563,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Framework + time-invariant + time-variant (i.e., <strong>Final01</strong> + <strong>srh_TV</strong> (time-variant))</li>
 </ul>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="counting-process.html#cb122-1" aria-hidden="true" tabindex="-1"></a>Final02 <span class="ot">&lt;-</span> <span class="fu">merge</span>(Final01, srh_TV, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;AID&quot;</span>, <span class="st">&quot;wave&quot;</span>))</span>
-<span id="cb122-2"><a href="counting-process.html#cb122-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Final02)</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="counting-process.html#cb111-1" aria-hidden="true" tabindex="-1"></a>Final02 <span class="ot">&lt;-</span> <span class="fu">merge</span>(Final01, srh_TV, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;AID&quot;</span>, <span class="st">&quot;wave&quot;</span>))</span>
+<span id="cb111-2"><a href="counting-process.html#cb111-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Final02)</span></code></pre></div>
 <pre><code>##        AID wave          a_sex             a_srh       a_poorappetite
 ## 1 57100270    1 (2) (2) Female      (3) (3) Good (0) (0) Never/rarely
 ## 2 57100270    3 (2) (2) Female (1) (1) Excellent                 &lt;NA&gt;
@@ -562,15 +579,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Using lag/lead(wave)</li>
 </ul>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="counting-process.html#cb124-1" aria-hidden="true" tabindex="-1"></a>Final03 <span class="ot">&lt;-</span> Final02 <span class="sc">%&gt;%</span> </span>
-<span id="cb124-2"><a href="counting-process.html#cb124-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(AID) <span class="sc">%&gt;%</span> </span>
-<span id="cb124-3"><a href="counting-process.html#cb124-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
-<span id="cb124-4"><a href="counting-process.html#cb124-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">enter =</span> <span class="fu">lag</span>(wave),</span>
-<span id="cb124-5"><a href="counting-process.html#cb124-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">exit =</span> wave</span>
-<span id="cb124-6"><a href="counting-process.html#cb124-6" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
-<span id="cb124-7"><a href="counting-process.html#cb124-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb124-8"><a href="counting-process.html#cb124-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb124-9"><a href="counting-process.html#cb124-9" aria-hidden="true" tabindex="-1"></a>Final03<span class="sc">$</span>enter[Final03<span class="sc">$</span>wave <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> <span class="fu">is.na</span>(Final03<span class="sc">$</span>enter)] <span class="ot">&lt;-</span> <span class="dv">0</span></span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="counting-process.html#cb113-1" aria-hidden="true" tabindex="-1"></a>Final03 <span class="ot">&lt;-</span> Final02 <span class="sc">%&gt;%</span> </span>
+<span id="cb113-2"><a href="counting-process.html#cb113-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(AID) <span class="sc">%&gt;%</span> </span>
+<span id="cb113-3"><a href="counting-process.html#cb113-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb113-4"><a href="counting-process.html#cb113-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">enter =</span> <span class="fu">lag</span>(wave),</span>
+<span id="cb113-5"><a href="counting-process.html#cb113-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">exit =</span> wave</span>
+<span id="cb113-6"><a href="counting-process.html#cb113-6" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb113-7"><a href="counting-process.html#cb113-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb113-8"><a href="counting-process.html#cb113-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-9"><a href="counting-process.html#cb113-9" aria-hidden="true" tabindex="-1"></a>Final03<span class="sc">$</span>enter[Final03<span class="sc">$</span>wave <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> <span class="fu">is.na</span>(Final03<span class="sc">$</span>enter)] <span class="ot">&lt;-</span> <span class="dv">0</span></span></code></pre></div>
 <p>Because we used <em>wave</em> as an example, it may look more complicated than necessary - for example, we may simply use <code>enter = exit - 1</code>. However, this lag/lead function is required when working with the actual date which interval is not always equal to 1.</p>
 
 </div>

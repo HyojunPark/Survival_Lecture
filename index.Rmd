@@ -15,7 +15,7 @@ github-repo: rstudio/bookdown-demo
 
 # About
 
-This is an additional lecture notes for **Survival Analysis** course. 
+This is an additional lecture notes for **Survival Analysis** course, drawn from multiple textbooks and materials.
 
 
 

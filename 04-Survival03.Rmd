@@ -1,5 +1,24 @@
 # Survival models: specification, estimation, and interpretation
 
+```{r, include=FALSE}
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(eha)
+library(survival)
+library(data.table)
+library(flextable)
+library(survminer)
+library(ggfortify)
+library(ggplot2)
+library(data.table)
+```
+
+
+```{r, include=FALSE}
+oldmort01 <- oldmort
+```
+
 Let's think some some feasible models addressing how the survival varies by sex, region, and infant mortality of the cohort, using **oldmort01** dataset. 
 
 Here are some possible models depending on the outcome:

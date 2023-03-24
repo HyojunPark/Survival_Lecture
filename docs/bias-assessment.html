@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Bias assessment | SOC6280: Survival Analysis: Practice</title>
   <meta name="description" content="Survival handbook" />
-  <meta name="generator" content="bookdown 0.33.1 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Bias assessment | SOC6280: Survival Analysis: Practice" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Hyojun Park" />
 
 
-<meta name="date" content="2023-03-15" />
+<meta name="date" content="2023-03-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -133,7 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">A Minimal Book Example</a></li>
+<li><a href="./">Survival Analysis Workbook</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
@@ -237,25 +237,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5.8" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#graphs"><i class="fa fa-check"></i><b>5.8</b> Graphs</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="add-health-project.html"><a href="add-health-project.html"><i class="fa fa-check"></i><b>6</b> Add Health Project</a>
+<li class="chapter" data-level="6" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html"><i class="fa fa-check"></i><b>6</b> Cox Proportional Hazard Modeling</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="add-health-project.html"><a href="add-health-project.html#library"><i class="fa fa-check"></i><b>6.1</b> Library</a></li>
-<li class="chapter" data-level="6.2" data-path="add-health-project.html"><a href="add-health-project.html#access-datasets"><i class="fa fa-check"></i><b>6.2</b> Access datasets</a></li>
-<li class="chapter" data-level="6.3" data-path="add-health-project.html"><a href="add-health-project.html#load-5-wave-sample"><i class="fa fa-check"></i><b>6.3</b> Load 5-wave sample</a></li>
-<li class="chapter" data-level="6.4" data-path="add-health-project.html"><a href="add-health-project.html#long-form-dataset-wave-person"><i class="fa fa-check"></i><b>6.4</b> Long-form dataset (wave-person)</a></li>
-<li class="chapter" data-level="6.5" data-path="add-health-project.html"><a href="add-health-project.html#exploring-variables-in-add-health"><i class="fa fa-check"></i><b>6.5</b> Exploring variables in Add Health</a></li>
-<li class="chapter" data-level="6.6" data-path="add-health-project.html"><a href="add-health-project.html#outcomes-exposures-and-confounders"><i class="fa fa-check"></i><b>6.6</b> Outcomes, exposures, and confounders</a></li>
-<li class="chapter" data-level="6.7" data-path="add-health-project.html"><a href="add-health-project.html#demographic-variables---time-invariant"><i class="fa fa-check"></i><b>6.7</b> Demographic variables - time-invariant</a></li>
-<li class="chapter" data-level="6.8" data-path="add-health-project.html"><a href="add-health-project.html#merging-datasets-1"><i class="fa fa-check"></i><b>6.8</b> Merging datasets</a></li>
-<li class="chapter" data-level="6.9" data-path="add-health-project.html"><a href="add-health-project.html#data-management-recoding-and-so-on"><i class="fa fa-check"></i><b>6.9</b> Data management, recoding, and so on</a>
+<li class="chapter" data-level="6.1" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#setup-working-datasets"><i class="fa fa-check"></i><b>6.1</b> Setup working datasets</a></li>
+<li class="chapter" data-level="6.2" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#cox-proportional-hazard-models-example"><i class="fa fa-check"></i><b>6.2</b> Cox Proportional Hazard Models: Example</a>
 <ul>
-<li class="chapter" data-level="6.9.1" data-path="add-health-project.html"><a href="add-health-project.html#bmi"><i class="fa fa-check"></i><b>6.9.1</b> BMI</a></li>
-<li class="chapter" data-level="6.9.2" data-path="add-health-project.html"><a href="add-health-project.html#sampling-weights"><i class="fa fa-check"></i><b>6.9.2</b> Sampling weights</a></li>
-<li class="chapter" data-level="6.9.3" data-path="add-health-project.html"><a href="add-health-project.html#multiple-imputation"><i class="fa fa-check"></i><b>6.9.3</b> Multiple imputation</a></li>
+<li class="chapter" data-level="6.2.1" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#cox-model-specification"><i class="fa fa-check"></i><b>6.2.1</b> Cox model specification</a></li>
+<li class="chapter" data-level="6.2.2" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#model-1-no-covariates"><i class="fa fa-check"></i><b>6.2.2</b> Model 1: No covariates</a></li>
+<li class="chapter" data-level="6.2.3" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#model-2-categorical-covariate-region"><i class="fa fa-check"></i><b>6.2.3</b> Model 2: Categorical covariate: region</a></li>
+<li class="chapter" data-level="6.2.4" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#model-3-continuous-covariate-imr.birth"><i class="fa fa-check"></i><b>6.2.4</b> Model 3: Continuous covariate: imr.birth</a></li>
 </ul></li>
-<li class="chapter" data-level="6.10" data-path="add-health-project.html"><a href="add-health-project.html#analytic-approach"><i class="fa fa-check"></i><b>6.10</b> Analytic approach</a>
+<li class="chapter" data-level="6.3" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#interpretation-2"><i class="fa fa-check"></i><b>6.3</b> Interpretation</a></li>
+<li class="chapter" data-level="6.4" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#proportional-hazard-ph-assumption"><i class="fa fa-check"></i><b>6.4</b> Proportional hazard (PH) assumption</a></li>
+<li class="chapter" data-level="6.5" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#extended-cox-model"><i class="fa fa-check"></i><b>6.5</b> Extended Cox model</a></li>
+<li class="chapter" data-level="6.6" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#evaluating-the-proportional-hazard-ph-assumption"><i class="fa fa-check"></i><b>6.6</b> Evaluating the Proportional hazard (PH) assumption</a>
 <ul>
-<li class="chapter" data-level="6.10.1" data-path="add-health-project.html"><a href="add-health-project.html#a-linear-regression-with-the-current-dataset"><i class="fa fa-check"></i><b>6.10.1</b> A linear regression with the current dataset</a></li>
+<li class="chapter" data-level="6.6.1" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#graphical-evaluation"><i class="fa fa-check"></i><b>6.6.1</b> Graphical evaluation</a></li>
+<li class="chapter" data-level="6.6.2" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#goodness-of-fit-gof"><i class="fa fa-check"></i><b>6.6.2</b> Goodness-of-fit (GOF)</a></li>
+<li class="chapter" data-level="6.6.3" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#time-dependent-variable-approaches"><i class="fa fa-check"></i><b>6.6.3</b> Time-dependent variable approaches</a></li>
+<li class="chapter" data-level="6.6.4" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#testing-for-influential-observations"><i class="fa fa-check"></i><b>6.6.4</b> Testing for Influential Observations</a></li>
+<li class="chapter" data-level="6.6.5" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#testing-for-non-linearlity"><i class="fa fa-check"></i><b>6.6.5</b> Testing for Non-linearlity</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#why-we-call-this-model-as-semi-parametric-model"><i class="fa fa-check"></i><b>6.7</b> Why we call this model as semi-parametric model?</a></li>
+<li class="chapter" data-level="6.8" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#why-the-cox-ph-model-is-so-popular"><i class="fa fa-check"></i><b>6.8</b> Why the Cox PH model is so popular</a></li>
+<li class="chapter" data-level="6.9" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#estimation-of-the-cox-ph-model-using-maximum-likelihood-ml"><i class="fa fa-check"></i><b>6.9</b> Estimation of the Cox PH model using Maximum likelihood (ML)</a></li>
+<li class="chapter" data-level="6.10" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#more-about-hazard-ratio"><i class="fa fa-check"></i><b>6.10</b> More about Hazard ratio</a></li>
+<li class="chapter" data-level="6.11" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#adjusted-survival-curves-using-the-cox-ph-model"><i class="fa fa-check"></i><b>6.11</b> Adjusted Survival Curves using the Cox PH model</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="add-health-project.html"><a href="add-health-project.html"><i class="fa fa-check"></i><b>7</b> Add Health Project</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="add-health-project.html"><a href="add-health-project.html#library"><i class="fa fa-check"></i><b>7.1</b> Library</a></li>
+<li class="chapter" data-level="7.2" data-path="add-health-project.html"><a href="add-health-project.html#access-datasets"><i class="fa fa-check"></i><b>7.2</b> Access datasets</a></li>
+<li class="chapter" data-level="7.3" data-path="add-health-project.html"><a href="add-health-project.html#load-5-wave-sample"><i class="fa fa-check"></i><b>7.3</b> Load 5-wave sample</a></li>
+<li class="chapter" data-level="7.4" data-path="add-health-project.html"><a href="add-health-project.html#long-form-dataset-wave-person"><i class="fa fa-check"></i><b>7.4</b> Long-form dataset (wave-person)</a></li>
+<li class="chapter" data-level="7.5" data-path="add-health-project.html"><a href="add-health-project.html#exploring-variables-in-add-health"><i class="fa fa-check"></i><b>7.5</b> Exploring variables in Add Health</a></li>
+<li class="chapter" data-level="7.6" data-path="add-health-project.html"><a href="add-health-project.html#outcomes-exposures-and-confounders"><i class="fa fa-check"></i><b>7.6</b> Outcomes, exposures, and confounders</a></li>
+<li class="chapter" data-level="7.7" data-path="add-health-project.html"><a href="add-health-project.html#demographic-variables---time-invariant"><i class="fa fa-check"></i><b>7.7</b> Demographic variables - time-invariant</a></li>
+<li class="chapter" data-level="7.8" data-path="add-health-project.html"><a href="add-health-project.html#merging-datasets-1"><i class="fa fa-check"></i><b>7.8</b> Merging datasets</a></li>
+<li class="chapter" data-level="7.9" data-path="add-health-project.html"><a href="add-health-project.html#data-management-recoding-and-so-on"><i class="fa fa-check"></i><b>7.9</b> Data management, recoding, and so on</a>
+<ul>
+<li class="chapter" data-level="7.9.1" data-path="add-health-project.html"><a href="add-health-project.html#bmi"><i class="fa fa-check"></i><b>7.9.1</b> BMI</a></li>
+<li class="chapter" data-level="7.9.2" data-path="add-health-project.html"><a href="add-health-project.html#sampling-weights"><i class="fa fa-check"></i><b>7.9.2</b> Sampling weights</a></li>
+<li class="chapter" data-level="7.9.3" data-path="add-health-project.html"><a href="add-health-project.html#multiple-imputation"><i class="fa fa-check"></i><b>7.9.3</b> Multiple imputation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.10" data-path="add-health-project.html"><a href="add-health-project.html#analytic-approach"><i class="fa fa-check"></i><b>7.10</b> Analytic approach</a>
+<ul>
+<li class="chapter" data-level="7.10.1" data-path="add-health-project.html"><a href="add-health-project.html#a-linear-regression-with-the-current-dataset"><i class="fa fa-check"></i><b>7.10.1</b> A linear regression with the current dataset</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
