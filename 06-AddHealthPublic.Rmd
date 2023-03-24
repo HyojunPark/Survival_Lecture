@@ -21,49 +21,38 @@ Let's use the public datasets available at https://www.icpsr.umich.edu/web/ICPSR
 First, each RDA dataset will be loaded and then saved as WAVE0X. After assigning a WAVE variable, we will keep the WAVE0X dataset and WX datasets only.
 
 ```{r}
-load("~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0001/21600-0001-Data.rda")
+#1st wave
+load("~/NAS_Share/HP/AddHealthPublic/ICPSR_21600/DS0001/21600-0001-Data.rda")
 wave01 <- da21600.0001
 wave01$wave <- 1
 rm(da21600.0001)
 w1 = subset(wave01, select = c(AID, wave))
-```
 
-
-```{r}
-load("~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0005/21600-0005-Data.rda")
+#2nd wave
+load("~/NAS_Share/HP/AddHealthPublic/ICPSR_21600/DS0005/21600-0005-Data.rda")
 wave02 <- da21600.0005
 wave02$wave <- 2
-
 rm(da21600.0005)
 w2 = subset(wave02, select = c(AID, wave))
-```
 
-
-```{r}
-load("~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0008/21600-0008-Data.rda")
+#3rd wave
+load("~/NAS_Share/HP/AddHealthPublic/ICPSR_21600/DS0008/21600-0008-Data.rda")
 wave03 <- da21600.0008
 wave03$wave <- 3
-
 rm(da21600.0008)
 w3 = subset(wave03, select = c(AID, wave))
-```
 
-
-```{r}
-load("~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0022/21600-0022-Data.rda")
+#4th wave
+load("~/NAS_Share/HP/AddHealthPublic/ICPSR_21600/DS0022/21600-0022-Data.rda")
 wave04 <- da21600.0022
 wave04$wave <- 4
-
 rm(da21600.0022)
 w4 = subset(wave04, select = c(AID, wave))
-```
 
-
-```{r}
-load("~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0032/21600-0032-Data.rda")
+# 5th wave
+load("~/NAS_Share/HP/AddHealthPublic/ICPSR_21600/DS0032/21600-0032-Data.rda")
 wave05 <- da21600.0032
 wave05$wave <- 5
-
 rm(da21600.0032)
 w5 = subset(wave05, select = c(AID, wave))
 ```

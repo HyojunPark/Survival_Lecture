@@ -1422,6 +1422,430 @@ plot(oldmort_gomp,
 
 <!--chapter:end:04-Survival03.Rmd-->
 
+
+# Cox Proportional Hazard Modeling
+
+## Setup working datasets
+
+```{r, include=FALSE}
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(eha)
+library(survival)
+library(data.table)
+library(flextable)
+library(survminer)
+
+oldmort01 <- oldmort
+```
+
+
+## Cox Proportional Hazard Models: Example
+
+### Cox model specification
+
+$$h_{(t,X)} = h_0 (t) \exp(\sum_{i=1}^p \beta_i X_i), \;\; \text{where}\; X = (X_1, X_2, \cdots, X_p)$$
+
+
+
+The following result was obtained by using `coxreg` from the `eha` package. 
+
+```{r}
+oldmort_cox <- coxreg(Surv(enter, exit, event) ~ sex + region + imr.birth, 
+              data = oldmort01) 
+
+print(summary(oldmort_cox), digits = 4)
+```
+
+The same results can be obtained by using `coxph` from the `survival` package. 
+
+```{r}
+oldmort_cox <- coxph(Surv(enter, exit, event) ~ sex + region + imr.birth, 
+              data = oldmort01) 
+
+print(summary(oldmort_cox), digits = 4)
+```
+
+We would prefer to have $HR > 1$ than $HR < 1$ to ease interpretation.
+
+```{r}
+oldmort01$male <- relevel(oldmort01$sex, ref = "female")
+```
+
+
+```{r}
+oldmort_cox <- coxph(Surv(enter, exit, event) ~ male + region + imr.birth, 
+              data = oldmort01) 
+
+print(summary(oldmort_cox), digits = 4)
+```
+
+The following code will extract coefficients and model fit statistics.
+
+
+```{r}
+cox_coef <- summary(oldmort_cox)$coefficients
+
+cox_fit <- rbind(
+  "Wald" = oldmort_cox$wald.test,
+  "Score(log_rank)" = oldmort_cox$score
+)
+
+```
+
+
+```{r}
+knitr::kable(cox_coef, digits=2)
+knitr::kable(cox_fit, digits=2)
+```
+
+### Model 1: No covariates
+
+
+```{r}
+oldmort_cox01 <- coxreg(Surv(enter, exit, event) ~ sex , 
+              data = oldmort01) 
+
+cox_coef01 <- as.data.frame(summary(oldmort_cox01)$coefficients)
+
+cox_fit01 <- rbind(
+  "Wald" = oldmort_cox01$wald.test,
+  "Score(log_rank)" = oldmort_cox01$score
+)
+
+```
+
+
+### Model 2: Categorical covariate: region
+
+
+```{r}
+oldmort_cox02 <- coxreg(Surv(enter, exit, event) ~ sex + region , 
+              data = oldmort01) 
+
+cox_coef02 <- as.data.frame(summary(oldmort_cox02)$coefficients)
+
+cox_fit02 <- rbind(
+  "Wald" = oldmort_cox02$wald.test,
+  "Score(log_rank)" = oldmort_cox02$score
+)
+
+```
+
+
+
+### Model 3: Continuous covariate: imr.birth
+
+
+```{r}
+oldmort_cox03 <- coxreg(Surv(enter, exit, event) ~ sex + region + imr.birth, 
+              data = oldmort01) 
+
+cox_coef03 <- as.data.frame(summary(oldmort_cox03)$coefficients)
+
+cox_fit03 <- rbind(
+  "Wald" = oldmort_cox03$wald.test,
+  "Score(log_rank)" = oldmort_cox03$score
+)
+
+```
+
+
+```{r}
+cox_coef <- cbind(setDT(cox_coef01), setDT(cox_coef02), setDT(cox_coef03))
+cox_fit <- cbind(cox_fit01, cox_fit02, cox_fit03)
+
+knitr::kable(cox_coef, digits=2)
+knitr::kable(cox_fit, digits=2)
+```
+
+```{r}
+#fcox_coef <- flextable(head(cox_coef))
+```
+
+
+```{r}
+#fcox_coef <- flextable(head(cox_coef))
+#fcox_coef <- add_body_row(
+#  fcox_coef,
+#  values = c("", "Model 1", "Model 2", "Model 3"),
+#  colwidths = c(1, 3, 3, 3), top = TRUE
+#)
+
+#fcox_coef
+```
+
+## Interpretation
+
+- Comparisons between the crude model (i.e., no confounders) and adjusted models
+    - Often used to assess if confounding effect exists
+    - Report both even if there is no difference of the model fits for crude and adjusted models
+    - test statistics: difference of -2LL / difference of d.f.s, under \(\chi^2\) distributions
+
+- First, let's examine the model fit statistics.
+    - Global statistical significance of the model: The output gives p-values for three alternative tests for overall significance of the model: The likelihood-ratio test, Wald test, and score logrank statistics. These three methods are asymptotically equivalent. For large enough \(N\), they will give similar results. For small \(N\), they may differ somewhat. The Likelihood ratio test has better behavior for small sample sizes, so it is generally preferred.
+        - Wald statistics
+            - \(z = \frac{coef}{se(coef)}\) is normally distributed
+        - Likelihood ratio (LR) statistics
+            - -2 Log likelihood (-2LL)
+            - "In general, the LR and Wald statistics may not give exactly the same answer. Statisticians have shown that of the two test procedures, the LR statistic has better statistical properties, so when in doubt, you should use the LR test."(Kleinbaum DG, Klein M. Survival Analysis. Springer New York; 2012. doi:10.1007/978-1-4419-6646-9)
+        - Score (logrank) test
+        - Concordance (\url{https://cran.r-project.org/web/packages/survival/vignettes/concordance.pdf})
+
+- Now, let's examine coefficients.
+    - Note that there is no \(\beta_0\) term
+    - coef: log(Hazard Ratio): A positive sign means that the hazard (risk of death) is higher, and thus the prognosis worse, for subjects with higher values of that variable. For the 0 and 1 variable, the Cox model gives the hazard ratio (HR) for the second group relative to the first group.
+    - exp(coef): Hazard ratio (HR) (\(exp(0.1978)=1.2187\)), the hazard for the test group is 1.2 times the hazard for the standard group.
+    - As other regression outputs, we have point estimates, *se*s, \(p\)-values, and confidence intervals. 
+    - Statistical significance: The column marked “\(z\)” gives the Wald statistic value. It corresponds to the ratio of each regression coefficient to its standard error (\(z\) = coef/se(coef)). The wald statistic evaluates, whether the beta (\(\beta\)) coefficient of a given variable is statistically significantly different from 0.
+    - $p$-value or CI? (Greenland, S., Senn, S.J., Rothman, K.J. et al. Statistical tests, P values, confidence intervals, and power: a guide to misinterpretations. Eur J Epidemiol 31, 337–350 (2016). https://doi.org/10.1007/s10654-016-0149-3)
+
+
+
+## Proportional hazard (PH) assumption
+- $h_0 (t)$: **baseline hazard** is a function of $t$ but not $X$'s
+    - When all the $X$'s are equal to 0, than the formula reduces to the baseline hazard function, $h_0 (t)$ as $e^0 = 1$
+    - When no $X$'s are in the model, than the formula reduces to the baseline hazard function, $h_0 (t)$.
+- $exp(\sum_{i=1}^p \beta_i X_i)$: the exponential component is a function of $X$'s but not $t$ (i.e., $X$'s are **time-independent** variables)
+- A time-independent variable is defined to be any variable whose value for a given individual does not change over time. (e.g., sex, race/ethnicity)
+- It may be appropriate to treat Age or Height as time-independent in the analysis if their values **do not change much over time** or if **the effect of such variables on survival risk depends essentially on the value at only one measurement.**
+
+- Recall that 
+$$\hat{HR} = \frac{\hat{h} (t, X^*)}{\hat{h} (t, X)} = \frac{h_0 (t) \exp(\sum_{i=1}^p \beta_i X_i^*)}{h_0 (t) \exp(\sum_{i=1}^p \beta_i X_i)} = \frac{\exp(\sum_{i=1}^p \beta_i X_i^*)}{\exp(\sum_{i=1}^p \beta_i X_i)} = \exp[{\sum_{i=1}^p \hat{\beta_i}(X_i^* - X_i)}]$$
+- Notice that the baseline hazard function \(h_0 (t)\) appears in both the numerator and denominator of the hazard ratio and cancels out of the formula.
+- The final expression for the hazard ratio therefore involves the estimated coefficients \(\hat{\beta_i}\) and the values of \(X^*\) and \(X\) for each variable. However, because the baseline hazard has canceled out, the final expression does not involve time \(t\).
+- Thus, once the model is fitted and the values for \(X^*\) and \(X\) are specified, \textbf{the value of the exponential expression for the estimated hazard ratio is a constant}, which does not depend on time \(t\):
+
+$$ \hat{HR} = \frac{\hat{h} (t, X^*)}{\hat{h} (t, X)} = exp[{\sum_{i=1}^p \hat{\beta_i}(X_i^* - X_i)}] = \theta\;\; \text{therefore,} \hat{h} (t, X^*) = \hat{\theta}\hat{h} (t, X)$$
+- \textbf{The last expression indicates that the hazard function for one individual is proportional to the hazard function for another individual, where the proportionality constant is \(\hat{\theta}\), which does not depend on time \(t\)}
+- In the Cox PH model with 0 and 1 for {X_1}, \(\hat{\theta}=e^{\hat{\beta}}\) 
+- When the PH assumption is in appropriate (e.g., the hazards cross), a Cox PH model is inappropriate and alternative model (e.g., extended Cox model) should be used
+
+
+## Extended Cox model
+- It is possible to consider \(X\)'s which do involve \(t\), so that \(X\)s are called **time-dependent** variables.
+- The extended Cox model no longer satisfies the proportional hazard assumption.
+
+## Evaluating the Proportional hazard (PH) assumption
+
+The Cox PH model assumes that the hazard ratio comparing any two specifications of predictors is constant over time. Equivalently, this means that the hazard for one individual is proportional to the hazard for any other individual, where the proportionality constant is
+independent of time. 
+
+The PH assumption is not met if the graph of the hazards cross for two or more categories of a predictor of interest. However, even if the hazard functions do not cross, it is possible that the PH assumption is not met. Thus, rather than checking for crossing hazards, we must use other approaches to evaluate the reasonableness of the PH assumption. 
+
+
+### Graphical evaluation
+
+- Comparing estimated –ln(–ln) survivor curves over different (combinations of) categories of variables
+    - 1) assessing the PH assumption for variables one-at-a-time, or 2) assessing the PH assumption after adjusting for other variables.
+    - Parallel curves, say comparing males with females, indicate that the PH assumption is satisfied
+    - A log–log survival curve is simply a transformation of an estimated survival curve that results from taking the natural log of an estimated survival probability \textit{twice}. Mathematically, we write a log–log curve as \(-ln(-ln \hat{S})\). Note that the log of a probability such as \(\hat{S}\) is always a negative number. Because we can only take logs of positive numbers, we need to negate the first log before taking the second log. The value for \(-ln(-ln \hat{S})\) may be positive or negative, either of which is acceptable
+    - by definition, \(-ln(-ln \hat{S})= -ln (\int_0^t h(u)du)\)
+    - The scale of an estimated survival curve (\(\hat{S}\)) ranges between 0 and 1, whereas the corresponding scale for a \(-ln(-ln \hat{S})\) ranges between \(-\infty\) and \(+\infty\)
+        - By empirical plots, we mean \textbf{plotting log–log survival curves based on Kaplan–Meier (KM) estimates} that do not assume an underlying Cox model. Alternatively, one could plot \textbf{log–log survival curves which have been adjusted for predictors already assumed to satisfy the PH assumption but have not included the predictor being assessed in a PH model}.
+        - If observed and predicted curves are "visually" parallel, then the PH assumption is reasonable.
+
+    - How much parallel is parallel?
+        - Too subjective decision: assume PH is OK unless strong evidence of non-parallelism
+        - many categories data: different categorizations may give different graphical pictures
+        - Assessing the PH assumption after adjusting for other variables: rather than using Kaplan–Meier curves, make a comparison using adjusted log–log survival curves under the PH assumption for one predictor adjusted for other predictors 
+
+- Comparing observed with predicted survivor curves
+    - If for each category of the predictor being assessed, the observed and expected plots are “close” to one another, we then can conclude that the PH assumption is satisfied.
+    - "how close is close?"
+
+```{r}
+par(mfrow=c(1,3))
+plot(survfit(Surv(enter, exit, event) ~ male, data = oldmort01),
+     col=c("black", "red")
+     , fun = "cloglog"
+     , xlab = "log(time)"
+     , ylab = "log-log(survival)"
+     , main = "Sex")
+plot(survfit(Surv(enter, exit, event) ~ civ, data = oldmort01),
+     col=c("black", "red")
+     , fun = "cloglog"
+     , xlab = "log(time)"
+     , ylab = "log-log(survival)"
+     , main = "CIV")
+plot(survfit(Surv(enter, exit, event) ~ region, data = oldmort01),
+     col=c("black", "red")
+     , fun = "cloglog"
+     , xlab = "log(time)"
+     , ylab = "log-log(survival)"
+     , main = "Region")
+```
+
+```{r}
+par(mfrow=c(1,3))
+plot(survfit(Surv(enter, exit, event) ~ sex, data = child),
+     col=c("black", "red")
+     , fun = "cloglog"
+     , xlab = "log(time)"
+     , ylab = "log-log(survival)"
+     , main = "Sex")
+plot(survfit(Surv(enter, exit, event) ~ socBranch, data = child),
+     col=c("black", "red")
+     , fun = "cloglog"
+     , xlab = "log(time)"
+     , ylab = "log-log(survival)"
+     , main = "Soc Branch")
+plot(survfit(Surv(enter, exit, event) ~ illeg, data = child),
+     col=c("black", "red")
+     , fun = "cloglog"
+     , xlab = "log(time)"
+     , ylab = "log-log(survival)"
+     , main = "Illegal")
+```
+
+
+### Goodness-of-fit (GOF)
+- A nonsignificant (i.e., large) \(p\)-value from large sample \(z\) or \(\chi^2\) statistics , say greater than 0.10, suggests that the PH assumption is reasonable, whereas a small \(p\)-value, say less than 0.05, suggests that the variable being tested does not satisfy this assumption. 
+- More objective decision using a statistical test than graphical evaluation
+- **Schoenfeld residuals**
+    - The idea behind the statistical test is that if the PH assumption holds for a particular covariate then the Schoenfeld residuals for that covariate will not be related to survival time.
+    - For each predictor in the model, Schoenfeld residuals are defined for every subject who has an event. For example, consider a Cox PH model with three predictors: `sex`, `region`, and `imr.birth`. Then there are three Schoenfeld residuals defined for each subject who has an event, one for each of the three predictors.
+    - Three step process
+        - Step 1. Run a Cox PH model and obtain Schoenfeld residuals for each predictor.
+        - Step 2. Create a variable that ranks the order of failures. The subject who has the first (earliest) event gets a value of 1, the next gets a value of 2, and so on.
+        - Step 3. Test the correlation between the variables created in the first and second steps. The null hypothesis is that the correlation between the Schoenfeld residuals and ranked failure time is zero
+        - **Rejection of the null hypothesis leads to a conclusion that the PH assumption is violated**
+        - However, 1) a $p$-value can be driven by sample size; 2) A gross violation of the null assumption may not be statistically significant if the sample is very small; and 3) conversely, a slight violation of the null assumption may be highly significant if the sample is very large.
+
+```{r}
+cox.gof <- coxph(Surv(enter, exit, event) ~ sex + region + imr.birth,
+                 data = oldmort01)
+
+
+res.zph <- cox.zph(cox.gof, transform = c("km","rank","idenityt")[2])
+
+res.zph
+plot(res.zph)
+```
+
+
+### Time-dependent variable approaches
+
+- The Cox model is extended to contain product (i.e., interaction) terms involving the time-independent variable being assessed and some function of time. If the coefficient of the product term turns out to be significant, we can conclude that the PH assumption is violated.
+    - Using the above one-at-a-time model, we assess the PH assumption by testing for the significance of the product term. The null hypothesis is therefore "d equal to zero." Note that if the null hypothesis is true, the model reduces to a Cox PH model containing the single variable X. The test can be carried out using \textbf{either a Wald statistic or a likelihood ratio statistic}.
+    - To assess the PH assumption for several predictors simultaneously, the form of the extended model is 
+        
+$$h(t,X) =h_0(t) exp\left[\sum_{i=1}^p (\beta_i X_i + \delta_i (X_i \times g_i(t)))\right], \text{ where } g_i(t) \text{ is a function of time for } i^{th} \text{ predictor}$$
+    - This model contains the predictors being assessed as main effect terms and also as product terms with some function of time. Note that different predictors may require different functions of time; hence, the notation \(g_i (t)\) is used to define the time function for the \(i^{th}\) predictor
+    - With the above model, we test for the PH assumption simultaneously by assessing the null hypothesis that all the \(\delta_i\) coefficients are equal to zero. This requires a likelihood ratio chi-square statistic with \(p\) degrees of freedom, where \(p\) denotes the number of predictors being assessed. The LR statistic computes the difference between the log likelihood statistic (i.e., \(-2\; ln\; L\)) for the PH model and the log likelihood statistic for the extended Cox model. Note that under the null hypothesis, the model reduces to the Cox PH model.
+
+- If the above test is found to be significant, then we can conclude that the PH assumption is not satisfied for at least one of the predictors in the model. To determine which predictor(s) do not satisfy the PH assumption, we could proceed by backward elimination of nonsignificant product terms until a final model is attained.    
+- The primary drawback of the use of an extended Cox model for assessing the PH assumption concerns the choice of the functions $g_i (t)$ for the time-dependent product terms in the model. This choice is typically not clear-cut, and it is possible that different choices, such as $g(t)$ equal to $t$ versus log $t$ versus a heaviside function, may result in different conclusions about whether the PH assumption is satisfied.
+
+### Testing for Influential Observations
+
+- Testing for Influential Observations{\url{http://www.sthda.com/english/wiki/cox-model-assumptions}}
+- To test influential observations or outliers, we can visualize either the deviance residuals or the dfbeta values
+- type: the type of residuals to present on Y axis. Allowed values include one of c(“martingale”, “deviance”, “score”, “schoenfeld”, “dfbeta”, “dfbetas”, “scaledsch”, “partial”).
+
+- It’s also possible to check outliers by visualizing the deviance residuals. The deviance residual is a normalized transform of the martingale residual. These residuals should be roughtly symmetrically distributed about zero with a standard deviation of 1.
+    - Positive values correspond to individuals that “died too soon” compared to expected survival times.
+    - Negative values correspond to individual that “lived too long”.
+    - Very large or small values are outliers, which are poorly predicted by the model.
+
+```{r}
+survminer::ggcoxdiagnostics(oldmort_cox03, type = "martingale",
+                            linear.predictions = FALSE, ggtheme = theme_bw())
+```
+
+
+
+```{r}
+survminer::ggcoxdiagnostics(oldmort_cox03, type = "schoenfeld",
+                            linear.predictions = FALSE, ggtheme = theme_bw())
+```
+
+```{r}
+survminer::ggcoxdiagnostics(oldmort_cox03, type = "dfbeta",
+                            linear.predictions = FALSE, ggtheme = theme_bw())
+```
+
+
+```{r}
+survminer::ggcoxdiagnostics(oldmort_cox03, type = "deviance",
+                            linear.predictions = FALSE, ggtheme = theme_bw())
+```
+
+
+### Testing for Non-linearlity
+- Nonlinearity is not an issue for categorical variables, so we only examine plots of martingale residuals and partial residuals against a continuous variable.
+- Martingale residuals may present any value in the range ($-\infty,\; +1$):
+    - a value of martinguale residuals near 1 represents individuals that “died too soon”,
+    - large negative values correspond to individuals that “lived too long”.
+
+```{r}
+ggcoxfunctional(Surv(enter, exit, event) ~ imr.birth + log(imr.birth) + sqrt(imr.birth), data = oldmort01)
+```
+
+
+
+
+## Why we call this model as semi-parametric model?
+- The formulation of a likelihood function is based on the distribution of the outcome.
+- The Cox PH model does not impose any assumption on the distribution of the outcome, time to event. It simply uses the observed order of the failure time. (thus, it is a partial likelihood)
+- If any distributional assumption was imposed, then it is a parametric survival model. 
+- No assumption on $h_0(t)$ + proportional hazard assumption
+
+
+## Why the Cox PH model is so popular
+
+- The Cox PH model is a \textbf{“robust”} model, so that the results from using the Cox model will closely approximate the results for the \textbf{correct} parametric model.
+    - Even though the baseline hazard is not specified, 
+    - reasonably good estimates of regression coefficients, hazard ratios of interest, and adjusted survival curves can be obtained for a wide variety of data situations.
+    - We would prefer to use a parametric model if we were sure of the correct model. However, we may not be completely certain that a given parametric model is appropriate.
+    - When in doubt, the Cox model is a “safe” choice.
+
+- Along with "robustness", the model specification of the Cox PH model has several good properties.
+    - The exponential part of this product ensures that \textbf{the fitted model will always give estimated hazards that are non-negative}. (vs. a linear model with negative coefficients)
+    - The measure of effect, which is called a hazard ratio, is calculated \textbf{without having to estimate the baseline hazard function}.
+    - With a minimum of assumption, we can obtain the primary information about a hazard ratio and a survival curve. 
+    - As compared to logistic model, the Cox PH model incorporate the survival time and censoring information.
+
+## Estimation of the Cox PH model using Maximum likelihood (ML)
+
+- As with logistic regression, the ML estimates of the Cox model parameters are derived by maximizing a likelihood function, usually denoted as \(L\) (e.g., \(L(\beta)\)). \(L\) is a partial likelihood (rather than a complete likelihood function):
+    - considers probabilities only for subjects who fail
+    - does not consider probabilities for subjects who are censored
+- More specifically, the model breaks down each failure time to calculate each likelihood, and then get the product of several likelihoods
+
+$$L = L_1 \times L_2 \times L_3 \times \cdots \times L_k = \prod_{j=1}^k L_j, \text{ where } L_j= \text{portion of } L \text{for the } j^{th} \text{ failure time given the risk set of } R(t_{(f)})$$
+Once $L$ is obtained, $\ln L$ is maximized by solving \(\frac{\delta \ln L}{\delta \beta_i} = 0\) for \((i=1, 2, \cdots, p)\) (\# of parameters) over iteration  
+
+## More about Hazard ratio
+-Hazard ratio = \(e^{\hat{\beta}}\)
+- In general, a hazard ratio (HR) is defined as the hazard for one individual divided by the hazard for a different individual. The two individuals being compared can be distinguished by their values for the set of predictors, that is, the \(X\)’s vs. \(X^*\)’s. Therefore,
+
+$$ \hat{HR} = \frac{\hat{h} (t, X^*)}{\hat{h} (t, X)} = \frac{h_0 (t) \exp(\sum_{i=1}^p \beta_i X_i^*)}{h_0 (t) \exp(\sum_{i=1}^p \beta_i X_i)} = \frac{\exp(\sum_{i=1}^p \beta_i X_i^*)}{\exp(\sum_{i=1}^p \beta_i X_i)} = \exp[{\sum_{i=1}^p \hat{\beta_i}(X_i^* - X_i)}]$$
+- Example: When \(X_1\) denotes (0, 1) exposure status, then \(X_1^*=1\), \(X_1=0\), thus 
+$$\hat{HR} = \exp[{\sum_{i=1}^p \hat{\beta_i}(X_i^* - X_i)}] = \exp[\hat{\beta_1}(1-0)]= \exp(\hat{\beta_1})$$
+- \textbf{As with an odds ratio, it is easier to interpret an HR that exceeds the null value of 1 than an HR that is less than 1.} Thus, the \(X\)’s are typically coded so that group with the larger hazard corresponds to \(X^*\), and the group with the smaller hazard corresponds to\(X\).
+
+## Adjusted Survival Curves using the Cox PH model
+
+- Two primary quantities we are interested in the survival model are 
+    - estimated hazard ratios
+    - esitmated surival curves
+
+- In the Cox PH model,
+    - Hazard function: $h(t, X) = h_0(t) \exp[\sum_{i=1}^p \beta_i X_i]$
+    - Survival function: $S(t, X) = [S_0(t)]^{\exp[\sum_{i=1}^p \beta_i X_i]}$
+
+- Therefore, estimated functions are
+    - Estimated Hazard function: $\hat{h}(t, X) = \hat{h}_0(t) \exp[\sum_{i=1}^p \hat{\beta_i} X_i]$
+    - Estimated survival function: $\hat{S}(t, X) = [\hat{S}_0(t)]^{ \exp[\sum_{i=1}^p \hat{\beta_i} X_i]}$
+
+- To fit the estimated curves, a set of values for \(X_i\) should be specified. Most software uses the \textbf{mean value (rather than median)} of \(X\)s to calculate the adjusted for covariates.
+
+
+
+<!--chapter:end:05-Survival04.Rmd-->
+
 # Add Health Project
 
 ## Library
@@ -1445,49 +1869,38 @@ Let's use the public datasets available at https://www.icpsr.umich.edu/web/ICPSR
 First, each RDA dataset will be loaded and then saved as WAVE0X. After assigning a WAVE variable, we will keep the WAVE0X dataset and WX datasets only.
 
 ```{r}
-load("~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0001/21600-0001-Data.rda")
+#1st wave
+load("~/NAS_Share/HP/AddHealthPublic/ICPSR_21600/DS0001/21600-0001-Data.rda")
 wave01 <- da21600.0001
 wave01$wave <- 1
 rm(da21600.0001)
 w1 = subset(wave01, select = c(AID, wave))
-```
 
-
-```{r}
-load("~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0005/21600-0005-Data.rda")
+#2nd wave
+load("~/NAS_Share/HP/AddHealthPublic/ICPSR_21600/DS0005/21600-0005-Data.rda")
 wave02 <- da21600.0005
 wave02$wave <- 2
-
 rm(da21600.0005)
 w2 = subset(wave02, select = c(AID, wave))
-```
 
-
-```{r}
-load("~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0008/21600-0008-Data.rda")
+#3rd wave
+load("~/NAS_Share/HP/AddHealthPublic/ICPSR_21600/DS0008/21600-0008-Data.rda")
 wave03 <- da21600.0008
 wave03$wave <- 3
-
 rm(da21600.0008)
 w3 = subset(wave03, select = c(AID, wave))
-```
 
-
-```{r}
-load("~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0022/21600-0022-Data.rda")
+#4th wave
+load("~/NAS_Share/HP/AddHealthPublic/ICPSR_21600/DS0022/21600-0022-Data.rda")
 wave04 <- da21600.0022
 wave04$wave <- 4
-
 rm(da21600.0022)
 w4 = subset(wave04, select = c(AID, wave))
-```
 
-
-```{r}
-load("~/pCloudDrive/Datasets/AddHealthPublic/ICPSR_21600/DS0032/21600-0032-Data.rda")
+# 5th wave
+load("~/NAS_Share/HP/AddHealthPublic/ICPSR_21600/DS0032/21600-0032-Data.rda")
 wave05 <- da21600.0032
 wave05$wave <- 5
-
 rm(da21600.0032)
 w5 = subset(wave05, select = c(AID, wave))
 ```
@@ -1694,5 +2107,5 @@ lmer(a_wgt_lbs ~ as.numeric(a_srh) + a_sex + (1 | AID), data=Final01)
 
 
 
-<!--chapter:end:05-AddHealthPublic.Rmd-->
+<!--chapter:end:06-AddHealthPublic.Rmd-->
 
