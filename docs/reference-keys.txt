@@ -84,6 +84,13 @@ time-dependent-variable-approaches
 testing-for-influential-observations
 testing-for-non-linearlity
 stratification
+why-we-call-this-model-as-semi-parametric-model
+why-the-cox-ph-model-is-so-popular
+estimation-of-the-cox-ph-model-using-maximum-likelihood-ml
+more-about-hazard-ratio
+adjusted-survival-curves-using-the-cox-ph-model
+add-health-project
+library
 access-datasets
 load-5-wave-sample
 long-form-dataset-wave-person

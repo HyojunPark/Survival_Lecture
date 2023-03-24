@@ -2,7 +2,7 @@
 
 ## Setup working datasets
 
-```{r, include=FALSE}
+```{r}
 library(tidyverse)
 library(knitr)
 library(kableExtra)
@@ -17,7 +17,7 @@ library(data.table)
 ```
 
 
-```{r, include=FALSE}
+```{r}
 oldmort01 <- oldmort
 ```
 
@@ -398,7 +398,6 @@ oldmort_coxst <- coxph(Surv(enter, exit, event) ~ male + imr.birth + strata(regi
               data = oldmort01) 
 
 summary(oldmort_coxst)
-```
 ```
 
 
