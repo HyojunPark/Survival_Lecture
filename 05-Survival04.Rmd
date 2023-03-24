@@ -185,6 +185,19 @@ knitr::kable(cox_fit, digits=2)
 
 
 ## Proportional hazard (PH) assumption
+
+- Mathematical expression^[http://ehar.se/r/ehar2/proportional-hazards-and-cox-regression.html#cox-regression-models]
+
+$$ h_x(t) = \phi^x h_o(t),\;\; t>0,\;\;  x=0,1,\;\;  \phi>0 $$
+
+when $x=0$, $h_0(t) = h_0(t)$ and when $x=1$, $h_0(t) = \phi h_0(t)$ 
+When $\beta = \log(\phi)$,
+$$ h_x(t) = h(t; x) = e^{\beta x} h_o(t),\;\; t>0,\;\;  x=0,1,\;\;  -\infty < \beta < \infty $$
+
+For multiple groups ($\beta = (\beta_1, \beta_2, \cdots, \beta_k) $),
+$$ h_x(t) = h(t; x) = e^{x_1 \beta_1 + x_2 + \beta_2 + \cdots + x_k \beta_k} h_o(t) = h_0 (t)e^{x \beta},\;\; t>0,\;\;  x=0,1,\;\;  -\infty < \beta < \infty $$
+
+
 - $h_0 (t)$: **baseline hazard** is a function of $t$ but not $X$'s
     - When all the $X$'s are equal to 0, than the formula reduces to the baseline hazard function, $h_0 (t)$ as $e^0 = 1$
     - When no $X$'s are in the model, than the formula reduces to the baseline hazard function, $h_0 (t)$.
@@ -365,6 +378,28 @@ ggcoxfunctional(Surv(enter, exit, event) ~ imr.birth + log(imr.birth) + sqrt(imr
 ```
 
 
+
+## Stratification
+
+> Stratification means that data is split up in groups called strata, and a separate partial likelihood function is created for each stratum, but with common values on the regression parameters corresponding to the common explanatory variables. In the estimation, these partial likelihoods are multiplied together, and the product is treated as a likelihood function. Thus, there is one restriction on the parameters, they are the same across strata.
+>There are typically two reasons for stratification. First, if the proportionality assumption does not hold for a factor covariate, a way out is to stratify along it. Second, a factor may have too many levels, so that it is inappropriate to treat is as an ordinary factor. This argument is similar to the one about using a frailty model (Chapter 10). Stratification is also a useful tool with matched data, see Chapter 11.
+> When a factor does not produce proportional hazards between categories, stratify on the categories.
+> http://ehar.se/r/ehar2/more-on-cox-regression.html#strat_6
+
+```{r}
+oldmort_coxst <- coxph(Surv(enter, exit, event) ~ male + region + imr.birth, 
+              data = oldmort01) 
+
+summary(oldmort_coxst)
+```
+
+```{r}
+oldmort_coxst <- coxph(Surv(enter, exit, event) ~ male + imr.birth + strata(region), 
+              data = oldmort01) 
+
+summary(oldmort_coxst)
+```
+```
 
 
 ## Why we call this model as semi-parametric model?
