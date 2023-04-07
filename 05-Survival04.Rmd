@@ -1,8 +1,8 @@
-# Cox Proportional Hazard Modeling
+# Cox Proportional Hazard Modeling 01
 
 ## Setup working datasets
 
-```{r}
+```{r, warning = FALSE, message = FALSE}
 library(tidyverse)
 library(knitr)
 library(kableExtra)
@@ -14,6 +14,8 @@ library(survminer)
 library(ggfortify)
 library(ggplot2)
 library(data.table)
+library(coxme)
+library(broom)
 ```
 
 
@@ -376,85 +378,4 @@ survminer::ggcoxdiagnostics(oldmort_cox03, type = "deviance",
 ```{r}
 ggcoxfunctional(Surv(enter, exit, event) ~ imr.birth + log(imr.birth) + sqrt(imr.birth), data = oldmort01)
 ```
-
-
-
-## Stratification
-
-> Stratification means that data is split up in groups called strata, and a separate partial likelihood function is created for each stratum, but with common values on the regression parameters corresponding to the common explanatory variables. In the estimation, these partial likelihoods are multiplied together, and the product is treated as a likelihood function. Thus, there is one restriction on the parameters, they are the same across strata.
->There are typically two reasons for stratification. First, if the proportionality assumption does not hold for a factor covariate, a way out is to stratify along it. Second, a factor may have too many levels, so that it is inappropriate to treat is as an ordinary factor. This argument is similar to the one about using a frailty model (Chapter 10). Stratification is also a useful tool with matched data, see Chapter 11.
-> When a factor does not produce proportional hazards between categories, stratify on the categories.
-> http://ehar.se/r/ehar2/more-on-cox-regression.html#strat_6
-
-```{r}
-oldmort_coxst <- coxph(Surv(enter, exit, event) ~ male + region + imr.birth, 
-              data = oldmort01) 
-
-summary(oldmort_coxst)
-```
-
-```{r}
-oldmort_coxst <- coxph(Surv(enter, exit, event) ~ male + imr.birth + strata(region), 
-              data = oldmort01) 
-
-summary(oldmort_coxst)
-```
-
-
-## Why we call this model as semi-parametric model?
-- The formulation of a likelihood function is based on the distribution of the outcome.
-- The Cox PH model does not impose any assumption on the distribution of the outcome, time to event. It simply uses the observed order of the failure time. (thus, it is a partial likelihood)
-- If any distributional assumption was imposed, then it is a parametric survival model. 
-- No assumption on $h_0(t)$ + proportional hazard assumption
-
-
-## Why the Cox PH model is so popular
-
-- The Cox PH model is a \textbf{“robust”} model, so that the results from using the Cox model will closely approximate the results for the \textbf{correct} parametric model.
-    - Even though the baseline hazard is not specified, 
-    - reasonably good estimates of regression coefficients, hazard ratios of interest, and adjusted survival curves can be obtained for a wide variety of data situations.
-    - We would prefer to use a parametric model if we were sure of the correct model. However, we may not be completely certain that a given parametric model is appropriate.
-    - When in doubt, the Cox model is a “safe” choice.
-
-- Along with "robustness", the model specification of the Cox PH model has several good properties.
-    - The exponential part of this product ensures that \textbf{the fitted model will always give estimated hazards that are non-negative}. (vs. a linear model with negative coefficients)
-    - The measure of effect, which is called a hazard ratio, is calculated \textbf{without having to estimate the baseline hazard function}.
-    - With a minimum of assumption, we can obtain the primary information about a hazard ratio and a survival curve. 
-    - As compared to logistic model, the Cox PH model incorporate the survival time and censoring information.
-
-## Estimation of the Cox PH model using Maximum likelihood (ML)
-
-- As with logistic regression, the ML estimates of the Cox model parameters are derived by maximizing a likelihood function, usually denoted as \(L\) (e.g., \(L(\beta)\)). \(L\) is a partial likelihood (rather than a complete likelihood function):
-    - considers probabilities only for subjects who fail
-    - does not consider probabilities for subjects who are censored
-- More specifically, the model breaks down each failure time to calculate each likelihood, and then get the product of several likelihoods
-
-$$L = L_1 \times L_2 \times L_3 \times \cdots \times L_k = \prod_{j=1}^k L_j, \text{ where } L_j= \text{portion of } L \text{for the } j^{th} \text{ failure time given the risk set of } R(t_{(f)})$$
-Once $L$ is obtained, $\ln L$ is maximized by solving \(\frac{\delta \ln L}{\delta \beta_i} = 0\) for \((i=1, 2, \cdots, p)\) (\# of parameters) over iteration  
-
-## More about Hazard ratio
--Hazard ratio = \(e^{\hat{\beta}}\)
-- In general, a hazard ratio (HR) is defined as the hazard for one individual divided by the hazard for a different individual. The two individuals being compared can be distinguished by their values for the set of predictors, that is, the \(X\)’s vs. \(X^*\)’s. Therefore,
-
-$$ \hat{HR} = \frac{\hat{h} (t, X^*)}{\hat{h} (t, X)} = \frac{h_0 (t) \exp(\sum_{i=1}^p \beta_i X_i^*)}{h_0 (t) \exp(\sum_{i=1}^p \beta_i X_i)} = \frac{\exp(\sum_{i=1}^p \beta_i X_i^*)}{\exp(\sum_{i=1}^p \beta_i X_i)} = \exp[{\sum_{i=1}^p \hat{\beta_i}(X_i^* - X_i)}]$$
-- Example: When \(X_1\) denotes (0, 1) exposure status, then \(X_1^*=1\), \(X_1=0\), thus 
-$$\hat{HR} = \exp[{\sum_{i=1}^p \hat{\beta_i}(X_i^* - X_i)}] = \exp[\hat{\beta_1}(1-0)]= \exp(\hat{\beta_1})$$
-- \textbf{As with an odds ratio, it is easier to interpret an HR that exceeds the null value of 1 than an HR that is less than 1.} Thus, the \(X\)’s are typically coded so that group with the larger hazard corresponds to \(X^*\), and the group with the smaller hazard corresponds to\(X\).
-
-## Adjusted Survival Curves using the Cox PH model
-
-- Two primary quantities we are interested in the survival model are 
-    - estimated hazard ratios
-    - esitmated surival curves
-
-- In the Cox PH model,
-    - Hazard function: $h(t, X) = h_0(t) \exp[\sum_{i=1}^p \beta_i X_i]$
-    - Survival function: $S(t, X) = [S_0(t)]^{\exp[\sum_{i=1}^p \beta_i X_i]}$
-
-- Therefore, estimated functions are
-    - Estimated Hazard function: $\hat{h}(t, X) = \hat{h}_0(t) \exp[\sum_{i=1}^p \hat{\beta_i} X_i]$
-    - Estimated survival function: $\hat{S}(t, X) = [\hat{S}_0(t)]^{ \exp[\sum_{i=1}^p \hat{\beta_i} X_i]}$
-
-- To fit the estimated curves, a set of values for \(X_i\) should be specified. Most software uses the \textbf{mean value (rather than median)} of \(X\)s to calculate the adjusted for covariates.
-
 

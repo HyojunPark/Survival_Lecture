@@ -1,0 +1,428 @@
+# Cox Proportional Hazard Modeling 02
+
+## Setup working datasets
+
+```{r, warning = FALSE, message = FALSE}
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(eha)
+library(survival)
+library(data.table)
+library(flextable)
+library(survminer)
+library(ggfortify)
+library(ggplot2)
+library(data.table)
+library(coxme)
+library(broom)
+```
+
+
+```{r}
+oldmort01 <- oldmort
+oldmort01$male <- relevel(oldmort01$sex, ref = "female")
+```
+
+## Accounting for heterogeneity
+
+
+### An introductory Example^[http://ehar.se/r/ehar2/multivariate-survival-models.html#an-introductory-example]
+
+Let us assume that in a follow-up study, the cohort\index{cohort} is not
+homogeneous but instead consists of two equally sized groups with
+differing hazard rates. Assume further that we have no indication of
+which group an individual belongs to, and that members of both groups
+follow an exponential life length distribution:
+\begin{equation*}
+\begin{split}
+h_1(t) &= \lambda_1 \\
+h_2(t) &= \lambda_2 \\
+\end{split} \qquad t > 0.
+\end{equation*}
+This implies that the corresponding survival
+functions $S_1$ and $S_2$ are
+\begin{equation*}
+\begin{split}
+S_1(t) &= e^{-\lambda_1 t} \\
+S_2(t) &= e^{-\lambda_2 t} \\
+\end{split} \qquad
+t > 0,
+\end{equation*}
+and a randomly chosen individual will follow the
+"population mortality" $S$, which is a *mixture* of the two
+distributions:
+\begin{equation*}
+S(t) = \frac{1}{2} S_1(t) + \frac{1}{2} S_2(t), \quad t > 0.
+\end{equation*}
+Let us calculate the hazard function for this mixture. We start by
+finding the *density function* $f$:
+\begin{equation*}
+f(t) = -\frac{dS(x)}{dx} = \frac{1}{2}\left(\lambda_1 e^{-\lambda_1 t}
+    + \lambda_2 e^{-\lambda_2 t} \right), \quad t > 0.
+\end{equation*}
+Then, by the definition of $h$ we get
+\begin{equation}
+h(t) = \frac{f(t)}{S(t)} = \omega(t) \lambda_1 + \big(1 -
+\omega(t)\big) \lambda_2, \quad t > 0,
+(\#eq:mixhaz)
+\end{equation}
+with
+\begin{equation*}
+\omega(t) = \frac{e^{-\lambda_1 t}}{e^{-\lambda_1 t} +
+e^{-\lambda_2 t}}
+\end{equation*}
+It is easy to see that
+\begin{equation*}
+\omega(t) \rightarrow \left\{ \begin{array}{ll}
+                              0, & \lambda_1 > \lambda_2 \\
+                              \frac{1}{2}, & \lambda_1 = \lambda_2 \\
+                              1, & \lambda_1 < \lambda_2
+                             \end{array} \right.
+, \quad \mbox{as } t \rightarrow \infty,
+\end{equation*}
+implying that
+\begin{equation*}
+h(t) \rightarrow \min(\lambda_1, \lambda_2), \quad t \rightarrow
+\infty,
+\end{equation*}
+see Figure \@ref(fig:fig9frail).
+
+```{r fig9frail,fig=TRUE,echo=FALSE,fig.cap = "Population hazard function (solid line). The dashed lines are the hazard functions of each group, constant at 1 and 2.",fig.scap="Population hazard function."} 
+lambda1 <- 1
+lambda2 <- 2
+w <- function(t) exp(-lambda1 * t) / (exp(-lambda1 * t) + exp(-lambda2 * t))
+x <- seq(0, 5, length = 1000)
+plot(x, w(x) * lambda1 + (1 - w(x)) * lambda2, ylim = c(0, 2.1), type = "l", xlab = "Time", ylab = "h(t)")
+abline(h = 2, lty = 2)
+abline(h = 1, lty = 2)
+abline(v = 0)
+``` 
+
+The important point here is that it is *impossible* to tell from
+data alone whether the population is homogeneous, with all
+individuals following the same hazard function given by equation 
+\@ref(eq:mixhaz), or
+if it in fact consists of two groups, each following a constant
+hazard rate.
+Therefore, individual frailty models like $h_i(t) = Z_i h(t), \quad i = 1,
+\ldots, n$, where $Z_i$ is the "frailty" for individual No.\ $i$,
+and $Z_1, \ldots, Z_n$ are independent and identically distributed (iid)
+are less useful.
+
+A heuristic explanation to all this is the dynamics of the problem:
+We follow a population (cohort) over time, and the *composition*
+of it changes over time. The weaker individuals die first, and the
+proportion stronger will steadily grow as time goes by.
+
+Another terminology is to distinguish between *individual* and
+*population* hazards. In Figure \@ref(fig:fig9frail) the solid line is the
+population hazard, and the dashed lines represent the two kinds of
+individual hazards present. Of course, in a truly homogeneous population,
+these two concepts coincide.
+
+
+### Working with heterogeneity^[Cleves MA. An Introduction to Survival Analysis Using Stata. 3rd ed. Stata Press; 2010.]
+
+Suppose that we collect data measuring time (variable $time$) from the onset of risk at time zero until occurrence of an event of interest (variable $fail$) on patients from different hospitals (variable $hospital$). We want to study patients' survival as a function of some risk factors, say age and gender (variable $age$ and $gender$).
+
+* We can estimate the effect of predictors on survival by fitting a Cox model.
+$$h(t) = h_0(t) \exp(age\times x_1 + gender\times x_2)$$
+  - In this model, we ignore the fact that patients come from different hospitals and therefore assumed that hospitals have no effect on the results.
+    - If we believe that there might be a group effect (e.g., the effect of a hospital), we should take it into account in the analysis.
+    
+There are various ways of adjusting for group effects (i.e., subjects are correlated we mean that subjects' failure times are correlated or they are heterogenous). Each depends on the nature of the grouping of subjects and on the assumptions we are willing to make about the effect of grouping on subjects' survival.
+
+* Stratified model
+  - Suppose we identified a fixed number of hospitals and then sampled our patients within each hospital; that is, we stratified on hospitals in our sampling design. Then we can adjust for the homogeneity of patients within a stratum (a hospital) using a stratified Cox model.
+  $$h_g(t) = h_{0g}(t)\exp(age\times x_1 + gender\times x_2), \;\; where \;\;g=1, \cdots, n$$
+  - The same logic applies to 
+    - the situation when we believe that there is possible dependence among patients within a hospital. Subjects might be correlated, either because of how we sampled our data or because of some other reasons specific to the nature of the grouping, or
+    - we want to allow baseline hazards to be different for each hospital rather than constraining them to be multiplicative version of each other. If your main focus is on the effect of other predictors (e.g., age and gender), you may benefit from accounting for the group-specific effects in a more general way by stratifying on the group.
+
+* Random effect model
+  - Alternately, we can model correlation by assuming that it is induced by an unobserved hospital-level random effect, or frailty, and by specifying the distribution of this random effect (only for parametric model). The effect of a hospital is assumed to be random and to have a multiplicative effect on the hazard function. Here the effect of a hospital is directly incorporated into the hazard function, resulting in a different model specification for the survival data: a shared frailty model. As such, both point estimates and their standard errors will change. For example, in the gamma distribution, the effect of a hospital is governed by a mean of 1 and variace of $\theta$. If the estimated $\hat{\theta}$ is not significantly different from zero, we ignore the correlation due to hospitals is ignored.
+  $$h(t) = h_0(t) \exp(age\times x_1 + gender\times x_2) \;\;with\;\; frailty(hospital)$$
+  
+* Fixed effect model
+  - Suppose we are only interested in the effect of our observed hospitals rather than in making inferences about the effect of all hospitals based on the observed random sample of hospitals. In this case, the effects of all hospitals are treated as fixed, and we estimate it by including in the model. We assume that the hospitals have a direct multiplicative effect on the hazard function. That is, all patients share the sam baseline hazard function, and the effect of a hospital multiplies this baseline hazard function up or down depending on the sign of the estimated coefficients for the hospital indicator.
+    $$h(t) = h_0(t) \exp(age\times x_1 + gender\times x_2 + hospital \times x_3)$$
+    
+* Interaction with stratification
+  - You may include an interaction term "hospital*age", which will result in a different model: the effect of a hospital is absorbed in the baseline hazard but the effect of $age$ is allowed to vary with hospitals.
+    $$h_g(t) = h_{0g}(t) \exp(age\times x_1 + gender\times x_2 + hospital \times age \times x_3), \;\; where\;\; g=1, \cdots, n$$
+    
+In sum, there is no definitive recommendation on how to account for the group effect and on which model is the most appropriate when analyzing data.
+
+* Robust standard error (aka empirical standard error, sandwich estimator)
+
+A widely used technique for adjusting for the correlation among outcomes on the same subject is called robust estimation (also referred to as empirical estimation). This technique essentially involves adjusting the estimated variances of regression coefficients obtained for a fitted model to account for misspecification of the correlation structure assumed
+
+```{r}
+oldmort_coxst <- coxph(Surv(enter, exit, event) ~ male + region + imr.birth, 
+              data = oldmort01) 
+
+summary(oldmort_coxst)
+```
+
+
+```{r}
+oldmort_coxst <- coxph(Surv(enter, exit, event) ~ male + region + imr.birth, 
+                       id = id,
+                       robust = TRUE,
+                       data = oldmort01) 
+
+summary(oldmort_coxst)
+```
+
+
+## Stratification
+
+
+> Stratification means that data is split up in groups called strata, and a separate partial likelihood function is created for each stratum, but with common values on the regression parameters corresponding to the common explanatory variables. In the estimation, these partial likelihoods are multiplied together, and the product is treated as a likelihood function. Thus, there is one restriction on the parameters, they are the same across strata.
+>There are typically two reasons for stratification. First, if the proportionality assumption does not hold for a factor covariate, a way out is to stratify along it. Second, a factor may have too many levels, so that it is inappropriate to treat is as an ordinary factor. This argument is similar to the one about using a frailty model. Stratification is also a useful tool with matched data. When a factor does not produce proportional hazards between categories, stratify on the categories.^[http://ehar.se/r/ehar2/more-on-cox-regression.html#strat_6]
+
+### Generalized stratified models
+
+$$h_g(t,X)=h_0g (t) \exp[\beta_1X_1+\beta_2X_2+ \cdots+\beta_p x_p]$$
+
+- \(g=1,2,\dots,k^*,\) strata defined from \(Z^*\), which has \(k^*\) categories
+- \(Z^*\) is not included in the model
+- \(X_i\)s are included in the model
+- Hazard ratio is same for each stratum
+
+
+A simple way to eliminate the effect of clustering is to *stratify* on the clusters.
+
+- The drawback with a stratified analysis is that it is not possible to estimate the effect of covariates that are constant within clusters.
+- Notice also that the hazard functions for groups (e.g., males and females) differ only insofar as they have different baseline hazard functions, namely, \(h_{01}(t)\) for females and \(h_{02}(t)\) for males. However, the coefficients \(\beta_i\)s are the same for both female and male models.
+
+
+### `group_by` analysis (`dplyr`)
+
+```{r}
+group_by <- oldmort01 %>%
+  group_by(region) %>%
+  do(oldmort_coxst = coxph(Surv(enter, exit, event) ~ male + imr.birth, data = .))
+
+group_by$oldmort_coxst
+
+```
+
+
+```{r}
+oldmort_coxst <- coxph(Surv(enter, exit, event) ~ male + imr.birth + strata(region), 
+              data = oldmort01) 
+
+summary(oldmort_coxst)
+```
+
+### `strata` in `coxph`
+
+```{r}
+oldmort_coxst <- coxph(Surv(enter, exit, event) ~ male + imr.birth + strata(region), 
+              data = oldmort01) 
+
+summary(oldmort_coxst)
+```
+
+### `strata` in `coxph` with interaction terms
+
+Interaction terms for `region` can be included directly in the model formula by including product terms using the `:` operator.
+
+
+```{r}
+oldmort_coxst <- coxph(Surv(enter, exit, event) ~ male + imr.birth + male:region + strata(region), 
+              data = oldmort01) 
+
+summary(oldmort_coxst)
+```
+
+Suppose we wish to estimate the hazard ratio for `male = 1` vs. `male = 0` for `region = 2`. This hazard ratio can be estimated by exponentiating the coefficient for `male` plus 2 times the coefficient for the `male*region` interaction term. This expression is obtained by substituting the appropriate values into the hazard in both the numerator (for `male = 1`) and denominator (for `male = 0`).
+
+
+$$HR=\frac{h_0(t) \exp[\beta_1 (1) + \beta_2 imr.birth + \beta_3 (1)(2) + \beta_4 (2)]}{h_0(t) \exp[\beta_1 (0) + \beta_2 imr.birth + \beta_3 (0)(2) + \beta_4 (2)]}=\exp(\beta_1 + 2 \beta_3)$$
+The resulting hazard ratio, \(\exp(\beta_1 + 2 \beta_2)\), is an exponentiated linear combination of parameters. Unfortunately, **R** does not have a `lincom` command that Stata provides or an estimate statement that SAS provides in order to calculate a linear combination of parameter estimates. However an approach that can be used in any statistical software package for such a situation is to recode the variable(s) of interest such that the desired estimate is no longer a linear combination of parameter estimates.
+
+###  Weibull PH models with or without stratification 
+
+- Without stratification
+
+```{r}
+Weib.PH_st <- phreg(Surv(enter, exit, event) ~ male + imr.birth,
+                    data = oldmort01, 
+                    dist="weibull", 
+                    param="survreg")
+
+b_Weib.PH_st = coef(Weib.PH_st)
+Weib.PH_st
+```
+
+- With stratification
+
+```{r}
+Weib.PH_st <- phreg(Surv(enter, exit, event) ~ male + imr.birth + strata(region),
+                    data = oldmort01, 
+                    dist="weibull", 
+                    param="survreg")
+
+b_Weib.PH_st = coef(Weib.PH_st)
+Weib.PH_st
+```
+
+
+Here are some differences between two models:
+
+- Compared to the Weibull PH model without stratification, the stratified model includes additional set of parameters of log(scale) and log(shape). More specifically, both log(scale) and log(shape) will be estimated for each stratum.
+
+- Only one set of coefficients of clinic and dose was estimated. this means that the stratified model assume the effects of variables are the same across strata. In other words, "we allow both the scale and shape of the hazard to vary with strata, yet we constrained the effects of included variables to be the same for each stratum."
+
+```{r}
+plot(Weib.PH_st)
+```
+
+
+
+
+
+
+## Frailty models^[This section is a summarized excerpt from Goran Brostrom, *Event History Analysis with R* and Kleinbaum and Klein, *Survival Analysis*, and https://cran.r-project.org/web/packages/coxme/vignettes/coxme.pdf]
+
+Frailty models in survival analysis correspond to hierarchical models in linear or generalized linear models. They are also called *mixed effects models*. They contain an extra random component designed to account for individual(or subgroup)-level differences in the hazard otherwise unaccounted for by the model. The frailty, \(\alpha\), is a multiplicative effect on the hazard assumed to follow some distribution. The hazard function conditional on the frailty can be expressed as $h(t|\alpha)=\alpha [h(t)]$.
+
+### Simple Frailty Model
+Vaupel et al. (1979) described an individual frailty model,
+$$h(t;x,Z)=h_0(t)Z e^{\beta x}, \;\; t>0,$$
+where $Z$ is assumed to be drawn independently for each individual. Hazard rates for “random survivors” are not proportional, but converging (to each other) if the frailty distribution has finite variance. Thus, the problem may be less pronounced in AFT than in PH regression. 
+
+### Shared Frailty Model
+Frailty models work best when there is a natural grouping of the data, so that observations from the same group are dependent (*share the same frailty*), while two individual survival times from different groups can be regarded as independent. Such a model may be described as
+$$h_i(t;x)=h_{i0}(t) e^{\beta x}, \;\;i=1,\dots, s; \;\;t>0,$$
+
+which simply is a stratified Cox regression model. By assuming
+$$h_{i0}(t)=Z_i h_0(t),\;\; i=1,\dots,s;\;\;t>0,$$
+the traditional multivariate frailty model emerges. Here it is assumed that $Z_1,\dots,Z_s$ are independent and identically distributed ($iid$), usually with a lognormal distribution. From what we get, with $U_i = \log(Z_i)$,
+$$h_i(t;x)=h_0(t) e^{\beta x +U_i}, \;\;i=1,…,s;\;\;t>0.$$
+In this formulation, $U_1,\dots, U_s$ are $iid$ normal with mean zero and unknown variance $\sigma^2$. Another popular choice of distribution for the $Z:s$ is the gamma distribution.
+
+
+### Cox model specification
+
+$$ h(t) = h_0(t) \exp{(X\beta)} $$
+
+
+### Mixed effects Cox model specification
+
+$$ h(t) = h_0(t) \exp{(X\beta+Zb)},\;\;\; b \sim  G(0, \sum(\theta)) $$
+where $h_0$ is unspecified baseline hazard function, $X$ and $Z$ are the design matrices for the fixed and random effects, respectively, $\beta$ is the vector of fixed-effect coefficients and $b$ is the vector of random effects coefficents. The random effects distribution $G$ is modeled as Gaussian with mean 0 and a variance matrax $\sum$, which in turn depends a vector of parameters $\theta$.
+
+
+
+### Models without considering fraility
+
+**R** offers three choices for the distribution of the frailty: the gamma, Gaussian, and $t$ distributions. The variance ($\theta$) of the frailty component is a parameter typically estimated by the model. If $\theta$ = 0, then there is no frailty.
+
+First, we rerun a stratified Cox model without frailty.
+
+```{r}
+oldmort_coxst <- coxph(Surv(enter, exit, event) ~ male + imr.birth + strata(region), 
+              data = oldmort01) 
+
+summary(oldmort_coxst)
+```
+
+Next we illustrate how to include a frailty component in this model.
+
+```{r}
+oldmort_coxst <- coxph(Surv(enter, exit, event) ~ male + imr.birth + strata(region) + frailty(id, distribution = "gamma"), 
+              data = oldmort01) 
+
+summary(oldmort_coxst)
+```
+
+The term `+ frailty(id, distribution=“gamma”)` is included in the model formula. The first argument of the frailty function is the variable id and indicates that the unmeasured heterogeneity (the frailty) is at the individual level. The second argument indicates that the distribution of the random component is the gamma distribution.
+
+Under the table of parameter estimates the output indicates that the variance of random effect is very small. The p-value for the frailty component indicates that the frailty component is not significant. We conclude that the variance of the random component is zero for this model (i.e., there is no frailty).
+
+
+
+### `coxme` package for frailty models
+
+
+#### Nested in each individual
+
+The package `coxme` works with frailty (e.g., `(1 | id)`), accounting for multiple observations in each `id`.
+
+
+```{r}
+oldmort_coxst <- coxme(Surv(enter, exit, event) ~ male + region + imr.birth + (1 | id), 
+              data = oldmort01) 
+
+summary(oldmort_coxst)
+```
+
+The components of the resutls are^[https://cran.r-project.org/web/packages/coxme/vignettes/coxme.pdf]
+
+- The total number of observations and the total number of events (deaths) in the data set.
+
+- The computational effort, summarized as the number of iterations for the optim routine and the underlying Newton-Raphson iterations used.
+
+- The log partial likelihood for a model with no covariates or random effects, the fitted partial likelihood, and the value with the random effects integrated out. We will normally be interested in the null and integrated values. (The log values are printed, but labeled as PL and IPL for brevity).
+
+- Likelihood ratio tests based on the integrated and penalized views of the model, along with penalized values. The AIC penalizes by twice the effective degrees of freedom, and the BIC by log(d) times the effective degrees of freedom, where d is the number of events.
+
+- A summary of the fixed effects
+
+- A summary of the variances of the random effects
+    - One feature of the mixed effects Cox model is that the standard deviation of the random effect is directly interpretable. The random effects $b_j$ for each individual $j$ are in the risk score, a value of .11 for instance (one standard deviation above the mean) corresponds to a relative risk of exp(.11) = 1.12, an almost 12% higher risk of death for subjects at that individual.
+
+
+
+#### Nested in each mother
+
+`m.id` is a identifier for each mother.
+
+```{r}
+oldmort_coxst <- coxme(Surv(enter, exit, event) ~ male + region + imr.birth + (1 | m.id), 
+              data = oldmort01) 
+
+summary(oldmort_coxst)
+```
+
+Because of missing cases in `m.id`, the results above are not comparable. To make both models, nested in each individual vs. nested in each mother, we select cases with `m.id` is not missing.
+
+```{r}
+oldmort01_mid <- oldmort01[!is.na(oldmort01$m.id), ]
+```
+
+Then fit the models, respectively.
+
+```{r}
+oldmort_coxst <- coxme(Surv(enter, exit, event) ~ male + region + imr.birth + (1 | id), 
+              data = oldmort01_mid) 
+
+summary(oldmort_coxst)
+```
+
+
+```{r}
+oldmort_coxst <- coxme(Surv(enter, exit, event) ~ male + region + imr.birth + (1 | m.id), 
+              data = oldmort01_mid) 
+
+summary(oldmort_coxst)
+```
+
+#### Individuals are nested in each mother
+
+Here is the code, but do not run - it takes forever.
+
+```{r}
+# oldmort_coxst <- coxme(Surv(enter, exit, event) ~ male + region + imr.birth + (1 | id/m.id), 
+#              data = oldmort01_mid) 
+
+#summary(oldmort_coxst)
+```
+
+
+
+

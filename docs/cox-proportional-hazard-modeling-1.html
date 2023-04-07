@@ -1,0 +1,1769 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 7 Cox Proportional Hazard Modeling | SOC6280: Survival Analysis: Practice</title>
+  <meta name="description" content="Survival handbook" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 7 Cox Proportional Hazard Modeling | SOC6280: Survival Analysis: Practice" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Survival handbook" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 7 Cox Proportional Hazard Modeling | SOC6280: Survival Analysis: Practice" />
+  
+  <meta name="twitter:description" content="Survival handbook" />
+  
+
+<meta name="author" content="Hyojun Park" />
+
+
+<meta name="date" content="2023-04-06" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="cox-proportional-hazard-modeling.html"/>
+<link rel="next" href="add-health-project.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Survival Analysis Workbook</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="bias-assessment.html"><a href="bias-assessment.html"><i class="fa fa-check"></i><b>2</b> Bias assessment</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="bias-assessment.html"><a href="bias-assessment.html#bias-due-to-omitted-confounders"><i class="fa fa-check"></i><b>2.1</b> Bias due to omitted confounders</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="bias-assessment.html"><a href="bias-assessment.html#gold-standard"><i class="fa fa-check"></i><b>2.1.1</b> Gold standard</a></li>
+<li class="chapter" data-level="2.1.2" data-path="bias-assessment.html"><a href="bias-assessment.html#misspecified-model-a-confounder-c-was-omitted-from-the-model"><i class="fa fa-check"></i><b>2.1.2</b> Misspecified model: a confounder, <span class="math inline">\(C\)</span>, was omitted from the model</a></li>
+<li class="chapter" data-level="2.1.3" data-path="bias-assessment.html"><a href="bias-assessment.html#bias-away-from-or-towards-to-the-null"><i class="fa fa-check"></i><b>2.1.3</b> Bias “away from” or “towards to” the null?</a></li>
+<li class="chapter" data-level="2.1.4" data-path="bias-assessment.html"><a href="bias-assessment.html#a-c-is-not-a-confounder-on-x-and-y"><i class="fa fa-check"></i><b>2.1.4</b> A <span class="math inline">\(C\)</span> is not a confounder on <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span></a></li>
+<li class="chapter" data-level="2.1.5" data-path="bias-assessment.html"><a href="bias-assessment.html#correct-model-specification-without-c"><i class="fa fa-check"></i><b>2.1.5</b> Correct model specification: Without <span class="math inline">\(C\)</span></a></li>
+<li class="chapter" data-level="2.1.6" data-path="bias-assessment.html"><a href="bias-assessment.html#misspecified-model-with-c"><i class="fa fa-check"></i><b>2.1.6</b> Misspecified model with <span class="math inline">\(C\)</span></a></li>
+<li class="chapter" data-level="2.1.7" data-path="bias-assessment.html"><a href="bias-assessment.html#a-c-is-a-colloder-on-x-and-y"><i class="fa fa-check"></i><b>2.1.7</b> A <span class="math inline">\(C\)</span> is a colloder on <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span></a></li>
+<li class="chapter" data-level="2.1.8" data-path="bias-assessment.html"><a href="bias-assessment.html#correct-model-specification-without-c-1"><i class="fa fa-check"></i><b>2.1.8</b> Correct model specification: Without <span class="math inline">\(C\)</span></a></li>
+<li class="chapter" data-level="2.1.9" data-path="bias-assessment.html"><a href="bias-assessment.html#misspecified-model-with-c-1"><i class="fa fa-check"></i><b>2.1.9</b> Misspecified model with <span class="math inline">\(C\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="bias-assessment.html"><a href="bias-assessment.html#overadjustment-bias"><i class="fa fa-check"></i><b>2.2</b> Overadjustment bias</a></li>
+<li class="chapter" data-level="2.3" data-path="bias-assessment.html"><a href="bias-assessment.html#total-effect"><i class="fa fa-check"></i><b>2.3</b> Total effect</a></li>
+<li class="chapter" data-level="2.4" data-path="bias-assessment.html"><a href="bias-assessment.html#overadjustment"><i class="fa fa-check"></i><b>2.4</b> Overadjustment</a></li>
+<li class="chapter" data-level="2.5" data-path="bias-assessment.html"><a href="bias-assessment.html#logistic-models"><i class="fa fa-check"></i><b>2.5</b> Logistic models</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="bias-assessment.html"><a href="bias-assessment.html#sex-as-a-confounder-c"><i class="fa fa-check"></i><b>2.5.1</b> Sex as a Confounder, <span class="math inline">\(C\)</span></a></li>
+<li class="chapter" data-level="2.5.2" data-path="bias-assessment.html"><a href="bias-assessment.html#sex-as-a-moderator-m"><i class="fa fa-check"></i><b>2.5.2</b> Sex as a Moderator, <span class="math inline">\(M\)</span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="survival-analyses-introduction.html"><a href="survival-analyses-introduction.html"><i class="fa fa-check"></i><b>3</b> Survival Analyses: Introduction</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="survival-analyses-introduction.html"><a href="survival-analyses-introduction.html#set-packages-and-library"><i class="fa fa-check"></i><b>3.1</b> Set packages and library</a></li>
+<li class="chapter" data-level="3.2" data-path="survival-analyses-introduction.html"><a href="survival-analyses-introduction.html#dataset"><i class="fa fa-check"></i><b>3.2</b> dataset</a></li>
+<li class="chapter" data-level="3.3" data-path="survival-analyses-introduction.html"><a href="survival-analyses-introduction.html#nonparametric-estimation"><i class="fa fa-check"></i><b>3.3</b> Nonparametric estimation</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="survival-analyses-introduction.html"><a href="survival-analyses-introduction.html#data-for-nonparametric-models"><i class="fa fa-check"></i><b>3.3.1</b> Data for nonparametric models</a></li>
+<li class="chapter" data-level="3.3.2" data-path="survival-analyses-introduction.html"><a href="survival-analyses-introduction.html#kaplan-meier-estimator"><i class="fa fa-check"></i><b>3.3.2</b> Kaplan-Meier estimator</a></li>
+<li class="chapter" data-level="3.3.3" data-path="survival-analyses-introduction.html"><a href="survival-analyses-introduction.html#nelson-aalen-estimator"><i class="fa fa-check"></i><b>3.3.3</b> Nelson-Aalen estimator</a></li>
+<li class="chapter" data-level="3.3.4" data-path="survival-analyses-introduction.html"><a href="survival-analyses-introduction.html#comparisons-by-groups"><i class="fa fa-check"></i><b>3.3.4</b> Comparisons by groups</a></li>
+<li class="chapter" data-level="3.3.5" data-path="survival-analyses-introduction.html"><a href="survival-analyses-introduction.html#better-km-figures"><i class="fa fa-check"></i><b>3.3.5</b> Better KM figures</a></li>
+<li class="chapter" data-level="3.3.6" data-path="survival-analyses-introduction.html"><a href="survival-analyses-introduction.html#nonparametric-models-using-a-child-dataset-from-eha"><i class="fa fa-check"></i><b>3.3.6</b> Nonparametric models using a <span class="math inline">\(child\)</span> dataset from eha</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="survival-analyses-introduction.html"><a href="survival-analyses-introduction.html#proportional-hazards-and-cox-regression"><i class="fa fa-check"></i><b>3.4</b> Proportional Hazards and Cox Regression</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="survival-analyses-introduction.html"><a href="survival-analyses-introduction.html#a-visual-check-for-a-proportionality-assumption"><i class="fa fa-check"></i><b>3.4.1</b> A visual check for a proportionality assumption</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="survival-analyses-introduction.html"><a href="survival-analyses-introduction.html#parametric-estimation"><i class="fa fa-check"></i><b>3.5</b> Parametric estimation</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="survival-analyses-introduction.html"><a href="survival-analyses-introduction.html#weibull-model"><i class="fa fa-check"></i><b>3.5.1</b> Weibull model</a></li>
+<li class="chapter" data-level="3.5.2" data-path="survival-analyses-introduction.html"><a href="survival-analyses-introduction.html#gompertz-model"><i class="fa fa-check"></i><b>3.5.2</b> Gompertz model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="counting-process.html"><a href="counting-process.html"><i class="fa fa-check"></i><b>4</b> Counting Process</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="counting-process.html"><a href="counting-process.html#set-packages-and-library-1"><i class="fa fa-check"></i><b>4.1</b> Set packages and library</a></li>
+<li class="chapter" data-level="4.2" data-path="counting-process.html"><a href="counting-process.html#example"><i class="fa fa-check"></i><b>4.2</b> Example</a></li>
+<li class="chapter" data-level="4.3" data-path="counting-process.html"><a href="counting-process.html#practice-addhealth-public-datasets"><i class="fa fa-check"></i><b>4.3</b> Practice: AddHealth Public datasets</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="counting-process.html"><a href="counting-process.html#generate-a-complete-framework-with-aid-and-wave-optional"><i class="fa fa-check"></i><b>4.3.1</b> Generate a complete framework with <em>AID</em> and <em>wave</em> (Optional)</a></li>
+<li class="chapter" data-level="4.3.2" data-path="counting-process.html"><a href="counting-process.html#time-variant-variables-from-each-wave"><i class="fa fa-check"></i><b>4.3.2</b> Time-variant variables from each wave</a></li>
+<li class="chapter" data-level="4.3.3" data-path="counting-process.html"><a href="counting-process.html#time-invariant"><i class="fa fa-check"></i><b>4.3.3</b> Time-invariant</a></li>
+<li class="chapter" data-level="4.3.4" data-path="counting-process.html"><a href="counting-process.html#merging-datasets"><i class="fa fa-check"></i><b>4.3.4</b> Merging datasets</a></li>
+<li class="chapter" data-level="4.3.5" data-path="counting-process.html"><a href="counting-process.html#define-event-enter-and-exit"><i class="fa fa-check"></i><b>4.3.5</b> Define <em>event</em>, <em>enter</em>, and <em>exit</em></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html"><i class="fa fa-check"></i><b>5</b> Survival models: specification, estimation, and interpretation</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#nonparametric-models"><i class="fa fa-check"></i><b>5.1</b> Nonparametric models</a></li>
+<li class="chapter" data-level="5.2" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#semi-parametric-models-cox-regression"><i class="fa fa-check"></i><b>5.2</b> Semi-parametric models: Cox Regression</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#model-specification"><i class="fa fa-check"></i><b>5.2.1</b> Model specification</a></li>
+<li class="chapter" data-level="5.2.2" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#estimation"><i class="fa fa-check"></i><b>5.2.2</b> Estimation</a></li>
+<li class="chapter" data-level="5.2.3" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#interpretations"><i class="fa fa-check"></i><b>5.2.3</b> Interpretations</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#logistic-regression"><i class="fa fa-check"></i><b>5.3</b> Logistic regression</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#model-specification-1"><i class="fa fa-check"></i><b>5.3.1</b> Model specification</a></li>
+<li class="chapter" data-level="5.3.2" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#estimation-1"><i class="fa fa-check"></i><b>5.3.2</b> Estimation</a></li>
+<li class="chapter" data-level="5.3.3" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#interpretation"><i class="fa fa-check"></i><b>5.3.3</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#linear-regression"><i class="fa fa-check"></i><b>5.4</b> Linear regression</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#model-specification-2"><i class="fa fa-check"></i><b>5.4.1</b> Model specification</a></li>
+<li class="chapter" data-level="5.4.2" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#estimation-2"><i class="fa fa-check"></i><b>5.4.2</b> Estimation</a></li>
+<li class="chapter" data-level="5.4.3" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#interpretation-1"><i class="fa fa-check"></i><b>5.4.3</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#weibull-model-1"><i class="fa fa-check"></i><b>5.5</b> Weibull model</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#model-specification-3"><i class="fa fa-check"></i><b>5.5.1</b> Model specification</a></li>
+<li class="chapter" data-level="5.5.2" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#estimation-3"><i class="fa fa-check"></i><b>5.5.2</b> Estimation</a></li>
+<li class="chapter" data-level="5.5.3" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#interpretations-1"><i class="fa fa-check"></i><b>5.5.3</b> Interpretations</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#exponential-model"><i class="fa fa-check"></i><b>5.6</b> Exponential model</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#model-specification-4"><i class="fa fa-check"></i><b>5.6.1</b> Model specification</a></li>
+<li class="chapter" data-level="5.6.2" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#estimation-4"><i class="fa fa-check"></i><b>5.6.2</b> Estimation</a></li>
+<li class="chapter" data-level="5.6.3" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#interpretations-2"><i class="fa fa-check"></i><b>5.6.3</b> Interpretations</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#gompertz-model-1"><i class="fa fa-check"></i><b>5.7</b> Gompertz model</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#model-specification-5"><i class="fa fa-check"></i><b>5.7.1</b> Model specification</a></li>
+<li class="chapter" data-level="5.7.2" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#estimation-5"><i class="fa fa-check"></i><b>5.7.2</b> Estimation</a></li>
+<li class="chapter" data-level="5.7.3" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#interpretations-3"><i class="fa fa-check"></i><b>5.7.3</b> Interpretations</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#graphs"><i class="fa fa-check"></i><b>5.8</b> Graphs</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html"><i class="fa fa-check"></i><b>6</b> Cox Proportional Hazard Modeling</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#setup-working-datasets"><i class="fa fa-check"></i><b>6.1</b> Setup working datasets</a></li>
+<li class="chapter" data-level="6.2" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#cox-proportional-hazard-models-example"><i class="fa fa-check"></i><b>6.2</b> Cox Proportional Hazard Models: Example</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#cox-model-specification"><i class="fa fa-check"></i><b>6.2.1</b> Cox model specification</a></li>
+<li class="chapter" data-level="6.2.2" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#model-1-no-covariates"><i class="fa fa-check"></i><b>6.2.2</b> Model 1: No covariates</a></li>
+<li class="chapter" data-level="6.2.3" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#model-2-categorical-covariate-region"><i class="fa fa-check"></i><b>6.2.3</b> Model 2: Categorical covariate: region</a></li>
+<li class="chapter" data-level="6.2.4" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#model-3-continuous-covariate-imr.birth"><i class="fa fa-check"></i><b>6.2.4</b> Model 3: Continuous covariate: imr.birth</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#interpretation-2"><i class="fa fa-check"></i><b>6.3</b> Interpretation</a></li>
+<li class="chapter" data-level="6.4" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#proportional-hazard-ph-assumption"><i class="fa fa-check"></i><b>6.4</b> Proportional hazard (PH) assumption</a></li>
+<li class="chapter" data-level="6.5" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#extended-cox-model"><i class="fa fa-check"></i><b>6.5</b> Extended Cox model</a></li>
+<li class="chapter" data-level="6.6" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#evaluating-the-proportional-hazard-ph-assumption"><i class="fa fa-check"></i><b>6.6</b> Evaluating the Proportional hazard (PH) assumption</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#graphical-evaluation"><i class="fa fa-check"></i><b>6.6.1</b> Graphical evaluation</a></li>
+<li class="chapter" data-level="6.6.2" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#goodness-of-fit-gof"><i class="fa fa-check"></i><b>6.6.2</b> Goodness-of-fit (GOF)</a></li>
+<li class="chapter" data-level="6.6.3" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#time-dependent-variable-approaches"><i class="fa fa-check"></i><b>6.6.3</b> Time-dependent variable approaches</a></li>
+<li class="chapter" data-level="6.6.4" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#testing-for-influential-observations"><i class="fa fa-check"></i><b>6.6.4</b> Testing for Influential Observations</a></li>
+<li class="chapter" data-level="6.6.5" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#testing-for-non-linearlity"><i class="fa fa-check"></i><b>6.6.5</b> Testing for Non-linearlity</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html"><i class="fa fa-check"></i><b>7</b> Cox Proportional Hazard Modeling</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#setup-working-datasets-1"><i class="fa fa-check"></i><b>7.1</b> Setup working datasets</a></li>
+<li class="chapter" data-level="7.2" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#accounting-for-heterogeneity"><i class="fa fa-check"></i><b>7.2</b> Accounting for heterogeneity</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#an-introductory-example"><i class="fa fa-check"></i><b>7.2.1</b> An introductory Example</a></li>
+<li class="chapter" data-level="7.2.2" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#working-with-heterogeneity"><i class="fa fa-check"></i><b>7.2.2</b> Working with heterogeneity</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#stratification"><i class="fa fa-check"></i><b>7.3</b> Stratification</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#generalized-stratified-models"><i class="fa fa-check"></i><b>7.3.1</b> Generalized stratified models</a></li>
+<li class="chapter" data-level="7.3.2" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#group_by-analysis-dplyr"><i class="fa fa-check"></i><b>7.3.2</b> <code>group_by</code> analysis (<code>dplyr</code>)</a></li>
+<li class="chapter" data-level="7.3.3" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#strata-in-coxph"><i class="fa fa-check"></i><b>7.3.3</b> <code>strata</code> in <code>coxph</code></a></li>
+<li class="chapter" data-level="7.3.4" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#strata-in-coxph-with-interaction-terms"><i class="fa fa-check"></i><b>7.3.4</b> <code>strata</code> in <code>coxph</code> with interaction terms</a></li>
+<li class="chapter" data-level="7.3.5" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#weibull-ph-models-with-or-without-stratification"><i class="fa fa-check"></i><b>7.3.5</b> Weibull PH models with or without stratification</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#frailty-models"><i class="fa fa-check"></i><b>7.4</b> Frailty models</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#simple-frailty-model"><i class="fa fa-check"></i><b>7.4.1</b> Simple Frailty Model</a></li>
+<li class="chapter" data-level="7.4.2" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#shared-frailty-model"><i class="fa fa-check"></i><b>7.4.2</b> Shared Frailty Model</a></li>
+<li class="chapter" data-level="7.4.3" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#cox-model-specification-1"><i class="fa fa-check"></i><b>7.4.3</b> Cox model specification</a></li>
+<li class="chapter" data-level="7.4.4" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#mixed-effects-cox-model-specification"><i class="fa fa-check"></i><b>7.4.4</b> Mixed effects Cox model specification</a></li>
+<li class="chapter" data-level="7.4.5" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#models-without-considering-fraility"><i class="fa fa-check"></i><b>7.4.5</b> Models without considering fraility</a></li>
+<li class="chapter" data-level="7.4.6" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#coxme-package-for-frailty-models"><i class="fa fa-check"></i><b>7.4.6</b> <code>coxme</code> package for frailty models</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#more-topics-on-survival-models"><i class="fa fa-check"></i><b>7.5</b> More topics on survival models</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#why-we-call-cox-model-as-semi-parametric-model"><i class="fa fa-check"></i><b>7.5.1</b> Why we call Cox model as semi-parametric model?</a></li>
+<li class="chapter" data-level="7.5.2" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#why-the-cox-ph-model-is-so-popular"><i class="fa fa-check"></i><b>7.5.2</b> Why the Cox PH model is so popular</a></li>
+<li class="chapter" data-level="7.5.3" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#estimation-of-the-cox-ph-model-using-maximum-likelihood-ml"><i class="fa fa-check"></i><b>7.5.3</b> Estimation of the Cox PH model using Maximum likelihood (ML)</a></li>
+<li class="chapter" data-level="7.5.4" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#more-about-hazard-ratio"><i class="fa fa-check"></i><b>7.5.4</b> More about Hazard ratio</a></li>
+<li class="chapter" data-level="7.5.5" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#adjusted-survival-curves-using-the-cox-ph-model"><i class="fa fa-check"></i><b>7.5.5</b> Adjusted Survival Curves using the Cox PH model</a></li>
+<li class="chapter" data-level="7.5.6" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#notes-for-survival-model-selection"><i class="fa fa-check"></i><b>7.5.6</b> Notes for survival model selection</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#likelihood-and-partial-likelihood"><i class="fa fa-check"></i><b>7.6</b> Likelihood and partial likelihood</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#maximum-likelihood-estimation"><i class="fa fa-check"></i><b>7.6.1</b> Maximum likelihood estimation</a></li>
+<li class="chapter" data-level="7.6.2" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#partial-likelihood-estimation"><i class="fa fa-check"></i><b>7.6.2</b> Partial likelihood estimation</a></li>
+<li class="chapter" data-level="7.6.3" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#dependence-among-the-observations"><i class="fa fa-check"></i><b>7.6.3</b> Dependence among the observations</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#tied-or-discrete-data-analysis"><i class="fa fa-check"></i><b>7.7</b> Tied or Discrete Data Analysis</a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#example-recidivism-in-the-u.s."><i class="fa fa-check"></i><b>7.7.1</b> Example: Recidivism in the U.S.</a></li>
+<li class="chapter" data-level="7.7.2" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#the-treatment-of-ties"><i class="fa fa-check"></i><b>7.7.2</b> The treatment of ties</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#the-discrete-method"><i class="fa fa-check"></i><b>7.8</b> The discrete method</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="cox-proportional-hazard-modeling-1.html"><a href="cox-proportional-hazard-modeling-1.html#continuous-and-discrete-models"><i class="fa fa-check"></i><b>7.8.1</b> Continuous and Discrete Models</a></li>
+<li><a href="cox-proportional-hazard-modeling-1.html#interval-censoring" id="toc-interval-censoring"><span class="toc-section-number">7.8.2</span> Interval censoring<br />
+</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="add-health-project.html"><a href="add-health-project.html"><i class="fa fa-check"></i><b>8</b> Add Health Project</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="add-health-project.html"><a href="add-health-project.html#library"><i class="fa fa-check"></i><b>8.1</b> Library</a></li>
+<li class="chapter" data-level="8.2" data-path="add-health-project.html"><a href="add-health-project.html#access-datasets"><i class="fa fa-check"></i><b>8.2</b> Access datasets</a></li>
+<li class="chapter" data-level="8.3" data-path="add-health-project.html"><a href="add-health-project.html#load-5-wave-sample"><i class="fa fa-check"></i><b>8.3</b> Load 5-wave sample</a></li>
+<li class="chapter" data-level="8.4" data-path="add-health-project.html"><a href="add-health-project.html#long-form-dataset-wave-person"><i class="fa fa-check"></i><b>8.4</b> Long-form dataset (wave-person)</a></li>
+<li class="chapter" data-level="8.5" data-path="add-health-project.html"><a href="add-health-project.html#exploring-variables-in-add-health"><i class="fa fa-check"></i><b>8.5</b> Exploring variables in Add Health</a></li>
+<li class="chapter" data-level="8.6" data-path="add-health-project.html"><a href="add-health-project.html#outcomes-exposures-and-confounders"><i class="fa fa-check"></i><b>8.6</b> Outcomes, exposures, and confounders</a></li>
+<li class="chapter" data-level="8.7" data-path="add-health-project.html"><a href="add-health-project.html#demographic-variables---time-invariant"><i class="fa fa-check"></i><b>8.7</b> Demographic variables - time-invariant</a></li>
+<li class="chapter" data-level="8.8" data-path="add-health-project.html"><a href="add-health-project.html#merging-datasets-1"><i class="fa fa-check"></i><b>8.8</b> Merging datasets</a></li>
+<li class="chapter" data-level="8.9" data-path="add-health-project.html"><a href="add-health-project.html#data-management-recoding-and-so-on"><i class="fa fa-check"></i><b>8.9</b> Data management, recoding, and so on</a>
+<ul>
+<li class="chapter" data-level="8.9.1" data-path="add-health-project.html"><a href="add-health-project.html#bmi"><i class="fa fa-check"></i><b>8.9.1</b> BMI</a></li>
+<li class="chapter" data-level="8.9.2" data-path="add-health-project.html"><a href="add-health-project.html#sampling-weights"><i class="fa fa-check"></i><b>8.9.2</b> Sampling weights</a></li>
+<li class="chapter" data-level="8.9.3" data-path="add-health-project.html"><a href="add-health-project.html#multiple-imputation"><i class="fa fa-check"></i><b>8.9.3</b> Multiple imputation</a></li>
+</ul></li>
+<li class="chapter" data-level="8.10" data-path="add-health-project.html"><a href="add-health-project.html#analytic-approach"><i class="fa fa-check"></i><b>8.10</b> Analytic approach</a>
+<ul>
+<li class="chapter" data-level="8.10.1" data-path="add-health-project.html"><a href="add-health-project.html#a-linear-regression-with-the-current-dataset"><i class="fa fa-check"></i><b>8.10.1</b> A linear regression with the current dataset</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">SOC6280: Survival Analysis: Practice</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="cox-proportional-hazard-modeling-1" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Chapter 7</span> Cox Proportional Hazard Modeling<a href="cox-proportional-hazard-modeling-1.html#cox-proportional-hazard-modeling-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="setup-working-datasets-1" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Setup working datasets<a href="cox-proportional-hazard-modeling-1.html#setup-working-datasets-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="cox-proportional-hazard-modeling-1.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="cox-proportional-hazard-modeling-1.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-3"><a href="cox-proportional-hazard-modeling-1.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb1-4"><a href="cox-proportional-hazard-modeling-1.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(eha)</span>
+<span id="cb1-5"><a href="cox-proportional-hazard-modeling-1.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
+<span id="cb1-6"><a href="cox-proportional-hazard-modeling-1.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb1-7"><a href="cox-proportional-hazard-modeling-1.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flextable)</span>
+<span id="cb1-8"><a href="cox-proportional-hazard-modeling-1.html#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survminer)</span>
+<span id="cb1-9"><a href="cox-proportional-hazard-modeling-1.html#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggfortify)</span>
+<span id="cb1-10"><a href="cox-proportional-hazard-modeling-1.html#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-11"><a href="cox-proportional-hazard-modeling-1.html#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb1-12"><a href="cox-proportional-hazard-modeling-1.html#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(coxme)</span>
+<span id="cb1-13"><a href="cox-proportional-hazard-modeling-1.html#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="cox-proportional-hazard-modeling-1.html#cb2-1" aria-hidden="true" tabindex="-1"></a>oldmort01 <span class="ot">&lt;-</span> oldmort</span>
+<span id="cb2-2"><a href="cox-proportional-hazard-modeling-1.html#cb2-2" aria-hidden="true" tabindex="-1"></a>oldmort01<span class="sc">$</span>male <span class="ot">&lt;-</span> <span class="fu">relevel</span>(oldmort01<span class="sc">$</span>sex, <span class="at">ref =</span> <span class="st">&quot;female&quot;</span>)</span></code></pre></div>
+</div>
+<div id="accounting-for-heterogeneity" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Accounting for heterogeneity<a href="cox-proportional-hazard-modeling-1.html#accounting-for-heterogeneity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="an-introductory-example" class="section level3 hasAnchor" number="7.2.1">
+<h3><span class="header-section-number">7.2.1</span> An introductory Example<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a><a href="cox-proportional-hazard-modeling-1.html#an-introductory-example" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let us assume that in a follow-up study, the cohort is not
+homogeneous but instead consists of two equally sized groups with
+differing hazard rates. Assume further that we have no indication of
+which group an individual belongs to, and that members of both groups
+follow an exponential life length distribution:
+<span class="math display">\[\begin{equation*}
+\begin{split}
+h_1(t) &amp;= \lambda_1 \\
+h_2(t) &amp;= \lambda_2 \\
+\end{split} \qquad t &gt; 0.
+\end{equation*}\]</span>
+This implies that the corresponding survival
+functions <span class="math inline">\(S_1\)</span> and <span class="math inline">\(S_2\)</span> are
+<span class="math display">\[\begin{equation*}
+\begin{split}
+S_1(t) &amp;= e^{-\lambda_1 t} \\
+S_2(t) &amp;= e^{-\lambda_2 t} \\
+\end{split} \qquad
+t &gt; 0,
+\end{equation*}\]</span>
+and a randomly chosen individual will follow the
+“population mortality” <span class="math inline">\(S\)</span>, which is a <em>mixture</em> of the two
+distributions:
+<span class="math display">\[\begin{equation*}
+S(t) = \frac{1}{2} S_1(t) + \frac{1}{2} S_2(t), \quad t &gt; 0.
+\end{equation*}\]</span>
+Let us calculate the hazard function for this mixture. We start by
+finding the <em>density function</em> <span class="math inline">\(f\)</span>:
+<span class="math display">\[\begin{equation*}
+f(t) = -\frac{dS(x)}{dx} = \frac{1}{2}\left(\lambda_1 e^{-\lambda_1 t}
+    + \lambda_2 e^{-\lambda_2 t} \right), \quad t &gt; 0.
+\end{equation*}\]</span>
+Then, by the definition of <span class="math inline">\(h\)</span> we get
+<span class="math display" id="eq:mixhaz">\[\begin{equation}
+h(t) = \frac{f(t)}{S(t)} = \omega(t) \lambda_1 + \big(1 -
+\omega(t)\big) \lambda_2, \quad t &gt; 0,
+\tag{7.1}
+\end{equation}\]</span>
+with
+<span class="math display">\[\begin{equation*}
+\omega(t) = \frac{e^{-\lambda_1 t}}{e^{-\lambda_1 t} +
+e^{-\lambda_2 t}}
+\end{equation*}\]</span>
+It is easy to see that
+<span class="math display">\[\begin{equation*}
+\omega(t) \rightarrow \left\{ \begin{array}{ll}
+                              0, &amp; \lambda_1 &gt; \lambda_2 \\
+                              \frac{1}{2}, &amp; \lambda_1 = \lambda_2 \\
+                              1, &amp; \lambda_1 &lt; \lambda_2
+                             \end{array} \right.
+, \quad \mbox{as } t \rightarrow \infty,
+\end{equation*}\]</span>
+implying that
+<span class="math display">\[\begin{equation*}
+h(t) \rightarrow \min(\lambda_1, \lambda_2), \quad t \rightarrow
+\infty,
+\end{equation*}\]</span>
+see Figure <a href="cox-proportional-hazard-modeling-1.html#fig:fig9frail">7.1</a>.</p>
+<div class="figure"><span style="display:block;" id="fig:fig9frail"></span>
+<img src="_main_files/figure-html/fig9frail-1.png" alt="Population hazard function (solid line). The dashed lines are the hazard functions of each group, constant at 1 and 2." width="672" />
+<p class="caption">
+Figure 7.1: Population hazard function (solid line). The dashed lines are the hazard functions of each group, constant at 1 and 2.
+</p>
+</div>
+<p>The important point here is that it is <em>impossible</em> to tell from
+data alone whether the population is homogeneous, with all
+individuals following the same hazard function given by equation
+<a href="cox-proportional-hazard-modeling-1.html#eq:mixhaz">(7.1)</a>, or
+if it in fact consists of two groups, each following a constant
+hazard rate.
+Therefore, individual frailty models like <span class="math inline">\(h_i(t) = Z_i h(t), \quad i = 1, \ldots, n\)</span>, where <span class="math inline">\(Z_i\)</span> is the “frailty” for individual No. <span class="math inline">\(i\)</span>,
+and <span class="math inline">\(Z_1, \ldots, Z_n\)</span> are independent and identically distributed (iid)
+are less useful.</p>
+<p>A heuristic explanation to all this is the dynamics of the problem:
+We follow a population (cohort) over time, and the <em>composition</em>
+of it changes over time. The weaker individuals die first, and the
+proportion stronger will steadily grow as time goes by.</p>
+<p>Another terminology is to distinguish between <em>individual</em> and
+<em>population</em> hazards. In Figure <a href="cox-proportional-hazard-modeling-1.html#fig:fig9frail">7.1</a> the solid line is the
+population hazard, and the dashed lines represent the two kinds of
+individual hazards present. Of course, in a truly homogeneous population,
+these two concepts coincide.</p>
+</div>
+<div id="working-with-heterogeneity" class="section level3 hasAnchor" number="7.2.2">
+<h3><span class="header-section-number">7.2.2</span> Working with heterogeneity<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a><a href="cox-proportional-hazard-modeling-1.html#working-with-heterogeneity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Suppose that we collect data measuring time (variable <span class="math inline">\(time\)</span>) from the onset of risk at time zero until occurrence of an event of interest (variable <span class="math inline">\(fail\)</span>) on patients from different hospitals (variable <span class="math inline">\(hospital\)</span>). We want to study patients’ survival as a function of some risk factors, say age and gender (variable <span class="math inline">\(age\)</span> and <span class="math inline">\(gender\)</span>).</p>
+<ul>
+<li>We can estimate the effect of predictors on survival by fitting a Cox model.
+<span class="math display">\[h(t) = h_0(t) \exp(age\times x_1 + gender\times x_2)\]</span>
+<ul>
+<li>In this model, we ignore the fact that patients come from different hospitals and therefore assumed that hospitals have no effect on the results.
+<ul>
+<li>If we believe that there might be a group effect (e.g., the effect of a hospital), we should take it into account in the analysis.</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>There are various ways of adjusting for group effects (i.e., subjects are correlated we mean that subjects’ failure times are correlated or they are heterogenous). Each depends on the nature of the grouping of subjects and on the assumptions we are willing to make about the effect of grouping on subjects’ survival.</p>
+<ul>
+<li>Stratified model
+<ul>
+<li>Suppose we identified a fixed number of hospitals and then sampled our patients within each hospital; that is, we stratified on hospitals in our sampling design. Then we can adjust for the homogeneity of patients within a stratum (a hospital) using a stratified Cox model.
+<span class="math display">\[h_g(t) = h_{0g}(t)\exp(age\times x_1 + gender\times x_2), \;\; where \;\;g=1, \cdots, n\]</span></li>
+<li>The same logic applies to
+<ul>
+<li>the situation when we believe that there is possible dependence among patients within a hospital. Subjects might be correlated, either because of how we sampled our data or because of some other reasons specific to the nature of the grouping, or</li>
+<li>we want to allow baseline hazards to be different for each hospital rather than constraining them to be multiplicative version of each other. If your main focus is on the effect of other predictors (e.g., age and gender), you may benefit from accounting for the group-specific effects in a more general way by stratifying on the group.</li>
+</ul></li>
+</ul></li>
+<li>Random effect model
+<ul>
+<li>Alternately, we can model correlation by assuming that it is induced by an unobserved hospital-level random effect, or frailty, and by specifying the distribution of this random effect (only for parametric model). The effect of a hospital is assumed to be random and to have a multiplicative effect on the hazard function. Here the effect of a hospital is directly incorporated into the hazard function, resulting in a different model specification for the survival data: a shared frailty model. As such, both point estimates and their standard errors will change. For example, in the gamma distribution, the effect of a hospital is governed by a mean of 1 and variace of <span class="math inline">\(\theta\)</span>. If the estimated <span class="math inline">\(\hat{\theta}\)</span> is not significantly different from zero, we ignore the correlation due to hospitals is ignored.
+<span class="math display">\[h(t) = h_0(t) \exp(age\times x_1 + gender\times x_2) \;\;with\;\; frailty(hospital)\]</span></li>
+</ul></li>
+<li>Fixed effect model
+<ul>
+<li>Suppose we are only interested in the effect of our observed hospitals rather than in making inferences about the effect of all hospitals based on the observed random sample of hospitals. In this case, the effects of all hospitals are treated as fixed, and we estimate it by including in the model. We assume that the hospitals have a direct multiplicative effect on the hazard function. That is, all patients share the sam baseline hazard function, and the effect of a hospital multiplies this baseline hazard function up or down depending on the sign of the estimated coefficients for the hospital indicator.
+<span class="math display">\[h(t) = h_0(t) \exp(age\times x_1 + gender\times x_2 + hospital \times x_3)\]</span></li>
+</ul></li>
+<li>Interaction with stratification
+<ul>
+<li>You may include an interaction term “hospital*age”, which will result in a different model: the effect of a hospital is absorbed in the baseline hazard but the effect of <span class="math inline">\(age\)</span> is allowed to vary with hospitals.
+<span class="math display">\[h_g(t) = h_{0g}(t) \exp(age\times x_1 + gender\times x_2 + hospital \times age \times x_3), \;\; where\;\; g=1, \cdots, n\]</span></li>
+</ul></li>
+</ul>
+<p>In sum, there is no definitive recommendation on how to account for the group effect and on which model is the most appropriate when analyzing data.</p>
+<ul>
+<li>Robust standard error (aka empirical standard error, sandwich estimator)</li>
+</ul>
+<p>A widely used technique for adjusting for the correlation among outcomes on the same subject is called robust estimation (also referred to as empirical estimation). This technique essentially involves adjusting the estimated variances of regression coefficients obtained for a fitted model to account for misspecification of the correlation structure assumed</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="cox-proportional-hazard-modeling-1.html#cb3-1" aria-hidden="true" tabindex="-1"></a>oldmort_coxst <span class="ot">&lt;-</span> <span class="fu">coxph</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> male <span class="sc">+</span> region <span class="sc">+</span> imr.birth, </span>
+<span id="cb3-2"><a href="cox-proportional-hazard-modeling-1.html#cb3-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> oldmort01) </span>
+<span id="cb3-3"><a href="cox-proportional-hazard-modeling-1.html#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="cox-proportional-hazard-modeling-1.html#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(oldmort_coxst)</span></code></pre></div>
+<pre><code>## Call:
+## coxph(formula = Surv(enter, exit, event) ~ male + region + imr.birth, 
+##     data = oldmort01)
+## 
+##   n= 6495, number of events= 1971 
+## 
+##                    coef exp(coef) se(coef)     z Pr(&gt;|z|)    
+## malemale       0.185247  1.203516 0.045913 4.035 5.47e-05 ***
+## regionindustry 0.224903  1.252201 0.087093 2.582  0.00981 ** 
+## regionrural    0.069031  1.071470 0.086627 0.797  0.42552    
+## imr.birth      0.004548  1.004558 0.006742 0.675  0.49994    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+##                exp(coef) exp(-coef) lower .95 upper .95
+## malemale           1.204     0.8309    1.0999     1.317
+## regionindustry     1.252     0.7986    1.0557     1.485
+## regionrural        1.071     0.9333    0.9042     1.270
+## imr.birth          1.005     0.9955    0.9914     1.018
+## 
+## Concordance= 0.545  (se = 0.008 )
+## Likelihood ratio test= 31.41  on 4 df,   p=3e-06
+## Wald test            = 31.7  on 4 df,   p=2e-06
+## Score (logrank) test = 31.8  on 4 df,   p=2e-06</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="cox-proportional-hazard-modeling-1.html#cb5-1" aria-hidden="true" tabindex="-1"></a>oldmort_coxst <span class="ot">&lt;-</span> <span class="fu">coxph</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> male <span class="sc">+</span> region <span class="sc">+</span> imr.birth, </span>
+<span id="cb5-2"><a href="cox-proportional-hazard-modeling-1.html#cb5-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">id =</span> id,</span>
+<span id="cb5-3"><a href="cox-proportional-hazard-modeling-1.html#cb5-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">robust =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb5-4"><a href="cox-proportional-hazard-modeling-1.html#cb5-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data =</span> oldmort01) </span>
+<span id="cb5-5"><a href="cox-proportional-hazard-modeling-1.html#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="cox-proportional-hazard-modeling-1.html#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(oldmort_coxst)</span></code></pre></div>
+<pre><code>## Call:
+## coxph(formula = Surv(enter, exit, event) ~ male + region + imr.birth, 
+##     data = oldmort01, robust = TRUE, id = id)
+## 
+##   n= 6495, number of events= 1971 
+## 
+##                    coef exp(coef) se(coef) robust se     z Pr(&gt;|z|)    
+## malemale       0.185247  1.203516 0.045913  0.046314 4.000 6.34e-05 ***
+## regionindustry 0.224903  1.252201 0.087093  0.086125 2.611  0.00902 ** 
+## regionrural    0.069031  1.071470 0.086627  0.084892 0.813  0.41613    
+## imr.birth      0.004548  1.004558 0.006742  0.006904 0.659  0.51006    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+##                exp(coef) exp(-coef) lower .95 upper .95
+## malemale           1.204     0.8309    1.0991     1.318
+## regionindustry     1.252     0.7986    1.0577     1.482
+## regionrural        1.071     0.9333    0.9072     1.265
+## imr.birth          1.005     0.9955    0.9911     1.018
+## 
+## Concordance= 0.545  (se = 0.008 )
+## Likelihood ratio test= 31.41  on 4 df,   p=3e-06
+## Wald test            = 31.68  on 4 df,   p=2e-06
+## Score (logrank) test = 31.8  on 4 df,   p=2e-06,   Robust = 31.52  p=2e-06
+## 
+##   (Note: the likelihood ratio and score tests assume independence of
+##      observations within a cluster, the Wald and robust score tests do not).</code></pre>
+</div>
+</div>
+<div id="stratification" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Stratification<a href="cox-proportional-hazard-modeling-1.html#stratification" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<blockquote>
+<p>Stratification means that data is split up in groups called strata, and a separate partial likelihood function is created for each stratum, but with common values on the regression parameters corresponding to the common explanatory variables. In the estimation, these partial likelihoods are multiplied together, and the product is treated as a likelihood function. Thus, there is one restriction on the parameters, they are the same across strata.
+There are typically two reasons for stratification. First, if the proportionality assumption does not hold for a factor covariate, a way out is to stratify along it. Second, a factor may have too many levels, so that it is inappropriate to treat is as an ordinary factor. This argument is similar to the one about using a frailty model. Stratification is also a useful tool with matched data. When a factor does not produce proportional hazards between categories, stratify on the categories.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
+</blockquote>
+<div id="generalized-stratified-models" class="section level3 hasAnchor" number="7.3.1">
+<h3><span class="header-section-number">7.3.1</span> Generalized stratified models<a href="cox-proportional-hazard-modeling-1.html#generalized-stratified-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="math display">\[h_g(t,X)=h_0g (t) \exp[\beta_1X_1+\beta_2X_2+ \cdots+\beta_p x_p]\]</span></p>
+<ul>
+<li><span class="math inline">\(g=1,2,\dots,k^*,\)</span> strata defined from <span class="math inline">\(Z^*\)</span>, which has <span class="math inline">\(k^*\)</span> categories</li>
+<li><span class="math inline">\(Z^*\)</span> is not included in the model</li>
+<li><span class="math inline">\(X_i\)</span>s are included in the model</li>
+<li>Hazard ratio is same for each stratum</li>
+</ul>
+<p>A simple way to eliminate the effect of clustering is to <em>stratify</em> on the clusters.</p>
+<ul>
+<li>The drawback with a stratified analysis is that it is not possible to estimate the effect of covariates that are constant within clusters.</li>
+<li>Notice also that the hazard functions for groups (e.g., males and females) differ only insofar as they have different baseline hazard functions, namely, <span class="math inline">\(h_{01}(t)\)</span> for females and <span class="math inline">\(h_{02}(t)\)</span> for males. However, the coefficients <span class="math inline">\(\beta_i\)</span>s are the same for both female and male models.</li>
+</ul>
+</div>
+<div id="group_by-analysis-dplyr" class="section level3 hasAnchor" number="7.3.2">
+<h3><span class="header-section-number">7.3.2</span> <code>group_by</code> analysis (<code>dplyr</code>)<a href="cox-proportional-hazard-modeling-1.html#group_by-analysis-dplyr" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="cox-proportional-hazard-modeling-1.html#cb7-1" aria-hidden="true" tabindex="-1"></a>group_by <span class="ot">&lt;-</span> oldmort01 <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="cox-proportional-hazard-modeling-1.html#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(region) <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="cox-proportional-hazard-modeling-1.html#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">do</span>(<span class="at">oldmort_coxst =</span> <span class="fu">coxph</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> male <span class="sc">+</span> imr.birth, <span class="at">data =</span> .))</span>
+<span id="cb7-4"><a href="cox-proportional-hazard-modeling-1.html#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="cox-proportional-hazard-modeling-1.html#cb7-5" aria-hidden="true" tabindex="-1"></a>group_by<span class="sc">$</span>oldmort_coxst</span></code></pre></div>
+<pre><code>## [[1]]
+## Call:
+## coxph(formula = Surv(enter, exit, event) ~ male + imr.birth, 
+##     data = .)
+## 
+##                coef exp(coef)  se(coef)      z        p
+## malemale   0.681102  1.976054  0.159655  4.266 1.99e-05
+## imr.birth -0.004887  0.995125  0.017667 -0.277    0.782
+## 
+## Likelihood ratio test=17.33  on 2 df, p=0.0001729
+## n= 657, number of events= 173 
+## 
+## [[2]]
+## Call:
+## coxph(formula = Surv(enter, exit, event) ~ male + imr.birth, 
+##     data = .)
+## 
+##              coef exp(coef) se(coef)     z       p
+## malemale  0.19435   1.21452  0.07365 2.639 0.00832
+## imr.birth 0.03092   1.03140  0.01120 2.761 0.00575
+## 
+## Likelihood ratio test=14.66  on 2 df, p=0.0006558
+## n= 2214, number of events= 759 
+## 
+## [[3]]
+## Call:
+## coxph(formula = Surv(enter, exit, event) ~ male + imr.birth, 
+##     data = .)
+## 
+##                coef exp(coef)  se(coef)      z     p
+## malemale   0.096529  1.101342  0.062874  1.535 0.125
+## imr.birth -0.010157  0.989894  0.009451 -1.075 0.282
+## 
+## Likelihood ratio test=3.32  on 2 df, p=0.1906
+## n= 3624, number of events= 1039</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="cox-proportional-hazard-modeling-1.html#cb9-1" aria-hidden="true" tabindex="-1"></a>oldmort_coxst <span class="ot">&lt;-</span> <span class="fu">coxph</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> male <span class="sc">+</span> imr.birth <span class="sc">+</span> <span class="fu">strata</span>(region), </span>
+<span id="cb9-2"><a href="cox-proportional-hazard-modeling-1.html#cb9-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> oldmort01) </span>
+<span id="cb9-3"><a href="cox-proportional-hazard-modeling-1.html#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="cox-proportional-hazard-modeling-1.html#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(oldmort_coxst)</span></code></pre></div>
+<pre><code>## Call:
+## coxph(formula = Surv(enter, exit, event) ~ male + imr.birth + 
+##     strata(region), data = oldmort01)
+## 
+##   n= 6495, number of events= 1971 
+## 
+##               coef exp(coef) se(coef)     z Pr(&gt;|z|)    
+## malemale  0.178905  1.195907 0.045963 3.892 9.93e-05 ***
+## imr.birth 0.003723  1.003730 0.006769 0.550    0.582    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+##           exp(coef) exp(-coef) lower .95 upper .95
+## malemale      1.196     0.8362    1.0929     1.309
+## imr.birth     1.004     0.9963    0.9905     1.017
+## 
+## Concordance= 0.528  (se = 0.008 )
+## Likelihood ratio test= 15.55  on 2 df,   p=4e-04
+## Wald test            = 15.68  on 2 df,   p=4e-04
+## Score (logrank) test = 15.72  on 2 df,   p=4e-04</code></pre>
+</div>
+<div id="strata-in-coxph" class="section level3 hasAnchor" number="7.3.3">
+<h3><span class="header-section-number">7.3.3</span> <code>strata</code> in <code>coxph</code><a href="cox-proportional-hazard-modeling-1.html#strata-in-coxph" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="cox-proportional-hazard-modeling-1.html#cb11-1" aria-hidden="true" tabindex="-1"></a>oldmort_coxst <span class="ot">&lt;-</span> <span class="fu">coxph</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> male <span class="sc">+</span> imr.birth <span class="sc">+</span> <span class="fu">strata</span>(region), </span>
+<span id="cb11-2"><a href="cox-proportional-hazard-modeling-1.html#cb11-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> oldmort01) </span>
+<span id="cb11-3"><a href="cox-proportional-hazard-modeling-1.html#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="cox-proportional-hazard-modeling-1.html#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(oldmort_coxst)</span></code></pre></div>
+<pre><code>## Call:
+## coxph(formula = Surv(enter, exit, event) ~ male + imr.birth + 
+##     strata(region), data = oldmort01)
+## 
+##   n= 6495, number of events= 1971 
+## 
+##               coef exp(coef) se(coef)     z Pr(&gt;|z|)    
+## malemale  0.178905  1.195907 0.045963 3.892 9.93e-05 ***
+## imr.birth 0.003723  1.003730 0.006769 0.550    0.582    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+##           exp(coef) exp(-coef) lower .95 upper .95
+## malemale      1.196     0.8362    1.0929     1.309
+## imr.birth     1.004     0.9963    0.9905     1.017
+## 
+## Concordance= 0.528  (se = 0.008 )
+## Likelihood ratio test= 15.55  on 2 df,   p=4e-04
+## Wald test            = 15.68  on 2 df,   p=4e-04
+## Score (logrank) test = 15.72  on 2 df,   p=4e-04</code></pre>
+</div>
+<div id="strata-in-coxph-with-interaction-terms" class="section level3 hasAnchor" number="7.3.4">
+<h3><span class="header-section-number">7.3.4</span> <code>strata</code> in <code>coxph</code> with interaction terms<a href="cox-proportional-hazard-modeling-1.html#strata-in-coxph-with-interaction-terms" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Interaction terms for <code>region</code> can be included directly in the model formula by including product terms using the <code>:</code> operator.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="cox-proportional-hazard-modeling-1.html#cb13-1" aria-hidden="true" tabindex="-1"></a>oldmort_coxst <span class="ot">&lt;-</span> <span class="fu">coxph</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> male <span class="sc">+</span> imr.birth <span class="sc">+</span> male<span class="sc">:</span>region <span class="sc">+</span> <span class="fu">strata</span>(region), </span>
+<span id="cb13-2"><a href="cox-proportional-hazard-modeling-1.html#cb13-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> oldmort01) </span>
+<span id="cb13-3"><a href="cox-proportional-hazard-modeling-1.html#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="cox-proportional-hazard-modeling-1.html#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(oldmort_coxst)</span></code></pre></div>
+<pre><code>## Call:
+## coxph(formula = Surv(enter, exit, event) ~ male + imr.birth + 
+##     male:region + strata(region), data = oldmort01)
+## 
+##   n= 6495, number of events= 1971 
+## 
+##                               coef exp(coef) se(coef)     z Pr(&gt;|z|)    
+## malemale                  0.684144  1.982075 0.159427 4.291 1.78e-05 ***
+## imr.birth                 0.004434  1.004444 0.006755 0.656 0.511585    
+## malefemale:regionindustry 0.483570  1.621854 0.175642 2.753 0.005902 ** 
+## malemale:regionindustry         NA        NA 0.000000    NA       NA    
+## malefemale:regionrural    0.593993  1.811206 0.171391 3.466 0.000529 ***
+## malemale:regionrural            NA        NA 0.000000    NA       NA    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+##                           exp(coef) exp(-coef) lower .95 upper .95
+## malemale                      1.982     0.5045    1.4502     2.709
+## imr.birth                     1.004     0.9956    0.9912     1.018
+## malefemale:regionindustry     1.622     0.6166    1.1495     2.288
+## malemale:regionindustry          NA         NA        NA        NA
+## malefemale:regionrural        1.811     0.5521    1.2944     2.534
+## malemale:regionrural             NA         NA        NA        NA
+## 
+## Concordance= 0.528  (se = 0.008 )
+## Likelihood ratio test= 27.26  on 4 df,   p=2e-05
+## Wald test            = 28.43  on 4 df,   p=1e-05
+## Score (logrank) test = 29.12  on 4 df,   p=7e-06</code></pre>
+<p>Suppose we wish to estimate the hazard ratio for <code>male = 1</code> vs. <code>male = 0</code> for <code>region = 2</code>. This hazard ratio can be estimated by exponentiating the coefficient for <code>male</code> plus 2 times the coefficient for the <code>male*region</code> interaction term. This expression is obtained by substituting the appropriate values into the hazard in both the numerator (for <code>male = 1</code>) and denominator (for <code>male = 0</code>).</p>
+<p><span class="math display">\[HR=\frac{h_0(t) \exp[\beta_1 (1) + \beta_2 imr.birth + \beta_3 (1)(2) + \beta_4 (2)]}{h_0(t) \exp[\beta_1 (0) + \beta_2 imr.birth + \beta_3 (0)(2) + \beta_4 (2)]}=\exp(\beta_1 + 2 \beta_3)\]</span>
+The resulting hazard ratio, <span class="math inline">\(\exp(\beta_1 + 2 \beta_2)\)</span>, is an exponentiated linear combination of parameters. Unfortunately, <strong>R</strong> does not have a <code>lincom</code> command that Stata provides or an estimate statement that SAS provides in order to calculate a linear combination of parameter estimates. However an approach that can be used in any statistical software package for such a situation is to recode the variable(s) of interest such that the desired estimate is no longer a linear combination of parameter estimates.</p>
+</div>
+<div id="weibull-ph-models-with-or-without-stratification" class="section level3 hasAnchor" number="7.3.5">
+<h3><span class="header-section-number">7.3.5</span> Weibull PH models with or without stratification<a href="cox-proportional-hazard-modeling-1.html#weibull-ph-models-with-or-without-stratification" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Without stratification</li>
+</ul>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="cox-proportional-hazard-modeling-1.html#cb15-1" aria-hidden="true" tabindex="-1"></a>Weib.PH_st <span class="ot">&lt;-</span> <span class="fu">phreg</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> male <span class="sc">+</span> imr.birth,</span>
+<span id="cb15-2"><a href="cox-proportional-hazard-modeling-1.html#cb15-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">data =</span> oldmort01, </span>
+<span id="cb15-3"><a href="cox-proportional-hazard-modeling-1.html#cb15-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">dist=</span><span class="st">&quot;weibull&quot;</span>, </span>
+<span id="cb15-4"><a href="cox-proportional-hazard-modeling-1.html#cb15-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">param=</span><span class="st">&quot;survreg&quot;</span>)</span>
+<span id="cb15-5"><a href="cox-proportional-hazard-modeling-1.html#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="cox-proportional-hazard-modeling-1.html#cb15-6" aria-hidden="true" tabindex="-1"></a>b_Weib.PH_st <span class="ot">=</span> <span class="fu">coef</span>(Weib.PH_st)</span>
+<span id="cb15-7"><a href="cox-proportional-hazard-modeling-1.html#cb15-7" aria-hidden="true" tabindex="-1"></a>Weib.PH_st</span></code></pre></div>
+<pre><code>## Call:
+## phreg(formula = Surv(enter, exit, event) ~ male + imr.birth, 
+##     data = oldmort01, dist = &quot;weibull&quot;, param = &quot;survreg&quot;)
+## 
+## Covariate          W.mean      Coef Exp(Coef)  se(Coef)    Wald p
+## male 
+##           female    0.594     0         1           (reference)
+##             male    0.406     0.192     1.212     0.046     0.000 
+## imr.birth          15.162     0.005     1.005     0.006     0.446 
+## 
+## log(scale)                    4.371               0.012     0.000 
+## log(shape)                    2.091               0.027     0.000 
+## 
+## Events                    1971 
+## Total time at risk         37824 
+## Max. log. likelihood      -7287.9 
+## LR test statistic         18.30 
+## Degrees of freedom        2 
+## Overall p-value           0.000106031</code></pre>
+<ul>
+<li>With stratification</li>
+</ul>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="cox-proportional-hazard-modeling-1.html#cb17-1" aria-hidden="true" tabindex="-1"></a>Weib.PH_st <span class="ot">&lt;-</span> <span class="fu">phreg</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> male <span class="sc">+</span> imr.birth <span class="sc">+</span> <span class="fu">strata</span>(region),</span>
+<span id="cb17-2"><a href="cox-proportional-hazard-modeling-1.html#cb17-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">data =</span> oldmort01, </span>
+<span id="cb17-3"><a href="cox-proportional-hazard-modeling-1.html#cb17-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">dist=</span><span class="st">&quot;weibull&quot;</span>, </span>
+<span id="cb17-4"><a href="cox-proportional-hazard-modeling-1.html#cb17-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">param=</span><span class="st">&quot;survreg&quot;</span>)</span>
+<span id="cb17-5"><a href="cox-proportional-hazard-modeling-1.html#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="cox-proportional-hazard-modeling-1.html#cb17-6" aria-hidden="true" tabindex="-1"></a>b_Weib.PH_st <span class="ot">=</span> <span class="fu">coef</span>(Weib.PH_st)</span>
+<span id="cb17-7"><a href="cox-proportional-hazard-modeling-1.html#cb17-7" aria-hidden="true" tabindex="-1"></a>Weib.PH_st</span></code></pre></div>
+<pre><code>## Call:
+## phreg(formula = Surv(enter, exit, event) ~ male + imr.birth + 
+##     strata(region), data = oldmort01, dist = &quot;weibull&quot;, param = &quot;survreg&quot;)
+## 
+## Covariate          W.mean      Coef Exp(Coef)  se(Coef)    Wald p
+## male 
+##           female    0.594     0         1           (reference)
+##             male    0.406     0.181     1.198     0.046     0.000 
+## imr.birth          15.162     0.005     1.005     0.007     0.445 
+## 
+## log(scale):1                  4.383               0.020     0.000 
+## log(shape):1                  1.954               0.106     0.000 
+## log(scale):2                  4.352               0.015     0.000 
+## log(shape):2                  2.009               0.046     0.000 
+## log(scale):3                  4.379               0.012     0.000 
+## log(shape):3                  2.158               0.035     0.000 
+## 
+## Events                    1971 
+## Total time at risk         37824 
+## Max. log. likelihood      -7276.8 
+## LR test statistic         16.30 
+## Degrees of freedom        2 
+## Overall p-value           0.000288105</code></pre>
+<p>Here are some differences between two models:</p>
+<ul>
+<li><p>Compared to the Weibull PH model without stratification, the stratified model includes additional set of parameters of log(scale) and log(shape). More specifically, both log(scale) and log(shape) will be estimated for each stratum.</p></li>
+<li><p>Only one set of coefficients of clinic and dose was estimated. this means that the stratified model assume the effects of variables are the same across strata. In other words, “we allow both the scale and shape of the hazard to vary with strata, yet we constrained the effects of included variables to be the same for each stratum.”</p></li>
+</ul>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="cox-proportional-hazard-modeling-1.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Weib.PH_st)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>
+</div>
+<div id="frailty-models" class="section level2 hasAnchor" number="7.4">
+<h2><span class="header-section-number">7.4</span> Frailty models<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a><a href="cox-proportional-hazard-modeling-1.html#frailty-models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Frailty models in survival analysis correspond to hierarchical models in linear or generalized linear models. They are also called <em>mixed effects models</em>. They contain an extra random component designed to account for individual(or subgroup)-level differences in the hazard otherwise unaccounted for by the model. The frailty, <span class="math inline">\(\alpha\)</span>, is a multiplicative effect on the hazard assumed to follow some distribution. The hazard function conditional on the frailty can be expressed as <span class="math inline">\(h(t|\alpha)=\alpha [h(t)]\)</span>.</p>
+<div id="simple-frailty-model" class="section level3 hasAnchor" number="7.4.1">
+<h3><span class="header-section-number">7.4.1</span> Simple Frailty Model<a href="cox-proportional-hazard-modeling-1.html#simple-frailty-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Vaupel et al. (1979) described an individual frailty model,
+<span class="math display">\[h(t;x,Z)=h_0(t)Z e^{\beta x}, \;\; t&gt;0,\]</span>
+where <span class="math inline">\(Z\)</span> is assumed to be drawn independently for each individual. Hazard rates for “random survivors” are not proportional, but converging (to each other) if the frailty distribution has finite variance. Thus, the problem may be less pronounced in AFT than in PH regression.</p>
+</div>
+<div id="shared-frailty-model" class="section level3 hasAnchor" number="7.4.2">
+<h3><span class="header-section-number">7.4.2</span> Shared Frailty Model<a href="cox-proportional-hazard-modeling-1.html#shared-frailty-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Frailty models work best when there is a natural grouping of the data, so that observations from the same group are dependent (<em>share the same frailty</em>), while two individual survival times from different groups can be regarded as independent. Such a model may be described as
+<span class="math display">\[h_i(t;x)=h_{i0}(t) e^{\beta x}, \;\;i=1,\dots, s; \;\;t&gt;0,\]</span></p>
+<p>which simply is a stratified Cox regression model. By assuming
+<span class="math display">\[h_{i0}(t)=Z_i h_0(t),\;\; i=1,\dots,s;\;\;t&gt;0,\]</span>
+the traditional multivariate frailty model emerges. Here it is assumed that <span class="math inline">\(Z_1,\dots,Z_s\)</span> are independent and identically distributed (<span class="math inline">\(iid\)</span>), usually with a lognormal distribution. From what we get, with <span class="math inline">\(U_i = \log(Z_i)\)</span>,
+<span class="math display">\[h_i(t;x)=h_0(t) e^{\beta x +U_i}, \;\;i=1,…,s;\;\;t&gt;0.\]</span>
+In this formulation, <span class="math inline">\(U_1,\dots, U_s\)</span> are <span class="math inline">\(iid\)</span> normal with mean zero and unknown variance <span class="math inline">\(\sigma^2\)</span>. Another popular choice of distribution for the <span class="math inline">\(Z:s\)</span> is the gamma distribution.</p>
+</div>
+<div id="cox-model-specification-1" class="section level3 hasAnchor" number="7.4.3">
+<h3><span class="header-section-number">7.4.3</span> Cox model specification<a href="cox-proportional-hazard-modeling-1.html#cox-model-specification-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="math display">\[ h(t) = h_0(t) \exp{(X\beta)} \]</span></p>
+</div>
+<div id="mixed-effects-cox-model-specification" class="section level3 hasAnchor" number="7.4.4">
+<h3><span class="header-section-number">7.4.4</span> Mixed effects Cox model specification<a href="cox-proportional-hazard-modeling-1.html#mixed-effects-cox-model-specification" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="math display">\[ h(t) = h_0(t) \exp{(X\beta+Zb)},\;\;\; b \sim  G(0, \sum(\theta)) \]</span>
+where <span class="math inline">\(h_0\)</span> is unspecified baseline hazard function, <span class="math inline">\(X\)</span> and <span class="math inline">\(Z\)</span> are the design matrices for the fixed and random effects, respectively, <span class="math inline">\(\beta\)</span> is the vector of fixed-effect coefficients and <span class="math inline">\(b\)</span> is the vector of random effects coefficents. The random effects distribution <span class="math inline">\(G\)</span> is modeled as Gaussian with mean 0 and a variance matrax <span class="math inline">\(\sum\)</span>, which in turn depends a vector of parameters <span class="math inline">\(\theta\)</span>.</p>
+</div>
+<div id="models-without-considering-fraility" class="section level3 hasAnchor" number="7.4.5">
+<h3><span class="header-section-number">7.4.5</span> Models without considering fraility<a href="cox-proportional-hazard-modeling-1.html#models-without-considering-fraility" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>R</strong> offers three choices for the distribution of the frailty: the gamma, Gaussian, and <span class="math inline">\(t\)</span> distributions. The variance (<span class="math inline">\(\theta\)</span>) of the frailty component is a parameter typically estimated by the model. If <span class="math inline">\(\theta\)</span> = 0, then there is no frailty.</p>
+<p>First, we rerun a stratified Cox model without frailty.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="cox-proportional-hazard-modeling-1.html#cb20-1" aria-hidden="true" tabindex="-1"></a>oldmort_coxst <span class="ot">&lt;-</span> <span class="fu">coxph</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> male <span class="sc">+</span> imr.birth <span class="sc">+</span> <span class="fu">strata</span>(region), </span>
+<span id="cb20-2"><a href="cox-proportional-hazard-modeling-1.html#cb20-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> oldmort01) </span>
+<span id="cb20-3"><a href="cox-proportional-hazard-modeling-1.html#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="cox-proportional-hazard-modeling-1.html#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(oldmort_coxst)</span></code></pre></div>
+<pre><code>## Call:
+## coxph(formula = Surv(enter, exit, event) ~ male + imr.birth + 
+##     strata(region), data = oldmort01)
+## 
+##   n= 6495, number of events= 1971 
+## 
+##               coef exp(coef) se(coef)     z Pr(&gt;|z|)    
+## malemale  0.178905  1.195907 0.045963 3.892 9.93e-05 ***
+## imr.birth 0.003723  1.003730 0.006769 0.550    0.582    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+##           exp(coef) exp(-coef) lower .95 upper .95
+## malemale      1.196     0.8362    1.0929     1.309
+## imr.birth     1.004     0.9963    0.9905     1.017
+## 
+## Concordance= 0.528  (se = 0.008 )
+## Likelihood ratio test= 15.55  on 2 df,   p=4e-04
+## Wald test            = 15.68  on 2 df,   p=4e-04
+## Score (logrank) test = 15.72  on 2 df,   p=4e-04</code></pre>
+<p>Next we illustrate how to include a frailty component in this model.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="cox-proportional-hazard-modeling-1.html#cb22-1" aria-hidden="true" tabindex="-1"></a>oldmort_coxst <span class="ot">&lt;-</span> <span class="fu">coxph</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> male <span class="sc">+</span> imr.birth <span class="sc">+</span> <span class="fu">strata</span>(region) <span class="sc">+</span> <span class="fu">frailty</span>(id, <span class="at">distribution =</span> <span class="st">&quot;gamma&quot;</span>), </span>
+<span id="cb22-2"><a href="cox-proportional-hazard-modeling-1.html#cb22-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> oldmort01) </span></code></pre></div>
+<pre><code>## Warning in coxpenal.fit(X, Y, istrat, offset, init = init, control, weights =
+## weights, : Inner loop failed to coverge for iterations 2</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="cox-proportional-hazard-modeling-1.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(oldmort_coxst)</span></code></pre></div>
+<pre><code>## Call:
+## coxph(formula = Surv(enter, exit, event) ~ male + imr.birth + 
+##     strata(region) + frailty(id, distribution = &quot;gamma&quot;), data = oldmort01)
+## 
+##   n= 6495, number of events= 1971 
+## 
+##                           coef     se(coef) se2      Chisq DF  p      
+## malemale                  0.178913 0.045964 0.045963 15.15 1.0 9.9e-05
+## imr.birth                 0.003723 0.006769 0.006769  0.30 1.0 5.8e-01
+## frailty(id, distribution                              0.10 0.1 4.9e-01
+## 
+##           exp(coef) exp(-coef) lower .95 upper .95
+## malemale      1.196     0.8362    1.0929     1.309
+## imr.birth     1.004     0.9963    0.9905     1.017
+## 
+## Iterations: 5 outer, 42 Newton-Raphson
+##      Variance of random effect= 5e-05   I-likelihood = -11764.4 
+## Degrees of freedom for terms= 1.0 1.0 0.1 
+## Concordance= 0.553  (se = 0.008 )
+## Likelihood ratio test= 15.74  on 2.1 df,   p=4e-04</code></pre>
+<p>The term <code>+ frailty(id, distribution=“gamma”)</code> is included in the model formula. The first argument of the frailty function is the variable id and indicates that the unmeasured heterogeneity (the frailty) is at the individual level. The second argument indicates that the distribution of the random component is the gamma distribution.</p>
+<p>Under the table of parameter estimates the output indicates that the variance of random effect is very small. The p-value for the frailty component indicates that the frailty component is not significant. We conclude that the variance of the random component is zero for this model (i.e., there is no frailty).</p>
+</div>
+<div id="coxme-package-for-frailty-models" class="section level3 hasAnchor" number="7.4.6">
+<h3><span class="header-section-number">7.4.6</span> <code>coxme</code> package for frailty models<a href="cox-proportional-hazard-modeling-1.html#coxme-package-for-frailty-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="nested-in-each-individual" class="section level4 hasAnchor" number="7.4.6.1">
+<h4><span class="header-section-number">7.4.6.1</span> Nested in each individual<a href="cox-proportional-hazard-modeling-1.html#nested-in-each-individual" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The package <code>coxme</code> works with frailty (e.g., <code>(1 | id)</code>), accounting for multiple observations in each <code>id</code>.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="cox-proportional-hazard-modeling-1.html#cb26-1" aria-hidden="true" tabindex="-1"></a>oldmort_coxst <span class="ot">&lt;-</span> <span class="fu">coxme</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> male <span class="sc">+</span> region <span class="sc">+</span> imr.birth <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> id), </span>
+<span id="cb26-2"><a href="cox-proportional-hazard-modeling-1.html#cb26-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> oldmort01) </span>
+<span id="cb26-3"><a href="cox-proportional-hazard-modeling-1.html#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="cox-proportional-hazard-modeling-1.html#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(oldmort_coxst)</span></code></pre></div>
+<pre><code>## Cox mixed-effects model fit by maximum likelihood
+##   Data: oldmort01
+##   events, n = 1971, 6495
+##   Iterations= 5 23 
+##                    NULL Integrated   Fitted
+## Log-likelihood -13578.6  -13562.88 -13539.4
+## 
+##                   Chisq    df          p   AIC     BIC
+## Integrated loglik 31.44  5.00 7.6668e-06 21.44   -6.49
+##  Penalized loglik 78.40 27.36 8.0644e-07 23.68 -129.15
+## 
+## Model:  Surv(enter, exit, event) ~ male + region + imr.birth + (1 | id) 
+## Fixed coefficients
+##                       coef exp(coef)    se(coef)    z       p
+## malemale       0.187097661  1.205745 0.046200912 4.05 5.1e-05
+## regionindustry 0.225769128  1.253286 0.087555314 2.58 9.9e-03
+## regionrural    0.068923216  1.071354 0.087071018 0.79 4.3e-01
+## imr.birth      0.004661296  1.004672 0.006782026 0.69 4.9e-01
+## 
+## Random effects
+##  Group Variable  Std Dev    Variance  
+##  id    Intercept 0.10983436 0.01206359</code></pre>
+<p>The components of the resutls are<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
+<ul>
+<li><p>The total number of observations and the total number of events (deaths) in the data set.</p></li>
+<li><p>The computational effort, summarized as the number of iterations for the optim routine and the underlying Newton-Raphson iterations used.</p></li>
+<li><p>The log partial likelihood for a model with no covariates or random effects, the fitted partial likelihood, and the value with the random effects integrated out. We will normally be interested in the null and integrated values. (The log values are printed, but labeled as PL and IPL for brevity).</p></li>
+<li><p>Likelihood ratio tests based on the integrated and penalized views of the model, along with penalized values. The AIC penalizes by twice the effective degrees of freedom, and the BIC by log(d) times the effective degrees of freedom, where d is the number of events.</p></li>
+<li><p>A summary of the fixed effects</p></li>
+<li><p>A summary of the variances of the random effects</p>
+<ul>
+<li>One feature of the mixed effects Cox model is that the standard deviation of the random effect is directly interpretable. The random effects <span class="math inline">\(b_j\)</span> for each individual <span class="math inline">\(j\)</span> are in the risk score, a value of .11 for instance (one standard deviation above the mean) corresponds to a relative risk of exp(.11) = 1.12, an almost 12% higher risk of death for subjects at that individual.</li>
+</ul></li>
+</ul>
+</div>
+<div id="nested-in-each-mother" class="section level4 hasAnchor" number="7.4.6.2">
+<h4><span class="header-section-number">7.4.6.2</span> Nested in each mother<a href="cox-proportional-hazard-modeling-1.html#nested-in-each-mother" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><code>m.id</code> is a identifier for each mother.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="cox-proportional-hazard-modeling-1.html#cb28-1" aria-hidden="true" tabindex="-1"></a>oldmort_coxst <span class="ot">&lt;-</span> <span class="fu">coxme</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> male <span class="sc">+</span> region <span class="sc">+</span> imr.birth <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> m.id), </span>
+<span id="cb28-2"><a href="cox-proportional-hazard-modeling-1.html#cb28-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> oldmort01) </span>
+<span id="cb28-3"><a href="cox-proportional-hazard-modeling-1.html#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="cox-proportional-hazard-modeling-1.html#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(oldmort_coxst)</span></code></pre></div>
+<pre><code>## Cox mixed-effects model fit by maximum likelihood
+##   Data: oldmort01
+##   events, n = 888, 3340 (3155 observations deleted due to missingness)
+##   Iterations= 2 10 
+##                     NULL Integrated    Fitted
+## Log-likelihood -5702.662  -5694.263 -5693.911
+## 
+##                   Chisq   df         p AIC    BIC
+## Integrated loglik  16.8 5.00 0.0048989 6.8 -17.15
+##  Penalized loglik  17.5 4.35 0.0021189 8.8 -12.04
+## 
+## Model:  Surv(enter, exit, event) ~ male + region + imr.birth + (1 | m.id) 
+## Fixed coefficients
+##                       coef exp(coef)   se(coef)     z     p
+## malemale        0.13528873 1.1448673 0.06840477  1.98 0.048
+## regionindustry  0.16109275 1.1747939 0.13624607  1.18 0.240
+## regionrural    -0.08711187 0.9165746 0.14598296 -0.60 0.550
+## imr.birth      -0.02119861 0.9790245 0.01447452 -1.46 0.140
+## 
+## Random effects
+##  Group Variable  Std Dev      Variance    
+##  m.id  Intercept 0.0199927885 0.0003997116</code></pre>
+<p>Because of missing cases in <code>m.id</code>, the results above are not comparable. To make both models, nested in each individual vs. nested in each mother, we select cases with <code>m.id</code> is not missing.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="cox-proportional-hazard-modeling-1.html#cb30-1" aria-hidden="true" tabindex="-1"></a>oldmort01_mid <span class="ot">&lt;-</span> oldmort01[<span class="sc">!</span><span class="fu">is.na</span>(oldmort01<span class="sc">$</span>m.id), ]</span></code></pre></div>
+<p>Then fit the models, respectively.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="cox-proportional-hazard-modeling-1.html#cb31-1" aria-hidden="true" tabindex="-1"></a>oldmort_coxst <span class="ot">&lt;-</span> <span class="fu">coxme</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> male <span class="sc">+</span> region <span class="sc">+</span> imr.birth <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> id), </span>
+<span id="cb31-2"><a href="cox-proportional-hazard-modeling-1.html#cb31-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> oldmort01_mid) </span>
+<span id="cb31-3"><a href="cox-proportional-hazard-modeling-1.html#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="cox-proportional-hazard-modeling-1.html#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(oldmort_coxst)</span></code></pre></div>
+<pre><code>## Cox mixed-effects model fit by maximum likelihood
+##   Data: oldmort01_mid
+##   events, n = 888, 3340
+##   Iterations= 5 24 
+##                     NULL Integrated    Fitted
+## Log-likelihood -5702.662  -5694.064 -5618.221
+## 
+##                    Chisq    df          p   AIC     BIC
+## Integrated loglik  17.20  5.00 4.1412e-03  7.20  -16.75
+##  Penalized loglik 168.88 78.25 1.3031e-08 12.38 -362.37
+## 
+## Model:  Surv(enter, exit, event) ~ male + region + imr.birth + (1 | id) 
+## Fixed coefficients
+##                       coef exp(coef)   se(coef)     z    p
+## malemale        0.14578584 1.1569484 0.07085215  2.06 0.04
+## regionindustry  0.16556153 1.1800556 0.14095526  1.17 0.24
+## regionrural    -0.08807818 0.9156893 0.15076497 -0.58 0.56
+## imr.birth      -0.02125968 0.9789647 0.01493296 -1.42 0.15
+## 
+## Random effects
+##  Group Variable  Std Dev    Variance  
+##  id    Intercept 0.30065228 0.09039179</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="cox-proportional-hazard-modeling-1.html#cb33-1" aria-hidden="true" tabindex="-1"></a>oldmort_coxst <span class="ot">&lt;-</span> <span class="fu">coxme</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> male <span class="sc">+</span> region <span class="sc">+</span> imr.birth <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> m.id), </span>
+<span id="cb33-2"><a href="cox-proportional-hazard-modeling-1.html#cb33-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> oldmort01_mid) </span>
+<span id="cb33-3"><a href="cox-proportional-hazard-modeling-1.html#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="cox-proportional-hazard-modeling-1.html#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(oldmort_coxst)</span></code></pre></div>
+<pre><code>## Cox mixed-effects model fit by maximum likelihood
+##   Data: oldmort01_mid
+##   events, n = 888, 3340
+##   Iterations= 2 10 
+##                     NULL Integrated    Fitted
+## Log-likelihood -5702.662  -5694.263 -5693.911
+## 
+##                   Chisq   df         p AIC    BIC
+## Integrated loglik  16.8 5.00 0.0048989 6.8 -17.15
+##  Penalized loglik  17.5 4.35 0.0021189 8.8 -12.04
+## 
+## Model:  Surv(enter, exit, event) ~ male + region + imr.birth + (1 | m.id) 
+## Fixed coefficients
+##                       coef exp(coef)   se(coef)     z     p
+## malemale        0.13528873 1.1448673 0.06840477  1.98 0.048
+## regionindustry  0.16109275 1.1747939 0.13624607  1.18 0.240
+## regionrural    -0.08711187 0.9165746 0.14598296 -0.60 0.550
+## imr.birth      -0.02119861 0.9790245 0.01447452 -1.46 0.140
+## 
+## Random effects
+##  Group Variable  Std Dev      Variance    
+##  m.id  Intercept 0.0199927885 0.0003997116</code></pre>
+</div>
+<div id="individuals-are-nested-in-each-mother" class="section level4 hasAnchor" number="7.4.6.3">
+<h4><span class="header-section-number">7.4.6.3</span> Individuals are nested in each mother<a href="cox-proportional-hazard-modeling-1.html#individuals-are-nested-in-each-mother" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Here is the code, but do not run - it takes forever.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="cox-proportional-hazard-modeling-1.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># oldmort_coxst &lt;- coxme(Surv(enter, exit, event) ~ male + region + imr.birth + (1 | id/m.id), </span></span>
+<span id="cb35-2"><a href="cox-proportional-hazard-modeling-1.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="co">#              data = oldmort01_mid) </span></span>
+<span id="cb35-3"><a href="cox-proportional-hazard-modeling-1.html#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="cox-proportional-hazard-modeling-1.html#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(oldmort_coxst)</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="more-topics-on-survival-models" class="section level2 hasAnchor" number="7.5">
+<h2><span class="header-section-number">7.5</span> More topics on survival models<a href="cox-proportional-hazard-modeling-1.html#more-topics-on-survival-models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="why-we-call-cox-model-as-semi-parametric-model" class="section level3 hasAnchor" number="7.5.1">
+<h3><span class="header-section-number">7.5.1</span> Why we call Cox model as semi-parametric model?<a href="cox-proportional-hazard-modeling-1.html#why-we-call-cox-model-as-semi-parametric-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>The formulation of a likelihood function is based on the distribution of the outcome.</li>
+<li>The Cox PH model does not impose any assumption on the distribution of the outcome, time to event. It simply uses the observed order of the failure time. (thus, it is a partial likelihood)</li>
+<li>If any distributional assumption was imposed, then it is a parametric survival model.</li>
+<li>No assumption on <span class="math inline">\(h_0(t)\)</span> + proportional hazard assumption</li>
+</ul>
+</div>
+<div id="why-the-cox-ph-model-is-so-popular" class="section level3 hasAnchor" number="7.5.2">
+<h3><span class="header-section-number">7.5.2</span> Why the Cox PH model is so popular<a href="cox-proportional-hazard-modeling-1.html#why-the-cox-ph-model-is-so-popular" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>The Cox PH model is a model, so that the results from using the Cox model will closely approximate the results for the parametric model.
+<ul>
+<li>Even though the baseline hazard is not specified,</li>
+<li>reasonably good estimates of regression coefficients, hazard ratios of interest, and adjusted survival curves can be obtained for a wide variety of data situations.</li>
+<li>We would prefer to use a parametric model if we were sure of the correct model. However, we may not be completely certain that a given parametric model is appropriate.</li>
+<li>When in doubt, the Cox model is a “safe” choice.</li>
+</ul></li>
+<li>Along with “robustness”, the model specification of the Cox PH model has several good properties.
+<ul>
+<li>The exponential part of this product ensures that . (vs. a linear model with negative coefficients)</li>
+<li>The measure of effect, which is called a hazard ratio, is calculated .</li>
+<li>With a minimum of assumption, we can obtain the primary information about a hazard ratio and a survival curve.</li>
+<li>As compared to logistic model, the Cox PH model incorporate the survival time and censoring information.</li>
+</ul></li>
+</ul>
+</div>
+<div id="estimation-of-the-cox-ph-model-using-maximum-likelihood-ml" class="section level3 hasAnchor" number="7.5.3">
+<h3><span class="header-section-number">7.5.3</span> Estimation of the Cox PH model using Maximum likelihood (ML)<a href="cox-proportional-hazard-modeling-1.html#estimation-of-the-cox-ph-model-using-maximum-likelihood-ml" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>As with logistic regression, the ML estimates of the Cox model parameters are derived by maximizing a likelihood function, usually denoted as <span class="math inline">\(L\)</span> (e.g., <span class="math inline">\(L(\beta)\)</span>). <span class="math inline">\(L\)</span> is a partial likelihood (rather than a complete likelihood function):
+<ul>
+<li>considers probabilities only for subjects who fail</li>
+<li>does not consider probabilities for subjects who are censored</li>
+</ul></li>
+<li>More specifically, the model breaks down each failure time to calculate each likelihood, and then get the product of several likelihoods</li>
+</ul>
+<p><span class="math display">\[L = L_1 \times L_2 \times L_3 \times \cdots \times L_k = \prod_{j=1}^k L_j, \text{ where } L_j= \text{portion of } L \text{for the } j^{th} \text{ failure time given the risk set of } R(t_{(f)})\]</span>
+Once <span class="math inline">\(L\)</span> is obtained, <span class="math inline">\(\ln L\)</span> is maximized by solving <span class="math inline">\(\frac{\delta \ln L}{\delta \beta_i} = 0\)</span> for <span class="math inline">\((i=1, 2, \cdots, p)\)</span> (# of parameters) over iteration</p>
+</div>
+<div id="more-about-hazard-ratio" class="section level3 hasAnchor" number="7.5.4">
+<h3><span class="header-section-number">7.5.4</span> More about Hazard ratio<a href="cox-proportional-hazard-modeling-1.html#more-about-hazard-ratio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>-Hazard ratio = <span class="math inline">\(e^{\hat{\beta}}\)</span>
+- In general, a hazard ratio (HR) is defined as the hazard for one individual divided by the hazard for a different individual. The two individuals being compared can be distinguished by their values for the set of predictors, that is, the <span class="math inline">\(X\)</span>’s vs. <span class="math inline">\(X^*\)</span>’s. Therefore,</p>
+<p><span class="math display">\[ \hat{HR} = \frac{\hat{h} (t, X^*)}{\hat{h} (t, X)} = \frac{h_0 (t) \exp(\sum_{i=1}^p \beta_i X_i^*)}{h_0 (t) \exp(\sum_{i=1}^p \beta_i X_i)} = \frac{\exp(\sum_{i=1}^p \beta_i X_i^*)}{\exp(\sum_{i=1}^p \beta_i X_i)} = \exp[{\sum_{i=1}^p \hat{\beta_i}(X_i^* - X_i)}]\]</span>
+- Example: When <span class="math inline">\(X_1\)</span> denotes (0, 1) exposure status, then <span class="math inline">\(X_1^*=1\)</span>, <span class="math inline">\(X_1=0\)</span>, thus
+<span class="math display">\[\hat{HR} = \exp[{\sum_{i=1}^p \hat{\beta_i}(X_i^* - X_i)}] = \exp[\hat{\beta_1}(1-0)]= \exp(\hat{\beta_1})\]</span>
+- Thus, the <span class="math inline">\(X\)</span>’s are typically coded so that group with the larger hazard corresponds to <span class="math inline">\(X^*\)</span>, and the group with the smaller hazard corresponds to<span class="math inline">\(X\)</span>.</p>
+</div>
+<div id="adjusted-survival-curves-using-the-cox-ph-model" class="section level3 hasAnchor" number="7.5.5">
+<h3><span class="header-section-number">7.5.5</span> Adjusted Survival Curves using the Cox PH model<a href="cox-proportional-hazard-modeling-1.html#adjusted-survival-curves-using-the-cox-ph-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Two primary quantities we are interested in the survival model are
+<ul>
+<li>estimated hazard ratios</li>
+<li>esitmated surival curves</li>
+</ul></li>
+<li>In the Cox PH model,
+<ul>
+<li>Hazard function: <span class="math inline">\(h(t, X) = h_0(t) \exp[\sum_{i=1}^p \beta_i X_i]\)</span></li>
+<li>Survival function: <span class="math inline">\(S(t, X) = [S_0(t)]^{\exp[\sum_{i=1}^p \beta_i X_i]}\)</span></li>
+</ul></li>
+<li>Therefore, estimated functions are
+<ul>
+<li>Estimated Hazard function: <span class="math inline">\(\hat{h}(t, X) = \hat{h}_0(t) \exp[\sum_{i=1}^p \hat{\beta_i} X_i]\)</span></li>
+<li>Estimated survival function: <span class="math inline">\(\hat{S}(t, X) = [\hat{S}_0(t)]^{ \exp[\sum_{i=1}^p \hat{\beta_i} X_i]}\)</span></li>
+</ul></li>
+<li>To fit the estimated curves, a set of values for <span class="math inline">\(X_i\)</span> should be specified. Most software uses the of <span class="math inline">\(X\)</span>s to calculate the adjusted for covariates.</li>
+</ul>
+</div>
+<div id="notes-for-survival-model-selection" class="section level3 hasAnchor" number="7.5.6">
+<h3><span class="header-section-number">7.5.6</span> Notes for survival model selection<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a><a href="cox-proportional-hazard-modeling-1.html#notes-for-survival-model-selection" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>Akaike’s information criterion (AIC) provides an approach for comparing the fit of models with different underlying distributions, making use of the -2 log likelihood statistic</p>
+<ul>
+<li>The AIC statistic is calculated as: -2 log likelihood + 2<span class="math inline">\(p\)</span> (where <span class="math inline">\(p\)</span> is the number of parameters in the model).</li>
+<li>A smaller AIC statistic suggests a better fit.</li>
+<li>The addition of 2 times <span class="math inline">\(p\)</span> can be thought of as a penalty if nonpredictive parameters are added to the model.</li>
+<li>Nested vs. non-nested models (The likelihood ratio test for the nested model is considered a superior method to the AIC for comparing non-nested models)</li>
+</ul>
+<div class="figure">
+<img src="images/20210320_002.png" alt="" />
+<p class="caption">Figure: “AIC Example”</p>
+</div>
+<ul>
+<li>Likelihood ratio (LR) test: compute the difference between the log likelihood statistic of the reduced model (with fewer parameters to estimate) and the log likelihood statistic of the full model (with more parameters to estimate). In general, the LR statistic can be written in the form -2 ln LR minus
+-2 ln LF, where <span class="math inline">\(R\)</span> denotes the reduced model and <span class="math inline">\(F\)</span> denotes the full model. The test statistic has a <span class="math inline">\(\chi\)</span>-square distribution with <span class="math inline">\(p\)</span> degrees of freedom, where <span class="math inline">\(p\)</span> denotes the number of additional parameters being assessed.</li>
+</ul></li>
+<li><p>The exponential distribution is characterized by the fact that it <em>lacks memory</em>. In other words, items whose life lengths follow an exponential distribution do not age; no matter how old they are, if they are alive they are as good as new. This concept is not useful when it comes to human lives, but the life lengths of electronic components are often modeled by the exponential distribution in reliability theory.</p></li>
+<li><p>If the exponential distribution is not useful in describing human lives, it may be so for short segments of life. At least it will be a good approximation if the segment is short enough. This is the idea behind <strong>the piecewise constant hazards distribution</strong>. Its definition involves a partition of time (age) axis, and one positive constant (the hazard level) corresponding to each interval. Note that the last interval will be open, with infinite length; only a finite number of cut points are allowed. The definition of the hazard function <span class="math inline">\(h(x)\)</span> becomes, with the cuts denoted <span class="math inline">\(t=(t_1 &lt; \cdots &lt; t_n)\)</span> and the levels denoted <span class="math inline">\(h=(h_1, \dots, h_{n+1})\)</span>:
+<span class="math display">\[h(t;t,h)= h_1 (t \ge t_1);\]</span>
+<span class="math display">\[h_i (t_{i_1} &lt; t \ge t_i, i=2,\dots,n,);\]</span>
+<span class="math display">\[h_{n+1} (t_n&lt;t)\]</span></p>
+<ul>
+<li>In this definition, the number of levels must be exactly one more than the number of cut points.<br />
+</li>
+<li>Note that, despite the fact that the hazard function is not continuous, the other functions are. They are not differentiable at the cut points, though. <strong>The piecewise constant distribution is very flexible. It can be made arbitrarily close to any continuous distribution by increasing the number of cut points and choose the levels appropriately. Parametric proportional hazards modeling with the pch distribution is a serious competitor to the Cox regression model, especially with large data sets</strong>.</li>
+</ul></li>
+</ul>
+<p><strong>Piecewise constant hazards function</strong></p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="cox-proportional-hazard-modeling-1.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(eha)</span>
+<span id="cb36-2"><a href="cox-proportional-hazard-modeling-1.html#cb36-2" aria-hidden="true" tabindex="-1"></a>fit_pch <span class="ot">&lt;-</span> eha<span class="sc">::</span><span class="fu">pchreg</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> male <span class="sc">+</span> imr.birth <span class="sc">+</span> region,</span>
+<span id="cb36-3"><a href="cox-proportional-hazard-modeling-1.html#cb36-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">cuts =</span><span class="fu">seq</span>(<span class="dv">60</span>, <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">5</span>),</span>
+<span id="cb36-4"><a href="cox-proportional-hazard-modeling-1.html#cb36-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> oldmort01)</span>
+<span id="cb36-5"><a href="cox-proportional-hazard-modeling-1.html#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-6"><a href="cox-proportional-hazard-modeling-1.html#cb36-6" aria-hidden="true" tabindex="-1"></a>fit_np <span class="ot">&lt;-</span> <span class="fu">coxreg</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> male <span class="sc">+</span> imr.birth <span class="sc">+</span> region, </span>
+<span id="cb36-7"><a href="cox-proportional-hazard-modeling-1.html#cb36-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> oldmort01)</span>
+<span id="cb36-8"><a href="cox-proportional-hazard-modeling-1.html#cb36-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-9"><a href="cox-proportional-hazard-modeling-1.html#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="fu">compHaz</span>(fit_pch, fit_np)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<ul>
+<li>The Weibull distribution is a very popular parametric model for survival data, described in detail by Waloddi Weibull (Weibull 1951), known earlier. It is one of the so-called extreme-value distributions, and as such very useful in reliability theory. It is becoming popular in demographic applications, but in mortality studies it is wise to avoid it for old age mortality (the hazard grows too slow) and mortality in ages 0–15 years of age (U-shaped hazards, which the Weibull model doesn’t allow).</li>
+<li>The lognormal distribution is connected to the normal distribution through the exponential function: If <span class="math inline">\(X\)</span> is normally distributed, then <span class="math inline">\(Y = \exp(X)\)</span> is lognormally distributed. Conversely, if <span class="math inline">\(Y\)</span> is lognormally distributed, then <span class="math inline">\(X = \log(Y)\)</span> is normally distributed. The lognormal distribution has the interesting property that the hazard function is first increasing, then decreasing, in contrast to the Weibull distribution which only allows for monotone (increasing or decreasing) hazard functions.</li>
+<li>The loglogistic distribution is very close to the lognormal, but have heavier tail to the right. Its advantage over the lognormal is that the hazard function has closed form.</li>
+<li>The Gompertz distribution is useful for modeling old age mortality. The hazard function is exponentially increasing. The Gompertz distribution was generalized by (Makeham 1860) (the Gompertz—Makeham Distribution). The generalization consists of adding a positive constant to the Gompertz hazard function.</li>
+<li>The Gamma distribution is another generalization of the exponential distribution. It is popular in modeling shared frailty.</li>
+<li>When you have no idea of what the baseline hazard looks like, use Cox regression. Exponential regression can be used to fit models in whihc the hazard varies with time, and that may be a reasonable thing to do, expecially if you want to berify the fit of another parametric model. For instance, pretend that you habe strong reason to beliebe that the formulation outgh to be Weibull. Even after fitting a Weibull model, you could use the exponential model with dummy variables for interbals to verify that the Weibull fit was reasonable.</li>
+<li>Which test should we use?<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> There is no simple answer, so let us instead understand how to determine the answer in particular cases.
+<ul>
+<li>The advantage of the modeling-the-effect approaches is that you can control for the effects of other variables. For instance, we would know that patients vary in age, and we would know age also affects outcome. In a carefully controlled experiment, we could ignore that effect because the average ages (and the distribution of age) of the control and experimental groups would be the same.</li>
+<li>The disadvange of the modeling-the-effect approaches is that you could model the effect incorrectly in two ways. You could model incorrectly the effect of other variables, or you could mismodel the effect itself, for example, by stating its functional form incorrectly.</li>
+<li>Effects of the form “apply the treatment and get an overall improvement” are often not simple. Effects can vary with other covariates (being perhaps larger for males than for females), and effects can vary with time, whcih is to say, aspects that change over time and that are not measured. For instance, a treatment might involve surgery, after whcih there may be a greater risk to be followed by a lesser risk in the future.</li>
+<li>It is because of these concerns that looking at graphs is useful, whether you are engaging in parametric or semiparametric modeling (although, when doing semiparametric modeling, you can only indirectly look at the hazard function by looking at the cumulative hazard or survival function).</li>
+<li>In most real circumstances, you will be forced into parametric or semiparametric analysis. Nonparametric analysis is useful when the experiment has been carefully controlled, although even controlled experiments are sometimes not adequately controlled. Nonparametric analysis is always a useful starting point. In nonexperimental situations in the presence of covariates, you do this more as a data description technique rather than in hopes of producing any final analysis that you can believe. You, as a researcher, should be able to describe the surbibal experience, say, as reflected in a graph of the survivor function or cumulative hazard function for your data, ignoring the complications of confounding variables and the like. Before disentangling reality, you need to be able to describe the reality that your are starting with.</li>
+<li>So, our position is that you will likely be forced into parameterizing the effect. This is perhaps due more to our past analysis experiences. In a well-designed, controlled experiment, however, there is nothing wrong with not parameterizing the effect and stopping at nonparametric analysis.</li>
+<li>If you do need to continue, should you parameterize the hazard function? On this issue, different researchers fell differently. We are favorable disposed to parametric analysis when you have good reason to believe that the hazard function outgh to follow a certain shape. Imposing a hazard function is an excellent way of improving the efficiency of your estimates and helping to avoid being misled by the fortuity of chance. On the other hand, when you do not have a good deductive reasons to know the shape of the hazard, you should use semiparametric analysis.</li>
+<li>When choosing between a semiparametric and parametric analysis, you much also take into consideration what information you are trying to obtain. In all you care about are hazard ratios (parameter effects) in a PH model, then you are probably better off with a semiparametric analysis. If you are interested in predicting the time to failure, however, some sort of parametric assumption as to the hazard is necessary. Here even if you do not have deductive knowledge as to the shape of the hazard, you can try all functional forms, to compare various functional forms of the hazard. You can use the piecewise exponential model to “nonparametrically” check the validity of any parametric form you wish to posit.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="likelihood-and-partial-likelihood" class="section level2 hasAnchor" number="7.6">
+<h2><span class="header-section-number">7.6</span> Likelihood and partial likelihood<a href="cox-proportional-hazard-modeling-1.html#likelihood-and-partial-likelihood" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="maximum-likelihood-estimation" class="section level3 hasAnchor" number="7.6.1">
+<h3><span class="header-section-number">7.6.1</span> Maximum likelihood estimation<a href="cox-proportional-hazard-modeling-1.html#maximum-likelihood-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Maximum likelihood estimation (MLE, ML) is a general approach to estimate that has become popular in many different areas of application.</li>
+<li>There are two reasons for this popularity.
+<ul>
+<li>ML produces estimatros that have good large-sample properties. Provided that certain regularity conditions are met, ML estimators are consistent, asymptotically efficient, and asymptotically normal.
+<ul>
+<li><strong>Consistency</strong>: the estimates converge in probability to the true values as the sample gets larger, implying that the estimates will be approximately unbiased in large samples</li>
+<li><strong>Asymptotically efficient</strong>: In large samples, the estimates will have standard errors that are approximately at least as small as those for any other estimation method</li>
+<li><strong>Asymptotically normal</strong>: the sampling distribution of the estimates will be approximately normal in large samples, implying that we can use the normal and chi-square distributions to compute confidence intervals and p-values.</li>
+</ul></li>
+<li>It is often straightforward to derive ML estimators when there are no other obvious possibilities.
+<ul>
+<li>One case is that <strong>ML handles nicely is data with censored observations</strong>. (OLS will leads to larger standard errors and there is little available theory to justify the construction of hypothesis tests or confidence intervals)</li>
+</ul></li>
+</ul></li>
+<li>The basic principle of ML is to choose as estimates those values that will maximize the probability of observing what we have, in fact, observed.
+<ul>
+<li><strong>The first step</strong> is write down a formula for the probability of the data as a function of the unknown parameters (i.e., <strong>constructing the likelihood function</strong>)</li>
+<li><strong>The second step</strong> is to find the values of the unknown parameters that maek the value of this formula as large as possible (i.e., <strong>maximization</strong>)</li>
+</ul></li>
+<li>MLE
+<ul>
+<li><p>Assume that we have <span class="math inline">\(n\)</span> independent individuals <span class="math inline">\((j=1,2,\dots,n)\)</span>.</p></li>
+<li><p>For each individual <span class="math inline">\(i\)</span>, the data consist of three parts: <span class="math inline">\(t_i\)</span>, <span class="math inline">\(\delta_i\)</span>, and <span class="math inline">\(x_i\)</span>, where</p>
+<ul>
+<li><span class="math inline">\(t_i\)</span> is the time of the event or the time of censoring;</li>
+<li><span class="math inline">\(\delta_i\)</span> is an indicator variable with a value of 1 if <span class="math inline">\(t_i\)</span> is uncensored or 0 if right censored; and</li>
+<li><span class="math inline">\(x_i = [1\; x_{i1}\; \dots \;x_{ik}]\)</span> is a vector of covariates values (the 1 is for the intercept) (for simplicity, we treat them as fixed rather than random)</li>
+</ul></li>
+<li><p>Suppose that all the observations are uncensored. Because we are assuming <strong>independence</strong>, it follows that the probability of the entire data is found <strong>by taking the product of the probabilities of the data for every individual</strong>. Because <span class="math inline">\(t_i\)</span> is assumed to be measured on a continuum, the probability that it will take on any specific value is 0.</p></li>
+<li><p>Instead, we represent the probability of each observation by <strong>the probability density function (p.d.f.), <span class="math inline">\(f(t_i)\)</span>.</strong> Thus, the probability (or likelihood) of the data is given by the following expression, where <span class="math inline">\(\prod\)</span> indicates repeated multiplication:
+<span class="math display">\[L=\prod_{i=1}^{n} f_i(t_i)\]</span></p>
+<ul>
+<li>Note that <span class="math inline">\(f_i\)</span> is subscripted to indicate that each individual has a different p.d.f. that depends on the covariates.</li>
+</ul></li>
+<li><p>To proceed further, we need to <strong>substitute an expression for <span class="math inline">\(f_i(t_i)\)</span></strong> that involves covariates and the unknown parameters.</p>
+<ul>
+<li>Before we do this, however, let’s see how this likelihood is altered <strong>if we have censored cases</strong>.</li>
+<li>If an individual is censored at time <span class="math inline">\(t_i\)</span>, all we know is that the individual’s event time is greater than <span class="math inline">\(t_i\)</span>. But the probability of an event time greater than <span class="math inline">\(t_i\)</span> is given by the survivor function <span class="math inline">\(S(t)\)</span> evaluated at time <span class="math inline">\(t_i\)</span>. Now suppose that we have <span class="math inline">\(r\)</span> uncensored observations and <span class="math inline">\(n-r\)</span> censored observations.</li>
+<li>If we arrange the data so that all the uncensored cases come first, we can write the likelihood as
+<span class="math display">\[L=\prod_{i=1}^{r}f_i(t_i) \prod_{i=r+1}^{n} S_i(t_i)\]</span></li>
+<li>where, again, we subscript the survivor function to indicate that it depends on the covariates. Using the censoring indicator <span class="math inline">\(\delta\)</span>, we can equivalently write this as
+<span class="math display">\[L=\prod_{i=1}^{n}[f_i(t_i)]^{\delta_i} [S_i(t_i)]^{1-\delta_i}\]</span></li>
+<li>Here <span class="math inline">\(\delta_i\)</span> acts as a switch, turning the appropriate function on or off, depending on whether the observation is censored. As a result, we do not need to order the observations by censoring status. This last expression applies to all the models with right-censored data, shows how consored and uncensored cases are combined in ML estimation.</li>
+</ul></li>
+<li><p>Once we choose a particular model, we can substitute appropriate expressions for the p.d.f. and the survivor function.</p>
+<ul>
+<li>For example, the exponential model is <span class="math inline">\(f_i(t_i) = \lambda_i e^{-\lambda_i t_i}\)</span> and <span class="math inline">\(S_i(t_i)=e^{-\lambda_i t_i}\)</span>, where <span class="math inline">\(\lambda_i=\exp(-\beta x_i)\)</span> and <span class="math inline">\(x_i\)</span> is a vector of coefficients.</li>
+<li>Substituting, we get
+<span class="math display">\[L=\prod_{i=1}^{n} [\lambda_i e^{-\lambda_i t_i}]^{\delta_i}[e^{-\lambda_i t_i}]^{1-\delta_i}=\prod\lambda_i^{\delta_i}e^{-\lambda_i t_i}\]</span></li>
+</ul></li>
+<li><p>Although this expression can be maximized directly, <strong>it is generally easier to work with the natural logarithm of the likelihood function because products get converted into sums and exponents become coefficients.</strong> Because the logarithm is an increasing function, whatever maximizes the logarithm also maximizes the original function.</p></li>
+<li><p>Taking the logarithm of the likelihood, we get
+<span class="math display">\[\log L= \sum_{i=1}^{n} \delta_i \log \lambda_i - \sum_{i=1}^{n} \lambda_i t_i = -\beta \sum_{i=1}^{n} \delta_i x_i - \sum_{i=1}^{n} t_i e^{-\beta x_i}\]</span></p></li>
+<li><p>Now we are ready for <strong>step 2</strong>, finding values of <span class="math inline">\(\beta\)</span> that make this expression as large as possible. There are many different methods for maximizing functions like this. <strong>One well-known approach is to find the derivative of the function with respect to <span class="math inline">\(\beta\)</span>, set the derivative equal to 0, and then solve for <span class="math inline">\(\beta\)</span>.</strong></p>
+<ul>
+<li>Taking the derivative and setting it equal to 0 gives us
+<span class="math display">\[\sum_{i=1}^{n} \delta_i x_i = \sum_{i=1}^{n} x_i t_i e^{-\beta x_i}\]</span></li>
+<li>Because <span class="math inline">\(x_i\)</span> is a vector, this is actually a system of <span class="math inline">\(k+1\)</span> equations, one for each element of <span class="math inline">\(\beta\)</span>. While these equations are not terribly complicated, the problem is that they involve nonlinear functions of <span class="math inline">\(\beta\)</span>. Consequently, except in special cases (like a single dichotomous <span class="math inline">\(x\)</span> variable), <strong>there is no explicit solution.</strong></li>
+<li>Instead, we have to rely on <strong>iterative methods, which amount to successive approximations to the solution until the approximations converge to the correct value.</strong></li>
+<li>Again, there are many different methods for doing this. All give the same solution, but they differ in such factors as speed of convergence, sensitivity to starting values, and computational difficulty at each iteration. (e.g., the Newton-Raphson algorithm)</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="partial-likelihood-estimation" class="section level3 hasAnchor" number="7.6.2">
+<h3><span class="header-section-number">7.6.2</span> Partial likelihood estimation<a href="cox-proportional-hazard-modeling-1.html#partial-likelihood-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="math display">\[h_i(t)=h_0(t)\exp(\beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_n x_n )\]</span></p>
+<p>The likelihood function for the proportional hazards model of this equation can be factored into two parts:</p>
+<ul>
+<li>one part depends on both <span class="math inline">\(h_0(t)\)</span> and <span class="math inline">\(\beta=[\beta_1, \beta_2,\dots,\beta_n]^{&#39;}\)</span>, the vector of coefficients</li>
+<li>the other part depends on <strong><span class="math inline">\(\beta\)</span></strong> <span class="math inline">\(=[\beta_1, \beta_2,\dots,\beta_n]^{&#39;}\)</span> alone</li>
+</ul>
+<p><strong>What partial likelihood does, in effect, is discard the first part and treat the second part - the partial likelihood function - as though it were an ordinary likelihood function.</strong> You get estimates by finding values of <strong><span class="math inline">\(\beta\)</span></strong> that maximize the partial likelihood.</p>
+<ul>
+<li>Because there is some information about <span class="math inline">\(\beta\)</span> in the discarded portion of the likelihood function, the resulting estimates are <strong>not fully efficient</strong>. There standard errors are larger than they would be if you used the entire likelihood function to obtain the estimates. In most cases, <strong>however, the loss of efficiency is quite small.</strong></li>
+<li>What we gain in return is robustness because the estimates have good properties regardless of the actual shape of the baseline hazard function.</li>
+<li>To be specific, partial likelihood estimates still have two of the three standard properties of ML estimates: <strong>they are consistent and asymptotically normal.</strong> In other words, in large samples they are approximately unbiased and their sampling distribution is approximately normal.</li>
+<li>Another interesting property of partial likelihood estimates is that <strong>they depend only on the ranks of the event times, not their numerical values.</strong> This implies that any monotonic transformation of the event times will leave the coefficient estimates unchanged.
+<ul>
+<li>For example, we could add a constant to everyone’s event time, multiply the result by a constant, take the logarithm, and then take the square root - all without producing the slightest change in the coefficients or their standard errors.</li>
+</ul></li>
+</ul>
+<p>Now let’s take a closer look at how the partial likelihood works.</p>
+<ul>
+<li><p>Using the same notation as MLE,</p>
+<ul>
+<li>Assume that we have <span class="math inline">\(n\)</span> independent individuals <span class="math inline">\((j=1,2,\dots,n)\)</span>.</li>
+<li>For each individual <span class="math inline">\(i\)</span>, the data consist of three parts: <span class="math inline">\(t_i\)</span>, <span class="math inline">\(\delta_i\)</span>, and <span class="math inline">\(x_i\)</span>, where
+<ul>
+<li><span class="math inline">\(t_i\)</span> is the time of the event or the time of censoring;</li>
+<li><span class="math inline">\(\delta_i\)</span> is an indicator variable with a value of 1 if <span class="math inline">\(t_i\)</span> is uncensored or 0 if right censored; and</li>
+<li><span class="math inline">\(x_i = [1 x_{i1} \dots x_{ik}\)</span> is a vector of covariates values (the 1 is for the intercept) (for simplicity, we treat them as fixed rather than random)</li>
+</ul></li>
+</ul></li>
+<li><p>we can write the partial likelihoods as a product of the likelihoods for all the events that are observed. Thus if <span class="math inline">\(J\)</span> is the number of events,
+<span class="math display">\[PL=\prod_{j=1}^{J}L_j\]</span></p>
+<ul>
+<li>where <span class="math inline">\(L_j\)</span> is the likelihood for the <span class="math inline">\(J^{th}\)</span> event.</li>
+</ul></li>
+<li><p>Next we need to see how the individual <span class="math inline">\(L_J\)</span>s are constructed. This is best explained by way of an example.</p>
+<ul>
+<li><strong>First, we arrange data in ascending order by survival time,</strong> which is convenient for constructing the partial likelihood.</li>
+<li>Let’s say that the first death occurred to patient 1 in month 5. To construct the partial likelihood (<span class="math inline">\(L_1\)</span>) for this event, we ask the following quetion: <strong>Given that a death occurred in month 5, what is the probability that it happened to patient 1 rather than to one of the other patients? The answer is the hazard for patient1 at month 5 divided by the sum of the hazards for all the patients who were at risk of death in that same month.</strong> At month 5, let all other 45 patients were at risk of death, so the probability is
+<span class="math display">\[L_1=\frac{h_1(5)}{h_1(5)+h_2(5)+\dots +h_{45}(5)}\]</span></li>
+<li>The second death occurred to patient 2 in month 8. <strong>Again we ask, given that a death occurred in month 8, what is the probability that it occurred to patient 2 rather than to one of other patients ar risk?</strong> Patient 1 is no longer at risk of death bacuase she already died. So <span class="math inline">\(L_2\)</span> has the same form as <span class="math inline">\(L_1\)</span>, but the hazard for patient 1 is removed from the denominator:
+<span class="math display">\[L_2=\frac{h_2(8)}{h_2(8)+h_3(8)+\dots +h_{45}(8)}\]</span></li>
+<li>The set of all individuals who are at risk at a given point in time is often referred to as the risk set. At time 8, the risk set consists of patients 2 through 45, inclusive.</li>
+<li><strong>We continue in this way for each successive death, deleting from the denominator the hazards for all those who have already died. Also deleted from the denominator are those who have been censored at an earlier point in time.</strong></li>
+</ul></li>
+<li><p>Until now, we made no assumptions about the form of the hazard function. Now, we invoke <strong>the proportional hazards model and substitute the expression for the hazard into the expression for <span class="math inline">\(L_1\)</span>,</strong>
+<span class="math display">\[L_1=\frac{h_0(5)\exp[\beta x_1]}{h_0(5)\exp[\beta x_1]+h_0(5)\exp[\beta x_2]+\dots +h_0(5)\exp[\beta x_{45}]}\]</span>
+where <span class="math inline">\(x_i\)</span> is the value of <span class="math inline">\(x\)</span> for the <span class="math inline">\(i^{th}\)</span> patient.</p>
+<ul>
+<li>This leads to a considerable simplication because the unspecified function <span class="math inline">\(h_0(5)\)</span> is common to every term in the expression. Canceling, we get
+<span class="math display">\[L_1=\frac{\exp[\beta x_1]}{\exp[\beta x_1]+\exp[\beta x_2]+\dots +\exp[\beta x_{45}]}\]</span><br />
+</li>
+<li><strong>It is this cancellation of the <span class="math inline">\(\lambda\)</span>s that makes it possible to estimate the <span class="math inline">\(\beta\)</span> coefficients without haveing to specify the baseline function.</strong></li>
+</ul></li>
+<li><p>We can also test that <strong>the partial likelihood depends only on the order of the event times, not on their exact values.</strong></p>
+<ul>
+<li>Although the first death occurred in month 5, <span class="math inline">\(L_1\)</span> would be exactly the same if it had occurred at any time from 0 up to (but not including) 8, the month of the second event.</li>
+<li>Similarly, <span class="math inline">\(L_2\)</span> would have been the same if the second death had occurred any time greater than 5 and less than 10 (the month of the third death).</li>
+</ul></li>
+<li><p>Therefore, a general expression for the partial likelihood for data with time-invariant covariates from a proportional hazards model is
+<span class="math display">\[PL=\prod_{i=1}^{n}[\frac{\exp(\beta x_i)}{\sum_{j=1}^{n} Y_{ij}\exp{\beta x_j}}]^{\delta_i}\]</span></p>
+<ul>
+<li>where <span class="math inline">\(Y_{ij}=1\)</span> if <span class="math inline">\(t_j \le t_i\)</span>; and <span class="math inline">\(Y_{ij}=0\)</span> if <span class="math inline">\(t_j &lt; t_i\)</span></li>
+<li>The <span class="math inline">\(Y\)</span>s are just a convenient mechanism for excluding from the denominator those individuals who have already experienced the event and are, thus, not part of the risk set.</li>
+<li>Although this expression has the product taken over all individuals rather than over all events, the terms corresponding to censored observations are effectively excluded because <span class="math inline">\(\delta_i=0\)</span> for those cases.</li>
+<li>This expression is not valid for tied event times, but it does allow for ties between one event time and one or more censoring times.</li>
+</ul></li>
+<li><p>Once the partial likelihood is constructed, <strong>we can maximize it with respect to <span class="math inline">\(\beta\)</span> just like an ordinary likelihood,</strong> which is
+<span class="math display">\[\log PL=\sum_{i=1}^{n} \delta_i [\beta x_i - \log \sum_{j=1}^{n} Y_{ij}\exp{\beta x_j}]\]</span></p></li>
+<li><p>Most partial likelihood programs use some version of the Newton-Raphson alhorithm to maximize this function with respect to <span class="math inline">\(\beta\)</span>.</p></li>
+<li><p>To account for the time-varying covariates<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>, we need to modify the partial likelihood function to accommodate these types of variables. Essentially, at each failure time, there are a certain number of patients at risk, and one fails. However, the contributions of each subject can change from one failure time to the next. The hazard function if given by <span class="math inline">\(h(t)=h_0 (t)e^{z_k(t_i)\beta}\)</span>, where the covariate <span class="math inline">\(z_k(t_i)\)</span> is the value of the time-varying covariate for the <span class="math inline">\(k^{th}\)</span> subject at time <span class="math inline">\(t_i\)</span>.</p></li>
+</ul>
+<div class="figure">
+<img src="images/20210320_003.png" style="width:60.0%" alt="" />
+<p class="caption">Sample of six patients from the Stanford heart transplant dataset</p>
+</div>
+<ul>
+<li>The maximum partial likelihood is
+<span class="math display">\[L(\beta)=\prod_{i=1}^{D} \frac{\psi_{ii}}{\sum\limits_{k \in R_i} \psi_{ki}}, \;\;\; where\;\; \psi_{ki}=e^{z_k(t_i)\beta}  \]</span></li>
+<li>When the covariates were fixed at time 0, so that <span class="math inline">\(z_k(t_i)\)</span>=<span class="math inline">\(z_k\)</span> for all failure times <span class="math inline">\(t_i\)</span>, and the denominator at each time could be computed by, as time passes, successively deleting the value of <span class="math inline">\(\psi_i\)</span> for the subject (or subjects) that failed at that time.</li>
+<li><strong>With a time dependent covariate, by contrast, the entire denominator has to be recalculated at each failure time, since the values of the covariates for each subject may change from one failure time to the next.</strong>
+<ul>
+<li>For example, the patient #2 is the first to fail, at <span class="math inline">\(t=5\)</span>. At this time, all six patients are at risk, but only one, patient #95, has had a transplant at this time. So the denominator for the first factor is <span class="math inline">\(5+e^{\beta}\)</span>, and the numerator is 1, since it was a non-transplant patient who died.</li>
+<li>Patient #12 is the next to die, at time <span class="math inline">\(t=7\)</span>, and none of the patients in the risk set have changed their covariate value.</li>
+<li>But when the third patient #95 dies at <span class="math inline">\(t=15\)</span>, one of the other patients (#10) has switched from being a non-transplant patient to one who has had one. There are now four patients at risk, of which two (#10 and #95) are transplant patients. The denominator is thus <span class="math inline">\(2+2e^{\beta}\)</span> and the numerator is <span class="math inline">\(e^{\beta}\)</span>, since it was a transplant patient that died.</li>
+<li>Therefore, the full partial likelihood in this example is
+<span class="math display">\[L(\beta)=\frac{1}{5+e^{\beta}}\cdot\frac{1}{4+e^{\beta}}\cdot\frac{e^{\beta}}{2+2e^{\beta}}\cdot\frac{1}{2+e^{\beta}}\cdot\frac{e^{\beta}}{1+e^{\beta}}\cdot\frac{e^{\beta}}{e^{\beta}}\]</span></li>
+</ul></li>
+<li>Essentially, this approach divides the time data for patients who had a heart transplant into two time periods, one before the transplant and one after.
+<ul>
+<li>For example, patient #10 was a non-transplant patient from entry until day 11. Since that patient received a transplant at that time, the future for that patient, had he or she not received a transplant, is unknown. Thus, we censor that portion of the patient’s life experience at <span class="math inline">\(t=11\)</span>.</li>
+<li>Following the transplant, we start a new record for patient #10. This second piece of the record is left-truncated (i.e., patient’s survival experience with the transplant starts at that point) at time <span class="math inline">\(t=11\)</span>, and a death is recorded at time <span class="math inline">\(t=57\)</span>.</li>
+<li>For the first part of this patient’s experience, the ‘start’ time is 0, and the ‘stop’ time is 11, which is recorded as a censored observation. For the second piece of that patient’s experience, the start time is 11 and the stop time is 57.</li>
+<li>Thus, to put the sdata in start-stop format, the record of every patient with no transplant is carried forward as is, where as the record of each patient who received a transplant is split into pre-transplant and post-transplant records.</li>
+<li>Use “tmerge” in R to simplify this conversion.</li>
+</ul></li>
+</ul>
+<div class="figure">
+<img src="images/20210320_004.png" style="width:60.0%" alt="" />
+<p class="caption">Start-stop counting process</p>
+</div>
+</div>
+<div id="dependence-among-the-observations" class="section level3 hasAnchor" number="7.6.3">
+<h3><span class="header-section-number">7.6.3</span> Dependence among the observations<a href="cox-proportional-hazard-modeling-1.html#dependence-among-the-observations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>A common reaction to the methods described here is that there must be something wrong. <strong>In general, when multiple observations are created for a single individual, it’s reasonable to suppose that those observations are not independent, thereby violating a basic assumption used to construct the likelihood function. The consequence of dependence is usually biased standard error estimates and inflated test statistics.</strong> Even worse, there are different numbers of observations for different individuals, so some apper to get more weight than others.</li>
+<li><strong>While concern about dependence is often legitimate, it is not applicable here.</strong> In this case, the creation of multiple observations in not an ad-hoc method; rather, it follows directly from factoring the likelihood function for the data. The basic idea is this: in its original form, the likelihood for data with no censoring can be written as a product of probabilities over all <span class="math inline">\(n\)</span> observations, as follows:
+<span class="math display">\[\prod_{j=1}{n} P(T_i = t_i)\]</span>
+where <span class="math inline">\(T_i\)</span> is the random variable and <span class="math inline">\(t_i\)</span> is the particular value of observed for individual <span class="math inline">\(i\)</span>. Each of the probabilities can be factored in the following way. If <span class="math inline">\(t_i=5\)</span>, we have
+<span class="math display">\[P(T_i=5)=P_{i5}(1-P_{i4})(1-P_{i3})(1-P_{i2})(1-P_{i1})\]</span>
+where, again, <span class="math inline">\(P_{it}\)</span> is the conditional probability of an event at time <span class="math inline">\(t\)</span>, given that an event has not already occurred. This factorization follows directly from the definition of conditional probability. Each of the five terms behaves as if it came from a distinct, independent observation.</li>
+<li><strong>This lack of dependency holds only when no individual has more than one event. When events are repeatble, there is a real problem of dependence. But the problem is neither more nor less serious than it is for other methods fo survival analysis.</strong></li>
+</ul>
+</div>
+</div>
+<div id="tied-or-discrete-data-analysis" class="section level2 hasAnchor" number="7.7">
+<h2><span class="header-section-number">7.7</span> Tied or Discrete Data Analysis<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a><a href="cox-proportional-hazard-modeling-1.html#tied-or-discrete-data-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="example-recidivism-in-the-u.s." class="section level3 hasAnchor" number="7.7.1">
+<h3><span class="header-section-number">7.7.1</span> Example: Recidivism in the U.S.<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a><a href="cox-proportional-hazard-modeling-1.html#example-recidivism-in-the-u.s." class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The dataset considered here is analyzed in Wooldridge (2002) and credited to Chung, Schmidt and Witte (1991). The data pertain to a random sample of convicts released from prison between July 1, 1977 and June 30, 1978. Of interest is the time until they return to prison. The information was collected retrospectively by looking at records in April 1984, so the maximum possible length of observation is 81 months. The data are available in binary format from the Stata website and consists of 1445 observations on 18 variables.</p>
+<ul>
+<li>workprg: an indicator of participation in a work program</li>
+<li>priors: the number of previous convictions</li>
+<li>tserved: the time served rounded to months</li>
+<li>felon: an indicator of felony sentences</li>
+<li>alcohol: an indicator of alcohol problems</li>
+<li>drugs:an indicator of drug use history</li>
+<li>black: an indicator for African Americans</li>
+<li>married: an indicator if married when incarcerated</li>
+<li>educ: the number of years of schooling, and</li>
+<li>age: in months.</li>
+<li>durat: represents time in months until return to prison or end of follow up</li>
+<li>cens: the censoring indicator and is coded 1 if the observation was censored (i.e. the individual had not returned to prison)</li>
+</ul>
+<div id="data-management" class="section level4 hasAnchor" number="7.7.1.1">
+<h4><span class="header-section-number">7.7.1.1</span> Data management<a href="cox-proportional-hazard-modeling-1.html#data-management" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="cox-proportional-hazard-modeling-1.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
+<span id="cb37-2"><a href="cox-proportional-hazard-modeling-1.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb37-3"><a href="cox-proportional-hazard-modeling-1.html#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)</span>
+<span id="cb37-4"><a href="cox-proportional-hazard-modeling-1.html#cb37-4" aria-hidden="true" tabindex="-1"></a>recid <span class="ot">&lt;-</span> <span class="fu">read.dta</span>(<span class="st">&quot;https://www.stata.com/data/jwooldridge/eacsap/recid.dta&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning in read.dta(&quot;https://www.stata.com/data/jwooldridge/eacsap/recid.dta&quot;):
+## cannot read factor labels from Stata 5 files</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="cox-proportional-hazard-modeling-1.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(recid)</span></code></pre></div>
+<pre><code>##   black alcohol drugs super married felon workprg property person priors educ
+## 1     0       1     0     1       1     0       1        0      0      0    7
+## 2     1       0     0     1       0     1       1        1      0      0   12
+## 3     0       0     0     0       0     0       1        1      0      0    9
+## 4     0       0     1     1       0     1       1        1      0      2    9
+## 5     0       0     1     1       0     0       0        0      0      0    9
+## 6     1       0     0     1       0     0       1        0      0      1   12
+##   rules age tserved follow durat cens   ldurat
+## 1     2 441      30     72    72    1 4.276666
+## 2     0 307      19     75    75    1 4.317488
+## 3     5 262      27     81     9    0 2.197225
+## 4     3 253      38     76    25    0 3.218876
+## 5     0 244       4     81    81    1 4.394449
+## 6     0 277      13     79    79    1 4.369448</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="cox-proportional-hazard-modeling-1.html#cb41-1" aria-hidden="true" tabindex="-1"></a>recid<span class="sc">$</span>fail <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> recid<span class="sc">$</span>cens</span>
+<span id="cb41-2"><a href="cox-proportional-hazard-modeling-1.html#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="cox-proportional-hazard-modeling-1.html#cb41-3" aria-hidden="true" tabindex="-1"></a>recidx <span class="ot">&lt;-</span> <span class="fu">survSplit</span>(recid, <span class="at">cut =</span> <span class="fu">seq</span>(<span class="dv">12</span>, <span class="dv">60</span>, <span class="dv">12</span>), </span>
+<span id="cb41-4"><a href="cox-proportional-hazard-modeling-1.html#cb41-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">start =</span> <span class="st">&quot;t0&quot;</span>, <span class="at">end =</span> <span class="st">&quot;durat&quot;</span>, </span>
+<span id="cb41-5"><a href="cox-proportional-hazard-modeling-1.html#cb41-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">event =</span> <span class="st">&quot;fail&quot;</span>, </span>
+<span id="cb41-6"><a href="cox-proportional-hazard-modeling-1.html#cb41-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">episode =</span> <span class="st">&quot;interval&quot;</span>)</span>
+<span id="cb41-7"><a href="cox-proportional-hazard-modeling-1.html#cb41-7" aria-hidden="true" tabindex="-1"></a>labels <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">&quot;(&quot;</span>,<span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">60</span>,<span class="dv">12</span>),<span class="st">&quot;,&quot;</span>,<span class="fu">c</span>(<span class="fu">seq</span>(<span class="dv">12</span>,<span class="dv">60</span>,<span class="dv">12</span>),<span class="dv">81</span>), <span class="st">&quot;]&quot;</span>,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb41-8"><a href="cox-proportional-hazard-modeling-1.html#cb41-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-9"><a href="cox-proportional-hazard-modeling-1.html#cb41-9" aria-hidden="true" tabindex="-1"></a>recidx <span class="ot">&lt;-</span> <span class="fu">mutate</span>(recidx, <span class="at">exposure =</span> durat <span class="sc">-</span> t0, </span>
+<span id="cb41-10"><a href="cox-proportional-hazard-modeling-1.html#cb41-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">interval =</span> <span class="fu">factor</span>(interval <span class="sc">+</span> <span class="dv">1</span>, <span class="at">labels =</span> labels))</span>
+<span id="cb41-11"><a href="cox-proportional-hazard-modeling-1.html#cb41-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-12"><a href="cox-proportional-hazard-modeling-1.html#cb41-12" aria-hidden="true" tabindex="-1"></a>mf <span class="ot">&lt;-</span> <span class="fu">Surv</span>(durat, fail) <span class="sc">~</span> workprg <span class="sc">+</span> priors <span class="sc">+</span> tserved <span class="sc">+</span> felon <span class="sc">+</span> </span>
+<span id="cb41-13"><a href="cox-proportional-hazard-modeling-1.html#cb41-13" aria-hidden="true" tabindex="-1"></a>  alcohol <span class="sc">+</span> drugs <span class="sc">+</span> black <span class="sc">+</span> married <span class="sc">+</span> educ <span class="sc">+</span> age</span></code></pre></div>
+</div>
+</div>
+<div id="the-treatment-of-ties" class="section level3 hasAnchor" number="7.7.2">
+<h3><span class="header-section-number">7.7.2</span> The treatment of ties<a href="cox-proportional-hazard-modeling-1.html#the-treatment-of-ties" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Breslow’s method, the standard formular for partial likelihood estimation with tied data, is often a poor approximation when there are many ties.</li>
+<li>This problem was remedied by two exact methods, one that assumed that ties result from imprecise measurement and another that assumed that events really occur at the same (discrete) time.</li>
+<li>Efron’s method provides a good approximation to the exact methods.</li>
+</ul>
+<div id="the-exact-method" class="section level4 hasAnchor" number="7.7.2.1">
+<h4><span class="header-section-number">7.7.2.1</span> The Exact method<a href="cox-proportional-hazard-modeling-1.html#the-exact-method" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><p>Let’s begin with the exact method bacause its underlying model is probably more plausible for most application. <strong>Since events can occur at any point in time, it’s reasonable to suppose that ties are merely the result of imprecise measurement of time and that there is a true but unknown time ordering for the tied events.</strong></p></li>
+<li><p>If we knew that ordering, we could construct the partial likelihood in the usual way. In the absence of any knowledge of that ordering, however, we have to consider all the possibilities.</p></li>
+<li><p>For example, with five tied events, there are <span class="math inline">\(5!=120\)</span> different possible ordering.</p>
+<ul>
+<li>Let’s denote each of those possibilities by <span class="math inline">\(A_i\)</span>, where <span class="math inline">\(i=1, 2, \dots, 120\)</span>.</li>
+<li>What we want is the probability of the union of those possibilities, that is, <span class="math inline">\(P\)</span>(<span class="math inline">\(A_1\)</span> or <span class="math inline">\(A_2\)</span> or <span class="math inline">\(\dots\)</span> or <span class="math inline">\(A_{120}\)</span>).</li>
+<li>Now <strong>the fundamental law of probability theory is that the probability of the union of a set of mutually exclusive event is just the sum of the probabilities for each of the events.</strong></li>
+<li>Therefore, we can write, for example, the five tied event at <span class="math inline">\(L_8\)</span> as
+<span class="math display">\[L_8 = \sum_{i}^{120} p(A_i)\]</span></li>
+<li>Each of these 120 probabilities is just a standard partial likelihood.</li>
+<li>Suppose, for example, that we arbitrarily label the five events at time 8 with the numbers 8, 9, 10, 11, and 12, and suppose further that <span class="math inline">\(A_1\)</span> denotes the ordering <span class="math inline">\({8, 9, 10, 11, 12}\)</span>. Then</li>
+</ul>
+<p></p>
+<ul>
+<li>On the other hand, if <span class="math inline">\(A_2\)</span> denotes the ordering <span class="math inline">\({9, 10, 11, 12}\)</span>, we have</li>
+</ul>
+<p></p>
+<ul>
+<li>We continue in this way for the rest of the combinations.</li>
+</ul></li>
+</ul>
+</div>
+<div id="the-breslow-and-efron-method" class="section level4 hasAnchor" number="7.7.2.2">
+<h4><span class="header-section-number">7.7.2.2</span> The Breslow and Efron method<a href="cox-proportional-hazard-modeling-1.html#the-breslow-and-efron-method" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>Early recognition of these computational difficulties in the exact method led to the development of approximations.</li>
+<li>If the exact methods are too time-comsuming, use the Efron approximation. It is nearly always better than the Breslow method, with virtually no increase in computing time.</li>
+<li>Farewell and Prentice (1980) showed that the Breslow approximation deteriorates as the number of ties at a particular point in time becomes a large proportion of the number of cases at risk.</li>
+</ul>
+</div>
+<div id="comparisons" class="section level4 hasAnchor" number="7.7.2.3">
+<h4><span class="header-section-number">7.7.2.3</span> Comparisons<a href="cox-proportional-hazard-modeling-1.html#comparisons" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>Let us compare all available methods of handling ties. As is often the case, the Efron method comes closer to the exact partial likelihood estimate with substantial;y less computational effort, although in this application all methods yield very similar results.</li>
+</ul>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="cox-proportional-hazard-modeling-1.html#cb42-1" aria-hidden="true" tabindex="-1"></a>cox_efron <span class="ot">&lt;-</span> <span class="fu">coxph</span>(mf, <span class="at">data =</span> recidx, <span class="at">ties=</span><span class="st">&quot;efron&quot;</span>)</span>
+<span id="cb42-2"><a href="cox-proportional-hazard-modeling-1.html#cb42-2" aria-hidden="true" tabindex="-1"></a>cox_beslow <span class="ot">&lt;-</span> <span class="fu">coxph</span>(mf, <span class="at">data =</span> recidx, <span class="at">ties=</span><span class="st">&quot;breslow&quot;</span>)</span>
+<span id="cb42-3"><a href="cox-proportional-hazard-modeling-1.html#cb42-3" aria-hidden="true" tabindex="-1"></a>cox_exact <span class="ot">&lt;-</span> <span class="fu">coxph</span>(mf, <span class="at">data =</span> recidx, <span class="at">ties=</span><span class="st">&quot;exact&quot;</span>)</span>
+<span id="cb42-4"><a href="cox-proportional-hazard-modeling-1.html#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-5"><a href="cox-proportional-hazard-modeling-1.html#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">exactp =</span> <span class="fu">coef</span>(cox_exact),</span>
+<span id="cb42-6"><a href="cox-proportional-hazard-modeling-1.html#cb42-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">efron =</span> <span class="fu">coef</span>(cox_efron), </span>
+<span id="cb42-7"><a href="cox-proportional-hazard-modeling-1.html#cb42-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">breslow =</span> <span class="fu">coef</span>(cox_beslow))</span></code></pre></div>
+<pre><code>##               exactp        efron      breslow
+## workprg  0.111590748  0.111560134  0.111337070
+## priors   0.096271298  0.095985297  0.095859808
+## tserved  0.015595528  0.015558389  0.015519980
+## felon   -0.334451818 -0.333671514 -0.333261160
+## alcohol  0.478596659  0.477865298  0.477164506
+## drugs    0.327465984  0.327094665  0.326467040
+## black    0.504462343  0.503957605  0.503016140
+## married -0.153975705 -0.153542571 -0.153523788
+## educ    -0.024847512 -0.024770080 -0.024746660
+## age     -0.004199204 -0.004195258 -0.004187421</code></pre>
+</div>
+</div>
+</div>
+<div id="the-discrete-method" class="section level2 hasAnchor" number="7.8">
+<h2><span class="header-section-number">7.8</span> The discrete method<a href="cox-proportional-hazard-modeling-1.html#the-discrete-method" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>The discrete method is also an exact method but one based on a fundamentally different model.</p></li>
+<li><p><strong>In fact, this is NOT a proportional hazard model at all. The model does fall within the framework of Cox regression, however, because it was proposed by Cox in his original 1972 paper and because the estimation method is a form of partial likelihood.</strong></p></li>
+<li><p><strong>Unlike the exact model, which assumes that ties are merely the result of imprecise measurement of time, the discrete model assumes that time is really discrete.</strong></p></li>
+<li><p>When two or more events appear to happen at the same time, <strong>there is no underlying ordering - they really happened at the same time.</strong></p></li>
+<li><p>Cox’s model for discrete-time data can be described as follows. The time variable <span class="math inline">\(t\)</span> can only take on integer values. Let <span class="math inline">\(P_{it}\)</span> be the conditional probability that individual <span class="math inline">\(i\)</span> has an event at time <span class="math inline">\(t\)</span>, given that an event has not already occurred to that individual.</p></li>
+<li><p>This probability is sometimes called the discrete-time hazard. The model says that <span class="math inline">\(P_{it}\)</span> is related to the covariates by a logistic regression equation:
+<span class="math display">\[\log[\frac{P_{it}}{1-P_{it}}]=\beta_0 + \beta_1 x_1 + \cdots + \beta_i x_i\]</span></p></li>
+<li><p>The expression on the left side of the equation is the logit or log-odds of <span class="math inline">\(P_{it}\)</span>. On the right side, we have a linear function of the covariates, plus a term <span class="math inline">\(\beta_0\)</span> that is a set of constants that can vary arbitrarily from one time point to another.</p></li>
+<li><p>This model can be described as <strong>proportional odds model</strong>. The odds that individual <span class="math inline">\(i\)</span> has an event at time <span class="math inline">\(t\)</span> (given that <span class="math inline">\(i\)</span> did not already have an event) is <span class="math inline">\(O_{it}=\frac{P_{it}}{1-P_{it}}\)</span>.</p></li>
+<li><p><strong>The model implies that the ratio of the odds for any two individuals <span class="math inline">\(\frac{O_{it}}{O_{jt}}\)</span> does not depend on time (although it may vary with covariates)</strong></p></li>
+<li><p>Estimation with partial likelihood: <span class="math inline">\(PL=\sum_{j=1}^{J} L_i\)</span>, where <span class="math inline">\(L_j\)</span> is the partial likelihood of the <span class="math inline">\(j^{th}\)</span> event.</p>
+<ul>
+<li>This approach can be very cumbersome. Let’s say that at time 1, 22 people had events out of 100 people who were at risk. To get <span class="math inline">\(L_1\)</span>, we ask the question: given that 22 events occurred, what is the probability that they occurred to these particular 22 people rather than to some different set of 22 people from among the 100 at risk? How many different ways are there of selecting 22 people out of a set of 100? It’s <span class="math inline">\(_{22} C_{ 100} = 7.3321 \times 10 ^{21}\)</span>….</li>
+<li>In general, for a given set <span class="math inline">\(q\)</span>, let <span class="math inline">\(\psi_q\)</span> be the product of the odds for all the individuals in that set. Thus, if the individuals who actually experienced events are labeled <span class="math inline">\(i=1\)</span> to <span class="math inline">\(n\)</span>, we have
+<span class="math display">\[\psi_1 = \prod_{i=1}^{n} O_{i1}\]</span></li>
+<li>We can then write
+<span class="math display">\[L_1 = \frac{\psi_1}{\psi_1+\psi_2+ \cdots + \psi_q}\]</span></li>
+<li>This looks like a simple expression, but there are <em>trillions</em> of terms being summed in the denominator. Fortunately, there is a recursive algorithm that makes it practical, even with substantial numbers of ties.</li>
+</ul></li>
+<li><p>Estimation with maximum likelihood method</p>
+<ul>
+<li>The basic approach
+<ul>
+<li>Each individual’s survival history is broken down into a set of discrete time units that are treated as distinct observation</li>
+<li>After pooling these observations, the next step is to estimate a binary regression model predicting whether an event did or did not occur in each time unit</li>
+<li>Covariates are allowed to vary over time from one time unit to another</li>
+</ul></li>
+<li>This approach has two versions depending on the form of the binary regression model:
+<ul>
+<li>By specifying a <strong>logit link</strong>, we get estimates of <strong>the discrete-time proportional odds model</strong> (this model is identical to the model estimates when we specify the “ties=discrete” in SAS PROC PHREG)</li>
+<li>By specifying a <strong>complementary log-log link</strong>, we get estimates of <strong>an underlying proportional hazard modeling continuous time</strong>. This is identical to the model that is estimated when we specify the “ties=exact” option in SAS PROC PHREG)</li>
+</ul></li>
+<li>Advantages
+<ul>
+<li>This method does not rely on approximations</li>
+<li>The computations are manageable even with large data sets</li>
+<li>This method is particularly good at handling large numbers of time-dependent covariates</li>
+<li>This method makes it easy to test hypotheses about the dependence of the hazard on time</li>
+</ul></li>
+<li>This approach is similar to those of the piecewise exponential model and the counting process. The main difference is that those methods assumed that we know the exact time of the event within a given interval. By contrast, the discrete model presume that we know only that an event occured within a given interval.</li>
+</ul></li>
+</ul>
+<div id="continuous-and-discrete-models" class="section level3 hasAnchor" number="7.8.1">
+<h3><span class="header-section-number">7.8.1</span> Continuous and Discrete Models<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a><a href="cox-proportional-hazard-modeling-1.html#continuous-and-discrete-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let’s have another look at the recidivism data. We will split duration into single years with an open-ended category at 5+ and fit a piecewise exponential model with the same covariates as Wooldridge.</p>
+<p>We will then treat the data as discrete, assuming that all we know is that recidivism occurred somewhere in the year. We will fit a binary data model with a logit link, which corresponds to the discrete time model, and using a complementary-log-log link, which corresponds to a grouped continuous time model.</p>
+<div id="a-piecewise-exponential-model" class="section level4 hasAnchor" number="7.8.1.1">
+<h4><span class="header-section-number">7.8.1.1</span> A Piecewise Exponential Model<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a><a href="cox-proportional-hazard-modeling-1.html#a-piecewise-exponential-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><strong>This model is equivalent to the Poisson regression for a positive mean, which is a GLM assumes a Poisson distribution for <span class="math inline">\(Y\)</span> and uses the log link function.</strong> GLMs for the Poisson mean can use the identity link, but it is more commone to model the log of the mean. Like the linear predictor <span class="math inline">\(\beta_0 + \beta_1 x_1\)</span>, the log of the mean can take any real-number value.</li>
+</ul>
+<p><span class="math display">\[\log \mu = \beta_0 + \beta_1 x_1\]</span></p>
+<ul>
+<li><p>The mean satisfies the exponential relationship
+<span class="math display">\[\mu = \exp(\beta_0 + \beta_1 x_1) = \exp(\beta_0)\exp(\beta_1 x_1)\]</span></p></li>
+<li><p>A one-unit increase in <span class="math inline">\(x\)</span> has a multiplicative impact of <span class="math inline">\(\exp(\beta_1)\)</span> on <span class="math inline">\(\mu\)</span>: the mean of <span class="math inline">\(Y\)</span> at <span class="math inline">\(x+1\)</span> equals the mean of <span class="math inline">\(Y\)</span> at <span class="math inline">\(x\)</span> multiplied by <span class="math inline">\(\exp(\beta_1)\)</span>. If <span class="math inline">\(\beta_1=0\)</span>, then <span class="math inline">\(\exp(\beta_1)=\exp(0)=1\)</span> and the multiplicative factor is 1. Then, then mean of <span class="math inline">\(Y\)</span> does not change at <span class="math inline">\(x\)</span> changes. If <span class="math inline">\(\beta_1 &gt;0\)</span>, then <span class="math inline">\(\exp(\beta_1)&gt;1\)</span>, and the mean of <span class="math inline">\(Y\)</span> increases as <span class="math inline">\(x\)</span> increases. If <span class="math inline">\(\beta_1 &lt;0\)</span>, then <span class="math inline">\(\exp(\beta_1)&lt;1\)</span>, and the mean of <span class="math inline">\(Y\)</span> decreases as <span class="math inline">\(x\)</span> increases.</p></li>
+<li><p><strong>Overdispersion</strong></p>
+<ul>
+<li><strong>Count data often vary more than we would expect if the response distribution truly were Poisson. A common cause of overdispersion is heterogeneity among subjects.</strong> If the variance equals the mean wehn all relevant variables are controlled, it exceeds the mean wehn only a subset of those variables is controlled.</li>
+<li>Overdispersion is <strong>not an issue in ordinary regression models</strong> assuming normally distributed <span class="math inline">\(Y\)</span>, because the normal has a seperate parameter from the mean (i.e., the variance, <span class="math inline">\(\sigma^2\)</span>) to describe variability. <strong>However, the variance equals the mean in the Poisson distribution, thus overdispersion is common in applying Poisson GLMs to counts.</strong></li>
+</ul></li>
+<li><p>Negative binomial regression</p>
+<ul>
+<li>When the Poisson means follw a gamma distribution, unconditionally the distribution is the negative binomial.</li>
+<li><strong>The negative binomial is another distribution that is concentrated on the nonnegative integers. Unlike the Poisson, it has an additional parameter such that the variance can exceed the mean.</strong>
+<span class="math display">\[E(Y)=\mu, \;\;\; Var(Y)=\mu + D\mu^2\]</span></li>
+<li>The index, <span class="math inline">\(D\)</span>, which is nonnegative, is called a dispersion parameter. The negative binomial distribution arises as a type of mixture of Poisson distributions. Greater heterogeneity in the Poisson means results in a larger value of <span class="math inline">\(D\)</span>. As <span class="math inline">\(D \to 0\)</span>, <span class="math inline">\(Var(Y) \to \mu\)</span> and the negative binomial distribution converges to the Poisson variability.</li>
+<li>Negative binomial GLMs for counts express <span class="math inline">\(\mu\)</span> in terms of explanatory variables. Most common is the log link, as in Poisson loglinear models, but sometimes the identity link is adequate. It is common to assume that the dispersion parameter <span class="math inline">\(D\)</span> takes the same value at all predictor values, much as regression models for a normal response take the variance parameter to be constant.</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="cox-proportional-hazard-modeling-1.html#cb44-1" aria-hidden="true" tabindex="-1"></a>mmf <span class="ot">&lt;-</span> fail <span class="sc">~</span>  interval <span class="sc">+</span> workprg <span class="sc">+</span> priors <span class="sc">+</span> tserved <span class="sc">+</span> </span>
+<span id="cb44-2"><a href="cox-proportional-hazard-modeling-1.html#cb44-2" aria-hidden="true" tabindex="-1"></a>  felon <span class="sc">+</span> alcohol <span class="sc">+</span> drugs <span class="sc">+</span> black <span class="sc">+</span> married <span class="sc">+</span> educ <span class="sc">+</span> age</span>
+<span id="cb44-3"><a href="cox-proportional-hazard-modeling-1.html#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="cox-proportional-hazard-modeling-1.html#cb44-4" aria-hidden="true" tabindex="-1"></a>pwe <span class="ot">&lt;-</span> <span class="fu">glm</span>(mmf, <span class="at">offset =</span> <span class="fu">log</span>(exposure), <span class="at">data =</span> recidx, <span class="at">family =</span> poisson)</span>
+<span id="cb44-5"><a href="cox-proportional-hazard-modeling-1.html#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(pwe))</span></code></pre></div>
+<pre><code>##                     Estimate  Std. Error     z value     Pr(&gt;|z|)
+## (Intercept)     -3.830127469 0.280267334 -13.6659789 1.621090e-42
+## interval(12,24]  0.036531989 0.109361775   0.3340471 7.383440e-01
+## interval(24,36] -0.373815644 0.129611909  -2.8841150 3.925154e-03
+## interval(36,48] -0.811543632 0.156401452  -5.1888497 2.115971e-07
+## interval(48,60] -0.938231113 0.168321156  -5.5740534 2.488794e-08
+## interval(60,81] -1.547177936 0.203348918  -7.6084886 2.773196e-14
+## workprg          0.083829106 0.090794162   0.9232874 3.558575e-01
+## priors           0.087245826 0.013473463   6.4753825 9.457203e-11
+## tserved          0.013008862 0.001685901   7.7162667 1.197865e-14
+## felon           -0.283925203 0.106148770  -2.6747856 7.477705e-03
+## alcohol          0.432442493 0.105721133   4.0904073 4.306163e-05
+## drugs            0.274714115 0.097863462   2.8071162 4.998720e-03
+## black            0.433555955 0.088362277   4.9065729 9.268154e-07
+## married         -0.154047742 0.109211869  -1.4105403 1.583802e-01
+## educ            -0.021416177 0.019444026  -1.1014271 2.707108e-01
+## age             -0.003580003 0.000522249  -6.8549738 7.132557e-12</code></pre>
+</div>
+<div id="a-logit-model" class="section level4 hasAnchor" number="7.8.1.2">
+<h4><span class="header-section-number">7.8.1.2</span> A Logit Model<a href="cox-proportional-hazard-modeling-1.html#a-logit-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>For a discrete-time survival analysis we have to make sure we only include intervals with complete exposure, where we can classify the outcome as failure or survival. The convicts were released between July 1, 1977 and June 30, 1978 and the data were collected in April 1984, so the length of observation ranges between 70 and 81 months. We therefore restrict our attention to 5 years or 60 months. (We could go up to 6 years or 72 months for some convicts, but unfortunately we don’t have the date of release, so we can’t identify these cases and must censor everyone at 60.)</li>
+</ul>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="cox-proportional-hazard-modeling-1.html#cb46-1" aria-hidden="true" tabindex="-1"></a>recidx <span class="ot">&lt;-</span> <span class="fu">filter</span>(recidx, interval <span class="sc">!=</span> <span class="st">&quot;(60,81]&quot;</span>)</span>
+<span id="cb46-2"><a href="cox-proportional-hazard-modeling-1.html#cb46-2" aria-hidden="true" tabindex="-1"></a>logit <span class="ot">&lt;-</span> <span class="fu">glm</span>(mmf, <span class="at">data =</span> recidx, <span class="at">family =</span> binomial)  <span class="co"># no offset</span></span>
+<span id="cb46-3"><a href="cox-proportional-hazard-modeling-1.html#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(logit))</span></code></pre></div>
+<pre><code>##                     Estimate   Std. Error    z value     Pr(&gt;|z|)
+## (Intercept)     -1.140802599 0.3084159337 -3.6989094 2.165279e-04
+## interval(12,24]  0.030528163 0.1193582701  0.2557692 7.981291e-01
+## interval(24,36] -0.413140262 0.1384064532 -2.9849783 2.835984e-03
+## interval(36,48] -0.864148699 0.1639957690 -5.2693353 1.369186e-07
+## interval(48,60] -0.993662524 0.1756321916 -5.6576332 1.534747e-08
+## workprg          0.110988653 0.1003087410  1.1064704 2.685230e-01
+## priors           0.099292063 0.0164653717  6.0303566 1.635983e-09
+## tserved          0.014922136 0.0021429307  6.9634244 3.320994e-12
+## felon           -0.319662098 0.1178116529 -2.7133318 6.661038e-03
+## alcohol          0.472499810 0.1184176515  3.9901130 6.604183e-05
+## drugs            0.316729032 0.1086092071  2.9162264 3.542934e-03
+## black            0.458027506 0.0973977193  4.7026512 2.568049e-06
+## married         -0.204807338 0.1204592720 -1.7002206 8.908944e-02
+## educ            -0.026725931 0.0215052145 -1.2427651 2.139544e-01
+## age             -0.004023087 0.0005840427 -6.8883431 5.644594e-12</code></pre>
+</div>
+<div id="a-complementary-log-log-model" class="section level4 hasAnchor" number="7.8.1.3">
+<h4 class="hasAnchor"><span class="header-section-number">7.8.1.3</span> A Complementary Log-log Model<br />
+<a href="cox-proportional-hazard-modeling-1.html#a-complementary-log-log-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Finally we use a complementary log-log link</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="cox-proportional-hazard-modeling-1.html#cb48-1" aria-hidden="true" tabindex="-1"></a>cloglog <span class="ot">&lt;-</span> <span class="fu">glm</span>(mmf, <span class="at">data =</span> recidx, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> cloglog))</span>
+<span id="cb48-2"><a href="cox-proportional-hazard-modeling-1.html#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(cloglog))</span></code></pre></div>
+<pre><code>##                     Estimate   Std. Error    z value     Pr(&gt;|z|)
+## (Intercept)     -1.238795113 0.2893607427 -4.2811444 1.859347e-05
+## interval(12,24]  0.021613951 0.1095604758  0.1972787 8.436094e-01
+## interval(24,36] -0.392613793 0.1297681301 -3.0255024 2.482204e-03
+## interval(36,48] -0.824996440 0.1566132100 -5.2677321 1.381194e-07
+## interval(48,60] -0.948338328 0.1684247392 -5.6306356 1.795467e-08
+## workprg          0.104466422 0.0934228228  1.1182109 2.634769e-01
+## priors           0.088706984 0.0145113085  6.1129556 9.780261e-10
+## tserved          0.013266906 0.0018142064  7.3127875 2.616567e-13
+## felon           -0.288542238 0.1096491770 -2.6315039 8.500789e-03
+## alcohol          0.439780479 0.1090998881  4.0309893 5.554258e-05
+## drugs            0.299102966 0.1003895869  2.9794222 2.887925e-03
+## black            0.427210098 0.0910947168  4.6897352 2.735589e-06
+## married         -0.183040394 0.1136073451 -1.6111669 1.071433e-01
+## educ            -0.023334468 0.0202349457 -1.1531767 2.488379e-01
+## age             -0.003851008 0.0005486362 -7.0192372 2.230827e-12</code></pre>
+</div>
+<div id="comparison-of-estimates" class="section level4 hasAnchor" number="7.8.1.4">
+<h4><span class="header-section-number">7.8.1.4</span> Comparison of Estimates<a href="cox-proportional-hazard-modeling-1.html#comparison-of-estimates" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="cox-proportional-hazard-modeling-1.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="fu">coef</span>(pwe)[<span class="sc">-</span><span class="dv">6</span>], <span class="fu">coef</span>(cloglog), <span class="fu">coef</span>(logit))</span></code></pre></div>
+<pre><code>##                         [,1]         [,2]         [,3]
+## (Intercept)     -3.830127469 -1.238795113 -1.140802599
+## interval(12,24]  0.036531989  0.021613951  0.030528163
+## interval(24,36] -0.373815644 -0.392613793 -0.413140262
+## interval(36,48] -0.811543632 -0.824996440 -0.864148699
+## interval(48,60] -0.938231113 -0.948338328 -0.993662524
+## workprg          0.083829106  0.104466422  0.110988653
+## priors           0.087245826  0.088706984  0.099292063
+## tserved          0.013008862  0.013266906  0.014922136
+## felon           -0.283925203 -0.288542238 -0.319662098
+## alcohol          0.432442493  0.439780479  0.472499810
+## drugs            0.274714115  0.299102966  0.316729032
+## black            0.433555955  0.427210098  0.458027506
+## married         -0.154047742 -0.183040394 -0.204807338
+## educ            -0.021416177 -0.023334468 -0.026725931
+## age             -0.003580003 -0.003851008 -0.004023087</code></pre>
+<ul>
+<li>As one would expect, <strong>the estimates of the relative risks based on the c-log-log link are closer to the continuous time estimates than those based on the logit link.</strong></li>
+<li>This result makes sense because the piecewise exponential and c-log-log link models are estimating the same continuous time hazard, one from continuous and one from grouped data, while the logit model is estimating a discrete time hazard.</li>
+<li><strong>Recall that in a continuous time model the relative risk multiplies the hazard or instantaneous failure rate, whereas in a discrete time logit model it multiplies the conditional odds of failure at a given time (or in a given time interval) given survival to that time (or the start of the interval).</strong> Interpretation of the results should take this fact into account.</li>
+</ul>
+<p>All three approaches, however, lead to similar predicted survival probabilities.</p>
+</div>
+</div>
+<div id="interval-censoring" class="section level3 hasAnchor" number="7.8.2">
+<h3 class="hasAnchor"><span class="header-section-number">7.8.2</span> Interval censoring<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a><br />
+<a href="cox-proportional-hazard-modeling-1.html#interval-censoring" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Discrete data are often the result of interval-censoring. Events might happen in a continuous range of time, but they can only be observed at discrete moments (e.g., longitudinal data by waves).</p>
+<ul>
+<li><strong>The modeling paradigm for interval-censored survival data is essentially the same as for non-interval-censored data.</strong> Interpretation and presentation of the results of a fitted proportional hazards model is identical for the two types of data.</li>
+<li>However, model building with interval-censored data uses the binary regression likelihood if intervals are the same for all subjects. This implies that model building details, such as variable selections, identification of the scale of continuous covariates, and inclusion of interactions, use techniques based on binary regression modeling with the complimentary log-log model.</li>
+</ul>
+<div id="conditional-logistic-regression-and-stratified-cox-model" class="section level4 hasAnchor" number="7.8.2.1">
+<h4><span class="header-section-number">7.8.2.1</span> Conditional logistic regression and stratified Cox model<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a><a href="cox-proportional-hazard-modeling-1.html#conditional-logistic-regression-and-stratified-cox-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><p>Under a particular data structure, the loglikelihood for a conditional logistic regression model is the same with loglikelihood from a Cox model. A stratified Cox model with each case/control group assigned to its own stratum, time set to a constant, status of 1=case 0=control, and using the exact partial likelihood has the same likelihood formula as a conditional logistic regression. The clogit routine creates the necessary dummy variable of times (all 1) and the strata, then calls coxph.</p>
+<ul>
+<li>Stratified Cox model</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="cox-proportional-hazard-modeling-1.html#cb52-1" aria-hidden="true" tabindex="-1"></a>cox1 <span class="ot">&lt;-</span> <span class="fu">coxph</span>(<span class="fu">Surv</span>(durat, fail) <span class="sc">~</span> workprg <span class="sc">+</span> married <span class="sc">+</span> educ <span class="sc">+</span> age <span class="sc">+</span> <span class="fu">strata</span>(black), </span>
+<span id="cb52-2"><a href="cox-proportional-hazard-modeling-1.html#cb52-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> recidx, <span class="at">ties=</span><span class="st">&quot;efron&quot;</span>)</span>
+<span id="cb52-3"><a href="cox-proportional-hazard-modeling-1.html#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(cox1))</span></code></pre></div>
+<pre><code>##                 coef exp(coef)     se(coef)         z     Pr(&gt;|z|)
+## workprg  0.156200755 1.1690609 0.0897549296  1.740303 8.180586e-02
+## married -0.323341332 0.7237268 0.1133119425 -2.853550 4.323368e-03
+## educ    -0.049860264 0.9513624 0.0190833630 -2.612761 8.981412e-03
+## age     -0.001898137 0.9981037 0.0004532662 -4.187687 2.818123e-05</code></pre>
+<ul>
+<li>Conditional logistic model</li>
+</ul>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="cox-proportional-hazard-modeling-1.html#cb54-1" aria-hidden="true" tabindex="-1"></a>clogit <span class="ot">&lt;-</span> <span class="fu">clogit</span>(fail <span class="sc">~</span> workprg <span class="sc">+</span> married <span class="sc">+</span> educ <span class="sc">+</span> age <span class="sc">+</span> <span class="fu">strata</span>(black),</span>
+<span id="cb54-2"><a href="cox-proportional-hazard-modeling-1.html#cb54-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> recidx, <span class="at">method=</span><span class="fu">c</span>(<span class="st">&quot;efron&quot;</span>))</span>
+<span id="cb54-3"><a href="cox-proportional-hazard-modeling-1.html#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(clogit))</span></code></pre></div>
+<pre><code>##                 coef exp(coef)     se(coef)         z     Pr(&gt;|z|)
+## workprg  0.151890146 1.1640324 0.0897545659  1.692283 9.059199e-02
+## married -0.310120691 0.7333584 0.1132727550 -2.737822 6.184746e-03
+## educ    -0.047916781 0.9532131 0.0191298600 -2.504816 1.225151e-02
+## age     -0.001812212 0.9981894 0.0004512763 -4.015749 5.925726e-05</code></pre>
+
+</div>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p><a href="http://ehar.se/r/ehar2/multivariate-survival-models.html#an-introductory-example" class="uri">http://ehar.se/r/ehar2/multivariate-survival-models.html#an-introductory-example</a><a href="cox-proportional-hazard-modeling-1.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Cleves MA. An Introduction to Survival Analysis Using Stata. 3rd ed. Stata Press; 2010.<a href="cox-proportional-hazard-modeling-1.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p><a href="http://ehar.se/r/ehar2/more-on-cox-regression.html#strat_6" class="uri">http://ehar.se/r/ehar2/more-on-cox-regression.html#strat_6</a><a href="cox-proportional-hazard-modeling-1.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>This section is a summarized excerpt from Goran Brostrom, <em>Event History Analysis with R</em> and Kleinbaum and Klein, <em>Survival Analysis</em>, and <a href="https://cran.r-project.org/web/packages/coxme/vignettes/coxme.pdf" class="uri">https://cran.r-project.org/web/packages/coxme/vignettes/coxme.pdf</a><a href="cox-proportional-hazard-modeling-1.html#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p><a href="https://cran.r-project.org/web/packages/coxme/vignettes/coxme.pdf" class="uri">https://cran.r-project.org/web/packages/coxme/vignettes/coxme.pdf</a><a href="cox-proportional-hazard-modeling-1.html#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p>Goran Brostrom, <em>Event History Analysis with R</em>; Kleinbaum and Klein, <em>Survival Analysis</em><a href="cox-proportional-hazard-modeling-1.html#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p>This section is a summary from Cleves et al, <em>An Introduction to Survival Analysis Using Stata</em><a href="cox-proportional-hazard-modeling-1.html#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn8"><p>Moore, Dirk. 2016. Applied Survival Analysis Using R<a href="cox-proportional-hazard-modeling-1.html#fnref8" class="footnote-back">↩︎</a></p></li>
+<li id="fn9"><p>Allison, P. Survival Analysis Using SAS. <span class="math inline">\(2^{nd}\)</span> eds.<a href="cox-proportional-hazard-modeling-1.html#fnref9" class="footnote-back">↩︎</a></p></li>
+<li id="fn10"><p>Germán Rodríguez, Survival Analysis, <a href="https://data.princeton.edu/pop509/recid1" class="uri">https://data.princeton.edu/pop509/recid1</a><a href="cox-proportional-hazard-modeling-1.html#fnref10" class="footnote-back">↩︎</a></p></li>
+<li id="fn11"><p>Germán Rodríguez, Survival Analysis, <a href="https://data.princeton.edu/pop509/recid3" class="uri">https://data.princeton.edu/pop509/recid3</a><a href="cox-proportional-hazard-modeling-1.html#fnref11" class="footnote-back">↩︎</a></p></li>
+<li id="fn12"><p>Agresti, Categorical Data Analysis; Germán Rodríguez, Survival Analysis, <a href="https://data.princeton.edu/pop509/recid3" class="uri">https://data.princeton.edu/pop509/recid3</a><a href="cox-proportional-hazard-modeling-1.html#fnref12" class="footnote-back">↩︎</a></p></li>
+<li id="fn13"><p>Hosmer, Remeshow, and May. Applied Survival Analysis<a href="cox-proportional-hazard-modeling-1.html#fnref13" class="footnote-back">↩︎</a></p></li>
+<li id="fn14"><p>Conditional logistic regression. <a href="https://rdrr.io/cran/survival/man/clogit.html" class="uri">https://rdrr.io/cran/survival/man/clogit.html</a><a href="cox-proportional-hazard-modeling-1.html#fnref14" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="cox-proportional-hazard-modeling.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="add-health-project.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/06-Survival05.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
