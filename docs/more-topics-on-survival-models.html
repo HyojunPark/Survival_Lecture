@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 8 More topics on survival models | SOC6280: Survival Analysis: Practice</title>
+  <title>Chapter 8 More Topics on Survival Models | SOC6280: Survival Analysis: Practice</title>
   <meta name="description" content="Survival handbook" />
   <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 8 More topics on survival models | SOC6280: Survival Analysis: Practice" />
+  <meta property="og:title" content="Chapter 8 More Topics on Survival Models | SOC6280: Survival Analysis: Practice" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Survival handbook" />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 8 More topics on survival models | SOC6280: Survival Analysis: Practice" />
+  <meta name="twitter:title" content="Chapter 8 More Topics on Survival Models | SOC6280: Survival Analysis: Practice" />
   
   <meta name="twitter:description" content="Survival handbook" />
   
@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="cox-proportional-hazard-modeling-02.html"/>
+<link rel="prev" href="accounting-for-heterogeneity.html"/>
 <link rel="next" href="add-health-project.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -237,81 +237,76 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5.8" data-path="survival-models-specification-estimation-and-interpretation.html"><a href="survival-models-specification-estimation-and-interpretation.html#graphs"><i class="fa fa-check"></i><b>5.8</b> Graphs</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="cox-proportional-hazard-modeling-01.html"><a href="cox-proportional-hazard-modeling-01.html"><i class="fa fa-check"></i><b>6</b> Cox Proportional Hazard Modeling 01</a>
+<li class="chapter" data-level="6" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html"><i class="fa fa-check"></i><b>6</b> Cox Proportional Hazard Modeling</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="cox-proportional-hazard-modeling-01.html"><a href="cox-proportional-hazard-modeling-01.html#setup-working-datasets"><i class="fa fa-check"></i><b>6.1</b> Setup working datasets</a></li>
-<li class="chapter" data-level="6.2" data-path="cox-proportional-hazard-modeling-01.html"><a href="cox-proportional-hazard-modeling-01.html#cox-proportional-hazard-models-example"><i class="fa fa-check"></i><b>6.2</b> Cox Proportional Hazard Models: Example</a>
+<li class="chapter" data-level="6.1" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#setup-working-datasets"><i class="fa fa-check"></i><b>6.1</b> Setup working datasets</a></li>
+<li class="chapter" data-level="6.2" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#cox-proportional-hazard-models-example"><i class="fa fa-check"></i><b>6.2</b> Cox Proportional Hazard Models: Example</a>
 <ul>
-<li class="chapter" data-level="6.2.1" data-path="cox-proportional-hazard-modeling-01.html"><a href="cox-proportional-hazard-modeling-01.html#cox-model-specification"><i class="fa fa-check"></i><b>6.2.1</b> Cox model specification</a></li>
-<li class="chapter" data-level="6.2.2" data-path="cox-proportional-hazard-modeling-01.html"><a href="cox-proportional-hazard-modeling-01.html#model-1-no-covariates"><i class="fa fa-check"></i><b>6.2.2</b> Model 1: No covariates</a></li>
-<li class="chapter" data-level="6.2.3" data-path="cox-proportional-hazard-modeling-01.html"><a href="cox-proportional-hazard-modeling-01.html#model-2-categorical-covariate-region"><i class="fa fa-check"></i><b>6.2.3</b> Model 2: Categorical covariate: region</a></li>
-<li class="chapter" data-level="6.2.4" data-path="cox-proportional-hazard-modeling-01.html"><a href="cox-proportional-hazard-modeling-01.html#model-3-continuous-covariate-imr.birth"><i class="fa fa-check"></i><b>6.2.4</b> Model 3: Continuous covariate: imr.birth</a></li>
+<li class="chapter" data-level="6.2.1" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#cox-model-specification"><i class="fa fa-check"></i><b>6.2.1</b> Cox model specification</a></li>
+<li class="chapter" data-level="6.2.2" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#model-1-no-covariates"><i class="fa fa-check"></i><b>6.2.2</b> Model 1: No covariates</a></li>
+<li class="chapter" data-level="6.2.3" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#model-2-categorical-covariate-region"><i class="fa fa-check"></i><b>6.2.3</b> Model 2: Categorical covariate: region</a></li>
+<li class="chapter" data-level="6.2.4" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#model-3-continuous-covariate-imr.birth"><i class="fa fa-check"></i><b>6.2.4</b> Model 3: Continuous covariate: imr.birth</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="cox-proportional-hazard-modeling-01.html"><a href="cox-proportional-hazard-modeling-01.html#interpretation-2"><i class="fa fa-check"></i><b>6.3</b> Interpretation</a></li>
-<li class="chapter" data-level="6.4" data-path="cox-proportional-hazard-modeling-01.html"><a href="cox-proportional-hazard-modeling-01.html#proportional-hazard-ph-assumption"><i class="fa fa-check"></i><b>6.4</b> Proportional hazard (PH) assumption</a></li>
-<li class="chapter" data-level="6.5" data-path="cox-proportional-hazard-modeling-01.html"><a href="cox-proportional-hazard-modeling-01.html#extended-cox-model"><i class="fa fa-check"></i><b>6.5</b> Extended Cox model</a></li>
-<li class="chapter" data-level="6.6" data-path="cox-proportional-hazard-modeling-01.html"><a href="cox-proportional-hazard-modeling-01.html#evaluating-the-proportional-hazard-ph-assumption"><i class="fa fa-check"></i><b>6.6</b> Evaluating the Proportional hazard (PH) assumption</a>
+<li class="chapter" data-level="6.3" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#interpretation-2"><i class="fa fa-check"></i><b>6.3</b> Interpretation</a></li>
+<li class="chapter" data-level="6.4" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#proportional-hazard-ph-assumption"><i class="fa fa-check"></i><b>6.4</b> Proportional hazard (PH) assumption</a></li>
+<li class="chapter" data-level="6.5" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#extended-cox-model"><i class="fa fa-check"></i><b>6.5</b> Extended Cox model</a></li>
+<li class="chapter" data-level="6.6" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#evaluating-the-proportional-hazard-ph-assumption"><i class="fa fa-check"></i><b>6.6</b> Evaluating the Proportional hazard (PH) assumption</a>
 <ul>
-<li class="chapter" data-level="6.6.1" data-path="cox-proportional-hazard-modeling-01.html"><a href="cox-proportional-hazard-modeling-01.html#graphical-evaluation"><i class="fa fa-check"></i><b>6.6.1</b> Graphical evaluation</a></li>
-<li class="chapter" data-level="6.6.2" data-path="cox-proportional-hazard-modeling-01.html"><a href="cox-proportional-hazard-modeling-01.html#goodness-of-fit-gof"><i class="fa fa-check"></i><b>6.6.2</b> Goodness-of-fit (GOF)</a></li>
-<li class="chapter" data-level="6.6.3" data-path="cox-proportional-hazard-modeling-01.html"><a href="cox-proportional-hazard-modeling-01.html#time-dependent-variable-approaches"><i class="fa fa-check"></i><b>6.6.3</b> Time-dependent variable approaches</a></li>
-<li class="chapter" data-level="6.6.4" data-path="cox-proportional-hazard-modeling-01.html"><a href="cox-proportional-hazard-modeling-01.html#testing-for-influential-observations"><i class="fa fa-check"></i><b>6.6.4</b> Testing for Influential Observations</a></li>
-<li class="chapter" data-level="6.6.5" data-path="cox-proportional-hazard-modeling-01.html"><a href="cox-proportional-hazard-modeling-01.html#testing-for-non-linearlity"><i class="fa fa-check"></i><b>6.6.5</b> Testing for Non-linearlity</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="cox-proportional-hazard-modeling-02.html"><a href="cox-proportional-hazard-modeling-02.html"><i class="fa fa-check"></i><b>7</b> Cox Proportional Hazard Modeling 02</a>
-<ul>
-<li class="chapter" data-level="7.1" data-path="cox-proportional-hazard-modeling-02.html"><a href="cox-proportional-hazard-modeling-02.html#setup-working-datasets-1"><i class="fa fa-check"></i><b>7.1</b> Setup working datasets</a></li>
-<li class="chapter" data-level="7.2" data-path="cox-proportional-hazard-modeling-02.html"><a href="cox-proportional-hazard-modeling-02.html#accounting-for-heterogeneity"><i class="fa fa-check"></i><b>7.2</b> Accounting for heterogeneity</a>
-<ul>
-<li class="chapter" data-level="7.2.1" data-path="cox-proportional-hazard-modeling-02.html"><a href="cox-proportional-hazard-modeling-02.html#an-introductory-example"><i class="fa fa-check"></i><b>7.2.1</b> An introductory Example</a></li>
-<li class="chapter" data-level="7.2.2" data-path="cox-proportional-hazard-modeling-02.html"><a href="cox-proportional-hazard-modeling-02.html#working-with-heterogeneity"><i class="fa fa-check"></i><b>7.2.2</b> Working with heterogeneity</a></li>
-</ul></li>
-<li class="chapter" data-level="7.3" data-path="cox-proportional-hazard-modeling-02.html"><a href="cox-proportional-hazard-modeling-02.html#stratification"><i class="fa fa-check"></i><b>7.3</b> Stratification</a>
-<ul>
-<li class="chapter" data-level="7.3.1" data-path="cox-proportional-hazard-modeling-02.html"><a href="cox-proportional-hazard-modeling-02.html#generalized-stratified-models"><i class="fa fa-check"></i><b>7.3.1</b> Generalized stratified models</a></li>
-<li class="chapter" data-level="7.3.2" data-path="cox-proportional-hazard-modeling-02.html"><a href="cox-proportional-hazard-modeling-02.html#group_by-analysis-dplyr"><i class="fa fa-check"></i><b>7.3.2</b> <code>group_by</code> analysis (<code>dplyr</code>)</a></li>
-<li class="chapter" data-level="7.3.3" data-path="cox-proportional-hazard-modeling-02.html"><a href="cox-proportional-hazard-modeling-02.html#strata-in-coxph"><i class="fa fa-check"></i><b>7.3.3</b> <code>strata</code> in <code>coxph</code></a></li>
-<li class="chapter" data-level="7.3.4" data-path="cox-proportional-hazard-modeling-02.html"><a href="cox-proportional-hazard-modeling-02.html#strata-in-coxph-with-interaction-terms"><i class="fa fa-check"></i><b>7.3.4</b> <code>strata</code> in <code>coxph</code> with interaction terms</a></li>
-<li class="chapter" data-level="7.3.5" data-path="cox-proportional-hazard-modeling-02.html"><a href="cox-proportional-hazard-modeling-02.html#weibull-ph-models-with-or-without-stratification"><i class="fa fa-check"></i><b>7.3.5</b> Weibull PH models with or without stratification</a></li>
-</ul></li>
-<li class="chapter" data-level="7.4" data-path="cox-proportional-hazard-modeling-02.html"><a href="cox-proportional-hazard-modeling-02.html#frailty-models"><i class="fa fa-check"></i><b>7.4</b> Frailty models</a>
-<ul>
-<li class="chapter" data-level="7.4.1" data-path="cox-proportional-hazard-modeling-02.html"><a href="cox-proportional-hazard-modeling-02.html#simple-frailty-model"><i class="fa fa-check"></i><b>7.4.1</b> Simple Frailty Model</a></li>
-<li class="chapter" data-level="7.4.2" data-path="cox-proportional-hazard-modeling-02.html"><a href="cox-proportional-hazard-modeling-02.html#shared-frailty-model"><i class="fa fa-check"></i><b>7.4.2</b> Shared Frailty Model</a></li>
-<li class="chapter" data-level="7.4.3" data-path="cox-proportional-hazard-modeling-02.html"><a href="cox-proportional-hazard-modeling-02.html#cox-model-specification-1"><i class="fa fa-check"></i><b>7.4.3</b> Cox model specification</a></li>
-<li class="chapter" data-level="7.4.4" data-path="cox-proportional-hazard-modeling-02.html"><a href="cox-proportional-hazard-modeling-02.html#mixed-effects-cox-model-specification"><i class="fa fa-check"></i><b>7.4.4</b> Mixed effects Cox model specification</a></li>
-<li class="chapter" data-level="7.4.5" data-path="cox-proportional-hazard-modeling-02.html"><a href="cox-proportional-hazard-modeling-02.html#models-without-considering-fraility"><i class="fa fa-check"></i><b>7.4.5</b> Models without considering fraility</a></li>
-<li class="chapter" data-level="7.4.6" data-path="cox-proportional-hazard-modeling-02.html"><a href="cox-proportional-hazard-modeling-02.html#coxme-package-for-frailty-models"><i class="fa fa-check"></i><b>7.4.6</b> <code>coxme</code> package for frailty models</a></li>
+<li class="chapter" data-level="6.6.1" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#graphical-evaluation"><i class="fa fa-check"></i><b>6.6.1</b> Graphical evaluation</a></li>
+<li class="chapter" data-level="6.6.2" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#goodness-of-fit-gof"><i class="fa fa-check"></i><b>6.6.2</b> Goodness-of-fit (GOF)</a></li>
+<li class="chapter" data-level="6.6.3" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#time-dependent-variable-approaches"><i class="fa fa-check"></i><b>6.6.3</b> Time-dependent variable approaches</a></li>
+<li class="chapter" data-level="6.6.4" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#testing-for-influential-observations"><i class="fa fa-check"></i><b>6.6.4</b> Testing for Influential Observations</a></li>
+<li class="chapter" data-level="6.6.5" data-path="cox-proportional-hazard-modeling.html"><a href="cox-proportional-hazard-modeling.html#testing-for-non-linearlity"><i class="fa fa-check"></i><b>6.6.5</b> Testing for Non-linearlity</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html"><i class="fa fa-check"></i><b>8</b> More topics on survival models</a>
+<li class="chapter" data-level="7" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html"><i class="fa fa-check"></i><b>7</b> Accounting for Heterogeneity</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#setup-working-datasets-1"><i class="fa fa-check"></i><b>7.1</b> Setup working datasets</a></li>
+<li class="chapter" data-level="7.2" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#an-introductory-example"><i class="fa fa-check"></i><b>7.2</b> An introductory Example</a></li>
+<li class="chapter" data-level="7.3" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#working-with-heterogeneity"><i class="fa fa-check"></i><b>7.3</b> Working with heterogeneity</a></li>
+<li class="chapter" data-level="7.4" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#stratification"><i class="fa fa-check"></i><b>7.4</b> Stratification</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#generalized-stratified-models"><i class="fa fa-check"></i><b>7.4.1</b> Generalized stratified models</a></li>
+<li class="chapter" data-level="7.4.2" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#group_by-analysis-dplyr"><i class="fa fa-check"></i><b>7.4.2</b> <code>group_by</code> analysis (<code>dplyr</code>)</a></li>
+<li class="chapter" data-level="7.4.3" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#strata-in-coxph"><i class="fa fa-check"></i><b>7.4.3</b> <code>strata</code> in <code>coxph</code></a></li>
+<li class="chapter" data-level="7.4.4" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#strata-in-coxph-with-interaction-terms"><i class="fa fa-check"></i><b>7.4.4</b> <code>strata</code> in <code>coxph</code> with interaction terms</a></li>
+<li class="chapter" data-level="7.4.5" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#weibull-ph-models-with-or-without-stratification"><i class="fa fa-check"></i><b>7.4.5</b> Weibull PH models with or without stratification</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#frailty-models"><i class="fa fa-check"></i><b>7.5</b> Frailty models</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#simple-frailty-model"><i class="fa fa-check"></i><b>7.5.1</b> Simple Frailty Model</a></li>
+<li class="chapter" data-level="7.5.2" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#shared-frailty-model"><i class="fa fa-check"></i><b>7.5.2</b> Shared Frailty Model</a></li>
+<li class="chapter" data-level="7.5.3" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#cox-model-specification-1"><i class="fa fa-check"></i><b>7.5.3</b> Cox model specification</a></li>
+<li class="chapter" data-level="7.5.4" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#mixed-effects-cox-model-specification"><i class="fa fa-check"></i><b>7.5.4</b> Mixed effects Cox model specification</a></li>
+<li class="chapter" data-level="7.5.5" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#models-without-considering-fraility"><i class="fa fa-check"></i><b>7.5.5</b> Models without considering fraility</a></li>
+<li class="chapter" data-level="7.5.6" data-path="accounting-for-heterogeneity.html"><a href="accounting-for-heterogeneity.html#coxme-package-for-frailty-models"><i class="fa fa-check"></i><b>7.5.6</b> <code>coxme</code> package for frailty models</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html"><i class="fa fa-check"></i><b>8</b> More Topics on Survival Models</a>
 <ul>
 <li class="chapter" data-level="8.1" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#setup-working-datasets-2"><i class="fa fa-check"></i><b>8.1</b> Setup working datasets</a></li>
-<li class="chapter" data-level="8.2" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#more-topics-on-survival-models-1"><i class="fa fa-check"></i><b>8.2</b> More topics on survival models</a>
+<li class="chapter" data-level="8.2" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#why-we-call-cox-model-as-semi-parametric-model"><i class="fa fa-check"></i><b>8.2</b> Why we call Cox model as semi-parametric model?</a></li>
+<li class="chapter" data-level="8.3" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#why-the-cox-ph-model-is-so-popular"><i class="fa fa-check"></i><b>8.3</b> Why the Cox PH model is so popular</a></li>
+<li class="chapter" data-level="8.4" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#adjusted-survival-curves-using-the-cox-ph-model"><i class="fa fa-check"></i><b>8.4</b> Adjusted Survival Curves using the Cox PH model</a></li>
+<li class="chapter" data-level="8.5" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#survival-model-selection"><i class="fa fa-check"></i><b>8.5</b> Survival model selection</a></li>
+<li class="chapter" data-level="8.6" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#likelihood-and-partial-likelihood"><i class="fa fa-check"></i><b>8.6</b> Likelihood and partial likelihood</a>
 <ul>
-<li class="chapter" data-level="8.2.1" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#why-we-call-cox-model-as-semi-parametric-model"><i class="fa fa-check"></i><b>8.2.1</b> Why we call Cox model as semi-parametric model?</a></li>
-<li class="chapter" data-level="8.2.2" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#why-the-cox-ph-model-is-so-popular"><i class="fa fa-check"></i><b>8.2.2</b> Why the Cox PH model is so popular</a></li>
-<li class="chapter" data-level="8.2.3" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#adjusted-survival-curves-using-the-cox-ph-model"><i class="fa fa-check"></i><b>8.2.3</b> Adjusted Survival Curves using the Cox PH model</a></li>
-<li class="chapter" data-level="8.2.4" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#notes-for-survival-model-selection"><i class="fa fa-check"></i><b>8.2.4</b> Notes for survival model selection</a></li>
+<li class="chapter" data-level="8.6.1" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#estimation-of-the-cox-ph-model-using-maximum-likelihood-ml"><i class="fa fa-check"></i><b>8.6.1</b> Estimation of the Cox PH model using Maximum likelihood (ML)</a></li>
+<li class="chapter" data-level="8.6.2" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#more-about-hazard-ratio"><i class="fa fa-check"></i><b>8.6.2</b> More about Hazard ratio</a></li>
+<li class="chapter" data-level="8.6.3" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#maximum-likelihood-estimation"><i class="fa fa-check"></i><b>8.6.3</b> Maximum likelihood estimation</a></li>
+<li class="chapter" data-level="8.6.4" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#partial-likelihood-estimation"><i class="fa fa-check"></i><b>8.6.4</b> Partial likelihood estimation</a></li>
+<li class="chapter" data-level="8.6.5" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#dependence-among-the-observations"><i class="fa fa-check"></i><b>8.6.5</b> Dependence among the observations</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#likelihood-and-partial-likelihood"><i class="fa fa-check"></i><b>8.3</b> Likelihood and partial likelihood</a>
+<li class="chapter" data-level="8.7" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#tied-or-discrete-data-analysis"><i class="fa fa-check"></i><b>8.7</b> Tied or Discrete Data Analysis</a>
 <ul>
-<li class="chapter" data-level="8.3.1" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#estimation-of-the-cox-ph-model-using-maximum-likelihood-ml"><i class="fa fa-check"></i><b>8.3.1</b> Estimation of the Cox PH model using Maximum likelihood (ML)</a></li>
-<li class="chapter" data-level="8.3.2" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#more-about-hazard-ratio"><i class="fa fa-check"></i><b>8.3.2</b> More about Hazard ratio</a></li>
-<li class="chapter" data-level="8.3.3" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#maximum-likelihood-estimation"><i class="fa fa-check"></i><b>8.3.3</b> Maximum likelihood estimation</a></li>
-<li class="chapter" data-level="8.3.4" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#partial-likelihood-estimation"><i class="fa fa-check"></i><b>8.3.4</b> Partial likelihood estimation</a></li>
-<li class="chapter" data-level="8.3.5" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#dependence-among-the-observations"><i class="fa fa-check"></i><b>8.3.5</b> Dependence among the observations</a></li>
+<li class="chapter" data-level="8.7.1" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#example-recidivism-in-the-u.s."><i class="fa fa-check"></i><b>8.7.1</b> Example: Recidivism in the U.S.</a></li>
+<li class="chapter" data-level="8.7.2" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#data-management"><i class="fa fa-check"></i><b>8.7.2</b> Data management</a></li>
+<li class="chapter" data-level="8.7.3" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#the-treatment-of-ties"><i class="fa fa-check"></i><b>8.7.3</b> The treatment of ties</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#tied-or-discrete-data-analysis"><i class="fa fa-check"></i><b>8.4</b> Tied or Discrete Data Analysis</a>
+<li class="chapter" data-level="8.8" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#the-discrete-method"><i class="fa fa-check"></i><b>8.8</b> The discrete method</a>
 <ul>
-<li class="chapter" data-level="8.4.1" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#example-recidivism-in-the-u.s."><i class="fa fa-check"></i><b>8.4.1</b> Example: Recidivism in the U.S.</a></li>
-<li class="chapter" data-level="8.4.2" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#the-treatment-of-ties"><i class="fa fa-check"></i><b>8.4.2</b> The treatment of ties</a></li>
-</ul></li>
-<li class="chapter" data-level="8.5" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#the-discrete-method"><i class="fa fa-check"></i><b>8.5</b> The discrete method</a>
-<ul>
-<li class="chapter" data-level="8.5.1" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#continuous-and-discrete-models"><i class="fa fa-check"></i><b>8.5.1</b> Continuous and Discrete Models</a></li>
-<li><a href="more-topics-on-survival-models.html#interval-censoring" id="toc-interval-censoring"><span class="toc-section-number">8.5.2</span> Interval censoring<br />
+<li class="chapter" data-level="8.8.1" data-path="more-topics-on-survival-models.html"><a href="more-topics-on-survival-models.html#continuous-and-discrete-models"><i class="fa fa-check"></i><b>8.8.1</b> Continuous and Discrete Models</a></li>
+<li><a href="more-topics-on-survival-models.html#interval-censoring" id="toc-interval-censoring"><span class="toc-section-number">8.8.2</span> Interval censoring<br />
 </a></li>
 </ul></li>
 </ul></li>
@@ -357,7 +352,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="more-topics-on-survival-models" class="section level1 hasAnchor" number="8">
-<h1><span class="header-section-number">Chapter 8</span> More topics on survival models<a href="more-topics-on-survival-models.html#more-topics-on-survival-models" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<h1><span class="header-section-number">Chapter 8</span> More Topics on Survival Models<a href="more-topics-on-survival-models.html#more-topics-on-survival-models" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="setup-working-datasets-2" class="section level2 hasAnchor" number="8.1">
 <h2><span class="header-section-number">8.1</span> Setup working datasets<a href="more-topics-on-survival-models.html#setup-working-datasets-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="more-topics-on-survival-models.html#cb230-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -376,10 +371,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="more-topics-on-survival-models.html#cb231-1" aria-hidden="true" tabindex="-1"></a>oldmort01 <span class="ot">&lt;-</span> oldmort</span>
 <span id="cb231-2"><a href="more-topics-on-survival-models.html#cb231-2" aria-hidden="true" tabindex="-1"></a>oldmort01<span class="sc">$</span>male <span class="ot">&lt;-</span> <span class="fu">relevel</span>(oldmort01<span class="sc">$</span>sex, <span class="at">ref =</span> <span class="st">&quot;female&quot;</span>)</span></code></pre></div>
 </div>
-<div id="more-topics-on-survival-models-1" class="section level2 hasAnchor" number="8.2">
-<h2><span class="header-section-number">8.2</span> More topics on survival models<a href="more-topics-on-survival-models.html#more-topics-on-survival-models-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="why-we-call-cox-model-as-semi-parametric-model" class="section level3 hasAnchor" number="8.2.1">
-<h3><span class="header-section-number">8.2.1</span> Why we call Cox model as semi-parametric model?<a href="more-topics-on-survival-models.html#why-we-call-cox-model-as-semi-parametric-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="why-we-call-cox-model-as-semi-parametric-model" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Why we call Cox model as semi-parametric model?<a href="more-topics-on-survival-models.html#why-we-call-cox-model-as-semi-parametric-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>The formulation of a likelihood function is based on the distribution of the outcome.</li>
 <li>The Cox PH model does not impose any assumption on the distribution of the outcome, time to event. It simply uses the observed order of the failure time. (thus, it is a partial likelihood)</li>
@@ -387,27 +380,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>No assumption on <span class="math inline">\(h_0(t)\)</span> + proportional hazard assumption</li>
 </ul>
 </div>
-<div id="why-the-cox-ph-model-is-so-popular" class="section level3 hasAnchor" number="8.2.2">
-<h3><span class="header-section-number">8.2.2</span> Why the Cox PH model is so popular<a href="more-topics-on-survival-models.html#why-the-cox-ph-model-is-so-popular" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="why-the-cox-ph-model-is-so-popular" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> Why the Cox PH model is so popular<a href="more-topics-on-survival-models.html#why-the-cox-ph-model-is-so-popular" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>The Cox PH model is a model, so that the results from using the Cox model will closely approximate the results for the parametric model.
+<li>The Cox PH model is a <strong>robust</strong> model, so that the results from using the Cox model will closely approximate the results for the <strong>correct</strong> parametric model.
 <ul>
-<li>Even though the baseline hazard is not specified,</li>
-<li>reasonably good estimates of regression coefficients, hazard ratios of interest, and adjusted survival curves can be obtained for a wide variety of data situations.</li>
+<li>Even though the baseline hazard is not specified, reasonably good estimates of regression coefficients, hazard ratios of interest, and adjusted survival curves can be obtained for a wide variety of data situations.</li>
 <li>We would prefer to use a parametric model if we were sure of the correct model. However, we may not be completely certain that a given parametric model is appropriate.</li>
-<li>When in doubt, the Cox model is a “safe” choice.</li>
+<li><strong>When in doubt, the Cox model is a “safe” choice.</strong></li>
 </ul></li>
 <li>Along with “robustness”, the model specification of the Cox PH model has several good properties.
 <ul>
-<li>The exponential part of this product ensures that . (vs. a linear model with negative coefficients)</li>
-<li>The measure of effect, which is called a hazard ratio, is calculated .</li>
+<li>The exponential part of this product ensures that <strong>the fitted model will always give estimated hazards that are non-negative</strong>. (vs. a linear model with negative coefficients)</li>
+<li>The measure of effect, which is called a hazard ratio, is calculated <strong>without having to estimate the baseline hazard function.</strong></li>
 <li>With a minimum of assumption, we can obtain the primary information about a hazard ratio and a survival curve.</li>
 <li>As compared to logistic model, the Cox PH model incorporate the survival time and censoring information.</li>
 </ul></li>
 </ul>
 </div>
-<div id="adjusted-survival-curves-using-the-cox-ph-model" class="section level3 hasAnchor" number="8.2.3">
-<h3><span class="header-section-number">8.2.3</span> Adjusted Survival Curves using the Cox PH model<a href="more-topics-on-survival-models.html#adjusted-survival-curves-using-the-cox-ph-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="adjusted-survival-curves-using-the-cox-ph-model" class="section level2 hasAnchor" number="8.4">
+<h2><span class="header-section-number">8.4</span> Adjusted Survival Curves using the Cox PH model<a href="more-topics-on-survival-models.html#adjusted-survival-curves-using-the-cox-ph-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>Two primary quantities we are interested in the survival model are
 <ul>
@@ -424,11 +416,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Estimated Hazard function: <span class="math inline">\(\hat{h}(t, X) = \hat{h}_0(t) \exp[\sum_{i=1}^p \hat{\beta_i} X_i]\)</span></li>
 <li>Estimated survival function: <span class="math inline">\(\hat{S}(t, X) = [\hat{S}_0(t)]^{ \exp[\sum_{i=1}^p \hat{\beta_i} X_i]}\)</span></li>
 </ul></li>
-<li>To fit the estimated curves, a set of values for <span class="math inline">\(X_i\)</span> should be specified. Most software uses the of <span class="math inline">\(X\)</span>s to calculate the adjusted for covariates.</li>
+<li>To fit the estimated curves, a set of values for <span class="math inline">\(X_i\)</span> should be specified. Most software uses the <strong>mean value (rather than median)</strong> of <span class="math inline">\(X\)</span>s to calculate the adjusted for covariates.</li>
 </ul>
 </div>
-<div id="notes-for-survival-model-selection" class="section level3 hasAnchor" number="8.2.4">
-<h3><span class="header-section-number">8.2.4</span> Notes for survival model selection<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a><a href="more-topics-on-survival-models.html#notes-for-survival-model-selection" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="survival-model-selection" class="section level2 hasAnchor" number="8.5">
+<h2><span class="header-section-number">8.5</span> Survival model selection<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a><a href="more-topics-on-survival-models.html#survival-model-selection" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li><p>Akaike’s information criterion (AIC) provides an approach for comparing the fit of models with different underlying distributions, making use of the -2 log likelihood statistic</p>
 <ul>
@@ -442,19 +434,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p class="caption">Figure: “AIC Example”</p>
 </div>
 <ul>
-<li>Likelihood ratio (LR) test: compute the difference between the log likelihood statistic of the reduced model (with fewer parameters to estimate) and the log likelihood statistic of the full model (with more parameters to estimate). In general, the LR statistic can be written in the form -2 ln LR minus
--2 ln LF, where <span class="math inline">\(R\)</span> denotes the reduced model and <span class="math inline">\(F\)</span> denotes the full model. The test statistic has a <span class="math inline">\(\chi\)</span>-square distribution with <span class="math inline">\(p\)</span> degrees of freedom, where <span class="math inline">\(p\)</span> denotes the number of additional parameters being assessed.</li>
+<li>Likelihood ratio (LR) test: compute the difference between the log likelihood statistic of the reduced model (with fewer parameters to estimate) and the log likelihood statistic of the full model (with more parameters to estimate). In general, the LR statistic can be written in the form <span class="math inline">\(-2 ln L_R\)</span> minus
+<span class="math inline">\(-2 ln L_F\)</span>, where <span class="math inline">\(R\)</span> denotes the reduced model and <span class="math inline">\(F\)</span> denotes the full model. The test statistic has a <span class="math inline">\(\chi ^2\)</span> distribution with <span class="math inline">\(p\)</span> degrees of freedom, where <span class="math inline">\(p\)</span> denotes the number of additional parameters being assessed.</li>
 </ul></li>
 <li><p>The exponential distribution is characterized by the fact that it <em>lacks memory</em>. In other words, items whose life lengths follow an exponential distribution do not age; no matter how old they are, if they are alive they are as good as new. This concept is not useful when it comes to human lives, but the life lengths of electronic components are often modeled by the exponential distribution in reliability theory.</p></li>
-<li><p>If the exponential distribution is not useful in describing human lives, it may be so for short segments of life. At least it will be a good approximation if the segment is short enough. This is the idea behind <strong>the piecewise constant hazards distribution</strong>. Its definition involves a partition of time (age) axis, and one positive constant (the hazard level) corresponding to each interval. Note that the last interval will be open, with infinite length; only a finite number of cut points are allowed. The definition of the hazard function <span class="math inline">\(h(x)\)</span> becomes, with the cuts denoted <span class="math inline">\(t=(t_1 &lt; \cdots &lt; t_n)\)</span> and the levels denoted <span class="math inline">\(h=(h_1, \dots, h_{n+1})\)</span>:
-<span class="math display">\[h(t;t,h)= h_1 (t \ge t_1);\]</span>
-<span class="math display">\[h_i (t_{i_1} &lt; t \ge t_i, i=2,\dots,n,);\]</span>
-<span class="math display">\[h_{n+1} (t_n&lt;t)\]</span></p>
+<li><p>If the exponential distribution is not useful in describing human lives, it may be so for short segments of life. At least it will be a good approximation if the segment is short enough. This is the idea behind <strong>the piecewise constant hazards distribution</strong>. Its definition involves a partition of time (age) axis, and one positive constant (the hazard level) corresponding to each interval. Note that the last interval will be open, with infinite length; only a finite number of cut points are allowed. The definition of the hazard function <span class="math inline">\(h(x)\)</span> becomes, with the cuts denoted <span class="math inline">\(t=(t_1 &lt; \cdots &lt; t_n)\)</span> and the levels denoted <span class="math inline">\(h=(h_1, \dots, h_{n+1})\)</span>:</p></li>
+</ul>
+<p><span class="math inline">\(h(t;t,h)= h_1 (t \ge t_1);\)</span>
+<span class="math inline">\(h_i (t_{i_1} &lt; t \ge t_i, i=2,\dots,n,);\)</span>
+<span class="math inline">\(h_{n+1} (t_n&lt;t)\)</span></p>
 <ul>
 <li>In this definition, the number of levels must be exactly one more than the number of cut points.<br />
 </li>
-<li>Note that, despite the fact that the hazard function is not continuous, the other functions are. They are not differentiable at the cut points, though. <strong>The piecewise constant distribution is very flexible. It can be made arbitrarily close to any continuous distribution by increasing the number of cut points and choose the levels appropriately. Parametric proportional hazards modeling with the pch distribution is a serious competitor to the Cox regression model, especially with large data sets</strong>.</li>
-</ul></li>
+<li>Note that, despite the fact that the hazard function is not continuous, the other functions are. They are not differentiable at the cut points, though. <strong>The piecewise constant distribution is very flexible. It can be made arbitrarily close to any continuous distribution by increasing the number of cut points and choose the levels appropriately. Parametric proportional hazards modeling with the <code>pch</code> distribution is a serious competitor to the Cox regression model, especially with large data sets</strong>.</li>
 </ul>
 <p><strong>Piecewise constant hazards function</strong></p>
 <div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="more-topics-on-survival-models.html#cb232-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(eha)</span>
@@ -466,32 +458,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb232-7"><a href="more-topics-on-survival-models.html#cb232-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> oldmort01)</span>
 <span id="cb232-8"><a href="more-topics-on-survival-models.html#cb232-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb232-9"><a href="more-topics-on-survival-models.html#cb232-9" aria-hidden="true" tabindex="-1"></a><span class="fu">compHaz</span>(fit_pch, fit_np)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-125-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-124-1.png" width="672" /></p>
 <ul>
-<li>The Weibull distribution is a very popular parametric model for survival data, described in detail by Waloddi Weibull (Weibull 1951), known earlier. It is one of the so-called extreme-value distributions, and as such very useful in reliability theory. It is becoming popular in demographic applications, but in mortality studies it is wise to avoid it for old age mortality (the hazard grows too slow) and mortality in ages 0–15 years of age (U-shaped hazards, which the Weibull model doesn’t allow).</li>
-<li>The lognormal distribution is connected to the normal distribution through the exponential function: If <span class="math inline">\(X\)</span> is normally distributed, then <span class="math inline">\(Y = \exp(X)\)</span> is lognormally distributed. Conversely, if <span class="math inline">\(Y\)</span> is lognormally distributed, then <span class="math inline">\(X = \log(Y)\)</span> is normally distributed. The lognormal distribution has the interesting property that the hazard function is first increasing, then decreasing, in contrast to the Weibull distribution which only allows for monotone (increasing or decreasing) hazard functions.</li>
-<li>The loglogistic distribution is very close to the lognormal, but have heavier tail to the right. Its advantage over the lognormal is that the hazard function has closed form.</li>
-<li>The Gompertz distribution is useful for modeling old age mortality. The hazard function is exponentially increasing. The Gompertz distribution was generalized by (Makeham 1860) (the Gompertz—Makeham Distribution). The generalization consists of adding a positive constant to the Gompertz hazard function.</li>
-<li>The Gamma distribution is another generalization of the exponential distribution. It is popular in modeling shared frailty.</li>
-<li>When you have no idea of what the baseline hazard looks like, use Cox regression. Exponential regression can be used to fit models in whihc the hazard varies with time, and that may be a reasonable thing to do, expecially if you want to berify the fit of another parametric model. For instance, pretend that you habe strong reason to beliebe that the formulation outgh to be Weibull. Even after fitting a Weibull model, you could use the exponential model with dummy variables for interbals to verify that the Weibull fit was reasonable.</li>
-<li>Which test should we use?<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a> There is no simple answer, so let us instead understand how to determine the answer in particular cases.
+<li><p>The Weibull distribution is a very popular parametric model for survival data, described in detail by Waloddi Weibull (Weibull 1951), known earlier. It is one of the so-called extreme-value distributions, and as such very useful in reliability theory. It is becoming popular in demographic applications, but in mortality studies it is wise to avoid it for old age mortality (the hazard grows too slow) and mortality in ages 0–15 years of age (U-shaped hazards, which the Weibull model doesn’t allow).</p></li>
+<li><p>The lognormal distribution is connected to the normal distribution through the exponential function: If <span class="math inline">\(X\)</span> is normally distributed, then <span class="math inline">\(Y = \exp(X)\)</span> is lognormally distributed. Conversely, if <span class="math inline">\(Y\)</span> is lognormally distributed, then <span class="math inline">\(X = \log(Y)\)</span> is normally distributed. The lognormal distribution has the interesting property that the hazard function is first increasing, then decreasing, in contrast to the Weibull distribution which only allows for monotone (increasing or decreasing) hazard functions.</p></li>
+<li><p>The loglogistic distribution is very close to the lognormal, but have heavier tail to the right. Its advantage over the lognormal is that the hazard function has closed form.</p></li>
+<li><p>The Gompertz distribution is useful for modeling old age mortality. The hazard function is exponentially increasing. The Gompertz distribution was generalized by (Makeham 1860) (the Gompertz—Makeham Distribution). The generalization consists of adding a positive constant to the Gompertz hazard function.</p></li>
+<li><p>The Gamma distribution is another generalization of the exponential distribution. It is popular in modeling shared frailty.</p></li>
+<li><p><strong>When you have no idea of what the baseline hazard looks like, use Cox regression.</strong> Exponential regression can be used to fit models in whihc the hazard varies with time, and that may be a reasonable thing to do, expecially if you want to berify the fit of another parametric model. For instance, pretend that you habe strong reason to beliebe that the formulation outgh to be Weibull. Even after fitting a Weibull model, you could use the exponential model with dummy variables for interbals to verify that the Weibull fit was reasonable.</p></li>
+<li><p>Which test should we use?<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a> There is no simple answer, so let us instead understand how to determine the answer in particular cases.</p>
 <ul>
-<li>The advantage of the modeling-the-effect approaches is that you can control for the effects of other variables. For instance, we would know that patients vary in age, and we would know age also affects outcome. In a carefully controlled experiment, we could ignore that effect because the average ages (and the distribution of age) of the control and experimental groups would be the same.</li>
-<li>The disadvange of the modeling-the-effect approaches is that you could model the effect incorrectly in two ways. You could model incorrectly the effect of other variables, or you could mismodel the effect itself, for example, by stating its functional form incorrectly.</li>
-<li>Effects of the form “apply the treatment and get an overall improvement” are often not simple. Effects can vary with other covariates (being perhaps larger for males than for females), and effects can vary with time, whcih is to say, aspects that change over time and that are not measured. For instance, a treatment might involve surgery, after whcih there may be a greater risk to be followed by a lesser risk in the future.</li>
-<li>It is because of these concerns that looking at graphs is useful, whether you are engaging in parametric or semiparametric modeling (although, when doing semiparametric modeling, you can only indirectly look at the hazard function by looking at the cumulative hazard or survival function).</li>
-<li>In most real circumstances, you will be forced into parametric or semiparametric analysis. Nonparametric analysis is useful when the experiment has been carefully controlled, although even controlled experiments are sometimes not adequately controlled. Nonparametric analysis is always a useful starting point. In nonexperimental situations in the presence of covariates, you do this more as a data description technique rather than in hopes of producing any final analysis that you can believe. You, as a researcher, should be able to describe the surbibal experience, say, as reflected in a graph of the survivor function or cumulative hazard function for your data, ignoring the complications of confounding variables and the like. Before disentangling reality, you need to be able to describe the reality that your are starting with.</li>
-<li>So, our position is that you will likely be forced into parameterizing the effect. This is perhaps due more to our past analysis experiences. In a well-designed, controlled experiment, however, there is nothing wrong with not parameterizing the effect and stopping at nonparametric analysis.</li>
-<li>If you do need to continue, should you parameterize the hazard function? On this issue, different researchers fell differently. We are favorable disposed to parametric analysis when you have good reason to believe that the hazard function outgh to follow a certain shape. Imposing a hazard function is an excellent way of improving the efficiency of your estimates and helping to avoid being misled by the fortuity of chance. On the other hand, when you do not have a good deductive reasons to know the shape of the hazard, you should use semiparametric analysis.</li>
-<li>When choosing between a semiparametric and parametric analysis, you much also take into consideration what information you are trying to obtain. In all you care about are hazard ratios (parameter effects) in a PH model, then you are probably better off with a semiparametric analysis. If you are interested in predicting the time to failure, however, some sort of parametric assumption as to the hazard is necessary. Here even if you do not have deductive knowledge as to the shape of the hazard, you can try all functional forms, to compare various functional forms of the hazard. You can use the piecewise exponential model to “nonparametrically” check the validity of any parametric form you wish to posit.</li>
+<li><p>The advantage of the modeling-the-effect approaches is that you can control for the effects of other variables. For instance, we would know that patients vary in age, and we would know age also affects outcome. In a carefully controlled experiment, we could ignore that effect because the average ages (and the distribution of age) of the control and experimental groups would be the same.</p></li>
+<li><p>The disadvantage of the modeling-the-effect approaches is that you could model the effect incorrectly in two ways. You could model incorrectly the effect of other variables, or you could mismodel the effect itself, for example, by stating its functional form incorrectly.</p></li>
+<li><p>Effects of the form “apply the treatment and get an overall improvement” are often not simple. Effects can vary with other covariates (being perhaps larger for males than for females), and effects can vary with time, whcih is to say, aspects that change over time and that are not measured. For instance, a treatment might involve surgery, after whcih there may be a greater risk to be followed by a lesser risk in the future.</p></li>
+<li><p>It is because of these concerns that looking at graphs is useful, whether you are engaging in parametric or semiparametric modeling (although, when doing semiparametric modeling, you can only indirectly look at the hazard function by looking at the cumulative hazard or survival function).</p></li>
+<li><p>In most real circumstances, you will be forced into parametric or semiparametric analysis. Nonparametric analysis is useful when the experiment has been carefully controlled, although even controlled experiments are sometimes not adequately controlled. Nonparametric analysis is always a useful starting point. In nonexperimental situations in the presence of covariates, you do this more as a data description technique rather than in hopes of producing any final analysis that you can believe. You, as a researcher, should be able to describe the survival experience, say, as reflected in a graph of the survivor function or cumulative hazard function for your data, ignoring the complications of confounding variables and the like. Before disentangling reality, you need to be able to describe the reality that your are starting with.</p></li>
+<li><p>So, our position is that you will likely be forced into parameterizing the effect. This is perhaps due more to our past analysis experiences. In a well-designed, controlled experiment, however, there is nothing wrong with not parameterizing the effect and stopping at nonparametric analysis.</p></li>
+<li><p>If you do need to continue, should you parameterize the hazard function? On this issue, different researchers fell differently. We are favorable disposed to parametric analysis when you have good reason to believe that the hazard function ought to follow a certain shape. Imposing a hazard function is an excellent way of improving the efficiency of your estimates and helping to avoid being misled by the fortuity of chance. On the other hand, when you do not have a good deductive reasons to know the shape of the hazard, you should use semiparametric analysis.</p></li>
+<li><p>When choosing between a semiparametric and parametric analysis, you much also take into consideration what information you are trying to obtain. In all you care about are hazard ratios (parameter effects) in a PH model, then you are probably better off with a semiparametric analysis. If you are interested in predicting the time to failure, however, some sort of parametric assumption as to the hazard is necessary. Here even if you do not have deductive knowledge as to the shape of the hazard, you can try all functional forms, to compare various functional forms of the hazard. You can use the piecewise exponential model to “nonparametrically” check the validity of any parametric form you wish to posit.</p></li>
 </ul></li>
 </ul>
 </div>
-</div>
-<div id="likelihood-and-partial-likelihood" class="section level2 hasAnchor" number="8.3">
-<h2><span class="header-section-number">8.3</span> Likelihood and partial likelihood<a href="more-topics-on-survival-models.html#likelihood-and-partial-likelihood" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="estimation-of-the-cox-ph-model-using-maximum-likelihood-ml" class="section level3 hasAnchor" number="8.3.1">
-<h3><span class="header-section-number">8.3.1</span> Estimation of the Cox PH model using Maximum likelihood (ML)<a href="more-topics-on-survival-models.html#estimation-of-the-cox-ph-model-using-maximum-likelihood-ml" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="likelihood-and-partial-likelihood" class="section level2 hasAnchor" number="8.6">
+<h2><span class="header-section-number">8.6</span> Likelihood and partial likelihood<a href="more-topics-on-survival-models.html#likelihood-and-partial-likelihood" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="estimation-of-the-cox-ph-model-using-maximum-likelihood-ml" class="section level3 hasAnchor" number="8.6.1">
+<h3><span class="header-section-number">8.6.1</span> Estimation of the Cox PH model using Maximum likelihood (ML)<a href="more-topics-on-survival-models.html#estimation-of-the-cox-ph-model-using-maximum-likelihood-ml" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>As with logistic regression, the ML estimates of the Cox model parameters are derived by maximizing a likelihood function, usually denoted as <span class="math inline">\(L\)</span> (e.g., <span class="math inline">\(L(\beta)\)</span>). <span class="math inline">\(L\)</span> is a partial likelihood (rather than a complete likelihood function):
 <ul>
@@ -503,17 +494,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span class="math display">\[L = L_1 \times L_2 \times L_3 \times \cdots \times L_k = \prod_{j=1}^k L_j, \text{ where } L_j= \text{portion of } L \text{for the } j^{th} \text{ failure time given the risk set of } R(t_{(f)})\]</span>
 Once <span class="math inline">\(L\)</span> is obtained, <span class="math inline">\(\ln L\)</span> is maximized by solving <span class="math inline">\(\frac{\delta \ln L}{\delta \beta_i} = 0\)</span> for <span class="math inline">\((i=1, 2, \cdots, p)\)</span> (# of parameters) over iteration</p>
 </div>
-<div id="more-about-hazard-ratio" class="section level3 hasAnchor" number="8.3.2">
-<h3><span class="header-section-number">8.3.2</span> More about Hazard ratio<a href="more-topics-on-survival-models.html#more-about-hazard-ratio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>-Hazard ratio = <span class="math inline">\(e^{\hat{\beta}}\)</span>
-- In general, a hazard ratio (HR) is defined as the hazard for one individual divided by the hazard for a different individual. The two individuals being compared can be distinguished by their values for the set of predictors, that is, the <span class="math inline">\(X\)</span>’s vs. <span class="math inline">\(X^*\)</span>’s. Therefore,</p>
+<div id="more-about-hazard-ratio" class="section level3 hasAnchor" number="8.6.2">
+<h3><span class="header-section-number">8.6.2</span> More about Hazard ratio<a href="more-topics-on-survival-models.html#more-about-hazard-ratio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>Hazard ratio = <span class="math inline">\(e^{\hat{\beta}}\)</span></p></li>
+<li><p>In general, a hazard ratio (HR) is defined as the hazard for one individual divided by the hazard for a different individual. The two individuals being compared can be distinguished by their values for the set of predictors, that is, the <span class="math inline">\(X\)</span>’s vs. <span class="math inline">\(X^*\)</span>’s. Therefore,</p></li>
+</ul>
 <p><span class="math display">\[ \hat{HR} = \frac{\hat{h} (t, X^*)}{\hat{h} (t, X)} = \frac{h_0 (t) \exp(\sum_{i=1}^p \beta_i X_i^*)}{h_0 (t) \exp(\sum_{i=1}^p \beta_i X_i)} = \frac{\exp(\sum_{i=1}^p \beta_i X_i^*)}{\exp(\sum_{i=1}^p \beta_i X_i)} = \exp[{\sum_{i=1}^p \hat{\beta_i}(X_i^* - X_i)}]\]</span>
-- Example: When <span class="math inline">\(X_1\)</span> denotes (0, 1) exposure status, then <span class="math inline">\(X_1^*=1\)</span>, <span class="math inline">\(X_1=0\)</span>, thus
-<span class="math display">\[\hat{HR} = \exp[{\sum_{i=1}^p \hat{\beta_i}(X_i^* - X_i)}] = \exp[\hat{\beta_1}(1-0)]= \exp(\hat{\beta_1})\]</span>
-- Thus, the <span class="math inline">\(X\)</span>’s are typically coded so that group with the larger hazard corresponds to <span class="math inline">\(X^*\)</span>, and the group with the smaller hazard corresponds to<span class="math inline">\(X\)</span>.</p>
+- Example: When <span class="math inline">\(X_1\)</span> denotes (0, 1) exposure status, then <span class="math inline">\(X_1^*=1\)</span>, <span class="math inline">\(X_1=0\)</span>, thus</p>
+<p><span class="math display">\[\hat{HR} = \exp[{\sum_{i=1}^p \hat{\beta_i}(X_i^* - X_i)}] = \exp[\hat{\beta_1}(1-0)]= \exp(\hat{\beta_1})\]</span>
+- As with an odds ratio, it is easier to interpret an HR that exceeds the null value of 1 than an HR that is less than 1. Thus, the <span class="math inline">\(X\)</span>’s are typically coded so that group with the larger hazard corresponds to <span class="math inline">\(X^*\)</span>, and the group with the smaller hazard corresponds to<span class="math inline">\(X\)</span>.</p>
 </div>
-<div id="maximum-likelihood-estimation" class="section level3 hasAnchor" number="8.3.3">
-<h3><span class="header-section-number">8.3.3</span> Maximum likelihood estimation<a href="more-topics-on-survival-models.html#maximum-likelihood-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="maximum-likelihood-estimation" class="section level3 hasAnchor" number="8.6.3">
+<h3><span class="header-section-number">8.6.3</span> Maximum likelihood estimation<a href="more-topics-on-survival-models.html#maximum-likelihood-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>Maximum likelihood estimation (MLE, ML) is a general approach to estimate that has become popular in many different areas of application.</li>
 <li>There are two reasons for this popularity.
@@ -579,8 +572,8 @@ Once <span class="math inline">\(L\)</span> is obtained, <span class="math inlin
 </ul></li>
 </ul>
 </div>
-<div id="partial-likelihood-estimation" class="section level3 hasAnchor" number="8.3.4">
-<h3><span class="header-section-number">8.3.4</span> Partial likelihood estimation<a href="more-topics-on-survival-models.html#partial-likelihood-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="partial-likelihood-estimation" class="section level3 hasAnchor" number="8.6.4">
+<h3><span class="header-section-number">8.6.4</span> Partial likelihood estimation<a href="more-topics-on-survival-models.html#partial-likelihood-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><span class="math display">\[h_i(t)=h_0(t)\exp(\beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_n x_n )\]</span></p>
 <p>The likelihood function for the proportional hazards model of this equation can be factored into two parts:</p>
 <ul>
@@ -681,8 +674,8 @@ where <span class="math inline">\(x_i\)</span> is the value of <span class="math
 <p class="caption">Start-stop counting process</p>
 </div>
 </div>
-<div id="dependence-among-the-observations" class="section level3 hasAnchor" number="8.3.5">
-<h3><span class="header-section-number">8.3.5</span> Dependence among the observations<a href="more-topics-on-survival-models.html#dependence-among-the-observations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="dependence-among-the-observations" class="section level3 hasAnchor" number="8.6.5">
+<h3><span class="header-section-number">8.6.5</span> Dependence among the observations<a href="more-topics-on-survival-models.html#dependence-among-the-observations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>A common reaction to the methods described here is that there must be something wrong. <strong>In general, when multiple observations are created for a single individual, it’s reasonable to suppose that those observations are not independent, thereby violating a basic assumption used to construct the likelihood function. The consequence of dependence is usually biased standard error estimates and inflated test statistics.</strong> Even worse, there are different numbers of observations for different individuals, so some apper to get more weight than others.</li>
 <li><strong>While concern about dependence is often legitimate, it is not applicable here.</strong> In this case, the creation of multiple observations in not an ad-hoc method; rather, it follows directly from factoring the likelihood function for the data. The basic idea is this: in its original form, the likelihood for data with no censoring can be written as a product of probabilities over all <span class="math inline">\(n\)</span> observations, as follows:
@@ -694,10 +687,10 @@ where, again, <span class="math inline">\(P_{it}\)</span> is the conditional pro
 </ul>
 </div>
 </div>
-<div id="tied-or-discrete-data-analysis" class="section level2 hasAnchor" number="8.4">
-<h2><span class="header-section-number">8.4</span> Tied or Discrete Data Analysis<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a><a href="more-topics-on-survival-models.html#tied-or-discrete-data-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="example-recidivism-in-the-u.s." class="section level3 hasAnchor" number="8.4.1">
-<h3><span class="header-section-number">8.4.1</span> Example: Recidivism in the U.S.<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a><a href="more-topics-on-survival-models.html#example-recidivism-in-the-u.s." class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="tied-or-discrete-data-analysis" class="section level2 hasAnchor" number="8.7">
+<h2><span class="header-section-number">8.7</span> Tied or Discrete Data Analysis<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a><a href="more-topics-on-survival-models.html#tied-or-discrete-data-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="example-recidivism-in-the-u.s." class="section level3 hasAnchor" number="8.7.1">
+<h3><span class="header-section-number">8.7.1</span> Example: Recidivism in the U.S.<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a><a href="more-topics-on-survival-models.html#example-recidivism-in-the-u.s." class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The dataset considered here is analyzed in Wooldridge (2002) and credited to Chung, Schmidt and Witte (1991). The data pertain to a random sample of convicts released from prison between July 1, 1977 and June 30, 1978. Of interest is the time until they return to prison. The information was collected retrospectively by looking at records in April 1984, so the maximum possible length of observation is 81 months. The data are available in binary format from the Stata website and consists of 1445 observations on 18 variables.</p>
 <ul>
 <li>workprg: an indicator of participation in a work program</li>
@@ -713,8 +706,9 @@ where, again, <span class="math inline">\(P_{it}\)</span> is the conditional pro
 <li>durat: represents time in months until return to prison or end of follow up</li>
 <li>cens: the censoring indicator and is coded 1 if the observation was censored (i.e. the individual had not returned to prison)</li>
 </ul>
-<div id="data-management" class="section level4 hasAnchor" number="8.4.1.1">
-<h4><span class="header-section-number">8.4.1.1</span> Data management<a href="more-topics-on-survival-models.html#data-management" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+</div>
+<div id="data-management" class="section level3 hasAnchor" number="8.7.2">
+<h3><span class="header-section-number">8.7.2</span> Data management<a href="more-topics-on-survival-models.html#data-management" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="more-topics-on-survival-models.html#cb233-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
 <span id="cb233-2"><a href="more-topics-on-survival-models.html#cb233-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb233-3"><a href="more-topics-on-survival-models.html#cb233-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)</span>
@@ -750,16 +744,15 @@ where, again, <span class="math inline">\(P_{it}\)</span> is the conditional pro
 <span id="cb237-12"><a href="more-topics-on-survival-models.html#cb237-12" aria-hidden="true" tabindex="-1"></a>mf <span class="ot">&lt;-</span> <span class="fu">Surv</span>(durat, fail) <span class="sc">~</span> workprg <span class="sc">+</span> priors <span class="sc">+</span> tserved <span class="sc">+</span> felon <span class="sc">+</span> </span>
 <span id="cb237-13"><a href="more-topics-on-survival-models.html#cb237-13" aria-hidden="true" tabindex="-1"></a>  alcohol <span class="sc">+</span> drugs <span class="sc">+</span> black <span class="sc">+</span> married <span class="sc">+</span> educ <span class="sc">+</span> age</span></code></pre></div>
 </div>
-</div>
-<div id="the-treatment-of-ties" class="section level3 hasAnchor" number="8.4.2">
-<h3><span class="header-section-number">8.4.2</span> The treatment of ties<a href="more-topics-on-survival-models.html#the-treatment-of-ties" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="the-treatment-of-ties" class="section level3 hasAnchor" number="8.7.3">
+<h3><span class="header-section-number">8.7.3</span> The treatment of ties<a href="more-topics-on-survival-models.html#the-treatment-of-ties" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>Breslow’s method, the standard formular for partial likelihood estimation with tied data, is often a poor approximation when there are many ties.</li>
 <li>This problem was remedied by two exact methods, one that assumed that ties result from imprecise measurement and another that assumed that events really occur at the same (discrete) time.</li>
 <li>Efron’s method provides a good approximation to the exact methods.</li>
 </ul>
-<div id="the-exact-method" class="section level4 hasAnchor" number="8.4.2.1">
-<h4><span class="header-section-number">8.4.2.1</span> The Exact method<a href="more-topics-on-survival-models.html#the-exact-method" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="the-exact-method" class="section level4 hasAnchor" number="8.7.3.1">
+<h4><span class="header-section-number">8.7.3.1</span> The Exact method<a href="more-topics-on-survival-models.html#the-exact-method" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li><p>Let’s begin with the exact method bacause its underlying model is probably more plausible for most application. <strong>Since events can occur at any point in time, it’s reasonable to suppose that ties are merely the result of imprecise measurement of time and that there is a true but unknown time ordering for the tied events.</strong></p></li>
 <li><p>If we knew that ordering, we could construct the partial likelihood in the usual way. In the absence of any knowledge of that ordering, however, we have to consider all the possibilities.</p></li>
@@ -783,16 +776,16 @@ where, again, <span class="math inline">\(P_{it}\)</span> is the conditional pro
 </ul></li>
 </ul>
 </div>
-<div id="the-breslow-and-efron-method" class="section level4 hasAnchor" number="8.4.2.2">
-<h4><span class="header-section-number">8.4.2.2</span> The Breslow and Efron method<a href="more-topics-on-survival-models.html#the-breslow-and-efron-method" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="the-breslow-and-efron-method" class="section level4 hasAnchor" number="8.7.3.2">
+<h4><span class="header-section-number">8.7.3.2</span> The Breslow and Efron method<a href="more-topics-on-survival-models.html#the-breslow-and-efron-method" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li>Early recognition of these computational difficulties in the exact method led to the development of approximations.</li>
 <li>If the exact methods are too time-comsuming, use the Efron approximation. It is nearly always better than the Breslow method, with virtually no increase in computing time.</li>
 <li>Farewell and Prentice (1980) showed that the Breslow approximation deteriorates as the number of ties at a particular point in time becomes a large proportion of the number of cases at risk.</li>
 </ul>
 </div>
-<div id="comparisons" class="section level4 hasAnchor" number="8.4.2.3">
-<h4><span class="header-section-number">8.4.2.3</span> Comparisons<a href="more-topics-on-survival-models.html#comparisons" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="comparisons" class="section level4 hasAnchor" number="8.7.3.3">
+<h4><span class="header-section-number">8.7.3.3</span> Comparisons<a href="more-topics-on-survival-models.html#comparisons" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li>Let us compare all available methods of handling ties. As is often the case, the Efron method comes closer to the exact partial likelihood estimate with substantial;y less computational effort, although in this application all methods yield very similar results.</li>
 </ul>
@@ -817,8 +810,8 @@ where, again, <span class="math inline">\(P_{it}\)</span> is the conditional pro
 </div>
 </div>
 </div>
-<div id="the-discrete-method" class="section level2 hasAnchor" number="8.5">
-<h2><span class="header-section-number">8.5</span> The discrete method<a href="more-topics-on-survival-models.html#the-discrete-method" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="the-discrete-method" class="section level2 hasAnchor" number="8.8">
+<h2><span class="header-section-number">8.8</span> The discrete method<a href="more-topics-on-survival-models.html#the-discrete-method" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li><p>The discrete method is also an exact method but one based on a fundamentally different model.</p></li>
 <li><p><strong>In fact, this is NOT a proportional hazard model at all. The model does fall within the framework of Cox regression, however, because it was proposed by Cox in his original 1972 paper and because the estimation method is a form of partial likelihood.</strong></p></li>
@@ -862,12 +855,12 @@ where, again, <span class="math inline">\(P_{it}\)</span> is the conditional pro
 <li>This approach is similar to those of the piecewise exponential model and the counting process. The main difference is that those methods assumed that we know the exact time of the event within a given interval. By contrast, the discrete model presume that we know only that an event occured within a given interval.</li>
 </ul></li>
 </ul>
-<div id="continuous-and-discrete-models" class="section level3 hasAnchor" number="8.5.1">
-<h3><span class="header-section-number">8.5.1</span> Continuous and Discrete Models<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a><a href="more-topics-on-survival-models.html#continuous-and-discrete-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="continuous-and-discrete-models" class="section level3 hasAnchor" number="8.8.1">
+<h3><span class="header-section-number">8.8.1</span> Continuous and Discrete Models<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a><a href="more-topics-on-survival-models.html#continuous-and-discrete-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let’s have another look at the recidivism data. We will split duration into single years with an open-ended category at 5+ and fit a piecewise exponential model with the same covariates as Wooldridge.</p>
 <p>We will then treat the data as discrete, assuming that all we know is that recidivism occurred somewhere in the year. We will fit a binary data model with a logit link, which corresponds to the discrete time model, and using a complementary-log-log link, which corresponds to a grouped continuous time model.</p>
-<div id="a-piecewise-exponential-model" class="section level4 hasAnchor" number="8.5.1.1">
-<h4><span class="header-section-number">8.5.1.1</span> A Piecewise Exponential Model<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a><a href="more-topics-on-survival-models.html#a-piecewise-exponential-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="a-piecewise-exponential-model" class="section level4 hasAnchor" number="8.8.1.1">
+<h4><span class="header-section-number">8.8.1.1</span> A Piecewise Exponential Model<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a><a href="more-topics-on-survival-models.html#a-piecewise-exponential-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li><strong>This model is equivalent to the Poisson regression for a positive mean, which is a GLM assumes a Poisson distribution for <span class="math inline">\(Y\)</span> and uses the log link function.</strong> GLMs for the Poisson mean can use the identity link, but it is more commone to model the log of the mean. Like the linear predictor <span class="math inline">\(\beta_0 + \beta_1 x_1\)</span>, the log of the mean can take any real-number value.</li>
 </ul>
@@ -913,8 +906,8 @@ where, again, <span class="math inline">\(P_{it}\)</span> is the conditional pro
 ## educ            -0.021416177 0.019444026  -1.1014271 2.707108e-01
 ## age             -0.003580003 0.000522249  -6.8549738 7.132557e-12</code></pre>
 </div>
-<div id="a-logit-model" class="section level4 hasAnchor" number="8.5.1.2">
-<h4><span class="header-section-number">8.5.1.2</span> A Logit Model<a href="more-topics-on-survival-models.html#a-logit-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="a-logit-model" class="section level4 hasAnchor" number="8.8.1.2">
+<h4><span class="header-section-number">8.8.1.2</span> A Logit Model<a href="more-topics-on-survival-models.html#a-logit-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li>For a discrete-time survival analysis we have to make sure we only include intervals with complete exposure, where we can classify the outcome as failure or survival. The convicts were released between July 1, 1977 and June 30, 1978 and the data were collected in April 1984, so the length of observation ranges between 70 and 81 months. We therefore restrict our attention to 5 years or 60 months. (We could go up to 6 years or 72 months for some convicts, but unfortunately we don’t have the date of release, so we can’t identify these cases and must censor everyone at 60.)</li>
 </ul>
@@ -938,8 +931,8 @@ where, again, <span class="math inline">\(P_{it}\)</span> is the conditional pro
 ## educ            -0.026725931 0.0215052145 -1.2427651 2.139544e-01
 ## age             -0.004023087 0.0005840427 -6.8883431 5.644594e-12</code></pre>
 </div>
-<div id="a-complementary-log-log-model" class="section level4 hasAnchor" number="8.5.1.3">
-<h4 class="hasAnchor"><span class="header-section-number">8.5.1.3</span> A Complementary Log-log Model<br />
+<div id="a-complementary-log-log-model" class="section level4 hasAnchor" number="8.8.1.3">
+<h4 class="hasAnchor"><span class="header-section-number">8.8.1.3</span> A Complementary Log-log Model<br />
 <a href="more-topics-on-survival-models.html#a-complementary-log-log-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Finally we use a complementary log-log link</p>
 <div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="more-topics-on-survival-models.html#cb244-1" aria-hidden="true" tabindex="-1"></a>cloglog <span class="ot">&lt;-</span> <span class="fu">glm</span>(mmf, <span class="at">data =</span> recidx, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> cloglog))</span>
@@ -961,8 +954,8 @@ where, again, <span class="math inline">\(P_{it}\)</span> is the conditional pro
 ## educ            -0.023334468 0.0202349457 -1.1531767 2.488379e-01
 ## age             -0.003851008 0.0005486362 -7.0192372 2.230827e-12</code></pre>
 </div>
-<div id="comparison-of-estimates" class="section level4 hasAnchor" number="8.5.1.4">
-<h4><span class="header-section-number">8.5.1.4</span> Comparison of Estimates<a href="more-topics-on-survival-models.html#comparison-of-estimates" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="comparison-of-estimates" class="section level4 hasAnchor" number="8.8.1.4">
+<h4><span class="header-section-number">8.8.1.4</span> Comparison of Estimates<a href="more-topics-on-survival-models.html#comparison-of-estimates" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="more-topics-on-survival-models.html#cb246-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="fu">coef</span>(pwe)[<span class="sc">-</span><span class="dv">6</span>], <span class="fu">coef</span>(cloglog), <span class="fu">coef</span>(logit))</span></code></pre></div>
 <pre><code>##                         [,1]         [,2]         [,3]
 ## (Intercept)     -3.830127469 -1.238795113 -1.140802599
@@ -988,16 +981,16 @@ where, again, <span class="math inline">\(P_{it}\)</span> is the conditional pro
 <p>All three approaches, however, lead to similar predicted survival probabilities.</p>
 </div>
 </div>
-<div id="interval-censoring" class="section level3 hasAnchor" number="8.5.2">
-<h3 class="hasAnchor"><span class="header-section-number">8.5.2</span> Interval censoring<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a><br />
+<div id="interval-censoring" class="section level3 hasAnchor" number="8.8.2">
+<h3 class="hasAnchor"><span class="header-section-number">8.8.2</span> Interval censoring<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a><br />
 <a href="more-topics-on-survival-models.html#interval-censoring" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Discrete data are often the result of interval-censoring. Events might happen in a continuous range of time, but they can only be observed at discrete moments (e.g., longitudinal data by waves).</p>
 <ul>
 <li><strong>The modeling paradigm for interval-censored survival data is essentially the same as for non-interval-censored data.</strong> Interpretation and presentation of the results of a fitted proportional hazards model is identical for the two types of data.</li>
 <li>However, model building with interval-censored data uses the binary regression likelihood if intervals are the same for all subjects. This implies that model building details, such as variable selections, identification of the scale of continuous covariates, and inclusion of interactions, use techniques based on binary regression modeling with the complimentary log-log model.</li>
 </ul>
-<div id="conditional-logistic-regression-and-stratified-cox-model" class="section level4 hasAnchor" number="8.5.2.1">
-<h4><span class="header-section-number">8.5.2.1</span> Conditional logistic regression and stratified Cox model<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a><a href="more-topics-on-survival-models.html#conditional-logistic-regression-and-stratified-cox-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="conditional-logistic-regression-and-stratified-cox-model" class="section level4 hasAnchor" number="8.8.2.1">
+<h4><span class="header-section-number">8.8.2.1</span> Conditional logistic regression and stratified Cox model<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a><a href="more-topics-on-survival-models.html#conditional-logistic-regression-and-stratified-cox-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li><p>Under a particular data structure, the loglikelihood for a conditional logistic regression model is the same with loglikelihood from a Cox model. A stratified Cox model with each case/control group assigned to its own stratum, time set to a constant, status of 1=case 0=control, and using the exact partial likelihood has the same likelihood formula as a conditional logistic regression. The clogit routine creates the necessary dummy variable of times (all 1) and the strata, then calls coxph.</p>
 <ul>
@@ -1047,7 +1040,7 @@ where, again, <span class="math inline">\(P_{it}\)</span> is the conditional pro
           </div>
         </div>
       </div>
-<a href="cox-proportional-hazard-modeling-02.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="accounting-for-heterogeneity.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="add-health-project.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

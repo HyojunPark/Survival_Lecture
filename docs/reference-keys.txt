@@ -69,7 +69,7 @@ model-specification-5
 estimation-5
 interpretations-3
 graphs
-cox-proportional-hazard-modeling-01
+cox-proportional-hazard-modeling
 setup-working-datasets
 cox-proportional-hazard-models-example
 cox-model-specification
@@ -85,9 +85,8 @@ goodness-of-fit-gof
 time-dependent-variable-approaches
 testing-for-influential-observations
 testing-for-non-linearlity
-cox-proportional-hazard-modeling-02
-setup-working-datasets-1
 accounting-for-heterogeneity
+setup-working-datasets-1
 an-introductory-example
 working-with-heterogeneity
 stratification
@@ -108,11 +107,10 @@ nested-in-each-mother
 individuals-are-nested-in-each-mother
 more-topics-on-survival-models
 setup-working-datasets-2
-more-topics-on-survival-models-1
 why-we-call-cox-model-as-semi-parametric-model
 why-the-cox-ph-model-is-so-popular
 adjusted-survival-curves-using-the-cox-ph-model
-notes-for-survival-model-selection
+survival-model-selection
 likelihood-and-partial-likelihood
 estimation-of-the-cox-ph-model-using-maximum-likelihood-ml
 more-about-hazard-ratio

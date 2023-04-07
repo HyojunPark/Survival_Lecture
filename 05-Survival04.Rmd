@@ -1,4 +1,4 @@
-# Cox Proportional Hazard Modeling 01
+# Cox Proportional Hazard Modeling
 
 ## Setup working datasets
 
