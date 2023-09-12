@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 8 More Topics on Survival Models | SOC6280: Survival Analysis: Practice</title>
   <meta name="description" content="Survival handbook" />
-  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 8 More Topics on Survival Models | SOC6280: Survival Analysis: Practice" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Hyojun Park" />
 
 
-<meta name="date" content="2023-04-06" />
+<meta name="date" content="2023-09-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,6 +52,16 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.2.0/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.13.0/leaflet-providers_1.13.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.2.0/leaflet-providers-plugin.js"></script>
 
 
 <style type="text/css">
@@ -119,6 +129,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -355,21 +369,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 8</span> More Topics on Survival Models<a href="more-topics-on-survival-models.html#more-topics-on-survival-models" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="setup-working-datasets-2" class="section level2 hasAnchor" number="8.1">
 <h2><span class="header-section-number">8.1</span> Setup working datasets<a href="more-topics-on-survival-models.html#setup-working-datasets-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="more-topics-on-survival-models.html#cb230-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb230-2"><a href="more-topics-on-survival-models.html#cb230-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb230-3"><a href="more-topics-on-survival-models.html#cb230-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
-<span id="cb230-4"><a href="more-topics-on-survival-models.html#cb230-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(eha)</span>
-<span id="cb230-5"><a href="more-topics-on-survival-models.html#cb230-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
-<span id="cb230-6"><a href="more-topics-on-survival-models.html#cb230-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb230-7"><a href="more-topics-on-survival-models.html#cb230-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flextable)</span>
-<span id="cb230-8"><a href="more-topics-on-survival-models.html#cb230-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survminer)</span>
-<span id="cb230-9"><a href="more-topics-on-survival-models.html#cb230-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggfortify)</span>
-<span id="cb230-10"><a href="more-topics-on-survival-models.html#cb230-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb230-11"><a href="more-topics-on-survival-models.html#cb230-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb230-12"><a href="more-topics-on-survival-models.html#cb230-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(coxme)</span>
-<span id="cb230-13"><a href="more-topics-on-survival-models.html#cb230-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span></code></pre></div>
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="more-topics-on-survival-models.html#cb231-1" aria-hidden="true" tabindex="-1"></a>oldmort01 <span class="ot">&lt;-</span> oldmort</span>
-<span id="cb231-2"><a href="more-topics-on-survival-models.html#cb231-2" aria-hidden="true" tabindex="-1"></a>oldmort01<span class="sc">$</span>male <span class="ot">&lt;-</span> <span class="fu">relevel</span>(oldmort01<span class="sc">$</span>sex, <span class="at">ref =</span> <span class="st">&quot;female&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="more-topics-on-survival-models.html#cb235-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb235-2"><a href="more-topics-on-survival-models.html#cb235-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb235-3"><a href="more-topics-on-survival-models.html#cb235-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb235-4"><a href="more-topics-on-survival-models.html#cb235-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(eha)</span>
+<span id="cb235-5"><a href="more-topics-on-survival-models.html#cb235-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
+<span id="cb235-6"><a href="more-topics-on-survival-models.html#cb235-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb235-7"><a href="more-topics-on-survival-models.html#cb235-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flextable)</span>
+<span id="cb235-8"><a href="more-topics-on-survival-models.html#cb235-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survminer)</span>
+<span id="cb235-9"><a href="more-topics-on-survival-models.html#cb235-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggfortify)</span>
+<span id="cb235-10"><a href="more-topics-on-survival-models.html#cb235-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb235-11"><a href="more-topics-on-survival-models.html#cb235-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb235-12"><a href="more-topics-on-survival-models.html#cb235-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(coxme)</span>
+<span id="cb235-13"><a href="more-topics-on-survival-models.html#cb235-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span></code></pre></div>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="more-topics-on-survival-models.html#cb236-1" aria-hidden="true" tabindex="-1"></a>oldmort01 <span class="ot">&lt;-</span> oldmort</span>
+<span id="cb236-2"><a href="more-topics-on-survival-models.html#cb236-2" aria-hidden="true" tabindex="-1"></a>oldmort01<span class="sc">$</span>male <span class="ot">&lt;-</span> <span class="fu">relevel</span>(oldmort01<span class="sc">$</span>sex, <span class="at">ref =</span> <span class="st">&quot;female&quot;</span>)</span></code></pre></div>
 </div>
 <div id="why-we-call-cox-model-as-semi-parametric-model" class="section level2 hasAnchor" number="8.2">
 <h2><span class="header-section-number">8.2</span> Why we call Cox model as semi-parametric model?<a href="more-topics-on-survival-models.html#why-we-call-cox-model-as-semi-parametric-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -449,16 +463,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Note that, despite the fact that the hazard function is not continuous, the other functions are. They are not differentiable at the cut points, though. <strong>The piecewise constant distribution is very flexible. It can be made arbitrarily close to any continuous distribution by increasing the number of cut points and choose the levels appropriately. Parametric proportional hazards modeling with the <code>pch</code> distribution is a serious competitor to the Cox regression model, especially with large data sets</strong>.</li>
 </ul>
 <p><strong>Piecewise constant hazards function</strong></p>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="more-topics-on-survival-models.html#cb232-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(eha)</span>
-<span id="cb232-2"><a href="more-topics-on-survival-models.html#cb232-2" aria-hidden="true" tabindex="-1"></a>fit_pch <span class="ot">&lt;-</span> eha<span class="sc">::</span><span class="fu">pchreg</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> male <span class="sc">+</span> imr.birth <span class="sc">+</span> region,</span>
-<span id="cb232-3"><a href="more-topics-on-survival-models.html#cb232-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">cuts =</span><span class="fu">seq</span>(<span class="dv">60</span>, <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">5</span>),</span>
-<span id="cb232-4"><a href="more-topics-on-survival-models.html#cb232-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> oldmort01)</span>
-<span id="cb232-5"><a href="more-topics-on-survival-models.html#cb232-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb232-6"><a href="more-topics-on-survival-models.html#cb232-6" aria-hidden="true" tabindex="-1"></a>fit_np <span class="ot">&lt;-</span> <span class="fu">coxreg</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> male <span class="sc">+</span> imr.birth <span class="sc">+</span> region, </span>
-<span id="cb232-7"><a href="more-topics-on-survival-models.html#cb232-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> oldmort01)</span>
-<span id="cb232-8"><a href="more-topics-on-survival-models.html#cb232-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb232-9"><a href="more-topics-on-survival-models.html#cb232-9" aria-hidden="true" tabindex="-1"></a><span class="fu">compHaz</span>(fit_pch, fit_np)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-124-1.png" width="672" /></p>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="more-topics-on-survival-models.html#cb237-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(eha)</span>
+<span id="cb237-2"><a href="more-topics-on-survival-models.html#cb237-2" aria-hidden="true" tabindex="-1"></a>fit_pch <span class="ot">&lt;-</span> eha<span class="sc">::</span><span class="fu">pchreg</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> male <span class="sc">+</span> imr.birth <span class="sc">+</span> region,</span>
+<span id="cb237-3"><a href="more-topics-on-survival-models.html#cb237-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">cuts =</span><span class="fu">seq</span>(<span class="dv">60</span>, <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">5</span>),</span>
+<span id="cb237-4"><a href="more-topics-on-survival-models.html#cb237-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> oldmort01)</span>
+<span id="cb237-5"><a href="more-topics-on-survival-models.html#cb237-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb237-6"><a href="more-topics-on-survival-models.html#cb237-6" aria-hidden="true" tabindex="-1"></a>fit_np <span class="ot">&lt;-</span> <span class="fu">coxreg</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> male <span class="sc">+</span> imr.birth <span class="sc">+</span> region, </span>
+<span id="cb237-7"><a href="more-topics-on-survival-models.html#cb237-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> oldmort01)</span>
+<span id="cb237-8"><a href="more-topics-on-survival-models.html#cb237-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb237-9"><a href="more-topics-on-survival-models.html#cb237-9" aria-hidden="true" tabindex="-1"></a><span class="fu">compHaz</span>(fit_pch, fit_np)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-125-1.png" width="672" /></p>
 <ul>
 <li><p>The Weibull distribution is a very popular parametric model for survival data, described in detail by Waloddi Weibull (Weibull 1951), known earlier. It is one of the so-called extreme-value distributions, and as such very useful in reliability theory. It is becoming popular in demographic applications, but in mortality studies it is wise to avoid it for old age mortality (the hazard grows too slow) and mortality in ages 0–15 years of age (U-shaped hazards, which the Weibull model doesn’t allow).</p></li>
 <li><p>The lognormal distribution is connected to the normal distribution through the exponential function: If <span class="math inline">\(X\)</span> is normally distributed, then <span class="math inline">\(Y = \exp(X)\)</span> is lognormally distributed. Conversely, if <span class="math inline">\(Y\)</span> is lognormally distributed, then <span class="math inline">\(X = \log(Y)\)</span> is normally distributed. The lognormal distribution has the interesting property that the hazard function is first increasing, then decreasing, in contrast to the Weibull distribution which only allows for monotone (increasing or decreasing) hazard functions.</p></li>
@@ -709,13 +723,13 @@ where, again, <span class="math inline">\(P_{it}\)</span> is the conditional pro
 </div>
 <div id="data-management" class="section level3 hasAnchor" number="8.7.2">
 <h3><span class="header-section-number">8.7.2</span> Data management<a href="more-topics-on-survival-models.html#data-management" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="more-topics-on-survival-models.html#cb233-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
-<span id="cb233-2"><a href="more-topics-on-survival-models.html#cb233-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb233-3"><a href="more-topics-on-survival-models.html#cb233-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)</span>
-<span id="cb233-4"><a href="more-topics-on-survival-models.html#cb233-4" aria-hidden="true" tabindex="-1"></a>recid <span class="ot">&lt;-</span> <span class="fu">read.dta</span>(<span class="st">&quot;https://www.stata.com/data/jwooldridge/eacsap/recid.dta&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="more-topics-on-survival-models.html#cb238-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
+<span id="cb238-2"><a href="more-topics-on-survival-models.html#cb238-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb238-3"><a href="more-topics-on-survival-models.html#cb238-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)</span>
+<span id="cb238-4"><a href="more-topics-on-survival-models.html#cb238-4" aria-hidden="true" tabindex="-1"></a>recid <span class="ot">&lt;-</span> <span class="fu">read.dta</span>(<span class="st">&quot;https://www.stata.com/data/jwooldridge/eacsap/recid.dta&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning in read.dta(&quot;https://www.stata.com/data/jwooldridge/eacsap/recid.dta&quot;):
 ## cannot read factor labels from Stata 5 files</code></pre>
-<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="more-topics-on-survival-models.html#cb235-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(recid)</span></code></pre></div>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="more-topics-on-survival-models.html#cb240-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(recid)</span></code></pre></div>
 <pre><code>##   black alcohol drugs super married felon workprg property person priors educ
 ## 1     0       1     0     1       1     0       1        0      0      0    7
 ## 2     1       0     0     1       0     1       1        1      0      0   12
@@ -730,19 +744,19 @@ where, again, <span class="math inline">\(P_{it}\)</span> is the conditional pro
 ## 4     3 253      38     76    25    0 3.218876
 ## 5     0 244       4     81    81    1 4.394449
 ## 6     0 277      13     79    79    1 4.369448</code></pre>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="more-topics-on-survival-models.html#cb237-1" aria-hidden="true" tabindex="-1"></a>recid<span class="sc">$</span>fail <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> recid<span class="sc">$</span>cens</span>
-<span id="cb237-2"><a href="more-topics-on-survival-models.html#cb237-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb237-3"><a href="more-topics-on-survival-models.html#cb237-3" aria-hidden="true" tabindex="-1"></a>recidx <span class="ot">&lt;-</span> <span class="fu">survSplit</span>(recid, <span class="at">cut =</span> <span class="fu">seq</span>(<span class="dv">12</span>, <span class="dv">60</span>, <span class="dv">12</span>), </span>
-<span id="cb237-4"><a href="more-topics-on-survival-models.html#cb237-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">start =</span> <span class="st">&quot;t0&quot;</span>, <span class="at">end =</span> <span class="st">&quot;durat&quot;</span>, </span>
-<span id="cb237-5"><a href="more-topics-on-survival-models.html#cb237-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">event =</span> <span class="st">&quot;fail&quot;</span>, </span>
-<span id="cb237-6"><a href="more-topics-on-survival-models.html#cb237-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">episode =</span> <span class="st">&quot;interval&quot;</span>)</span>
-<span id="cb237-7"><a href="more-topics-on-survival-models.html#cb237-7" aria-hidden="true" tabindex="-1"></a>labels <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">&quot;(&quot;</span>,<span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">60</span>,<span class="dv">12</span>),<span class="st">&quot;,&quot;</span>,<span class="fu">c</span>(<span class="fu">seq</span>(<span class="dv">12</span>,<span class="dv">60</span>,<span class="dv">12</span>),<span class="dv">81</span>), <span class="st">&quot;]&quot;</span>,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb237-8"><a href="more-topics-on-survival-models.html#cb237-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb237-9"><a href="more-topics-on-survival-models.html#cb237-9" aria-hidden="true" tabindex="-1"></a>recidx <span class="ot">&lt;-</span> <span class="fu">mutate</span>(recidx, <span class="at">exposure =</span> durat <span class="sc">-</span> t0, </span>
-<span id="cb237-10"><a href="more-topics-on-survival-models.html#cb237-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">interval =</span> <span class="fu">factor</span>(interval <span class="sc">+</span> <span class="dv">1</span>, <span class="at">labels =</span> labels))</span>
-<span id="cb237-11"><a href="more-topics-on-survival-models.html#cb237-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb237-12"><a href="more-topics-on-survival-models.html#cb237-12" aria-hidden="true" tabindex="-1"></a>mf <span class="ot">&lt;-</span> <span class="fu">Surv</span>(durat, fail) <span class="sc">~</span> workprg <span class="sc">+</span> priors <span class="sc">+</span> tserved <span class="sc">+</span> felon <span class="sc">+</span> </span>
-<span id="cb237-13"><a href="more-topics-on-survival-models.html#cb237-13" aria-hidden="true" tabindex="-1"></a>  alcohol <span class="sc">+</span> drugs <span class="sc">+</span> black <span class="sc">+</span> married <span class="sc">+</span> educ <span class="sc">+</span> age</span></code></pre></div>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="more-topics-on-survival-models.html#cb242-1" aria-hidden="true" tabindex="-1"></a>recid<span class="sc">$</span>fail <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> recid<span class="sc">$</span>cens</span>
+<span id="cb242-2"><a href="more-topics-on-survival-models.html#cb242-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb242-3"><a href="more-topics-on-survival-models.html#cb242-3" aria-hidden="true" tabindex="-1"></a>recidx <span class="ot">&lt;-</span> <span class="fu">survSplit</span>(recid, <span class="at">cut =</span> <span class="fu">seq</span>(<span class="dv">12</span>, <span class="dv">60</span>, <span class="dv">12</span>), </span>
+<span id="cb242-4"><a href="more-topics-on-survival-models.html#cb242-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">start =</span> <span class="st">&quot;t0&quot;</span>, <span class="at">end =</span> <span class="st">&quot;durat&quot;</span>, </span>
+<span id="cb242-5"><a href="more-topics-on-survival-models.html#cb242-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">event =</span> <span class="st">&quot;fail&quot;</span>, </span>
+<span id="cb242-6"><a href="more-topics-on-survival-models.html#cb242-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">episode =</span> <span class="st">&quot;interval&quot;</span>)</span>
+<span id="cb242-7"><a href="more-topics-on-survival-models.html#cb242-7" aria-hidden="true" tabindex="-1"></a>labels <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">&quot;(&quot;</span>,<span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">60</span>,<span class="dv">12</span>),<span class="st">&quot;,&quot;</span>,<span class="fu">c</span>(<span class="fu">seq</span>(<span class="dv">12</span>,<span class="dv">60</span>,<span class="dv">12</span>),<span class="dv">81</span>), <span class="st">&quot;]&quot;</span>,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb242-8"><a href="more-topics-on-survival-models.html#cb242-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb242-9"><a href="more-topics-on-survival-models.html#cb242-9" aria-hidden="true" tabindex="-1"></a>recidx <span class="ot">&lt;-</span> <span class="fu">mutate</span>(recidx, <span class="at">exposure =</span> durat <span class="sc">-</span> t0, </span>
+<span id="cb242-10"><a href="more-topics-on-survival-models.html#cb242-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">interval =</span> <span class="fu">factor</span>(interval <span class="sc">+</span> <span class="dv">1</span>, <span class="at">labels =</span> labels))</span>
+<span id="cb242-11"><a href="more-topics-on-survival-models.html#cb242-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb242-12"><a href="more-topics-on-survival-models.html#cb242-12" aria-hidden="true" tabindex="-1"></a>mf <span class="ot">&lt;-</span> <span class="fu">Surv</span>(durat, fail) <span class="sc">~</span> workprg <span class="sc">+</span> priors <span class="sc">+</span> tserved <span class="sc">+</span> felon <span class="sc">+</span> </span>
+<span id="cb242-13"><a href="more-topics-on-survival-models.html#cb242-13" aria-hidden="true" tabindex="-1"></a>  alcohol <span class="sc">+</span> drugs <span class="sc">+</span> black <span class="sc">+</span> married <span class="sc">+</span> educ <span class="sc">+</span> age</span></code></pre></div>
 </div>
 <div id="the-treatment-of-ties" class="section level3 hasAnchor" number="8.7.3">
 <h3><span class="header-section-number">8.7.3</span> The treatment of ties<a href="more-topics-on-survival-models.html#the-treatment-of-ties" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -789,13 +803,13 @@ where, again, <span class="math inline">\(P_{it}\)</span> is the conditional pro
 <ul>
 <li>Let us compare all available methods of handling ties. As is often the case, the Efron method comes closer to the exact partial likelihood estimate with substantial;y less computational effort, although in this application all methods yield very similar results.</li>
 </ul>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="more-topics-on-survival-models.html#cb238-1" aria-hidden="true" tabindex="-1"></a>cox_efron <span class="ot">&lt;-</span> <span class="fu">coxph</span>(mf, <span class="at">data =</span> recidx, <span class="at">ties=</span><span class="st">&quot;efron&quot;</span>)</span>
-<span id="cb238-2"><a href="more-topics-on-survival-models.html#cb238-2" aria-hidden="true" tabindex="-1"></a>cox_beslow <span class="ot">&lt;-</span> <span class="fu">coxph</span>(mf, <span class="at">data =</span> recidx, <span class="at">ties=</span><span class="st">&quot;breslow&quot;</span>)</span>
-<span id="cb238-3"><a href="more-topics-on-survival-models.html#cb238-3" aria-hidden="true" tabindex="-1"></a>cox_exact <span class="ot">&lt;-</span> <span class="fu">coxph</span>(mf, <span class="at">data =</span> recidx, <span class="at">ties=</span><span class="st">&quot;exact&quot;</span>)</span>
-<span id="cb238-4"><a href="more-topics-on-survival-models.html#cb238-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb238-5"><a href="more-topics-on-survival-models.html#cb238-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">exactp =</span> <span class="fu">coef</span>(cox_exact),</span>
-<span id="cb238-6"><a href="more-topics-on-survival-models.html#cb238-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">efron =</span> <span class="fu">coef</span>(cox_efron), </span>
-<span id="cb238-7"><a href="more-topics-on-survival-models.html#cb238-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">breslow =</span> <span class="fu">coef</span>(cox_beslow))</span></code></pre></div>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="more-topics-on-survival-models.html#cb243-1" aria-hidden="true" tabindex="-1"></a>cox_efron <span class="ot">&lt;-</span> <span class="fu">coxph</span>(mf, <span class="at">data =</span> recidx, <span class="at">ties=</span><span class="st">&quot;efron&quot;</span>)</span>
+<span id="cb243-2"><a href="more-topics-on-survival-models.html#cb243-2" aria-hidden="true" tabindex="-1"></a>cox_beslow <span class="ot">&lt;-</span> <span class="fu">coxph</span>(mf, <span class="at">data =</span> recidx, <span class="at">ties=</span><span class="st">&quot;breslow&quot;</span>)</span>
+<span id="cb243-3"><a href="more-topics-on-survival-models.html#cb243-3" aria-hidden="true" tabindex="-1"></a>cox_exact <span class="ot">&lt;-</span> <span class="fu">coxph</span>(mf, <span class="at">data =</span> recidx, <span class="at">ties=</span><span class="st">&quot;exact&quot;</span>)</span>
+<span id="cb243-4"><a href="more-topics-on-survival-models.html#cb243-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb243-5"><a href="more-topics-on-survival-models.html#cb243-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">exactp =</span> <span class="fu">coef</span>(cox_exact),</span>
+<span id="cb243-6"><a href="more-topics-on-survival-models.html#cb243-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">efron =</span> <span class="fu">coef</span>(cox_efron), </span>
+<span id="cb243-7"><a href="more-topics-on-survival-models.html#cb243-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">breslow =</span> <span class="fu">coef</span>(cox_beslow))</span></code></pre></div>
 <pre><code>##               exactp        efron      breslow
 ## workprg  0.111590748  0.111560134  0.111337070
 ## priors   0.096271298  0.095985297  0.095859808
@@ -883,11 +897,11 @@ where, again, <span class="math inline">\(P_{it}\)</span> is the conditional pro
 <li>Negative binomial GLMs for counts express <span class="math inline">\(\mu\)</span> in terms of explanatory variables. Most common is the log link, as in Poisson loglinear models, but sometimes the identity link is adequate. It is common to assume that the dispersion parameter <span class="math inline">\(D\)</span> takes the same value at all predictor values, much as regression models for a normal response take the variance parameter to be constant.</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="more-topics-on-survival-models.html#cb240-1" aria-hidden="true" tabindex="-1"></a>mmf <span class="ot">&lt;-</span> fail <span class="sc">~</span>  interval <span class="sc">+</span> workprg <span class="sc">+</span> priors <span class="sc">+</span> tserved <span class="sc">+</span> </span>
-<span id="cb240-2"><a href="more-topics-on-survival-models.html#cb240-2" aria-hidden="true" tabindex="-1"></a>  felon <span class="sc">+</span> alcohol <span class="sc">+</span> drugs <span class="sc">+</span> black <span class="sc">+</span> married <span class="sc">+</span> educ <span class="sc">+</span> age</span>
-<span id="cb240-3"><a href="more-topics-on-survival-models.html#cb240-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb240-4"><a href="more-topics-on-survival-models.html#cb240-4" aria-hidden="true" tabindex="-1"></a>pwe <span class="ot">&lt;-</span> <span class="fu">glm</span>(mmf, <span class="at">offset =</span> <span class="fu">log</span>(exposure), <span class="at">data =</span> recidx, <span class="at">family =</span> poisson)</span>
-<span id="cb240-5"><a href="more-topics-on-survival-models.html#cb240-5" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(pwe))</span></code></pre></div>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="more-topics-on-survival-models.html#cb245-1" aria-hidden="true" tabindex="-1"></a>mmf <span class="ot">&lt;-</span> fail <span class="sc">~</span>  interval <span class="sc">+</span> workprg <span class="sc">+</span> priors <span class="sc">+</span> tserved <span class="sc">+</span> </span>
+<span id="cb245-2"><a href="more-topics-on-survival-models.html#cb245-2" aria-hidden="true" tabindex="-1"></a>  felon <span class="sc">+</span> alcohol <span class="sc">+</span> drugs <span class="sc">+</span> black <span class="sc">+</span> married <span class="sc">+</span> educ <span class="sc">+</span> age</span>
+<span id="cb245-3"><a href="more-topics-on-survival-models.html#cb245-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb245-4"><a href="more-topics-on-survival-models.html#cb245-4" aria-hidden="true" tabindex="-1"></a>pwe <span class="ot">&lt;-</span> <span class="fu">glm</span>(mmf, <span class="at">offset =</span> <span class="fu">log</span>(exposure), <span class="at">data =</span> recidx, <span class="at">family =</span> poisson)</span>
+<span id="cb245-5"><a href="more-topics-on-survival-models.html#cb245-5" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(pwe))</span></code></pre></div>
 <pre><code>##                     Estimate  Std. Error     z value     Pr(&gt;|z|)
 ## (Intercept)     -3.830127469 0.280267334 -13.6659789 1.621090e-42
 ## interval(12,24]  0.036531989 0.109361775   0.3340471 7.383440e-01
@@ -911,9 +925,9 @@ where, again, <span class="math inline">\(P_{it}\)</span> is the conditional pro
 <ul>
 <li>For a discrete-time survival analysis we have to make sure we only include intervals with complete exposure, where we can classify the outcome as failure or survival. The convicts were released between July 1, 1977 and June 30, 1978 and the data were collected in April 1984, so the length of observation ranges between 70 and 81 months. We therefore restrict our attention to 5 years or 60 months. (We could go up to 6 years or 72 months for some convicts, but unfortunately we don’t have the date of release, so we can’t identify these cases and must censor everyone at 60.)</li>
 </ul>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="more-topics-on-survival-models.html#cb242-1" aria-hidden="true" tabindex="-1"></a>recidx <span class="ot">&lt;-</span> <span class="fu">filter</span>(recidx, interval <span class="sc">!=</span> <span class="st">&quot;(60,81]&quot;</span>)</span>
-<span id="cb242-2"><a href="more-topics-on-survival-models.html#cb242-2" aria-hidden="true" tabindex="-1"></a>logit <span class="ot">&lt;-</span> <span class="fu">glm</span>(mmf, <span class="at">data =</span> recidx, <span class="at">family =</span> binomial)  <span class="co"># no offset</span></span>
-<span id="cb242-3"><a href="more-topics-on-survival-models.html#cb242-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(logit))</span></code></pre></div>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="more-topics-on-survival-models.html#cb247-1" aria-hidden="true" tabindex="-1"></a>recidx <span class="ot">&lt;-</span> <span class="fu">filter</span>(recidx, interval <span class="sc">!=</span> <span class="st">&quot;(60,81]&quot;</span>)</span>
+<span id="cb247-2"><a href="more-topics-on-survival-models.html#cb247-2" aria-hidden="true" tabindex="-1"></a>logit <span class="ot">&lt;-</span> <span class="fu">glm</span>(mmf, <span class="at">data =</span> recidx, <span class="at">family =</span> binomial)  <span class="co"># no offset</span></span>
+<span id="cb247-3"><a href="more-topics-on-survival-models.html#cb247-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(logit))</span></code></pre></div>
 <pre><code>##                     Estimate   Std. Error    z value     Pr(&gt;|z|)
 ## (Intercept)     -1.140802599 0.3084159337 -3.6989094 2.165279e-04
 ## interval(12,24]  0.030528163 0.1193582701  0.2557692 7.981291e-01
@@ -935,8 +949,8 @@ where, again, <span class="math inline">\(P_{it}\)</span> is the conditional pro
 <h4 class="hasAnchor"><span class="header-section-number">8.8.1.3</span> A Complementary Log-log Model<br />
 <a href="more-topics-on-survival-models.html#a-complementary-log-log-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Finally we use a complementary log-log link</p>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="more-topics-on-survival-models.html#cb244-1" aria-hidden="true" tabindex="-1"></a>cloglog <span class="ot">&lt;-</span> <span class="fu">glm</span>(mmf, <span class="at">data =</span> recidx, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> cloglog))</span>
-<span id="cb244-2"><a href="more-topics-on-survival-models.html#cb244-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(cloglog))</span></code></pre></div>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="more-topics-on-survival-models.html#cb249-1" aria-hidden="true" tabindex="-1"></a>cloglog <span class="ot">&lt;-</span> <span class="fu">glm</span>(mmf, <span class="at">data =</span> recidx, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> cloglog))</span>
+<span id="cb249-2"><a href="more-topics-on-survival-models.html#cb249-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(cloglog))</span></code></pre></div>
 <pre><code>##                     Estimate   Std. Error    z value     Pr(&gt;|z|)
 ## (Intercept)     -1.238795113 0.2893607427 -4.2811444 1.859347e-05
 ## interval(12,24]  0.021613951 0.1095604758  0.1972787 8.436094e-01
@@ -956,7 +970,7 @@ where, again, <span class="math inline">\(P_{it}\)</span> is the conditional pro
 </div>
 <div id="comparison-of-estimates" class="section level4 hasAnchor" number="8.8.1.4">
 <h4><span class="header-section-number">8.8.1.4</span> Comparison of Estimates<a href="more-topics-on-survival-models.html#comparison-of-estimates" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="more-topics-on-survival-models.html#cb246-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="fu">coef</span>(pwe)[<span class="sc">-</span><span class="dv">6</span>], <span class="fu">coef</span>(cloglog), <span class="fu">coef</span>(logit))</span></code></pre></div>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="more-topics-on-survival-models.html#cb251-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="fu">coef</span>(pwe)[<span class="sc">-</span><span class="dv">6</span>], <span class="fu">coef</span>(cloglog), <span class="fu">coef</span>(logit))</span></code></pre></div>
 <pre><code>##                         [,1]         [,2]         [,3]
 ## (Intercept)     -3.830127469 -1.238795113 -1.140802599
 ## interval(12,24]  0.036531989  0.021613951  0.030528163
@@ -997,9 +1011,9 @@ where, again, <span class="math inline">\(P_{it}\)</span> is the conditional pro
 <li>Stratified Cox model</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="more-topics-on-survival-models.html#cb248-1" aria-hidden="true" tabindex="-1"></a>cox1 <span class="ot">&lt;-</span> <span class="fu">coxph</span>(<span class="fu">Surv</span>(durat, fail) <span class="sc">~</span> workprg <span class="sc">+</span> married <span class="sc">+</span> educ <span class="sc">+</span> age <span class="sc">+</span> <span class="fu">strata</span>(black), </span>
-<span id="cb248-2"><a href="more-topics-on-survival-models.html#cb248-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> recidx, <span class="at">ties=</span><span class="st">&quot;efron&quot;</span>)</span>
-<span id="cb248-3"><a href="more-topics-on-survival-models.html#cb248-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(cox1))</span></code></pre></div>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="more-topics-on-survival-models.html#cb253-1" aria-hidden="true" tabindex="-1"></a>cox1 <span class="ot">&lt;-</span> <span class="fu">coxph</span>(<span class="fu">Surv</span>(durat, fail) <span class="sc">~</span> workprg <span class="sc">+</span> married <span class="sc">+</span> educ <span class="sc">+</span> age <span class="sc">+</span> <span class="fu">strata</span>(black), </span>
+<span id="cb253-2"><a href="more-topics-on-survival-models.html#cb253-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> recidx, <span class="at">ties=</span><span class="st">&quot;efron&quot;</span>)</span>
+<span id="cb253-3"><a href="more-topics-on-survival-models.html#cb253-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(cox1))</span></code></pre></div>
 <pre><code>##                 coef exp(coef)     se(coef)         z     Pr(&gt;|z|)
 ## workprg  0.156200755 1.1690609 0.0897549296  1.740303 8.180586e-02
 ## married -0.323341332 0.7237268 0.1133119425 -2.853550 4.323368e-03
@@ -1008,9 +1022,9 @@ where, again, <span class="math inline">\(P_{it}\)</span> is the conditional pro
 <ul>
 <li>Conditional logistic model</li>
 </ul>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="more-topics-on-survival-models.html#cb250-1" aria-hidden="true" tabindex="-1"></a>clogit <span class="ot">&lt;-</span> <span class="fu">clogit</span>(fail <span class="sc">~</span> workprg <span class="sc">+</span> married <span class="sc">+</span> educ <span class="sc">+</span> age <span class="sc">+</span> <span class="fu">strata</span>(black),</span>
-<span id="cb250-2"><a href="more-topics-on-survival-models.html#cb250-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> recidx, <span class="at">method=</span><span class="fu">c</span>(<span class="st">&quot;efron&quot;</span>))</span>
-<span id="cb250-3"><a href="more-topics-on-survival-models.html#cb250-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(clogit))</span></code></pre></div>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="more-topics-on-survival-models.html#cb255-1" aria-hidden="true" tabindex="-1"></a>clogit <span class="ot">&lt;-</span> <span class="fu">clogit</span>(fail <span class="sc">~</span> workprg <span class="sc">+</span> married <span class="sc">+</span> educ <span class="sc">+</span> age <span class="sc">+</span> <span class="fu">strata</span>(black),</span>
+<span id="cb255-2"><a href="more-topics-on-survival-models.html#cb255-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> recidx, <span class="at">method=</span><span class="fu">c</span>(<span class="st">&quot;efron&quot;</span>))</span>
+<span id="cb255-3"><a href="more-topics-on-survival-models.html#cb255-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(clogit))</span></code></pre></div>
 <pre><code>##                 coef exp(coef)     se(coef)         z     Pr(&gt;|z|)
 ## workprg  0.151890146 1.1640324 0.0897545659  1.692283 9.059199e-02
 ## married -0.310120691 0.7333584 0.1132727550 -2.737822 6.184746e-03
