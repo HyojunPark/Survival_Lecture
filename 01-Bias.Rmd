@@ -1,25 +1,115 @@
 # Bias assessment
 
-Available at https://rpubs.com/Hyojun/bias
 
-
-```{r}
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+library(tidyverse)
+library(DT)
 library(tmap)
+
 
 UT <- readRDS("~/myonedrive/Projects/CARE2023/rmd_USU_CARE2023/Shiny_CARE/Data/UT01.rds")
 
-
 tmap_mode("view")
-tm_shape(UT) + 
-  tm_polygons(col = "obesity_tract",
-              style = "quantile",
-              n = 7,
-              palette = "Purples",
-              title = "Obesity Rates",
-              alpha = 0.6) +
-  tm_basemap("OpenStreetMap")
 
+map_tract <-
+  tm_shape(UT) + 
+  tm_fill("obesity_tract"
+          #, breaks = c(0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55)
+          , style = "cont"
+          , palette = "Purples" 
+          #, n = 15
+          , contrast = c(0.1, 0.9)
+          , title = "Obesity Rates (%)"
+          , title.size = 0.8
+          , legend.show = TRUE
+          #, colorNA = "white"
+          #, textNA = "Missing"
+          , legend.is.portrait = FALSE
+          , alpha = 0.6
+  ) +
+  tm_layout(title = "Obesity Rates by Census tracts"
+            , title.size = 1.0
+            , title.position = c("left", "top")
+            , inner.margins = c(0.10, 0.00, 0.10, 0.00) #bottom, left, top, and right margin
+            #, legend.position = c("center", "bottom")
+            , legend.width = 1
+            , legend.format=list(fun=function(x) formatC(x, digits=1, format="f"))
+  ) + 
+    tm_basemap("OpenStreetMap")
+
+map_county <-
+  tm_shape(UT) + 
+  tm_fill("obesity_county"
+          #, breaks = c(0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55)
+          , style = "cont"
+          , palette = "Purples" 
+          #, n = 15
+          , contrast = c(0.1, 0.9)
+          , title = "Obesity Rates (%)"
+          , title.size = 0.8
+          , legend.show = TRUE
+          #, colorNA = "white"
+          #, textNA = "Missing"
+          , legend.is.portrait = FALSE
+          , alpha = 0.6
+  ) +
+  tm_layout(title = "Obesity Rates by County"
+            , title.size = 1.0
+            , title.position = c("left", "top")
+            , inner.margins = c(0.10, 0.00, 0.10, 0.00) #bottom, left, top, and right margin
+            #, legend.position = c("center", "bottom")
+            , legend.width = 1
+            , legend.format=list(fun=function(x) formatC(x, digits=1, format="f"))
+  ) + 
+    tm_basemap("OpenStreetMap")
+
+
+
+Desc01 <- UT %>%
+  reframe(
+    State = countyfips
+    , County = GEOID
+    , Measure = short_question_text
+    , "Description" = measure
+    , "Estimates (Tract)" = obesity_tract
+    , "Estimates (County)" = obesity_county
+  ) %>%
+  DT::datatable(
+    .
+    , caption = "Table"
+    , filter = "top"
+    , options = list(search = list(regex = TRUE))
+    ) %>%
+  formatRound(columns=c("Estimates (Tract)"
+                        , "Estimates (County)")
+              , digits=1)
 ```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+# Dropdown manu
+#
+# devtools::install_github("walkerke/bsselectR")
+# 
+# 
+# library(bsselectR)
+# 
+# quotes <- c("Look deep into nature, and then you will understand everything better.", 
+#             "A fool thinks himself to be wise, but a wise man knows himself to be a fool.", 
+#             "My mission in life is not merely to survive, but to thrive; and to do so with some passion, 
+#             some compassion, some humor, and some style.")
+# 
+# quotes <- setNames(quotes, c("Einstein", "Shakespeare", "Angelou"))
+# 
+# bsselect(quotes, type = "text", height = 200)
+
+
+tmap_arrange(map_tract, map_county, ncol=2)
+
+Desc01
+```
+
 
 
 \newpage
