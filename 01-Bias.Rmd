@@ -2,7 +2,6 @@
 
 Available at https://rpubs.com/Hyojun/bias
 
-## Maps examples
 
 ```{r}
 library(tmap)
