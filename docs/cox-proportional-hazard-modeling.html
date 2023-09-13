@@ -381,20 +381,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 6</span> Cox Proportional Hazard Modeling<a href="cox-proportional-hazard-modeling.html#cox-proportional-hazard-modeling" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="setup-working-datasets" class="section level2 hasAnchor" number="6.1">
 <h2><span class="header-section-number">6.1</span> Setup working datasets<a href="cox-proportional-hazard-modeling.html#setup-working-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="cox-proportional-hazard-modeling.html#cb158-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb158-2"><a href="cox-proportional-hazard-modeling.html#cb158-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb158-3"><a href="cox-proportional-hazard-modeling.html#cb158-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
-<span id="cb158-4"><a href="cox-proportional-hazard-modeling.html#cb158-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(eha)</span>
-<span id="cb158-5"><a href="cox-proportional-hazard-modeling.html#cb158-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
-<span id="cb158-6"><a href="cox-proportional-hazard-modeling.html#cb158-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb158-7"><a href="cox-proportional-hazard-modeling.html#cb158-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flextable)</span>
-<span id="cb158-8"><a href="cox-proportional-hazard-modeling.html#cb158-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survminer)</span>
-<span id="cb158-9"><a href="cox-proportional-hazard-modeling.html#cb158-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggfortify)</span>
-<span id="cb158-10"><a href="cox-proportional-hazard-modeling.html#cb158-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb158-11"><a href="cox-proportional-hazard-modeling.html#cb158-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb158-12"><a href="cox-proportional-hazard-modeling.html#cb158-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(coxme)</span>
-<span id="cb158-13"><a href="cox-proportional-hazard-modeling.html#cb158-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span></code></pre></div>
-<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="cox-proportional-hazard-modeling.html#cb159-1" aria-hidden="true" tabindex="-1"></a>oldmort01 <span class="ot">&lt;-</span> oldmort</span></code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="cox-proportional-hazard-modeling.html#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb161-2"><a href="cox-proportional-hazard-modeling.html#cb161-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb161-3"><a href="cox-proportional-hazard-modeling.html#cb161-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb161-4"><a href="cox-proportional-hazard-modeling.html#cb161-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(eha)</span>
+<span id="cb161-5"><a href="cox-proportional-hazard-modeling.html#cb161-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
+<span id="cb161-6"><a href="cox-proportional-hazard-modeling.html#cb161-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb161-7"><a href="cox-proportional-hazard-modeling.html#cb161-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flextable)</span>
+<span id="cb161-8"><a href="cox-proportional-hazard-modeling.html#cb161-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survminer)</span>
+<span id="cb161-9"><a href="cox-proportional-hazard-modeling.html#cb161-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggfortify)</span>
+<span id="cb161-10"><a href="cox-proportional-hazard-modeling.html#cb161-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb161-11"><a href="cox-proportional-hazard-modeling.html#cb161-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb161-12"><a href="cox-proportional-hazard-modeling.html#cb161-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(coxme)</span>
+<span id="cb161-13"><a href="cox-proportional-hazard-modeling.html#cb161-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="cox-proportional-hazard-modeling.html#cb162-1" aria-hidden="true" tabindex="-1"></a>oldmort01 <span class="ot">&lt;-</span> oldmort</span></code></pre></div>
 </div>
 <div id="cox-proportional-hazard-models-example" class="section level2 hasAnchor" number="6.2">
 <h2><span class="header-section-number">6.2</span> Cox Proportional Hazard Models: Example<a href="cox-proportional-hazard-modeling.html#cox-proportional-hazard-models-example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -402,10 +402,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">6.2.1</span> Cox model specification<a href="cox-proportional-hazard-modeling.html#cox-model-specification" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><span class="math display">\[h_{(t,X)} = h_0 (t) \exp(\sum_{i=1}^p \beta_i X_i), \;\; \text{where}\; X = (X_1, X_2, \cdots, X_p)\]</span></p>
 <p>The following result was obtained by using <code>coxreg</code> from the <code>eha</code> package.</p>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="cox-proportional-hazard-modeling.html#cb160-1" aria-hidden="true" tabindex="-1"></a>oldmort_cox <span class="ot">&lt;-</span> <span class="fu">coxreg</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> sex <span class="sc">+</span> region <span class="sc">+</span> imr.birth, </span>
-<span id="cb160-2"><a href="cox-proportional-hazard-modeling.html#cb160-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> oldmort01) </span>
-<span id="cb160-3"><a href="cox-proportional-hazard-modeling.html#cb160-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb160-4"><a href="cox-proportional-hazard-modeling.html#cb160-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">summary</span>(oldmort_cox), <span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="cox-proportional-hazard-modeling.html#cb163-1" aria-hidden="true" tabindex="-1"></a>oldmort_cox <span class="ot">&lt;-</span> <span class="fu">coxreg</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> sex <span class="sc">+</span> region <span class="sc">+</span> imr.birth, </span>
+<span id="cb163-2"><a href="cox-proportional-hazard-modeling.html#cb163-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> oldmort01) </span>
+<span id="cb163-3"><a href="cox-proportional-hazard-modeling.html#cb163-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb163-4"><a href="cox-proportional-hazard-modeling.html#cb163-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">summary</span>(oldmort_cox), <span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>## Covariate             Mean       Coef     Rel.Risk   S.E.    LR p
 ## sex                                                         0.0001 
 ##             male      0.406     0         1 (reference)
@@ -423,10 +423,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Degrees of freedom        4 
 ## Overall p-value           2.52611e-06</code></pre>
 <p>The same results can be obtained by using <code>coxph</code> from the <code>survival</code> package.</p>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="cox-proportional-hazard-modeling.html#cb162-1" aria-hidden="true" tabindex="-1"></a>oldmort_cox <span class="ot">&lt;-</span> <span class="fu">coxph</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> sex <span class="sc">+</span> region <span class="sc">+</span> imr.birth, </span>
-<span id="cb162-2"><a href="cox-proportional-hazard-modeling.html#cb162-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> oldmort01) </span>
-<span id="cb162-3"><a href="cox-proportional-hazard-modeling.html#cb162-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb162-4"><a href="cox-proportional-hazard-modeling.html#cb162-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">summary</span>(oldmort_cox), <span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="cox-proportional-hazard-modeling.html#cb165-1" aria-hidden="true" tabindex="-1"></a>oldmort_cox <span class="ot">&lt;-</span> <span class="fu">coxph</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> sex <span class="sc">+</span> region <span class="sc">+</span> imr.birth, </span>
+<span id="cb165-2"><a href="cox-proportional-hazard-modeling.html#cb165-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> oldmort01) </span>
+<span id="cb165-3"><a href="cox-proportional-hazard-modeling.html#cb165-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb165-4"><a href="cox-proportional-hazard-modeling.html#cb165-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">summary</span>(oldmort_cox), <span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>## Call:
 ## coxph(formula = Surv(enter, exit, event) ~ sex + region + imr.birth, 
 ##     data = oldmort01)
@@ -452,11 +452,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Wald test            = 31.7  on 4 df,   p=2e-06
 ## Score (logrank) test = 31.8  on 4 df,   p=2e-06</code></pre>
 <p>We would prefer to have <span class="math inline">\(HR &gt; 1\)</span> than <span class="math inline">\(HR &lt; 1\)</span> to ease interpretation.</p>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="cox-proportional-hazard-modeling.html#cb164-1" aria-hidden="true" tabindex="-1"></a>oldmort01<span class="sc">$</span>male <span class="ot">&lt;-</span> <span class="fu">relevel</span>(oldmort01<span class="sc">$</span>sex, <span class="at">ref =</span> <span class="st">&quot;female&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="cox-proportional-hazard-modeling.html#cb165-1" aria-hidden="true" tabindex="-1"></a>oldmort_cox <span class="ot">&lt;-</span> <span class="fu">coxph</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> male <span class="sc">+</span> region <span class="sc">+</span> imr.birth, </span>
-<span id="cb165-2"><a href="cox-proportional-hazard-modeling.html#cb165-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> oldmort01) </span>
-<span id="cb165-3"><a href="cox-proportional-hazard-modeling.html#cb165-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb165-4"><a href="cox-proportional-hazard-modeling.html#cb165-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">summary</span>(oldmort_cox), <span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="cox-proportional-hazard-modeling.html#cb167-1" aria-hidden="true" tabindex="-1"></a>oldmort01<span class="sc">$</span>male <span class="ot">&lt;-</span> <span class="fu">relevel</span>(oldmort01<span class="sc">$</span>sex, <span class="at">ref =</span> <span class="st">&quot;female&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="cox-proportional-hazard-modeling.html#cb168-1" aria-hidden="true" tabindex="-1"></a>oldmort_cox <span class="ot">&lt;-</span> <span class="fu">coxph</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> male <span class="sc">+</span> region <span class="sc">+</span> imr.birth, </span>
+<span id="cb168-2"><a href="cox-proportional-hazard-modeling.html#cb168-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> oldmort01) </span>
+<span id="cb168-3"><a href="cox-proportional-hazard-modeling.html#cb168-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb168-4"><a href="cox-proportional-hazard-modeling.html#cb168-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">summary</span>(oldmort_cox), <span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>## Call:
 ## coxph(formula = Surv(enter, exit, event) ~ male + region + imr.birth, 
 ##     data = oldmort01)
@@ -482,13 +482,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Wald test            = 31.7  on 4 df,   p=2e-06
 ## Score (logrank) test = 31.8  on 4 df,   p=2e-06</code></pre>
 <p>The following code will extract coefficients and model fit statistics.</p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="cox-proportional-hazard-modeling.html#cb167-1" aria-hidden="true" tabindex="-1"></a>cox_coef <span class="ot">&lt;-</span> <span class="fu">summary</span>(oldmort_cox)<span class="sc">$</span>coefficients</span>
-<span id="cb167-2"><a href="cox-proportional-hazard-modeling.html#cb167-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb167-3"><a href="cox-proportional-hazard-modeling.html#cb167-3" aria-hidden="true" tabindex="-1"></a>cox_fit <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
-<span id="cb167-4"><a href="cox-proportional-hazard-modeling.html#cb167-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Wald&quot;</span> <span class="ot">=</span> oldmort_cox<span class="sc">$</span>wald.test,</span>
-<span id="cb167-5"><a href="cox-proportional-hazard-modeling.html#cb167-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Score(log_rank)&quot;</span> <span class="ot">=</span> oldmort_cox<span class="sc">$</span>score</span>
-<span id="cb167-6"><a href="cox-proportional-hazard-modeling.html#cb167-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="cox-proportional-hazard-modeling.html#cb168-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(cox_coef, <span class="at">digits=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="cox-proportional-hazard-modeling.html#cb170-1" aria-hidden="true" tabindex="-1"></a>cox_coef <span class="ot">&lt;-</span> <span class="fu">summary</span>(oldmort_cox)<span class="sc">$</span>coefficients</span>
+<span id="cb170-2"><a href="cox-proportional-hazard-modeling.html#cb170-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb170-3"><a href="cox-proportional-hazard-modeling.html#cb170-3" aria-hidden="true" tabindex="-1"></a>cox_fit <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb170-4"><a href="cox-proportional-hazard-modeling.html#cb170-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Wald&quot;</span> <span class="ot">=</span> oldmort_cox<span class="sc">$</span>wald.test,</span>
+<span id="cb170-5"><a href="cox-proportional-hazard-modeling.html#cb170-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Score(log_rank)&quot;</span> <span class="ot">=</span> oldmort_cox<span class="sc">$</span>score</span>
+<span id="cb170-6"><a href="cox-proportional-hazard-modeling.html#cb170-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="cox-proportional-hazard-modeling.html#cb171-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(cox_coef, <span class="at">digits=</span><span class="dv">2</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -594,7 +594,7 @@ imr.birth
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="cox-proportional-hazard-modeling.html#cb169-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(cox_fit, <span class="at">digits=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="cox-proportional-hazard-modeling.html#cb172-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(cox_fit, <span class="at">digits=</span><span class="dv">2</span>)</span></code></pre></div>
 <table>
 <tbody>
 <tr>
@@ -618,46 +618,46 @@ Score(log_rank)
 </div>
 <div id="model-1-no-covariates" class="section level3 hasAnchor" number="6.2.2">
 <h3><span class="header-section-number">6.2.2</span> Model 1: No covariates<a href="cox-proportional-hazard-modeling.html#model-1-no-covariates" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="cox-proportional-hazard-modeling.html#cb170-1" aria-hidden="true" tabindex="-1"></a>oldmort_cox01 <span class="ot">&lt;-</span> <span class="fu">coxreg</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> sex , </span>
-<span id="cb170-2"><a href="cox-proportional-hazard-modeling.html#cb170-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> oldmort01) </span>
-<span id="cb170-3"><a href="cox-proportional-hazard-modeling.html#cb170-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb170-4"><a href="cox-proportional-hazard-modeling.html#cb170-4" aria-hidden="true" tabindex="-1"></a>cox_coef01 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">summary</span>(oldmort_cox01)<span class="sc">$</span>coefficients)</span>
-<span id="cb170-5"><a href="cox-proportional-hazard-modeling.html#cb170-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb170-6"><a href="cox-proportional-hazard-modeling.html#cb170-6" aria-hidden="true" tabindex="-1"></a>cox_fit01 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
-<span id="cb170-7"><a href="cox-proportional-hazard-modeling.html#cb170-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Wald&quot;</span> <span class="ot">=</span> oldmort_cox01<span class="sc">$</span>wald.test,</span>
-<span id="cb170-8"><a href="cox-proportional-hazard-modeling.html#cb170-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Score(log_rank)&quot;</span> <span class="ot">=</span> oldmort_cox01<span class="sc">$</span>score</span>
-<span id="cb170-9"><a href="cox-proportional-hazard-modeling.html#cb170-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="cox-proportional-hazard-modeling.html#cb173-1" aria-hidden="true" tabindex="-1"></a>oldmort_cox01 <span class="ot">&lt;-</span> <span class="fu">coxreg</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> sex , </span>
+<span id="cb173-2"><a href="cox-proportional-hazard-modeling.html#cb173-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> oldmort01) </span>
+<span id="cb173-3"><a href="cox-proportional-hazard-modeling.html#cb173-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb173-4"><a href="cox-proportional-hazard-modeling.html#cb173-4" aria-hidden="true" tabindex="-1"></a>cox_coef01 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">summary</span>(oldmort_cox01)<span class="sc">$</span>coefficients)</span>
+<span id="cb173-5"><a href="cox-proportional-hazard-modeling.html#cb173-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb173-6"><a href="cox-proportional-hazard-modeling.html#cb173-6" aria-hidden="true" tabindex="-1"></a>cox_fit01 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb173-7"><a href="cox-proportional-hazard-modeling.html#cb173-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Wald&quot;</span> <span class="ot">=</span> oldmort_cox01<span class="sc">$</span>wald.test,</span>
+<span id="cb173-8"><a href="cox-proportional-hazard-modeling.html#cb173-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Score(log_rank)&quot;</span> <span class="ot">=</span> oldmort_cox01<span class="sc">$</span>score</span>
+<span id="cb173-9"><a href="cox-proportional-hazard-modeling.html#cb173-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div id="model-2-categorical-covariate-region" class="section level3 hasAnchor" number="6.2.3">
 <h3><span class="header-section-number">6.2.3</span> Model 2: Categorical covariate: region<a href="cox-proportional-hazard-modeling.html#model-2-categorical-covariate-region" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="cox-proportional-hazard-modeling.html#cb171-1" aria-hidden="true" tabindex="-1"></a>oldmort_cox02 <span class="ot">&lt;-</span> <span class="fu">coxreg</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> sex <span class="sc">+</span> region , </span>
-<span id="cb171-2"><a href="cox-proportional-hazard-modeling.html#cb171-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> oldmort01) </span>
-<span id="cb171-3"><a href="cox-proportional-hazard-modeling.html#cb171-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb171-4"><a href="cox-proportional-hazard-modeling.html#cb171-4" aria-hidden="true" tabindex="-1"></a>cox_coef02 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">summary</span>(oldmort_cox02)<span class="sc">$</span>coefficients)</span>
-<span id="cb171-5"><a href="cox-proportional-hazard-modeling.html#cb171-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb171-6"><a href="cox-proportional-hazard-modeling.html#cb171-6" aria-hidden="true" tabindex="-1"></a>cox_fit02 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
-<span id="cb171-7"><a href="cox-proportional-hazard-modeling.html#cb171-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Wald&quot;</span> <span class="ot">=</span> oldmort_cox02<span class="sc">$</span>wald.test,</span>
-<span id="cb171-8"><a href="cox-proportional-hazard-modeling.html#cb171-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Score(log_rank)&quot;</span> <span class="ot">=</span> oldmort_cox02<span class="sc">$</span>score</span>
-<span id="cb171-9"><a href="cox-proportional-hazard-modeling.html#cb171-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="cox-proportional-hazard-modeling.html#cb174-1" aria-hidden="true" tabindex="-1"></a>oldmort_cox02 <span class="ot">&lt;-</span> <span class="fu">coxreg</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> sex <span class="sc">+</span> region , </span>
+<span id="cb174-2"><a href="cox-proportional-hazard-modeling.html#cb174-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> oldmort01) </span>
+<span id="cb174-3"><a href="cox-proportional-hazard-modeling.html#cb174-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb174-4"><a href="cox-proportional-hazard-modeling.html#cb174-4" aria-hidden="true" tabindex="-1"></a>cox_coef02 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">summary</span>(oldmort_cox02)<span class="sc">$</span>coefficients)</span>
+<span id="cb174-5"><a href="cox-proportional-hazard-modeling.html#cb174-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb174-6"><a href="cox-proportional-hazard-modeling.html#cb174-6" aria-hidden="true" tabindex="-1"></a>cox_fit02 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb174-7"><a href="cox-proportional-hazard-modeling.html#cb174-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Wald&quot;</span> <span class="ot">=</span> oldmort_cox02<span class="sc">$</span>wald.test,</span>
+<span id="cb174-8"><a href="cox-proportional-hazard-modeling.html#cb174-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Score(log_rank)&quot;</span> <span class="ot">=</span> oldmort_cox02<span class="sc">$</span>score</span>
+<span id="cb174-9"><a href="cox-proportional-hazard-modeling.html#cb174-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div id="model-3-continuous-covariate-imr.birth" class="section level3 hasAnchor" number="6.2.4">
 <h3><span class="header-section-number">6.2.4</span> Model 3: Continuous covariate: imr.birth<a href="cox-proportional-hazard-modeling.html#model-3-continuous-covariate-imr.birth" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="cox-proportional-hazard-modeling.html#cb172-1" aria-hidden="true" tabindex="-1"></a>oldmort_cox03 <span class="ot">&lt;-</span> <span class="fu">coxreg</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> sex <span class="sc">+</span> region <span class="sc">+</span> imr.birth, </span>
-<span id="cb172-2"><a href="cox-proportional-hazard-modeling.html#cb172-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> oldmort01) </span>
-<span id="cb172-3"><a href="cox-proportional-hazard-modeling.html#cb172-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb172-4"><a href="cox-proportional-hazard-modeling.html#cb172-4" aria-hidden="true" tabindex="-1"></a>cox_coef03 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">summary</span>(oldmort_cox03)<span class="sc">$</span>coefficients)</span>
-<span id="cb172-5"><a href="cox-proportional-hazard-modeling.html#cb172-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb172-6"><a href="cox-proportional-hazard-modeling.html#cb172-6" aria-hidden="true" tabindex="-1"></a>cox_fit03 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
-<span id="cb172-7"><a href="cox-proportional-hazard-modeling.html#cb172-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Wald&quot;</span> <span class="ot">=</span> oldmort_cox03<span class="sc">$</span>wald.test,</span>
-<span id="cb172-8"><a href="cox-proportional-hazard-modeling.html#cb172-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Score(log_rank)&quot;</span> <span class="ot">=</span> oldmort_cox03<span class="sc">$</span>score</span>
-<span id="cb172-9"><a href="cox-proportional-hazard-modeling.html#cb172-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="cox-proportional-hazard-modeling.html#cb173-1" aria-hidden="true" tabindex="-1"></a>cox_coef <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">setDT</span>(cox_coef01), <span class="fu">setDT</span>(cox_coef02), <span class="fu">setDT</span>(cox_coef03))</span></code></pre></div>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="cox-proportional-hazard-modeling.html#cb175-1" aria-hidden="true" tabindex="-1"></a>oldmort_cox03 <span class="ot">&lt;-</span> <span class="fu">coxreg</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> sex <span class="sc">+</span> region <span class="sc">+</span> imr.birth, </span>
+<span id="cb175-2"><a href="cox-proportional-hazard-modeling.html#cb175-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> oldmort01) </span>
+<span id="cb175-3"><a href="cox-proportional-hazard-modeling.html#cb175-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb175-4"><a href="cox-proportional-hazard-modeling.html#cb175-4" aria-hidden="true" tabindex="-1"></a>cox_coef03 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">summary</span>(oldmort_cox03)<span class="sc">$</span>coefficients)</span>
+<span id="cb175-5"><a href="cox-proportional-hazard-modeling.html#cb175-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb175-6"><a href="cox-proportional-hazard-modeling.html#cb175-6" aria-hidden="true" tabindex="-1"></a>cox_fit03 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb175-7"><a href="cox-proportional-hazard-modeling.html#cb175-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Wald&quot;</span> <span class="ot">=</span> oldmort_cox03<span class="sc">$</span>wald.test,</span>
+<span id="cb175-8"><a href="cox-proportional-hazard-modeling.html#cb175-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Score(log_rank)&quot;</span> <span class="ot">=</span> oldmort_cox03<span class="sc">$</span>score</span>
+<span id="cb175-9"><a href="cox-proportional-hazard-modeling.html#cb175-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="cox-proportional-hazard-modeling.html#cb176-1" aria-hidden="true" tabindex="-1"></a>cox_coef <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">setDT</span>(cox_coef01), <span class="fu">setDT</span>(cox_coef02), <span class="fu">setDT</span>(cox_coef03))</span></code></pre></div>
 <pre><code>## Warning in as.data.table.list(x, keep.rownames = keep.rownames, check.names =
 ## check.names, : Item 2 has 3 rows but longest item has 4; recycled with
 ## remainder.</code></pre>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="cox-proportional-hazard-modeling.html#cb175-1" aria-hidden="true" tabindex="-1"></a>cox_fit <span class="ot">&lt;-</span> <span class="fu">cbind</span>(cox_fit01, cox_fit02, cox_fit03)</span>
-<span id="cb175-2"><a href="cox-proportional-hazard-modeling.html#cb175-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb175-3"><a href="cox-proportional-hazard-modeling.html#cb175-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(cox_coef, <span class="at">digits=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="cox-proportional-hazard-modeling.html#cb178-1" aria-hidden="true" tabindex="-1"></a>cox_fit <span class="ot">&lt;-</span> <span class="fu">cbind</span>(cox_fit01, cox_fit02, cox_fit03)</span>
+<span id="cb178-2"><a href="cox-proportional-hazard-modeling.html#cb178-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-3"><a href="cox-proportional-hazard-modeling.html#cb178-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(cox_coef, <span class="at">digits=</span><span class="dv">2</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr>
@@ -899,7 +899,7 @@ Wald p
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="cox-proportional-hazard-modeling.html#cb176-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(cox_fit, <span class="at">digits=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="cox-proportional-hazard-modeling.html#cb179-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(cox_fit, <span class="at">digits=</span><span class="dv">2</span>)</span></code></pre></div>
 <table>
 <tbody>
 <tr>
@@ -918,15 +918,15 @@ Score(log_rank)
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="cox-proportional-hazard-modeling.html#cb177-1" aria-hidden="true" tabindex="-1"></a><span class="co">#fcox_coef &lt;- flextable(head(cox_coef))</span></span></code></pre></div>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="cox-proportional-hazard-modeling.html#cb178-1" aria-hidden="true" tabindex="-1"></a><span class="co">#fcox_coef &lt;- flextable(head(cox_coef))</span></span>
-<span id="cb178-2"><a href="cox-proportional-hazard-modeling.html#cb178-2" aria-hidden="true" tabindex="-1"></a><span class="co">#fcox_coef &lt;- add_body_row(</span></span>
-<span id="cb178-3"><a href="cox-proportional-hazard-modeling.html#cb178-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  fcox_coef,</span></span>
-<span id="cb178-4"><a href="cox-proportional-hazard-modeling.html#cb178-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  values = c(&quot;&quot;, &quot;Model 1&quot;, &quot;Model 2&quot;, &quot;Model 3&quot;),</span></span>
-<span id="cb178-5"><a href="cox-proportional-hazard-modeling.html#cb178-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  colwidths = c(1, 3, 3, 3), top = TRUE</span></span>
-<span id="cb178-6"><a href="cox-proportional-hazard-modeling.html#cb178-6" aria-hidden="true" tabindex="-1"></a><span class="co">#)</span></span>
-<span id="cb178-7"><a href="cox-proportional-hazard-modeling.html#cb178-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb178-8"><a href="cox-proportional-hazard-modeling.html#cb178-8" aria-hidden="true" tabindex="-1"></a><span class="co">#fcox_coef</span></span></code></pre></div>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="cox-proportional-hazard-modeling.html#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="co">#fcox_coef &lt;- flextable(head(cox_coef))</span></span></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="cox-proportional-hazard-modeling.html#cb181-1" aria-hidden="true" tabindex="-1"></a><span class="co">#fcox_coef &lt;- flextable(head(cox_coef))</span></span>
+<span id="cb181-2"><a href="cox-proportional-hazard-modeling.html#cb181-2" aria-hidden="true" tabindex="-1"></a><span class="co">#fcox_coef &lt;- add_body_row(</span></span>
+<span id="cb181-3"><a href="cox-proportional-hazard-modeling.html#cb181-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  fcox_coef,</span></span>
+<span id="cb181-4"><a href="cox-proportional-hazard-modeling.html#cb181-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  values = c(&quot;&quot;, &quot;Model 1&quot;, &quot;Model 2&quot;, &quot;Model 3&quot;),</span></span>
+<span id="cb181-5"><a href="cox-proportional-hazard-modeling.html#cb181-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  colwidths = c(1, 3, 3, 3), top = TRUE</span></span>
+<span id="cb181-6"><a href="cox-proportional-hazard-modeling.html#cb181-6" aria-hidden="true" tabindex="-1"></a><span class="co">#)</span></span>
+<span id="cb181-7"><a href="cox-proportional-hazard-modeling.html#cb181-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb181-8"><a href="cox-proportional-hazard-modeling.html#cb181-8" aria-hidden="true" tabindex="-1"></a><span class="co">#fcox_coef</span></span></code></pre></div>
 </div>
 </div>
 <div id="interpretation-2" class="section level2 hasAnchor" number="6.3">
@@ -1038,46 +1038,46 @@ independent of time.</p>
 <li>“how close is close?”</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="cox-proportional-hazard-modeling.html#cb179-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
-<span id="cb179-2"><a href="cox-proportional-hazard-modeling.html#cb179-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">survfit</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> male, <span class="at">data =</span> oldmort01),</span>
-<span id="cb179-3"><a href="cox-proportional-hazard-modeling.html#cb179-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>)</span>
-<span id="cb179-4"><a href="cox-proportional-hazard-modeling.html#cb179-4" aria-hidden="true" tabindex="-1"></a>     , <span class="at">fun =</span> <span class="st">&quot;cloglog&quot;</span></span>
-<span id="cb179-5"><a href="cox-proportional-hazard-modeling.html#cb179-5" aria-hidden="true" tabindex="-1"></a>     , <span class="at">xlab =</span> <span class="st">&quot;log(time)&quot;</span></span>
-<span id="cb179-6"><a href="cox-proportional-hazard-modeling.html#cb179-6" aria-hidden="true" tabindex="-1"></a>     , <span class="at">ylab =</span> <span class="st">&quot;log-log(survival)&quot;</span></span>
-<span id="cb179-7"><a href="cox-proportional-hazard-modeling.html#cb179-7" aria-hidden="true" tabindex="-1"></a>     , <span class="at">main =</span> <span class="st">&quot;Sex&quot;</span>)</span>
-<span id="cb179-8"><a href="cox-proportional-hazard-modeling.html#cb179-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">survfit</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> civ, <span class="at">data =</span> oldmort01),</span>
-<span id="cb179-9"><a href="cox-proportional-hazard-modeling.html#cb179-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>)</span>
-<span id="cb179-10"><a href="cox-proportional-hazard-modeling.html#cb179-10" aria-hidden="true" tabindex="-1"></a>     , <span class="at">fun =</span> <span class="st">&quot;cloglog&quot;</span></span>
-<span id="cb179-11"><a href="cox-proportional-hazard-modeling.html#cb179-11" aria-hidden="true" tabindex="-1"></a>     , <span class="at">xlab =</span> <span class="st">&quot;log(time)&quot;</span></span>
-<span id="cb179-12"><a href="cox-proportional-hazard-modeling.html#cb179-12" aria-hidden="true" tabindex="-1"></a>     , <span class="at">ylab =</span> <span class="st">&quot;log-log(survival)&quot;</span></span>
-<span id="cb179-13"><a href="cox-proportional-hazard-modeling.html#cb179-13" aria-hidden="true" tabindex="-1"></a>     , <span class="at">main =</span> <span class="st">&quot;CIV&quot;</span>)</span>
-<span id="cb179-14"><a href="cox-proportional-hazard-modeling.html#cb179-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">survfit</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> region, <span class="at">data =</span> oldmort01),</span>
-<span id="cb179-15"><a href="cox-proportional-hazard-modeling.html#cb179-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>)</span>
-<span id="cb179-16"><a href="cox-proportional-hazard-modeling.html#cb179-16" aria-hidden="true" tabindex="-1"></a>     , <span class="at">fun =</span> <span class="st">&quot;cloglog&quot;</span></span>
-<span id="cb179-17"><a href="cox-proportional-hazard-modeling.html#cb179-17" aria-hidden="true" tabindex="-1"></a>     , <span class="at">xlab =</span> <span class="st">&quot;log(time)&quot;</span></span>
-<span id="cb179-18"><a href="cox-proportional-hazard-modeling.html#cb179-18" aria-hidden="true" tabindex="-1"></a>     , <span class="at">ylab =</span> <span class="st">&quot;log-log(survival)&quot;</span></span>
-<span id="cb179-19"><a href="cox-proportional-hazard-modeling.html#cb179-19" aria-hidden="true" tabindex="-1"></a>     , <span class="at">main =</span> <span class="st">&quot;Region&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-98-1.png" width="672" /></p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="cox-proportional-hazard-modeling.html#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
-<span id="cb180-2"><a href="cox-proportional-hazard-modeling.html#cb180-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">survfit</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> sex, <span class="at">data =</span> child),</span>
-<span id="cb180-3"><a href="cox-proportional-hazard-modeling.html#cb180-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>)</span>
-<span id="cb180-4"><a href="cox-proportional-hazard-modeling.html#cb180-4" aria-hidden="true" tabindex="-1"></a>     , <span class="at">fun =</span> <span class="st">&quot;cloglog&quot;</span></span>
-<span id="cb180-5"><a href="cox-proportional-hazard-modeling.html#cb180-5" aria-hidden="true" tabindex="-1"></a>     , <span class="at">xlab =</span> <span class="st">&quot;log(time)&quot;</span></span>
-<span id="cb180-6"><a href="cox-proportional-hazard-modeling.html#cb180-6" aria-hidden="true" tabindex="-1"></a>     , <span class="at">ylab =</span> <span class="st">&quot;log-log(survival)&quot;</span></span>
-<span id="cb180-7"><a href="cox-proportional-hazard-modeling.html#cb180-7" aria-hidden="true" tabindex="-1"></a>     , <span class="at">main =</span> <span class="st">&quot;Sex&quot;</span>)</span>
-<span id="cb180-8"><a href="cox-proportional-hazard-modeling.html#cb180-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">survfit</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> socBranch, <span class="at">data =</span> child),</span>
-<span id="cb180-9"><a href="cox-proportional-hazard-modeling.html#cb180-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>)</span>
-<span id="cb180-10"><a href="cox-proportional-hazard-modeling.html#cb180-10" aria-hidden="true" tabindex="-1"></a>     , <span class="at">fun =</span> <span class="st">&quot;cloglog&quot;</span></span>
-<span id="cb180-11"><a href="cox-proportional-hazard-modeling.html#cb180-11" aria-hidden="true" tabindex="-1"></a>     , <span class="at">xlab =</span> <span class="st">&quot;log(time)&quot;</span></span>
-<span id="cb180-12"><a href="cox-proportional-hazard-modeling.html#cb180-12" aria-hidden="true" tabindex="-1"></a>     , <span class="at">ylab =</span> <span class="st">&quot;log-log(survival)&quot;</span></span>
-<span id="cb180-13"><a href="cox-proportional-hazard-modeling.html#cb180-13" aria-hidden="true" tabindex="-1"></a>     , <span class="at">main =</span> <span class="st">&quot;Soc Branch&quot;</span>)</span>
-<span id="cb180-14"><a href="cox-proportional-hazard-modeling.html#cb180-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">survfit</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> illeg, <span class="at">data =</span> child),</span>
-<span id="cb180-15"><a href="cox-proportional-hazard-modeling.html#cb180-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>)</span>
-<span id="cb180-16"><a href="cox-proportional-hazard-modeling.html#cb180-16" aria-hidden="true" tabindex="-1"></a>     , <span class="at">fun =</span> <span class="st">&quot;cloglog&quot;</span></span>
-<span id="cb180-17"><a href="cox-proportional-hazard-modeling.html#cb180-17" aria-hidden="true" tabindex="-1"></a>     , <span class="at">xlab =</span> <span class="st">&quot;log(time)&quot;</span></span>
-<span id="cb180-18"><a href="cox-proportional-hazard-modeling.html#cb180-18" aria-hidden="true" tabindex="-1"></a>     , <span class="at">ylab =</span> <span class="st">&quot;log-log(survival)&quot;</span></span>
-<span id="cb180-19"><a href="cox-proportional-hazard-modeling.html#cb180-19" aria-hidden="true" tabindex="-1"></a>     , <span class="at">main =</span> <span class="st">&quot;Illegal&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-99-1.png" width="672" /></p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="cox-proportional-hazard-modeling.html#cb182-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
+<span id="cb182-2"><a href="cox-proportional-hazard-modeling.html#cb182-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">survfit</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> male, <span class="at">data =</span> oldmort01),</span>
+<span id="cb182-3"><a href="cox-proportional-hazard-modeling.html#cb182-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb182-4"><a href="cox-proportional-hazard-modeling.html#cb182-4" aria-hidden="true" tabindex="-1"></a>     , <span class="at">fun =</span> <span class="st">&quot;cloglog&quot;</span></span>
+<span id="cb182-5"><a href="cox-proportional-hazard-modeling.html#cb182-5" aria-hidden="true" tabindex="-1"></a>     , <span class="at">xlab =</span> <span class="st">&quot;log(time)&quot;</span></span>
+<span id="cb182-6"><a href="cox-proportional-hazard-modeling.html#cb182-6" aria-hidden="true" tabindex="-1"></a>     , <span class="at">ylab =</span> <span class="st">&quot;log-log(survival)&quot;</span></span>
+<span id="cb182-7"><a href="cox-proportional-hazard-modeling.html#cb182-7" aria-hidden="true" tabindex="-1"></a>     , <span class="at">main =</span> <span class="st">&quot;Sex&quot;</span>)</span>
+<span id="cb182-8"><a href="cox-proportional-hazard-modeling.html#cb182-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">survfit</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> civ, <span class="at">data =</span> oldmort01),</span>
+<span id="cb182-9"><a href="cox-proportional-hazard-modeling.html#cb182-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb182-10"><a href="cox-proportional-hazard-modeling.html#cb182-10" aria-hidden="true" tabindex="-1"></a>     , <span class="at">fun =</span> <span class="st">&quot;cloglog&quot;</span></span>
+<span id="cb182-11"><a href="cox-proportional-hazard-modeling.html#cb182-11" aria-hidden="true" tabindex="-1"></a>     , <span class="at">xlab =</span> <span class="st">&quot;log(time)&quot;</span></span>
+<span id="cb182-12"><a href="cox-proportional-hazard-modeling.html#cb182-12" aria-hidden="true" tabindex="-1"></a>     , <span class="at">ylab =</span> <span class="st">&quot;log-log(survival)&quot;</span></span>
+<span id="cb182-13"><a href="cox-proportional-hazard-modeling.html#cb182-13" aria-hidden="true" tabindex="-1"></a>     , <span class="at">main =</span> <span class="st">&quot;CIV&quot;</span>)</span>
+<span id="cb182-14"><a href="cox-proportional-hazard-modeling.html#cb182-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">survfit</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> region, <span class="at">data =</span> oldmort01),</span>
+<span id="cb182-15"><a href="cox-proportional-hazard-modeling.html#cb182-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb182-16"><a href="cox-proportional-hazard-modeling.html#cb182-16" aria-hidden="true" tabindex="-1"></a>     , <span class="at">fun =</span> <span class="st">&quot;cloglog&quot;</span></span>
+<span id="cb182-17"><a href="cox-proportional-hazard-modeling.html#cb182-17" aria-hidden="true" tabindex="-1"></a>     , <span class="at">xlab =</span> <span class="st">&quot;log(time)&quot;</span></span>
+<span id="cb182-18"><a href="cox-proportional-hazard-modeling.html#cb182-18" aria-hidden="true" tabindex="-1"></a>     , <span class="at">ylab =</span> <span class="st">&quot;log-log(survival)&quot;</span></span>
+<span id="cb182-19"><a href="cox-proportional-hazard-modeling.html#cb182-19" aria-hidden="true" tabindex="-1"></a>     , <span class="at">main =</span> <span class="st">&quot;Region&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="cox-proportional-hazard-modeling.html#cb183-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
+<span id="cb183-2"><a href="cox-proportional-hazard-modeling.html#cb183-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">survfit</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> sex, <span class="at">data =</span> child),</span>
+<span id="cb183-3"><a href="cox-proportional-hazard-modeling.html#cb183-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb183-4"><a href="cox-proportional-hazard-modeling.html#cb183-4" aria-hidden="true" tabindex="-1"></a>     , <span class="at">fun =</span> <span class="st">&quot;cloglog&quot;</span></span>
+<span id="cb183-5"><a href="cox-proportional-hazard-modeling.html#cb183-5" aria-hidden="true" tabindex="-1"></a>     , <span class="at">xlab =</span> <span class="st">&quot;log(time)&quot;</span></span>
+<span id="cb183-6"><a href="cox-proportional-hazard-modeling.html#cb183-6" aria-hidden="true" tabindex="-1"></a>     , <span class="at">ylab =</span> <span class="st">&quot;log-log(survival)&quot;</span></span>
+<span id="cb183-7"><a href="cox-proportional-hazard-modeling.html#cb183-7" aria-hidden="true" tabindex="-1"></a>     , <span class="at">main =</span> <span class="st">&quot;Sex&quot;</span>)</span>
+<span id="cb183-8"><a href="cox-proportional-hazard-modeling.html#cb183-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">survfit</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> socBranch, <span class="at">data =</span> child),</span>
+<span id="cb183-9"><a href="cox-proportional-hazard-modeling.html#cb183-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb183-10"><a href="cox-proportional-hazard-modeling.html#cb183-10" aria-hidden="true" tabindex="-1"></a>     , <span class="at">fun =</span> <span class="st">&quot;cloglog&quot;</span></span>
+<span id="cb183-11"><a href="cox-proportional-hazard-modeling.html#cb183-11" aria-hidden="true" tabindex="-1"></a>     , <span class="at">xlab =</span> <span class="st">&quot;log(time)&quot;</span></span>
+<span id="cb183-12"><a href="cox-proportional-hazard-modeling.html#cb183-12" aria-hidden="true" tabindex="-1"></a>     , <span class="at">ylab =</span> <span class="st">&quot;log-log(survival)&quot;</span></span>
+<span id="cb183-13"><a href="cox-proportional-hazard-modeling.html#cb183-13" aria-hidden="true" tabindex="-1"></a>     , <span class="at">main =</span> <span class="st">&quot;Soc Branch&quot;</span>)</span>
+<span id="cb183-14"><a href="cox-proportional-hazard-modeling.html#cb183-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">survfit</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> illeg, <span class="at">data =</span> child),</span>
+<span id="cb183-15"><a href="cox-proportional-hazard-modeling.html#cb183-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb183-16"><a href="cox-proportional-hazard-modeling.html#cb183-16" aria-hidden="true" tabindex="-1"></a>     , <span class="at">fun =</span> <span class="st">&quot;cloglog&quot;</span></span>
+<span id="cb183-17"><a href="cox-proportional-hazard-modeling.html#cb183-17" aria-hidden="true" tabindex="-1"></a>     , <span class="at">xlab =</span> <span class="st">&quot;log(time)&quot;</span></span>
+<span id="cb183-18"><a href="cox-proportional-hazard-modeling.html#cb183-18" aria-hidden="true" tabindex="-1"></a>     , <span class="at">ylab =</span> <span class="st">&quot;log-log(survival)&quot;</span></span>
+<span id="cb183-19"><a href="cox-proportional-hazard-modeling.html#cb183-19" aria-hidden="true" tabindex="-1"></a>     , <span class="at">main =</span> <span class="st">&quot;Illegal&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-103-1.png" width="672" /></p>
 </div>
 <div id="goodness-of-fit-gof" class="section level3 hasAnchor" number="6.6.2">
 <h3><span class="header-section-number">6.6.2</span> Goodness-of-fit (GOF)<a href="cox-proportional-hazard-modeling.html#goodness-of-fit-gof" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1098,20 +1098,20 @@ independent of time.</p>
 </ul></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="cox-proportional-hazard-modeling.html#cb181-1" aria-hidden="true" tabindex="-1"></a>cox.gof <span class="ot">&lt;-</span> <span class="fu">coxph</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> sex <span class="sc">+</span> region <span class="sc">+</span> imr.birth,</span>
-<span id="cb181-2"><a href="cox-proportional-hazard-modeling.html#cb181-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> oldmort01)</span>
-<span id="cb181-3"><a href="cox-proportional-hazard-modeling.html#cb181-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb181-4"><a href="cox-proportional-hazard-modeling.html#cb181-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb181-5"><a href="cox-proportional-hazard-modeling.html#cb181-5" aria-hidden="true" tabindex="-1"></a>res.zph <span class="ot">&lt;-</span> <span class="fu">cox.zph</span>(cox.gof, <span class="at">transform =</span> <span class="fu">c</span>(<span class="st">&quot;km&quot;</span>,<span class="st">&quot;rank&quot;</span>,<span class="st">&quot;idenityt&quot;</span>)[<span class="dv">2</span>])</span>
-<span id="cb181-6"><a href="cox-proportional-hazard-modeling.html#cb181-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb181-7"><a href="cox-proportional-hazard-modeling.html#cb181-7" aria-hidden="true" tabindex="-1"></a>res.zph</span></code></pre></div>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="cox-proportional-hazard-modeling.html#cb184-1" aria-hidden="true" tabindex="-1"></a>cox.gof <span class="ot">&lt;-</span> <span class="fu">coxph</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> sex <span class="sc">+</span> region <span class="sc">+</span> imr.birth,</span>
+<span id="cb184-2"><a href="cox-proportional-hazard-modeling.html#cb184-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> oldmort01)</span>
+<span id="cb184-3"><a href="cox-proportional-hazard-modeling.html#cb184-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb184-4"><a href="cox-proportional-hazard-modeling.html#cb184-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb184-5"><a href="cox-proportional-hazard-modeling.html#cb184-5" aria-hidden="true" tabindex="-1"></a>res.zph <span class="ot">&lt;-</span> <span class="fu">cox.zph</span>(cox.gof, <span class="at">transform =</span> <span class="fu">c</span>(<span class="st">&quot;km&quot;</span>,<span class="st">&quot;rank&quot;</span>,<span class="st">&quot;idenityt&quot;</span>)[<span class="dv">2</span>])</span>
+<span id="cb184-6"><a href="cox-proportional-hazard-modeling.html#cb184-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb184-7"><a href="cox-proportional-hazard-modeling.html#cb184-7" aria-hidden="true" tabindex="-1"></a>res.zph</span></code></pre></div>
 <pre><code>##           chisq df      p
 ## sex        5.25  1 0.0220
 ## region     9.83  2 0.0073
 ## imr.birth  6.54  1 0.0105
 ## GLOBAL    18.96  4 0.0008</code></pre>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="cox-proportional-hazard-modeling.html#cb183-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(res.zph)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-100-1.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-100-2.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-100-3.png" width="672" /></p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="cox-proportional-hazard-modeling.html#cb186-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(res.zph)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-104-1.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-104-2.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-104-3.png" width="672" /></p>
 </div>
 <div id="time-dependent-variable-approaches" class="section level3 hasAnchor" number="6.6.3">
 <h3><span class="header-section-number">6.6.3</span> Time-dependent variable approaches<a href="cox-proportional-hazard-modeling.html#time-dependent-variable-approaches" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1144,31 +1144,29 @@ independent of time.</p>
 <li>Very large or small values are outliers, which are poorly predicted by the model.</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="cox-proportional-hazard-modeling.html#cb184-1" aria-hidden="true" tabindex="-1"></a>survminer<span class="sc">::</span><span class="fu">ggcoxdiagnostics</span>(oldmort_cox03, <span class="at">type =</span> <span class="st">&quot;martingale&quot;</span>,</span>
-<span id="cb184-2"><a href="cox-proportional-hazard-modeling.html#cb184-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">linear.predictions =</span> <span class="cn">FALSE</span>, <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="cox-proportional-hazard-modeling.html#cb187-1" aria-hidden="true" tabindex="-1"></a>survminer<span class="sc">::</span><span class="fu">ggcoxdiagnostics</span>(oldmort_cox03, <span class="at">type =</span> <span class="st">&quot;martingale&quot;</span>,</span>
+<span id="cb187-2"><a href="cox-proportional-hazard-modeling.html#cb187-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">linear.predictions =</span> <span class="cn">FALSE</span>, <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>())</span></code></pre></div>
 <pre><code>## Warning: `gather_()` was deprecated in tidyr 1.2.0.
 ## ℹ Please use `gather()` instead.
-## ℹ The deprecated feature was likely used in the survminer
-##   package.
-##   Please report the issue at
-##   &lt;https://github.com/kassambara/survminer/issues&gt;.
+## ℹ The deprecated feature was likely used in the survminer package.
+##   Please report the issue at &lt;https://github.com/kassambara/survminer/issues&gt;.
 ## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see where
-## this warning was generated.</code></pre>
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.</code></pre>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-101-1.png" width="672" /></p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="cox-proportional-hazard-modeling.html#cb187-1" aria-hidden="true" tabindex="-1"></a>survminer<span class="sc">::</span><span class="fu">ggcoxdiagnostics</span>(oldmort_cox03, <span class="at">type =</span> <span class="st">&quot;schoenfeld&quot;</span>,</span>
-<span id="cb187-2"><a href="cox-proportional-hazard-modeling.html#cb187-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">linear.predictions =</span> <span class="cn">FALSE</span>, <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>())</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-105-1.png" width="672" /></p>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="cox-proportional-hazard-modeling.html#cb190-1" aria-hidden="true" tabindex="-1"></a>survminer<span class="sc">::</span><span class="fu">ggcoxdiagnostics</span>(oldmort_cox03, <span class="at">type =</span> <span class="st">&quot;schoenfeld&quot;</span>,</span>
+<span id="cb190-2"><a href="cox-proportional-hazard-modeling.html#cb190-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">linear.predictions =</span> <span class="cn">FALSE</span>, <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>())</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="cox-proportional-hazard-modeling.html#cb189-1" aria-hidden="true" tabindex="-1"></a>survminer<span class="sc">::</span><span class="fu">ggcoxdiagnostics</span>(oldmort_cox03, <span class="at">type =</span> <span class="st">&quot;dfbeta&quot;</span>,</span>
-<span id="cb189-2"><a href="cox-proportional-hazard-modeling.html#cb189-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">linear.predictions =</span> <span class="cn">FALSE</span>, <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>())</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-106-1.png" width="672" /></p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="cox-proportional-hazard-modeling.html#cb192-1" aria-hidden="true" tabindex="-1"></a>survminer<span class="sc">::</span><span class="fu">ggcoxdiagnostics</span>(oldmort_cox03, <span class="at">type =</span> <span class="st">&quot;dfbeta&quot;</span>,</span>
+<span id="cb192-2"><a href="cox-proportional-hazard-modeling.html#cb192-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">linear.predictions =</span> <span class="cn">FALSE</span>, <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>())</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-103-1.png" width="672" /></p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="cox-proportional-hazard-modeling.html#cb191-1" aria-hidden="true" tabindex="-1"></a>survminer<span class="sc">::</span><span class="fu">ggcoxdiagnostics</span>(oldmort_cox03, <span class="at">type =</span> <span class="st">&quot;deviance&quot;</span>,</span>
-<span id="cb191-2"><a href="cox-proportional-hazard-modeling.html#cb191-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">linear.predictions =</span> <span class="cn">FALSE</span>, <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>())</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-107-1.png" width="672" /></p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="cox-proportional-hazard-modeling.html#cb194-1" aria-hidden="true" tabindex="-1"></a>survminer<span class="sc">::</span><span class="fu">ggcoxdiagnostics</span>(oldmort_cox03, <span class="at">type =</span> <span class="st">&quot;deviance&quot;</span>,</span>
+<span id="cb194-2"><a href="cox-proportional-hazard-modeling.html#cb194-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">linear.predictions =</span> <span class="cn">FALSE</span>, <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>())</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-108-1.png" width="672" /></p>
 </div>
 <div id="testing-for-non-linearlity" class="section level3 hasAnchor" number="6.6.5">
 <h3><span class="header-section-number">6.6.5</span> Testing for Non-linearlity<a href="cox-proportional-hazard-modeling.html#testing-for-non-linearlity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1180,10 +1178,10 @@ independent of time.</p>
 <li>large negative values correspond to individuals that “lived too long”.</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="cox-proportional-hazard-modeling.html#cb193-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggcoxfunctional</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> imr.birth <span class="sc">+</span> <span class="fu">log</span>(imr.birth) <span class="sc">+</span> <span class="fu">sqrt</span>(imr.birth), <span class="at">data =</span> oldmort01)</span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="cox-proportional-hazard-modeling.html#cb196-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggcoxfunctional</span>(<span class="fu">Surv</span>(enter, exit, event) <span class="sc">~</span> imr.birth <span class="sc">+</span> <span class="fu">log</span>(imr.birth) <span class="sc">+</span> <span class="fu">sqrt</span>(imr.birth), <span class="at">data =</span> oldmort01)</span></code></pre></div>
 <pre><code>## Warning: arguments formula is deprecated; will be removed in the next version;
 ## please use fit instead.</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-105-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-109-1.png" width="672" /></p>
 
 </div>
 </div>
