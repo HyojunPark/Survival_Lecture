@@ -1,5 +1,6 @@
-# Bias assessment
+# Bias
 
+## Example: Maps and Tables
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
 library(tidyverse)
@@ -293,26 +294,26 @@ The maps demonstrate the geographic gradients of obesity rate in the state of Ut
 tmap_arrange(UT_Obesity_tract, UT_Obesity_county, ncol=2)
 ```
 
-UT, Diabetes maps
+### UT, Diabetes maps
 
 ```{r}
 tmap_arrange(UT_Diabetes_tract, UT_Diabetes_county, ncol=2)
 ```
 
-NY, Obesity maps
+### NY, Obesity maps
 
 ```{r}
 tmap_arrange(NY_Obesity_tract, NY_Obesity_county, ncol=2)
 ```
 
-NY, Diabetes maps
+### NY, Diabetes maps
 
 ```{r}
 tmap_arrange(NY_Diabetes_tract, NY_Diabetes_county, ncol=2)
 ```
 
 
-
+\newpage
 The following table presents the census tract level rates of obesity and Diabetes in the state of Utah.
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
